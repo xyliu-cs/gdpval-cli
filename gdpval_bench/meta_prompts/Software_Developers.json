@@ -1,0 +1,128 @@
+{
+  "category": "Software Developers",
+  "evaluation_prompt": "You are an independent evaluator assessing AI-generated work products for a Software Developer task.\n\nYou will be given:\n1) The original task prompt (requirements, constraints, acceptance criteria)\n2) Any reference/input files mentioned in the prompt (if any)\n3) The agent\u2019s output artifacts/files (often a codebase, zip contents, scripts, docs, tests, configs)\n\nYour job:\n- Determine whether the agent delivered EVERY required artifact/file and addressed ALL explicit requirements.\n- Validate the implementation by inspecting code, configs, and documentation, and by checking internal consistency (and, where possible, whether instructions enable running/building/testing).\n- Score the work 0\u201310 using the rubric below and provide brief justifications per dimension.\n\nCRITICAL POLICY (non-negotiable):\n- If ANY required deliverable is missing, OR the work is severely incomplete/non-functional relative to the prompt, you MUST assign an overall score in the 0\u20132 range, regardless of quality of what is present.\n- \u2018Required deliverables\u2019 includes explicitly named files (e.g., README.md, package.json, specific source files, test files), mandated formats (zip, JSON, query file), and required components (frontend + contracts + tests, etc.).\n\nEvaluation procedure (follow in order):\n1) Parse requirements:\n   - Extract a checklist of required files/artifacts and required behaviors.\n   - Note any required tech stack, interfaces, constraints (security, privacy, WCAG, performance, etc.), and testing/validation instructions.\n2) Inventory outputs:\n   - List all provided files and confirm presence of each required artifact.\n   - If any required artifact is missing \u2192 STOP and assign 0\u20132 overall (still provide quick notes).\n3) Completeness review:\n   - Confirm every requirement is addressed somewhere (code/docs/tests/config).\n   - Confirm the repository is runnable per instructions (dependencies, scripts).\n4) Correctness review:\n   - Inspect core logic for alignment with spec.\n   - Check edge cases implied by the prompt.\n   - Check that tests (if required) meaningfully assert the requirements.\n5) Quality review:\n   - Evaluate maintainability: structure, naming, readability, comments, documentation.\n   - Evaluate developer experience: clear setup, repeatable commands, sensible defaults.\n6) Domain standards:\n   - Check security/privacy/accessibility/performance/robustness practices appropriate to the task.\n   - Check for unsafe patterns (hard-coded secrets, insecure cryptography, missing input validation).\n\nWhen scoring:\n- Use weighted average: completeness 40%, correctness 30%, quality 20%, domain standards 10%.\n- Override rule: missing required artifacts or severe incompleteness forces overall score to 0\u20132.\n\nOutput your evaluation:\n- Provide: (a) per-dimension score 0\u201310, (b) computed weighted score, (c) final score (after override if needed), (d) 5\u201315 bullet findings referencing specific files/paths, and (e) the top 3 fixes needed to reach 8+/10.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed end-to-end.",
+      "criteria": [
+        "All explicitly required files/artifacts from the prompt are present (e.g., named .ts/.tsx/.sol files, README.md, package.json, tests, config files, query files, zip structure).",
+        "All explicitly required components are implemented (e.g., frontend + backend + contracts; utility + CSS + tests; query + instructions; etc.).",
+        "README/instructions cover installation, configuration, and execution steps required by the prompt (build/run/test/deploy), including prerequisites.",
+        "If the prompt specifies a format (ZIP, specific folder layout, single file output, JSON schema), the output matches that format.",
+        "Key features and special cases in the prompt are present (e.g., \u2018visible\u2019 prop behavior for accessibility utilities; fixed-size deposits only; wait/lock period; etc.).",
+        "Testing artifacts are included when required, and include the required cases/techniques enumerated in the prompt.",
+        "No placeholder stubs where full implementations are required; no \u2018TODO\u2019 for core requirements."
+      ],
+      "scoring_guidance": "0-2 if any required files are missing or the work is severely incomplete/non-runnable. 3-4 if multiple major requirements or components are missing or only superficially addressed. 5-6 if most deliverables exist but notable requirements are unimplemented, underspecified, or instructions/tests are insufficient. 7-8 if all deliverables exist with minor omissions or small gaps. 9-10 if everything required is present, complete, and demonstrably usable end-to-end."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of implementation, logic, and adherence to the prompt\u2019s functional requirements.",
+      "criteria": [
+        "Core behaviors match the prompt (APIs, inputs/outputs, flows, constraints).",
+        "Code compiles/builds logically given the stated stack; imports, types, and module boundaries are coherent.",
+        "Tests (if present/required) correctly encode the required acceptance criteria and would fail if the behavior regresses (not just snapshot or shallow rendering).",
+        "Edge cases implied by the spec are handled (e.g., timing/queueing, double-spend prevention, concurrency, empty/null inputs, incorrect parameters).",
+        "No contradictions between README and code (commands, scripts, file names, ports, env vars).",
+        "For data/query tasks: query syntax is valid and matches target system; filters target the correct entities; output is likely to include the requested objects and metadata.",
+        "For security/privacy-sensitive code: correct cryptographic or protocol usage as specified (no fake proofs, no misuse of primitives, no invalid assumptions)."
+      ],
+      "scoring_guidance": "0-2 if mostly incorrect, non-compiling, or clearly not meeting the spec. 3-4 if substantial functional errors or incorrect assumptions. 5-6 if generally works but contains notable bugs, missing edge cases, or tests do not substantiate requirements. 7-8 if correct with minor issues or small mismatches. 9-10 if correct, robust, and demonstrably aligned with the specification."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional presentation, maintainability, clarity, and organization of deliverables.",
+      "criteria": [
+        "Clear repository/project structure; files placed logically; consistent naming.",
+        "Readable code: appropriate abstractions, comments where needed, minimal duplication.",
+        "Documentation quality: README includes overview, usage examples, configuration, and troubleshooting notes as appropriate.",
+        "Dependency hygiene: minimal necessary dependencies; pinned/appropriate versions; scripts are clear (e.g., test/build/lint).",
+        "Consistency: formatting, linting conventions (where present), coherent TypeScript/ESM/CJS usage.",
+        "No extraneous generated artifacts unless required; no large binaries or unrelated files.",
+        "Error handling and logging are appropriate for the task\u2019s context (especially for services/relayers/bridging flows)."
+      ],
+      "scoring_guidance": "0-2 if disorganized, unreadable, or unusable. 3-4 if poor structure/docs and hard to run/maintain. 5-6 if adequate but with rough edges (unclear README, inconsistent style). 7-8 if clean and professional with minor improvements possible. 9-10 if exemplary clarity, structure, and developer experience."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Adherence to industry-specific best practices relevant to Software Development and the task\u2019s domain (security, accessibility, testing, performance, etc.).",
+      "criteria": [
+        "Security: avoids hard-coded secrets, uses safe defaults, validates inputs, mitigates common vulnerabilities (injection, XSS, SSRF, reentrancy where relevant).",
+        "Privacy/crypto domain: avoids misleading claims; clearly states threat model/limitations; uses established patterns; includes replay/double-spend protections where applicable.",
+        "Accessibility domain: uses correct ARIA roles/attributes, avoids duplicate announcements, and follows WCAG/ARIA techniques cited by the prompt.",
+        "Testing standards: deterministic tests, avoids reliance on timing flakiness; mocks/stubs used appropriately; meaningful assertions.",
+        "Performance/reliability: avoids obvious inefficiencies (O(n^2) on large inputs), handles async/concurrency appropriately, and includes backoff/retry where domain-appropriate.",
+        "Compliance with requested tech stack and ecosystem conventions (React, Node scripts, Solidity patterns, etc.)."
+      ],
+      "scoring_guidance": "0-2 if unsafe or non-compliant practices dominate. 3-4 if multiple best-practice violations or risky omissions. 5-6 if mostly acceptable but some notable gaps. 7-8 if strong adherence with minor lapses. 9-10 if demonstrates excellent professional standards for the domain."
+    }
+  },
+  "file_inspection_checklist": [
+    "Required-artifact inventory: Compare prompt-required files to the provided file list; verify exact names/paths when specified (e.g., README.md, package.json, *.test.tsx, *.css, *.sol, query files).",
+    "Packaging/format: If a ZIP is required, verify the output corresponds to a coherent zip-root layout (no missing top-level folder, no partial copy). If a single file is required, ensure only that deliverable is used and complete.",
+    "README.md: Check for prerequisites, install steps, build/test/run commands, environment variables, and any domain-specific usage notes. Ensure commands match package.json scripts.",
+    "package.json / build config: Verify scripts exist for required actions (e.g., test). Check dependencies include required libraries (e.g., React Testing Library/Sinon if requested). Ensure versions are plausible and not contradictory.",
+    "Source code files: Confirm exports/interfaces match usage; check for TODO stubs; verify key requirements are implemented (e.g., queueing behavior, role=status container, fixed-size constraints).",
+    "Test files: Confirm required test cases are present and map directly to the prompt\u2019s enumerated acceptance criteria. Check assertions are meaningful and not trivially passing.",
+    "CSS/assets: If a visually-hidden class is required, verify it uses established patterns (clip/clip-path, position absolute, etc.) and doesn\u2019t remove from accessibility tree unless intended.",
+    "Security-sensitive code: Check for hard-coded private keys, mnemonics, API keys; check for insecure random/crypto; ensure input validation and safe external calls.",
+    "Config/examples: If env/example files are included, ensure they are safe (no real secrets) and documented.",
+    "Licenses/attribution (when relevant): If code borrows from known projects (e.g., Tornado-style circuits), ensure attribution or notes exist as appropriate and consistent with the task context."
+  ],
+  "common_failure_modes": [
+    "Missing required files (e.g., README.md, package.json, CSS, test file, named source files) or wrong filenames/paths.",
+    "Deliverable is described in the response but not actually provided in the output artifacts.",
+    "Only partial implementation: stubs/TODOs for core functions; UI without underlying logic; contracts without proofs; tests missing required cases.",
+    "Instructions that cannot work: README commands don\u2019t match scripts; missing dependency declarations; unclear prerequisites.",
+    "Tests that don\u2019t test requirements (shallow snapshots, no assertions for required ARIA roles/behavior, or no negative cases).",
+    "Non-deterministic/flaky async behavior (timers without control, race conditions) especially in status/queueing utilities.",
+    "Security/privacy issues: hard-coded secrets, insecure randomness, incorrect cryptographic claims, missing replay/double-spend protections, unsafe external calls.",
+    "Accessibility mistakes: visually hiding content by display:none (removes from accessibility tree) when the prompt requires it to remain in the accessibility tree; duplicated announcements; incorrect ARIA role usage.",
+    "Over-engineering that breaks spec: adding incompatible frameworks, altering requested tech stack, or introducing unnecessary services that aren\u2019t documented.",
+    "Mismatch with prompt constraints (e.g., variable-size deposits when fixed-size required; no wait/lock enforcement; wrong network/chain assumptions)."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Compute weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). Then apply the CRITICAL override: If any required file/artifact is missing OR the solution is severely incomplete/non-functional relative to the prompt, force the final overall score into 0\u20132 regardless of the weighted result.",
+    "score_scale": "0-10 where 0-2=Unacceptable (missing files/incomplete), 3-4=Poor, 5-6=Acceptable, 7-8=Good, 9-10=Excellent",
+    "automatic_low_score_triggers": [
+      "Any required output file/artifact is missing (including explicitly named files, required tests, required docs, required configs).",
+      "Work is severely incomplete: core features are absent, only placeholders exist, or the artifact cannot reasonably be run/used as specified.",
+      "The output does not match required format (e.g., required zip/project layout not provided) such that evaluation/usage is blocked.",
+      "Major prompt requirements are ignored (e.g., required acceptance tests not implemented; mandated tech stack not followed in a way that prevents use)."
+    ],
+    "excellent_output_characteristics": [
+      "All required deliverables are present with correct names/paths and coherent project structure.",
+      "Implementation fully addresses all functional and special-case requirements in the prompt.",
+      "Clear, correct README with reproducible install/build/test/run steps; scripts match documentation.",
+      "High-confidence correctness supported by meaningful tests tied to the prompt\u2019s enumerated criteria.",
+      "Professional code quality and strong domain best practices (security/accessibility/reliability) appropriate to the task."
+    ],
+    "poor_output_characteristics": [
+      "Missing one or more required files/artifacts or incorrect naming/placement that effectively makes them missing.",
+      "Core requirements unimplemented or replaced with vague pseudocode; heavy reliance on TODOs.",
+      "Cannot run/build/test due to missing dependencies, broken scripts, or contradictory instructions.",
+      "Incorrect logic relative to spec; tests absent or irrelevant; unsafe or non-compliant patterns."
+    ]
+  },
+  "example_evaluation_questions": [
+    "Are all explicitly required deliverables present (every named file, test, CSS/doc/config) and in the expected locations? If not, score overall 0\u20132.",
+    "Does the README provide exact commands to install dependencies and run tests/build, and do those commands exist in package.json/scripts (or equivalent build tooling)?",
+    "Do the tests directly correspond to the prompt\u2019s acceptance criteria (e.g., each enumerated requirement has at least one assertion that would fail if the behavior is wrong)?",
+    "Is the core logic implemented end-to-end, or are there TODOs/stubs in critical paths (e.g., withdrawal flow, message queueing, query filters)?",
+    "Does the output adhere to the specified tech stack and ecosystem conventions without introducing incompatible assumptions?",
+    "Are there obvious correctness issues: wrong parameters, wrong network/entities, off-by-one timing, incorrect ARIA roles/attributes, incorrect protocol integration points?",
+    "Are security/privacy/accessibility considerations handled appropriately for the domain (input validation, safe defaults, no hard-coded secrets, correct ARIA patterns)?",
+    "Is the solution maintainable and professional: clear structure, consistent naming, minimal unnecessary dependencies, and helpful documentation?"
+  ],
+  "metadata": {
+    "category": "Software Developers",
+    "sector": "Professional, Scientific, and Technical Services",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:45:59.728442",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2882,
+    "completion_tokens": 3362,
+    "total_tokens": 6244
+  }
+}

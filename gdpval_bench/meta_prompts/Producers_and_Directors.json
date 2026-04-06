@@ -1,0 +1,126 @@
+{
+  "category": "Producers and Directors",
+  "evaluation_prompt": "You are an evaluator grading an AI agent\u2019s work for a task in the occupational category \u201cProducers and Directors\u201d (Information sector). You will be given: (1) the original task prompt, (2) any reference/input files mentioned, and (3) the agent\u2019s output files/artifacts. Your job is to assess whether the outputs meet the prompt requirements and professional producer/director standards.\n\nCRITICAL RULE (NON-NEGOTIABLE): If ANY required deliverable file is missing (wrong file type, not provided, corrupted/unopenable), OR the work is severely incomplete (e.g., placeholders, only a partial schedule/one restaurant when 4\u20136 required, moodboard missing images/palette, etc.), you MUST assign an overall score in the 0\u20132 range regardless of how good any partial content is.\n\nProcess to follow:\n1) Parse the prompt and list every required deliverable (file types, naming requirements, counts like \u201c4\u20136 options\u201d, formats like PDF/PNG/DOCX, and required sections/fields).\n2) Verify each required output file exists in the provided outputs, is openable, and matches required format and naming (if specified). If not, trigger the automatic low score (0\u20132).\n3) Inspect each file thoroughly (not just the first page). Confirm all prompt constraints are satisfied (date ranges, revision rounds, color-coding, no weekends/holidays if specified, inclusion of photos/links/hours, inclusion of color palette, etc.).\n4) Validate correctness: check factual claims, internal consistency, calculations/scheduling logic, and adherence to reference files. Use reference files as the ground truth for formatting requirements and provided content (e.g., meeting notes).\n5) Evaluate professional quality: clarity, organization, readability, production realism, and whether a real producer/director could use the artifact immediately.\n6) Score each rubric dimension (0\u201310) using the guidance below, compute the weighted score, then apply the CRITICAL override if missing/incomplete deliverables are detected.\n\nWhen scoring, prefer evidence-based judgments anchored to the prompt requirements. If you cannot verify something because it\u2019s not present in the outputs, treat it as missing.\n\nReturn: dimension scores, a short rationale per dimension, the final weighted score, and explicitly note any automatic low-score triggers if applied.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed.",
+      "criteria": [
+        "All required deliverable files are present (correct count), openable, and in the requested format (e.g., PDF, DOCX, PNG) and naming (if specified).",
+        "All prompt-specified components/sections are included (e.g., a schedule includes all required phases/tasks; a research one-sheet includes all required fields like photos, hours, website, notes, video links; a moodboard includes images plus color palette).",
+        "Meets quantity requirements (e.g., \u201c4\u20136 options\u201d truly includes 4\u20136 distinct researched entities; revision rounds included as specified; number of edit rounds as specified).",
+        "Meets structural constraints (e.g., only business days if required; excludes weekends; accounts for US federal holidays if specified; includes required review/approval windows).",
+        "No placeholder text (e.g., \u201cTBD\u201d, \u201clorem ipsum\u201d) in final deliverables unless the prompt explicitly allows unknowns and they are clearly labeled with rationale.",
+        "All referenced inputs are actually used when required (e.g., meeting notes inform moodboard choices; reference formatting sheet is followed)."
+      ],
+      "scoring_guidance": "0\u20132 if any required files are missing/unopenable, wrong format, wrong count, or deliverables are severely incomplete. 3\u20134 if major sections/components are missing or many requirements unmet. 5\u20136 if most components exist but there are notable omissions (missing some required fields, incomplete task list, missing review windows). 7\u20138 if complete with only minor omissions (small missing notes/labels). 9\u201310 if fully complete, every requirement addressed with no meaningful omissions."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, information, and logic.",
+      "criteria": [
+        "Internal consistency: dates, durations, dependencies, and counts match the prompt (e.g., revision rounds and review days align; milestones occur after prerequisites).",
+        "Calendar/schedule logic is feasible and respects constraints (no work scheduled on excluded days; overlapping tasks only where appropriate; shoot before edit; approvals before locks where required).",
+        "Factual accuracy for research-style deliverables (addresses, hours, website URLs, and descriptions are plausible, consistent, and not obviously fabricated; video links are relevant and functional-looking).",
+        "Correct interpretation of reference files (e.g., meeting notes are reflected; formatting matches a provided template; required fields match the reference example).",
+        "No contradictions (e.g., schedule says final delivery before final approval; moodboard states a style that conflicts with notes without explanation).",
+        "If the agent makes assumptions, they are clearly stated and do not violate prompt constraints."
+      ],
+      "scoring_guidance": "0\u20132 if pervasive errors make the deliverable unusable, includes obvious fabrication presented as fact, or violates key logical constraints (e.g., edit before shoot; missing mandated review days; wrong date range). 3\u20134 if many important errors or multiple constraint violations. 5\u20136 if generally correct but with notable errors (some wrong dates, missing a holiday constraint, several incorrect fields). 7\u20138 if mostly correct with minor errors that are easy to fix. 9\u201310 if highly accurate, logically sound, and verifiable/credible throughout."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization.",
+      "criteria": [
+        "File is readable and professionally formatted (consistent typography, spacing, headings, alignment).",
+        "Information architecture supports real production use (clear sections, labels, legends, and intuitive flow).",
+        "Visual artifacts meet basic design standards (legible color-coding with a legend; images not pixelated; palette is coherent and labeled).",
+        "No clutter that impedes use (e.g., schedule not crammed; no \u201c+2 more tasks\u201d hidden items if prompt forbids; research one-sheet not missing key identifiers).",
+        "Export quality appropriate to the medium (PDF pages sized appropriately; PNG moodboard high enough resolution).",
+        "Writing quality: concise, correct grammar, professional tone, unambiguous instructions/notes."
+      ],
+      "scoring_guidance": "0\u20132 if unreadable, badly formatted, or effectively unusable. 3\u20134 if difficult to use due to poor organization/formatting. 5\u20136 if usable but with noticeable formatting/clarity issues. 7\u20138 if clean and professional with minor polish issues. 9\u201310 if publication-ready, highly scannable, and production-grade."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Industry-specific best practices for producers/directors.",
+      "criteria": [
+        "Producer-grade planning: realistic timelines, appropriate approvals, and clear milestones/deliverables (e.g., locks, reviews, versioning).",
+        "Clear distinction between internal tasks vs client tasks where relevant (and properly labeled/color-coded if requested).",
+        "Risk awareness and practicality: adequate buffers where typical; avoids impossible turnarounds; recognizes dependencies (casting/location/crew locks).",
+        "Deliverable usability for stakeholders: department heads can resource-plan from it; client can understand review/approval responsibilities.",
+        "Ethical/professional research practices: avoids inventing unverifiable specifics; uses credible sources; indicates source links when required."
+      ],
+      "scoring_guidance": "0\u20132 if it ignores basic production norms (unrealistic or chaotic) or appears deceptively fabricated. 3\u20134 if weak adherence to industry practices. 5\u20136 if broadly aligned but missing several best-practice elements (versioning, clear milestones). 7\u20138 if solid professional standard with minor gaps. 9\u201310 if exemplary producer/director caliber and immediately deployable."
+    }
+  },
+  "file_inspection_checklist": [
+    "Identify required deliverables from the prompt (file type, naming, count, required sections, constraints).",
+    "Presence/format check: Are all required files included? Correct file extensions? Naming conventions met? If any missing/wrong/unopenable \u2192 overall score must be 0\u20132.",
+    "Openability check: Can each file be opened/rendered without errors? Are fonts/images embedded? Are there blank pages or export failures?",
+    "Requirement mapping: Create a checklist table mapping each prompt requirement to a location in the output (page/section). Mark anything not found as missing.",
+    "For schedules/calendars (PDF): verify date range covers full project; all required tasks included; color-coding by phase and by client/internal; legend present; no weekends if forbidden; US federal holidays excluded if required; review windows match required durations; number of revision rounds correct; dependencies logical (shoot before edit; approvals before locks); no hidden collapsed items if prompt forbids.",
+    "For research one-sheets (DOCX/PDF): verify required number of venues/options; each includes photo, location/address, business hours, website, notable dishes, production-relevant notes, and relevant video/media links; formatting matches reference/template; links appear relevant; content is not duplicated across venues.",
+    "For moodboards (PNG): verify correct format; includes multiple relevant reference images; includes clearly indicated color palette (swatches + hex/RGB labels preferred); aligns with meeting notes/brief (tone, era, wardrobe, lighting, locations); adequate resolution for review; avoids irrelevant imagery.",
+    "Reference-file compliance: Compare outputs against provided reference files (templates, meeting notes). Confirm specific requested formatting and content cues are incorporated.",
+    "Consistency/credibility check: look for signs of hallucinated details (implausible addresses/hours, broken-looking URLs, generic placeholder images) and penalize correctness/domain standards accordingly.",
+    "Final usability check: Could a real producer/director/client use this deliverable immediately without major rework?"
+  ],
+  "common_failure_modes": [
+    "Missing required output file (e.g., no PDF/PNG/DOCX delivered) or wrong format (Google Doc link instead of exported PDF).",
+    "Severely incomplete deliverable (e.g., only part of the schedule, only 1\u20132 venues instead of 4\u20136, moodboard without a palette or without imagery).",
+    "Failure to follow key constraints (e.g., weekends included when forbidden; holidays ignored; final delivery date missing or wrong).",
+    "Required tasks/phases omitted (e.g., missing client review windows, missing revision rounds, missing locks).",
+    "No differentiation between internal vs client tasks when requested (missing labels or color-coding).",
+    "Schedule logic errors (editing starts before shoot; approvals after locks; insufficient time allocated for review windows).",
+    "Unreadable design (overlapping text, cramped calendar with hidden items, low-resolution moodboard).",
+    "Research outputs with fabricated or unverifiable facts presented confidently; missing source links; irrelevant or nonfunctional video links.",
+    "Not using reference files (ignoring meeting notes/template) leading to mismatched tone or incorrect formatting.",
+    "Ambiguous versioning (no indication of rounds, dates, or deliverable names), making stakeholder coordination difficult."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Calculate weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required deliverable file is missing/wrong format/unopenable OR the work is severely incomplete, set overall score to 0\u20132 regardless of weighted average. Use 0 if nothing usable is delivered, 1 for minimal unusable fragments, 2 for partial but clearly incomplete deliverables.",
+    "score_scale": "0\u201310 where 0\u20132=Unacceptable (missing files/incomplete), 3\u20134=Poor, 5\u20136=Acceptable, 7\u20138=Good, 9\u201310=Excellent.",
+    "automatic_low_score_triggers": [
+      "Any required output file is missing, wrong type, not exported as requested, or cannot be opened.",
+      "Deliverable is clearly incomplete (missing major sections, missing required counts like 4\u20136 items, missing required revision rounds, or contains placeholder/TBD content).",
+      "The output does not address the prompt\u2019s core request (e.g., narrative explanation instead of a schedule PDF; text description of a moodboard instead of a PNG)."
+    ],
+    "excellent_output_characteristics": [
+      "All required files present, correctly formatted, correctly named (if required), and open cleanly.",
+      "Every requirement explicitly satisfied and easy to locate (clear labels, legends, versioning).",
+      "Accurate and logically coherent production plan/research; credible sources/links where applicable.",
+      "Professional-grade design and layout suitable for client and internal stakeholder circulation.",
+      "Demonstrates real producer/director judgment: realistic timelines, appropriate overlaps, approvals, and clear responsibilities."
+    ],
+    "poor_output_characteristics": [
+      "Missing or wrong deliverables; incomplete counts/sections; unopenable files.",
+      "Major constraint violations (weekends/holidays included when forbidden; wrong deadlines; missing reviews/approvals).",
+      "Unreliable or fabricated information without sourcing; broken or irrelevant links.",
+      "Messy, unreadable, or confusing formatting that prevents operational use.",
+      "Ignores reference files or misinterprets the brief, producing off-target content."
+    ]
+  },
+  "example_evaluation_questions": [
+    "What are the exact required output artifacts (file types, names, counts) in the prompt, and are all of them present and openable?",
+    "Does the deliverable include every required component/field (e.g., all tasks in a production schedule; photo/hours/website/video links in a research one-sheet; palette + images in a moodboard)?",
+    "Are any key constraints violated (no weekends, federal holidays excluded, required review durations, required number of revision rounds, final delivery date)?",
+    "Is the output logically consistent (e.g., approvals before locks, shoot before edit, adequate time allocated to each phase)?",
+    "Is the information credible and not obviously fabricated (addresses/hours/URLs/links) and, when required, are sources provided?",
+    "Does the formatting match professional producer/director expectations and any provided reference template?",
+    "Could a department head/client use this artifact immediately to plan staffing, reviews, and milestones without major clarification?",
+    "Are client responsibilities clearly indicated when the prompt requests it (labels/color-coding/asterisks)?",
+    "Is the visual design legible (no hidden tasks, no cramped text, adequate resolution) and is there a legend/key when color-coding is used?",
+    "If assumptions were made, are they clearly stated and do they stay within the prompt\u2019s allowed bounds?"
+  ],
+  "metadata": {
+    "category": "Producers and Directors",
+    "sector": "Information",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:32:27.603883",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2908,
+    "completion_tokens": 3236,
+    "total_tokens": 6144
+  }
+}

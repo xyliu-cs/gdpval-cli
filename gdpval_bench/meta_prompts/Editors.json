@@ -1,0 +1,135 @@
+{
+  "category": "Editors",
+  "evaluation_prompt": "You are an expert evaluator grading an AI agent\u2019s deliverables for an Editors-category task in the Information sector. You will receive: (1) the original task prompt, (2) any reference/input files or links mentioned by the prompt, and (3) the agent\u2019s OUTPUT FILES/ARTIFACTS. Your job is to assess the output artifacts themselves (not the agent\u2019s intentions), using the rubric and scoring rules below.\n\nCRITICAL RULE (NON-NEGOTIABLE): If ANY required output file/artifact is missing, not readable, wrong format when a specific format is required (e.g., PDF vs Word), or the work is severely incomplete (e.g., far below required length, missing required sections, placeholder text), you MUST assign an overall score in the 0\u20132 range regardless of how good the partial content is.\n\nStep-by-step evaluation procedure:\n1) Parse the prompt and list all required deliverables:\n   - Required number of files (e.g., \u201ca Word document\u201d, \u201cthree PDFs\u201d, \u201cinclude answer key\u201d, \u201cinclude headline + standfirst\u201d, etc.).\n   - Required file formats (DOCX, PDF) and required file titles/names if specified.\n   - Required structure/sections (e.g., subheadings, checklist, quiz with answer key).\n   - Required length constraints (word counts, approximate ranges).\n   - Required sources/links/citations and where they must appear.\n   - Required style guides or standards to follow.\n   - Any special instructions (audience, tone, jurisdiction, ethics, accessibility, neutrality, etc.).\n\n2) Inventory the output files provided:\n   - Confirm each required file exists.\n   - Confirm each file opens and is readable.\n   - Confirm format matches requirements (DOCX vs PDF, not a plain-text substitute unless prompt allows).\n   - Confirm the content inside each file matches what the prompt asked for (not just file names).\n\n3) Completeness gate (hard fail):\n   - If any required artifact is missing/wrong format/unreadable OR major parts are missing (required sections absent, no references when required, missing answer key, missing call to action when required, etc.), immediately cap overall score to 0\u20132.\n\n4) If the completeness gate passes, evaluate along four dimensions:\n   A) Completeness (40%): Does every requirement appear in the artifacts, including structure, sections, length ranges, links, and requested elements?\n   B) Correctness (30%): Are factual statements, interpretations, and cited standards accurate and consistent with reputable sources? Are claims supportable by included references? Are instructions internally consistent?\n   C) Quality (20%): Is the writing/editing professional, clear, well organized, and usable as an editorial artifact (policy doc, editorial, checklist, quiz)? Is formatting appropriate and consistent?\n   D) Domain Standards (10%): Does it follow editorial best practices: ethics, attribution, avoidance of bias where required, audience appropriateness, legal/safety considerations (e.g., minors, suicide reporting), and adherence to specified style guides.\n\n5) Provide a final numeric score 0\u201310:\n   - Use weighted averaging across the four dimensions.\n   - Apply the critical override: if missing/incomplete deliverables, final score must be 0\u20132.\n\n6) In your evaluation notes (if requested by the system), cite concrete evidence from the artifacts: file names, section headings, quoted snippets, presence/absence of links, approximate word count, and any obviously incorrect claims.\n\nEditors-category task patterns you must be able to evaluate (examples; not exhaustive):\n- Editorials/op-eds requiring headline/standfirst, clear narrative, reputable sourcing, fact-checkable claims, and calls to action.\n- Editorial guidance/policy documents requiring sections per scenario (war, terrorism, minors, suicide, etc.), balanced language, and ethics code alignment.\n- Accessibility/compliance training materials requiring multiple files (guide + checklist + quiz), alignment with WCAG and relevant laws, and practical newsroom workflows.\n\nWhen judging, prioritize: deliverables present + requirements met > correctness > clarity/formatting > stylistic polish.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist, are readable in the required formats, and all task requirements are addressed within the artifacts.",
+      "criteria": [
+        "All required files are present (correct count) and open successfully (not corrupted, not empty).",
+        "File formats match the prompt (e.g., DOCX requested => DOCX delivered; PDF requested => PDF delivered).",
+        "File titles/names match prompt requirements when explicitly specified (or are reasonable equivalents if not strict).",
+        "Each required section/subheading exists (e.g., scenario sections; headline/standfirst; bibliography; answer key; scoring guide).",
+        "All required elements are included: links/citations, call to action (when asked), checklists/quizzes (when asked), notes/instructions to staff (when asked).",
+        "Length requirements are met (within stated ranges/approximations). Severe under-length counts as incomplete.",
+        "No placeholder text (e.g., 'TBD', 'lorem ipsum') for required content.",
+        "Meets any explicit constraints: audience, jurisdiction, neutrality/bias requirement, style guide adherence indicators."
+      ],
+      "scoring_guidance": "0-2 if any required files are missing/wrong format/unreadable OR major required sections/elements are absent OR content is severely under-length; 3-4 if many requirements unmet across files (missing multiple sections, weak structure, missing key required elements); 5-6 if most deliverables exist but notable omissions remain (some required sections thin/missing, length slightly off, incomplete references); 7-8 if complete with only minor omissions (small formatting misses, minor length drift, minor missing details); 9-10 if fully complete, all requirements satisfied with no substantive omissions."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy and verifiability of information, claims, references, and logic; faithful interpretation of the prompt and referenced standards.",
+      "criteria": [
+        "Factual statements are accurate or clearly framed as opinion/analysis; no obvious misinformation.",
+        "Claims are supported by reputable citations when required (e.g., links to Nature/Science/Scientific American/Guardian; ethics resources; legislation/WCAG).",
+        "Citations/links are relevant and plausibly verify the claims made (not random or mismatched).",
+        "No fabricated quotes, fake data, or invented institutional guidance presented as fact; if uncertain, language is appropriately qualified.",
+        "Internal consistency: definitions, recommendations, and instructions do not contradict each other.",
+        "Legal/standards references are not materially wrong (e.g., WCAG versioning, broad requirements of accessibility laws, basic journalism ethics principles).",
+        "For checklists/quizzes: correct answers are actually correct per the guide; answer key and explanations align with the material."
+      ],
+      "scoring_guidance": "0-2 if pervasive inaccuracies, fabricated citations presented as real, or guidance that could cause serious harm/legal risk; 3-4 if frequent errors, many unsupported claims, mismatched references, or incorrect quiz keys; 5-6 if generally correct but with several notable inaccuracies or weak sourcing/verification gaps; 7-8 if mostly accurate with a few minor errors or overstatements; 9-10 if highly accurate, careful with uncertainty, and consistently verifiable."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional editorial quality: clarity, organization, formatting, usability, and audience-appropriate tone.",
+      "criteria": [
+        "Clear structure with headings, subheadings, and logical flow; easy to navigate.",
+        "Writing is concise where requested, detailed where required; avoids rambling and repetition.",
+        "Tone matches the prompt (e.g., institutional guidance vs. editorial voice; neutral broadcast standards vs. opinion editorial).",
+        "Formatting is professional for the file type (Word/PDF): consistent styles, readable fonts, bullets/numbering used appropriately.",
+        "For multi-document sets: consistent terminology and cross-references; checklist is actionable; quiz is clearly formatted.",
+        "Meets accessibility/usability basics in documents when relevant (clear headings, descriptive link text).",
+        "Minimal grammar/spelling errors; consistent capitalization, punctuation, and naming."
+      ],
+      "scoring_guidance": "0-2 if unreadable, extremely disorganized, or unusable; 3-4 if poor organization, unclear writing, or messy formatting that hinders use; 5-6 if usable but with notable clarity/formatting issues; 7-8 if polished with minor issues; 9-10 if publication-ready, clean, and highly usable."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Adherence to professional editorial/journalistic standards and task-specific industry conventions.",
+      "criteria": [
+        "Ethics: aligns with common journalism standards (minimize harm, seek truth, act independently, be accountable) when relevant.",
+        "Appropriate handling of sensitive topics (suicide, minors, victims, mass shootings): avoids sensationalism; includes harm-minimization guidance when applicable.",
+        "Bias/neutrality: if outlet is described as least-biased, language avoids loaded terms and clearly distinguishes fact from opinion.",
+        "Attribution: proper crediting and hyperlinking to sources; avoids plagiarism; respects style guide requirements when specified (e.g., Guardian style).",
+        "Editorial conventions: headline/standfirst where requested; consistent house style; clear call to action where requested; fact-check-friendly claims."
+      ],
+      "scoring_guidance": "0-2 if serious ethics violations, sensationalism in sensitive contexts, or blatant style/standards disregard; 3-4 if multiple domain-standard issues (loaded language, weak attribution, unsafe guidance); 5-6 if generally aligned but with notable lapses; 7-8 if solid adherence with minor lapses; 9-10 if exemplary professional standards throughout."
+    }
+  },
+  "file_inspection_checklist": [
+    "Deliverables inventory: Count output files; compare against prompt\u2019s required number of artifacts.",
+    "Format verification: Confirm each file is the correct format (DOCX/PDF) and not a substituted format unless allowed.",
+    "Open/read test: Ensure each file opens without errors and contains real content (not blank, not placeholders).",
+    "Title/name compliance: Check required document titles (e.g., specified all-caps title) and internal title pages/headings.",
+    "Structure compliance: Verify all required sections/subheadings exist (e.g., each special reporting situation has its own section; quiz includes answer key).",
+    "Length check: Estimate word count (or page length) and compare to required range; flag severe shortfalls as incompleteness.",
+    "Source/link check: Confirm required reputable sources are linked; links are plausible and relevant; citations are embedded where claims appear.",
+    "Style guide check: Look for evidence of adherence (spelling conventions, punctuation, capitalization, terminology) when a specific guide is mandated.",
+    "Call-to-action check (when required): Identify a clear, specific call to action directed at the intended audience.",
+    "Fact-checkability: Identify key factual claims and verify they are supported by included sources or are widely accepted; flag unverifiable assertions.",
+    "Safety/ethics: In sensitive-topic guidance, check for harm minimization, privacy, minors protections, and avoidance of graphic detail.",
+    "Internal consistency: Ensure checklist aligns with the guide; quiz questions reflect the guide; answer key is correct and explained.",
+    "Actionability: Confirm guidance includes clear do/don\u2019t bullets, workflows, escalation paths (e.g., contact supervisor/section editor) when requested."
+  ],
+  "common_failure_modes": [
+    "Missing one or more required files (e.g., only provides the guide but not the checklist and quiz).",
+    "Wrong file format (e.g., provides plain text instead of PDF/DOCX; provides one merged file when separate files were required).",
+    "Unreadable or corrupted file; file contains only a brief outline or placeholders.",
+    "Severely under the required word count or missing major required sections/subheadings.",
+    "Fails to include required links/citations or uses non-reputable sources when reputable sources are mandated.",
+    "Fabricated citations/links (nonexistent URLs, made-up articles) presented as real references.",
+    "Guidance contradicts established journalism ethics (e.g., doxxing victims, identifying minors, sensationalizing suicide).",
+    "Biased/loaded language despite requirement for neutrality; unclear separation of fact vs opinion.",
+    "Checklist is too vague to use day-to-day; quiz lacks answer key/explanations or has incorrect answers.",
+    "Does not follow specified style guide conventions (where mandated) or lacks headline/standfirst when required."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Calculate weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required files are missing/wrong format/unreadable OR deliverables are severely incomplete, override final score to 0\u20132 regardless of other dimension scores.",
+    "score_scale": "0-10 where 0-2=Unacceptable (missing files/incomplete), 3-4=Poor, 5-6=Acceptable, 7-8=Good, 9-10=Excellent.",
+    "automatic_low_score_triggers": [
+      "Any required output file/artifact is missing.",
+      "Any required output file is in the wrong format when format is specified (e.g., PDF required but DOCX delivered).",
+      "Any required file is unreadable/corrupted/empty or contains placeholder text instead of substantive content.",
+      "Severely incomplete content: far below required length, or missing major required sections (e.g., no answer key; missing multiple required scenario sections; no references when required).",
+      "Fabricated references presented as real in a way that undermines verifiability (may also depress correctness to 0-2)."
+    ],
+    "excellent_output_characteristics": [
+      "All required artifacts present, correctly formatted, readable, and properly titled.",
+      "All required sections and elements included (headline/standfirst; do/don\u2019t lists; bibliography; quiz + answer key; escalation contacts).",
+      "Accurate, careful, verifiable claims with relevant reputable citations/hyperlinks.",
+      "Professional, publication-ready organization and formatting; clear actionability for newsroom use.",
+      "Strong adherence to ethics and best practices for sensitive reporting; correct use of style/house standards when specified."
+    ],
+    "poor_output_characteristics": [
+      "Missing/incorrect-format files; merged or partial deliverables.",
+      "Major omissions (no sources, missing required subsections, missing answer key, no call to action when required).",
+      "Numerous factual inaccuracies or unsafe/irresponsible editorial guidance.",
+      "Disorganized, hard-to-follow writing; sloppy formatting; unclear intended audience.",
+      "Loaded language, weak attribution, or ethics violations."
+    ]
+  },
+  "example_evaluation_questions": [
+    "What exact files does the prompt require (count, format, titles), and are all of them present and readable?",
+    "Does each artifact contain all required sections/subheadings and required elements (e.g., headline + standfirst, quiz + answer key, checklist, bibliography, contact/escalation note)?",
+    "Is the output within the requested word-count range or approximation? If not, is it severely under-length (incomplete) or slightly off (minor issue)?",
+    "Are all factual claims either supported by included reputable links/citations or clearly framed as opinion/analysis?",
+    "Do the provided links appear credible and relevant, and do they correspond to the claims they are meant to support?",
+    "Does the writing follow the specified style guide/house standards (where mandated) and match the intended audience and tone?",
+    "For sensitive topics, does the guidance follow harm-minimization best practices (privacy, minors, suicide reporting, victims) and avoid sensationalism?",
+    "If a checklist is required, is it actionable and specific enough for day-to-day editorial use?",
+    "If a quiz is required, do questions test the guide content, are there four options each, is there exactly one correct answer, and is the answer key correct with explanations?",
+    "Is there any evidence of fabricated citations, invented policies, or contradictions that would undermine trust and correctness?"
+  ],
+  "metadata": {
+    "category": "Editors",
+    "sector": "Information",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:07:44.953182",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2566,
+    "completion_tokens": 3538,
+    "total_tokens": 6104
+  }
+}

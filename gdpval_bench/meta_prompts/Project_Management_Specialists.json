@@ -1,0 +1,129 @@
+{
+  "category": "Project Management Specialists",
+  "evaluation_prompt": "You are an independent evaluator judging an AI agent\u2019s deliverables for a task in the occupation category \u201cProject Management Specialists\u201d (Professional, Scientific, and Technical Services). You will receive: (1) the original task prompt, (2) any reference/input files, and (3) the agent\u2019s output artifacts (files and/or written responses).\n\nYour job is to assess whether the agent produced ALL required deliverables, and whether those deliverables correctly satisfy the prompt, using the rubric below. You must inspect the actual output files (e.g., Excel, Word/PDF, slides, email text) rather than relying on claims.\n\nCRITICAL SCORING RULE (NON-NEGOTIABLE):\n- If ANY required output file/artifact is missing, not readable, clearly the wrong file type, or the work is severely incomplete (e.g., only a partial draft when a final SOP/form/workbook was required), you MUST assign an overall score in the 0\u20132 range.\n- This override applies regardless of how good the submitted partial work is.\n\nEvaluation procedure (follow in order):\n1) Parse the prompt and list REQUIRED deliverables (files and non-file artifacts) and any required structure (tabs, sections, columns, attachments, etc.). Treat explicitly requested items as mandatory.\n2) Inventory all output artifacts and confirm each required deliverable exists, opens, and is plausibly the correct artifact.\n3) Completeness check (most important): verify every requirement is addressed (all requested tabs/sections/fields, all specified entities included, all questions answered, all required formatting constraints satisfied).\n4) Correctness check: validate calculations, filtering logic, inclusion/exclusion criteria, traceability to reference files, and internal consistency. Spot-check against reference data when provided.\n5) Quality check: assess whether the deliverables are professional, well organized, clear, and usable by stakeholders without rework.\n6) Domain standards: assess adherence to project management best practices (traceability, change control rigor, assumptions documented, audit readiness, risk/issue awareness, clear recommendations).\n7) Assign sub-scores (0\u201310) for each rubric dimension using the guidance. Compute weighted score. Apply the CRITICAL override to force overall 0\u20132 if any required deliverable is missing/severely incomplete.\n\nWhen writing your evaluation:\n- Cite concrete evidence from the outputs (sheet names, column headers, section titles, example rows, missing fields, broken formulas).\n- Distinguish between: (a) missing deliverables, (b) missing required components inside a deliverable, (c) incorrect logic/data, (d) presentation issues.\n- If you cannot verify a requirement because the artifact is missing or unreadable, treat it as unmet.\n\nTypical task families in this category (for context; evaluate against the actual prompt you receive):\n- Planning/research deliverables with data extraction and recommendations (e.g., compiling source assessments into a workbook and summarizing options in an email).\n- Process documentation and compliance artifacts (e.g., SOPs, change control workflows, forms that must match SOP).\n- Resource/capacity analysis workbooks with calculations, thresholds, and narrative answers.\n\nAlways prioritize completeness and artifact presence; do not reward a strong narrative if the required files/tabs/forms are absent.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist, are readable, and all task requirements are addressed end-to-end (including specified structure, fields, tabs, and narrative components).",
+      "criteria": [
+        "All required deliverables are present (every requested file, plus any required embedded artifacts like forms, templates, emails/memos, or separate tabs/appendices).",
+        "Each deliverable is the correct format and opens without errors (e.g., .xlsx workbook is not a CSV renamed; Word/PDF is readable).",
+        "All explicitly requested components are included (e.g., required columns/fields; required tabs; required sections; required lists of entities/locations; required attachments mentioned).",
+        "All prompt questions are answered (if the prompt asks for written responses in addition to files, those responses are present and complete).",
+        "All required constraints are implemented (e.g., screening criteria, thresholds, inclusion/exclusion lists, time periods, departments, audit requirements).",
+        "Any required cross-artifact alignment is complete (e.g., Change Request Form fields match SOP; workbook summary aligns with detailed tab).",
+        "Assumptions and scope boundaries are stated when needed to interpret the deliverable (especially when inputs are ambiguous)."
+      ],
+      "scoring_guidance": "0-2 if any required file/artifact is missing, unreadable, wrong type, or deliverables are severely incomplete; 3-4 if multiple required components/sections/tabs/fields are missing; 5-6 if all files exist but there are notable omissions (e.g., missing a required tab, missing multiple required columns/fields, or failing to answer one of several questions); 7-8 if complete with only minor omissions (e.g., small missing formatting requirement, minor missing note); 9-10 if fully complete, every requirement satisfied and easy to verify."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, logic, and traceability to reference inputs; correct application of criteria and thresholds; internally consistent outputs.",
+      "criteria": [
+        "Data extracted/derived from reference sources matches the inputs (spot-check representative samples against reference files or cited sources).",
+        "Calculations are correct (e.g., utilization rates, budget vs actual, filtering flags, totals, percentages) and formulas reference the right ranges.",
+        "Filtering/screening logic correctly implements the prompt\u2019s criteria (e.g., inclusion/exclusion keywords, numeric ranges, active status definitions).",
+        "No material inconsistencies across artifacts (e.g., summary email recommendations match the \u2018qualified\u2019 tab; SOP steps align with the form workflow).",
+        "Units, time periods, and definitions are correct and consistently applied (e.g., month, week, FTE capacity assumptions, overhead exclusions).",
+        "Traceability is provided where appropriate (sources cited, reference file mappings, version/date, IDs preserved).",
+        "Edge cases handled correctly (e.g., missing data, blank statuses, part-time capacity, overhead exclusion)."
+      ],
+      "scoring_guidance": "0-2 if pervasive inaccuracies or fabricated/unsupported data that undermines the deliverable, even if files exist; 3-4 if major logic errors, wrong criteria applied, or many incorrect calculations; 5-6 if generally correct but with notable errors or weak traceability/spot-check failures; 7-8 if mostly correct with minor calculation or consistency issues; 9-10 if highly accurate with clear traceability, correct formulas/logic, and consistent recommendations."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization, usability, and stakeholder-ready communication.",
+      "criteria": [
+        "Deliverables are well-structured (logical tabs/sections, table formatting, headers, consistent naming).",
+        "Outputs are readable and usable (filters, freeze panes, clear column names, consistent date/number formats, minimal clutter).",
+        "Narrative communication is concise and actionable (e.g., email/memo includes recommendation rationale, risks, and next steps).",
+        "Document quality meets professional standards (SOP has controlled structure: purpose, scope, roles, procedure, definitions, records; forms are clean and fillable).",
+        "Visual aids where appropriate (conditional formatting, highlighting qualified items, summary tables/charts) without obscuring data integrity.",
+        "No broken links, missing references, or placeholder text; minimal typos; consistent terminology."
+      ],
+      "scoring_guidance": "0-2 if unusable presentation (disorganized, unreadable, clearly draft/placeholder); 3-4 if hard to follow and requires major reformatting; 5-6 if readable but needs cleanup and improvements; 7-8 if professional with minor polish issues; 9-10 if stakeholder-ready, polished, and easy to audit/use."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Adherence to project management best practices: governance, audit readiness, risk/issue awareness, decision traceability, and practical implementation.",
+      "criteria": [
+        "Clear ownership/RACI and governance where applicable (who submits, reviews, approves; escalation paths).",
+        "Audit-ready traceability (versioning, approvals, records retention, decision logs, change history).",
+        "Risk/assumption management (explicit assumptions, constraints, dependencies, and identified risks for recommendations).",
+        "Measurable criteria and decision rationale (why options are recommended; why items qualify/disqualify).",
+        "Implementation practicality (templates/forms are usable; SOP steps are feasible; workbook supports ongoing updates)."
+      ],
+      "scoring_guidance": "0-2 if ignores basic PM governance/compliance expectations; 3-4 if weak structure and limited traceability; 5-6 if baseline PM practices but missing some key governance/audit elements; 7-8 if aligns well with PM standards with minor gaps; 9-10 if exemplary governance, traceability, and stakeholder-ready rigor."
+    }
+  },
+  "file_inspection_checklist": [
+    "Deliverable inventory: Compare required deliverables in the prompt to the provided output artifacts; verify nothing required is missing (files, tabs, forms, narrative responses).",
+    "File readability: Open each file; confirm it is not corrupted, password-locked (unless allowed), or the wrong format.",
+    "Workbook checks (if Excel/Sheets deliverable): sheet/tab names match prompt intent; required tabs exist; required columns exist exactly or with clearly equivalent labels; filters present where requested; a clear qualification flag column exists if screening is required; second tab/summary contains only qualified items if requested; formulas compute correctly; totals reconcile; sample spot-check against input/reference files.",
+    "SOP/document checks (if SOP/policy required): includes purpose, scope, definitions, responsibilities/roles, procedure steps, records/forms, references, effective date/version, approvals section (if expected), and aligns with stakeholder inputs; language is unambiguous and implementable.",
+    "Form/template checks (if Change Request Form or similar required): contains all required fields; matches SOP workflow (submission, impact assessment, review/approval, implementation, verification/closure); includes identifiers (Change ID), dates, owners, impact areas (scope/schedule/cost/regulatory), attachments, decision/approval signatures, and status tracking.",
+    "Email/memo checks (if requested): includes concise summary, highlights top options/items, references attached file(s), states criteria used, provides rationale and next steps; recommendations match the data in the attachment.",
+    "Requirement-specific criteria validation: confirm numeric thresholds/ranges, keyword exclusions, time windows, overhead/capacity rules, and inclusion lists were implemented exactly as stated.",
+    "Traceability: look for citations to source data (reference file names, sheet names, row IDs; external URLs if used) and ensure outputs do not invent unsupported data.",
+    "Consistency checks: summary numbers match detailed tables; recommended items appear in qualified lists; no contradictory statuses.",
+    "Professional presentation: consistent formatting, units, and labeling; no placeholder text; no obvious copy/paste errors."
+  ],
+  "common_failure_modes": [
+    "Missing one or more required output files (e.g., SOP without the required form; workbook missing; email missing).",
+    "Required tabs/sections missing inside a delivered file (e.g., only one tab when two are required; missing \u2018Stakeholder Registry\u2019 tab).",
+    "Wrong or incomplete column/field set (e.g., omits required columns like aquifer code/description, pumpage, max zone; form missing impact assessment or approvals).",
+    "Screening/qualification logic not implemented or implemented incorrectly (e.g., wrong depth range; fails to exclude inactive/abandoned wells; misapplies utilization thresholds).",
+    "Calculations incorrect or not reproducible (hardcoded numbers, broken formulas, totals that don\u2019t reconcile, percentages computed on wrong denominator).",
+    "Fabricated data or unverifiable claims not supported by reference files or cited sources.",
+    "Recommendations not tied to data (email recommends options that do not meet criteria or aren\u2019t present in the qualified list).",
+    "SOP not audit-ready (missing roles/responsibilities, records retention, version control, approval workflow, or clear process steps).",
+    "Form does not match SOP (fields don\u2019t align, workflow steps missing, statuses inconsistent).",
+    "Unprofessional formatting (messy sheets, no headers, inconsistent units, typos, placeholder text like \u2018TBD\u2019 in key areas)."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Calculate weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required deliverable/file/artifact is missing, unreadable, wrong type, or severely incomplete, set overall score to 0\u20132 regardless of weighted average. Document which deliverables are missing/incomplete.",
+    "score_scale": "0-10 where 0-2=Unacceptable (missing files/incomplete), 3-4=Poor, 5-6=Acceptable, 7-8=Good, 9-10=Excellent",
+    "automatic_low_score_triggers": [
+      "Any required output file/artifact is missing (including required attachments, forms, tabs explicitly requested as separate tabs, or required narrative responses).",
+      "Delivered file exists but is unreadable/corrupt or clearly not the requested artifact (e.g., wrong template, empty workbook, placeholder document).",
+      "Work is severely incomplete (e.g., partial draft SOP without procedure; workbook missing core data; only a summary with no underlying table).",
+      "Major portions of prompt requirements are not addressed (e.g., does not include specified entities/sites; ignores required screening criteria; does not answer required questions)."
+    ],
+    "excellent_output_characteristics": [
+      "All required artifacts are present, openable, and correctly structured.",
+      "All requirements are explicitly addressed and easy to verify (tabs/sections/fields present; criteria implemented; questions answered).",
+      "High accuracy with traceability to inputs; formulas and logic are correct and auditable.",
+      "Professional, stakeholder-ready formatting and clear communication, including rationale and next steps.",
+      "Aligns with PM governance standards (roles, approvals, recordkeeping, change traceability/risk awareness)."
+    ],
+    "poor_output_characteristics": [
+      "Missing required artifacts or internal components (tabs/fields/sections).",
+      "Major logic/calculation errors or unverifiable/fabricated data.",
+      "Disorganized deliverables that are not usable without major rework.",
+      "Recommendations not supported by the underlying data or contradict the deliverables.",
+      "Lack of governance/audit readiness where the task requires compliance-style rigor."
+    ]
+  },
+  "example_evaluation_questions": [
+    "What exact deliverables does the prompt require (files + non-file artifacts), and are they all present and readable?",
+    "Does the workbook/document include every required tab/section/field/column exactly as requested (or clearly equivalent)?",
+    "Are all specified entities (e.g., sites, water systems, departments, employees, projects) included with no omissions?",
+    "Is there a clear mechanism to identify items meeting criteria (e.g., a \u2018Meets All Criteria\u2019 flag), and is it correct?",
+    "Do spot-checks against the reference files confirm the extracted data and computed values are accurate?",
+    "Are calculations implemented with formulas (not hardcoded) and do totals/percentages reconcile across sheets?",
+    "Do recommendations/conclusions match the data (e.g., recommended wells actually meet the depth/aquifer/status rules; flagged burnout individuals actually exceed thresholds)?",
+    "If an SOP and a form are required, do they align in workflow steps, roles, statuses, and required documentation?",
+    "Is the output audit-ready and traceable (versioning, decision logs/approvals, record retention guidance where relevant)?",
+    "Is the deliverable professional and usable by a manager/stakeholder without additional reformatting or guessing missing assumptions?"
+  ],
+  "metadata": {
+    "category": "Project Management Specialists",
+    "sector": "Professional, Scientific, and Technical Services",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:33:38.118886",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2512,
+    "completion_tokens": 3477,
+    "total_tokens": 5989
+  }
+}

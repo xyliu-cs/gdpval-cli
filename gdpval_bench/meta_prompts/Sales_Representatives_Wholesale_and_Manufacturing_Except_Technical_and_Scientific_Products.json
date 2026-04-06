@@ -1,0 +1,134 @@
+{
+  "category": "Sales Representatives, Wholesale and Manufacturing, Except Technical and Scientific Products",
+  "evaluation_prompt": "You are an independent evaluator assessing whether an agent\u2019s delivered FILES/ARTIFACTS satisfy a sales-operations/wholesale-manufacturing representative task prompt. You will be given: (1) the original task prompt, (2) any reference/input files cited (e.g., Excel data pulls, images), and (3) the output files produced by the agent (e.g., PDF procedure, Excel recap, slide deck, email draft, pricing sheet).\n\nYour job:\n1) Identify REQUIRED deliverables from the prompt (explicit file types, filenames/titles, page limits, sections/tables, and required calculations). List them.\n2) Verify the output files exist and are readable (openable). If ANY required file is missing OR the work is clearly incomplete (e.g., placeholders instead of tables, empty workbook, missing required sections), you MUST assign an overall score in the 0\u20132 range (non-negotiable), regardless of quality in any partial content.\n3) If deliverables exist, inspect each output artifact against the prompt requirements and reference inputs.\n4) Check completeness first (most important), then correctness (math/data), then quality (clarity/formatting), then domain standards (sales/wholesale best practices).\n5) Provide: (a) sub-scores for each rubric dimension (0\u201310), (b) an overall score (0\u201310) using the specified weights, and (c) a short justification with concrete evidence (e.g., \u201cYTD % change formula wrong; used 2023/2022 reversed\u201d, \u201cMissing \u2018discrepancy handling\u2019 section\u201d, \u201cOH+OO comparison excludes October shipments\u201d).\n\nData/analysis tasks (common in this category):\n- Recompute a small sample of figures directly from the reference files to validate accuracy (totals, LY vs TY deltas, % change, inventory coverage). Ensure assumptions match the prompt (dates, time windows, inclusion criteria such as status codes).\n- Confirm required breakdowns (by account, axis/category, brand, function/product grouping, region/dealer) are present and that totals reconcile (subtotals equal sum of lines; grand total equals sum of categories).\n\nProcess/document tasks (common in this category):\n- Ensure step-by-step procedures cover end-to-end workflow (receiving \u2192 verification \u2192 documentation \u2192 system confirmation \u2192 escalation/communication).\n- Confirm exception handling is included (damaged goods, shortages/overages, bill of lading discrepancies, returns/claims, communication to distribution center/manufacturer) and that instructions are operationally usable.\n\nCRITICAL RULE: Missing or incomplete required deliverables => overall score MUST be 0\u20132.\n\nOutput format you should produce:\n- Required deliverables checklist with Pass/Fail per item\n- Dimension scores: Completeness, Correctness, Quality, Domain Standards\n- Overall weighted score (with any override to 0\u20132 clearly stated)\n- Key defects (bullet list) and key strengths (bullet list)\n- If score <7, include \u201cmost impactful fixes\u201d (up to 5).",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed",
+      "criteria": [
+        "All explicitly required file types are present (e.g., PDF/Excel) and open without errors/corruption.",
+        "Artifacts match prompt constraints (e.g., 1\u20133 pages for a PDF; one-sheet recap; required title/tab name; required sections).",
+        "All required sections/tables/charts/fields are included (e.g., overall business summary; discontinued risk; top drivers; increases/detractors; inventory vs expected sales; comments placeholder).",
+        "All required breakouts and aggregation levels are present (e.g., by axis/category and brand; by function; totals and grand totals).",
+        "All required time windows and comparison periods are included (e.g., YTD through specified dates; TY vs LY; projected Q3\u2013Q1 windows as instructed).",
+        "All required exception-handling instructions are included for process documents (damages, missing parts, discrepancies, escalation/communications).",
+        "If the prompt requests visuals/annotations/examples, the deliverable includes them or provides clear placeholders that convey what the image should show (only acceptable if prompt explicitly allows description instead of real images).",
+        "No major placeholder content remains where final content is required (e.g., \u201cTBD\u201d, empty tables, missing formulas)."
+      ],
+      "scoring_guidance": "0-2 if any required files are missing/unopenable or deliverable is severely incomplete (missing required sections/tables/major components). 3-4 if multiple major requirements unmet (e.g., missing several sections, missing totals, missing required breakouts). 5-6 if most components present but notable gaps remain (e.g., missing a required comparison, incomplete exception handling, missing subtotals). 7-8 if complete with only minor omissions (e.g., small labeling issue, one minor section less detailed). 9-10 if fully complete and tightly aligned to every stated requirement and constraint."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, information, and logic",
+      "criteria": [
+        "All calculations are correct and consistent with the prompt\u2019s definitions (TY/LY, $ change, % change, coverage %, inventory vs expected sales).",
+        "Filters/segment definitions match prompt instructions (e.g., discontinued SKUs by specific status codes; inclusion/exclusion rules applied correctly).",
+        "Totals reconcile: line items sum to subtotals; subtotals sum to grand totals; pivot/table logic is consistent across sections.",
+        "Time periods are correctly interpreted (e.g., YTD through a specific date; projected period uses the instructed historical window).",
+        "No unit/scale errors (e.g., dollars vs thousands; percentages vs basis points; mixing shipment units with sales dollars).",
+        "For procedural documents, steps are operationally correct (e.g., sequence reflects real receiving/check-in practices; documentation and system confirmation steps are feasible).",
+        "References to source data are not fabricated; numbers in outputs can be traced to reference files and/or stated assumptions."
+      ],
+      "scoring_guidance": "0-2 if numbers appear fabricated/untraceable, calculations are largely wrong, or logic contradicts the prompt (even if files exist). 3-4 if frequent errors or major misinterpretations (wrong time window, wrong segments, totals don\u2019t tie out). 5-6 if generally correct but with notable errors (a few wrong formulas, some totals off, minor misapplication of filters). 7-8 if correct with minor discrepancies (rounding, small tie-out issues, limited sampling errors). 9-10 if highly accurate; spot checks tie out; assumptions are stated and consistent."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization",
+      "criteria": [
+        "Clear structure with headings/sections matching the prompt; logical flow for the intended audience (sales/account teams, dealer ops, management).",
+        "Tables are readable: labeled columns, consistent number formats (currency, %, dates), reasonable column widths, frozen headers if applicable.",
+        "Professional presentation: consistent fonts, spacing, alignment; no clutter; appropriate use of emphasis (bold, shading).",
+        "Charts/visuals (if included) are correctly labeled and improve comprehension; no misleading scales.",
+        "Writing quality: concise, unambiguous instructions; minimal jargon or explained acronyms; correct grammar/spelling.",
+        "Actionability: output can be used as-is in a sales/account environment (e.g., recap ready for review; procedure usable on receiving dock)."
+      ],
+      "scoring_guidance": "0-2 if artifact is unreadable/disorganized, or formatting prevents use. 3-4 if difficult to follow, messy, inconsistent formatting, unclear labels. 5-6 if usable but needs cleanup (format inconsistencies, weak organization). 7-8 if polished with small presentation issues. 9-10 if executive-ready: clean, consistent, highly readable, and tailored to the task."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Industry-specific best practices for this occupation",
+      "criteria": [
+        "Reflects wholesale/manufacturing sales ops realities: clear account/dealer communication steps, escalation paths, and documentation standards.",
+        "Includes practical controls to reduce errors: double-checks, separation of duties where relevant, audit trail (who/when), and system-of-record confirmation.",
+        "Uses common commercial metrics appropriately: growth vs LY, mix, contribution to total, inventory coverage/burn, risk/opportunity framing.",
+        "Maintains customer/account professionalism: clear next steps, ownership, and timelines; avoids overpromising; includes contact points where relevant.",
+        "Compliance and safety awareness where applicable (e.g., receiving safety, handling damaged goods, return/claims process, data confidentiality)."
+      ],
+      "scoring_guidance": "0-2 if output ignores basic professional standards or suggests risky/incorrect practices. 3-4 if limited practical value; lacks standard controls/metrics. 5-6 if generally aligned but missing several best-practice elements. 7-8 if aligned with common best practices with minor gaps. 9-10 if clearly informed by real-world wholesale sales/account operations and could be adopted with minimal modification."
+    }
+  },
+  "file_inspection_checklist": [
+    "Step 1 \u2014 Identify required deliverables: From the prompt, list each required output file (type, name/title, page/sheet constraints) and required content sections.",
+    "Step 2 \u2014 Presence & readability: Confirm each required file exists in the outputs and opens successfully (PDF renders; XLSX opens without repair prompts; images load).",
+    "Step 3 \u2014 Constraint checks: Verify page limits, one-sheet requirement, specified worksheet/tab names, and required document titles.",
+    "For Excel recaps/analyses: Check for (a) required sections, (b) required breakouts (axis/brand/function), (c) required columns/metrics, (d) subtotals and grand totals, (e) comments placeholder column left blank if requested, (f) correct formatting of currency/percent, (g) formulas vs hardcoded values where appropriate.",
+    "Excel correctness tie-out: Pick 5\u201310 random rows/groups and recompute using the reference file (pivot/filter) to validate TY, LY, $ change, % change, and any discontinued/segment filters. Confirm top-3 rankings are truly top by the defined metric.",
+    "Inventory vs sales logic (if relevant): Verify OH, OO, and expected shipments are included exactly as requested; confirm projected sales window matches prompt; verify difference and % calculations use correct denominator (typically expected sales).",
+    "For PDF/SOP/process documents: Check end-to-end process coverage from receiving to system confirmation, including separate handling flows if required (e.g., stock vs critical).",
+    "Exception handling: Confirm clear instructions for damages, missing/extra items, bill of lading discrepancies, returns/claims, photos/documentation, visibility marking, and communication/escalation to DC/manufacturer.",
+    "Visual guidance: Confirm images/diagrams/annotated examples exist if required, or that the document provides explicit, usable descriptions of what visuals should show when allowed.",
+    "Professional readiness: Ensure the deliverable is usable by field teams (clear roles, steps, timing, tools/systems referenced, templates/forms if helpful)."
+  ],
+  "common_failure_modes": [
+    "Missing required output file entirely (e.g., no PDF delivered; no XLSX recap).",
+    "Wrong file type or unusable artifact (e.g., screenshot instead of editable Excel; corrupted/unopenable file).",
+    "Delivers narrative text but not the requested file-based deliverable (e.g., describes what the spreadsheet would contain).",
+    "Ignores required structure (missing sections like discontinued risk, top drivers, or inventory comparison).",
+    "Incorrect time window interpretation (wrong YTD cutoff dates; wrong projection period).",
+    "Incorrect segment filtering (e.g., discontinued SKUs not based on specified status codes; includes/excludes wrong items).",
+    "Totals don\u2019t reconcile; subtotals/grand totals missing or incorrect.",
+    "Top 3 rankings incorrect due to sorting errors (ascending vs descending) or using wrong metric.",
+    "Percent change formula errors (divide by TY instead of LY; sign flipped).",
+    "Mixes units or scales (treats dollars as units; uses thousands without labeling).",
+    "Procedure/SOP is generic but not operational (no clear steps, roles, tools, system confirmation, or exception handling).",
+    "No documentation/communication steps for discrepancies (fails to mention photos, claim forms, escalation contacts, or timelines).",
+    "Overly verbose or poorly formatted deliverable that field teams cannot practically use."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Calculate weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required files are missing/unopenable OR deliverables are severely incomplete (missing major required sections/tables), override the final score to 0\u20132 regardless of other dimension scores.",
+    "score_scale": "0-10 where 0-2=Unacceptable (missing files/incomplete), 3-4=Poor, 5-6=Acceptable, 7-8=Good, 9-10=Excellent",
+    "automatic_low_score_triggers": [
+      "Any required output file is missing.",
+      "Any required output file is unopenable/corrupted or clearly not the requested format (e.g., no editable spreadsheet when required).",
+      "Major required sections/analyses are absent (e.g., missing entire recap sections, missing projections, missing inventory comparison, missing exception handling in SOP).",
+      "Deliverable contains mostly placeholders/TBD/blank tables instead of completed work.",
+      "Output cannot be evaluated against the reference files because it does not include the requested tables/values."
+    ],
+    "excellent_output_characteristics": [
+      "All required files present, readable, and match requested formats/titles/constraints.",
+      "All required sections included with correct breakouts and reconciled totals.",
+      "Calculations tie out to reference data; spot checks confirm accuracy; assumptions (if any) are explicitly stated and reasonable.",
+      "Clear, professional formatting suitable for account teams/management or dealer operations.",
+      "Shows domain best practices: audit trail, clear ownership, escalation paths, practical controls, and actionable insights."
+    ],
+    "poor_output_characteristics": [
+      "Missing any required file or delivers only partial artifacts.",
+      "Substantial omissions (missing sections, missing breakouts, missing totals).",
+      "Major calculation/logic errors or misinterpretation of prompt definitions.",
+      "Unprofessional or confusing layout that prevents practical use.",
+      "Non-actionable content (generic statements without specific steps/metrics)."
+    ]
+  },
+  "example_evaluation_questions": [
+    "What exact files did the prompt require (PDF/XLSX/etc.) and are all of them present and openable?",
+    "Does the deliverable match the required structure (sections, tables, columns) and any constraints (1\u20133 pages, one-sheet recap, specified titles/tab names)?",
+    "Do subtotals and grand totals reconcile across sections? If you sum the displayed rows, do you get the stated totals?",
+    "Are TY/LY definitions applied correctly and do $ change and % change calculations use the correct baseline (typically LY)?",
+    "Are segment rules applied correctly (e.g., discontinued status codes, axis/brand/function mapping)?",
+    "Are top-3 drivers/increases/detractors actually the top 3 by the metric defined in the prompt?",
+    "For inventory/shipments analyses, did the agent include all required components (OH, OO, specific shipment months/quarters) and compare against the correct projected sales window?",
+    "For SOP/procedure outputs, does the process run from receiving through system confirmation, with clear roles and step-by-step actions?",
+    "Does the SOP include concrete exception handling (damage, missing items, bill of lading discrepancies) and clear communication/escalation guidance?",
+    "Is the output professional and usable by a wholesale sales/account operations team without substantial rework?"
+  ],
+  "metadata": {
+    "category": "Sales Representatives, Wholesale and Manufacturing, Except Technical and Scientific Products",
+    "sector": "Wholesale Trade",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:41:40.660629",
+    "model": "gpt-5.2",
+    "prompt_tokens": 3065,
+    "completion_tokens": 3507,
+    "total_tokens": 6572
+  }
+}

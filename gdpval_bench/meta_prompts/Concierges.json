@@ -1,0 +1,131 @@
+{
+  "category": "Concierges",
+  "evaluation_prompt": "You are an expert evaluator assessing an AI agent\u2019s work product for a Concierge / Senior Lifestyle Manager task in Real Estate and Rental and Leasing. You will be given: (1) the original task prompt, (2) any referenced input/source files or links mentioned by the prompt, and (3) the agent\u2019s OUTPUT FILES/ARTIFACTS. Your job is to inspect the output artifacts (not just the narrative) and score quality on a 0\u201310 scale using the rubric below.\n\nCRITICAL RULE (NON-NEGOTIABLE): If ANY required output file/artifact is missing, not accessible, wrong file type (when specified), or the work is severely incomplete (e.g., missing required sections/tables/itinerary/pages), you MUST assign an overall score in the 0\u20132 range, regardless of how good the available content is.\n\nEvaluation procedure:\n1) Parse the prompt and extract a checklist of explicit deliverables and constraints. Examples of common Concierge deliverables in this category: a Word document with titled tables; a styled PDF itinerary with specific headers; a multi-day travel/yacht plan; inclusion of images; links; directions from a specified origin; constraints like page length (e.g., two pages), duration (e.g., 4 hours), audience (UHNW clients), and required sections (e.g., Overview of Activities, Highlights, Inclusions, Requirements).\n2) Inventory output artifacts: confirm each required file exists, opens, and matches required format (DOCX/PDF, named file, correct page count if specified). Record any missing/incorrect artifacts.\n3) Inspect contents against requirements:\n   - Structure: required title/headline, intro, section headers, tables with required column names, itinerary steps, inclusions/requirements lists, etc.\n   - Data fidelity: factual accuracy (hours, addresses, operator/site details), internal consistency (times add up to stated duration), correct directions/origin, correct categories/tags, and that excluded items truly are excluded.\n   - Sources/compliance: where prompt requires sourcing (e.g., a specific website list + Google Maps details), verify that the content plausibly matches the sources and that citations/links are provided as required. When the prompt requires royalty-free images, confirm an explicit royalty-free source/URL is provided and the image appears embedded.\n   - Professionalism: layout, readability, client-facing tone, correct spelling/grammar, and concierge best practices (clear meeting points, contingency notes, restrictions, accessibility, and practical tips).\n4) Score each rubric dimension (0\u201310), then compute weighted score (Completeness 40%, Correctness 30%, Quality 20%, Domain Standards 10%).\n5) Apply the CRITICAL override: if any required artifact is missing/incomplete, set final overall score to 0\u20132.\n\nOutput of your evaluation should include: (a) overall score 0\u201310, (b) brief justification per rubric dimension, (c) explicit callout of any missing artifacts/requirements, (d) the top fixes needed to reach 9\u201310.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed.",
+      "criteria": [
+        "All required files are present, accessible, and in the specified format (e.g., PDF vs DOCX), including any naming requirements if explicitly stated.",
+        "Document length constraints are met when specified (e.g., two pages; 4-hour plan; seven-day itinerary).",
+        "All required sections are present with the exact or clearly equivalent headers when requested (e.g., Overview of Activities, Inclusions, Requirements).",
+        "All required tables are present with required titles/subtitles and exact column names when specified (e.g., Restaurant Name, Business Hours, Description, Directions, Category).",
+        "All required fields are populated in each row/item (no placeholder text; no empty cells; no 'TBD' unless allowed).",
+        "All required links are included and functional where required (e.g., restaurant website hyperlinks titled with the restaurant name).",
+        "All required media is included (e.g., a small photo) and appears embedded in the output file; required source attribution/URL is present where requested.",
+        "All prompt constraints are explicitly addressed (e.g., exclude permanently closed venues; start location for directions; max group size; meeting location and end point)."
+      ],
+      "scoring_guidance": "0-2 if any required file is missing/inaccessible/wrong type OR the work is severely incomplete (missing major sections/tables/itinerary steps/page requirement); 3-4 if multiple major requirements are unmet (e.g., missing required sections, many rows missing data); 5-6 if core deliverable exists but several notable omissions (e.g., missing some required fields, partial sourcing, incomplete directions); 7-8 if nearly everything is present with only minor omissions (e.g., small missing details, minor header mismatch); 9-10 if fully complete with all requirements satisfied and no substantive omissions."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, information, and logic.",
+      "criteria": [
+        "Factual accuracy of key details required by the prompt (addresses, meeting points, business hours, operator/site descriptions, age requirements, restrictions).",
+        "Internal consistency: timelines add up (e.g., a 4-hour tour itinerary sums to ~4 hours including buffer); day-by-day plan totals match stated trip length; start/end locations align with directions.",
+        "Directions quality: directions are plausible from the specified origin and do not contradict geography (e.g., correct neighborhood/city, realistic transit modes when implied).",
+        "Correct categorization/tagging when required (e.g., dining category assignments are consistent with definitions; avoids mislabeling).",
+        "Correct application of exclusions/filters (e.g., permanently closed venues excluded; non-included options listed as 'not included').",
+        "Links and references are appropriate and point to the intended entities (not wrong restaurant, wrong tour operator, or generic search pages when specific website requested).",
+        "Royalty-free image compliance correctness when required: source is a legitimate royalty-free provider and is cited; image is relevant to the location/site."
+      ],
+      "scoring_guidance": "0-2 if pervasive inaccuracies, fabricated specifics presented as facts, or contradictions that make the deliverable unreliable; 3-4 if many key facts are wrong/unsupported (e.g., wrong meeting location, incorrect duration math, multiple incorrect hours); 5-6 if generally correct but with notable errors or questionable claims; 7-8 if mostly accurate with only minor factual slips or minor inconsistencies; 9-10 if highly accurate, internally consistent, and carefully constrained to verifiable details."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization.",
+      "criteria": [
+        "Client-ready presentation: clean layout, consistent typography, clear hierarchy (title, headings, subheadings), and easy-to-scan structure.",
+        "Tables are readable: consistent column widths, wrapped text where needed, and no clutter; itinerary is formatted with times/steps clearly delineated.",
+        "Writing quality: concise, polished, concierge-appropriate tone; minimal grammar/spelling errors; avoids repetitive filler.",
+        "Visual organization elements included when requested (e.g., icons for location/time/overview) and they enhance comprehension rather than distract.",
+        "PDF/DOCX technical quality: correct pagination, no broken images, no truncated text, working hyperlinks, and no obvious conversion artifacts."
+      ],
+      "scoring_guidance": "0-2 if unreadable, disorganized, or severely unprofessional; 3-4 if poorly formatted with frequent writing errors and hard-to-follow structure; 5-6 if adequate but noticeably rough (inconsistent formatting, wordy, minor layout issues); 7-8 if polished with only small presentation issues; 9-10 if exceptionally professional, visually coherent, and highly usable by concierge staff or clients."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Industry-specific best practices for concierge and luxury lifestyle management.",
+      "criteria": [
+        "Practical concierge details included where relevant: meeting location clarity, arrival recommendations, buffer times, accessibility notes, dress code/what to bring, and contingency options (weather, delays).",
+        "Guest-centric personalization consistent with prompt (ages, first-time visitors, time limits, interests, luxury expectations).",
+        "Safety and compliance awareness: clearly states restrictions (e.g., security, permitted containers), difficulty level, age limits, and what is/not included; avoids unsafe suggestions.",
+        "Appropriate luxury positioning: VIP framing without making unverifiable promises; clear articulation of premium elements (licensed guide, small group, early access) only if supported by prompt/source.",
+        "Actionability for staff use: information is operational (addresses, directions, contact/links when required, clear next steps)."
+      ],
+      "scoring_guidance": "0-2 if ignores concierge context and omits basic operational needs; 3-4 if limited practicality and weak alignment to client profile; 5-6 if some concierge best practices present but uneven; 7-8 if strong, guest-ready and operational; 9-10 if exemplary luxury concierge standard with thoughtful, practical refinements and high trustworthiness."
+    }
+  },
+  "file_inspection_checklist": [
+    "Confirm each required output file exists (by name if specified) and is accessible/openable (no corruption, no permission errors).",
+    "Verify file type matches prompt (PDF vs DOCX); if the prompt requires PDF styling/icons/images, ensure it is an actual PDF with embedded visuals, not plain text.",
+    "Check length constraints: page count (e.g., two pages), trip duration (e.g., seven days), activity duration (e.g., 4 hours).",
+    "Scan for required title/headline and introduction/overview sections; confirm required section headers are present and correctly labeled when explicitly required.",
+    "If tables are required: confirm table titles/subtitles; confirm column headers exactly match required names; confirm rows are populated (no empty required fields).",
+    "If links are required: click/validate that hyperlinks exist, are correctly titled (e.g., restaurant name), and point to the correct target (official site when required).",
+    "If directions are required: verify origin matches prompt; directions are plausible and include clear steps/mode; ensure no contradictory addresses.",
+    "If sourcing is required (specific website lists, Google Maps details, operator descriptions): confirm references/URLs are present and content aligns with those sources; flag uncited or dubious claims.",
+    "If exclusions are required (e.g., permanently closed): check the output does not include excluded entities; look for evidence of status checking.",
+    "If inclusions/requirements are required: ensure both lists exist and include all specified items (languages, not-included items, restrictions, difficulty, age requirements) plus customary items when asked.",
+    "If images are required: confirm images are embedded and relevant; verify attribution/royalty-free source URL is provided and credible.",
+    "Check for professionalism: consistent formatting, spelling/grammar, readability, and whether the artifact is ready for client/staff use without additional editing."
+  ],
+  "common_failure_modes": [
+    "Missing required output file(s) (e.g., no PDF/DOCX delivered) or wrong format delivered.",
+    "Document exists but is severely incomplete (missing tables, missing itinerary steps, missing required sections/headers, or largely placeholder content).",
+    "Ignores explicit constraints (wrong duration, wrong page count, wrong start location, missing meeting/end point).",
+    "Tables present but missing required columns or many blank cells; restaurant list not sourced from required page.",
+    "Includes permanently closed venues or fails to demonstrate exclusion logic.",
+    "Hyperlinks missing, not titled correctly, or point to wrong/irrelevant pages (e.g., Google search results instead of official sites).",
+    "Business hours, addresses, or operator/site details appear fabricated or inconsistent; internal contradictions in itinerary timing.",
+    "No image included when required, or image included without royalty-free sourcing/attribution.",
+    "Poorly formatted PDF (no icons when required, cluttered layout, broken images, unreadable text).",
+    "Overpromising VIP access or special privileges without support from prompt/source; lacks standard concierge disclaimers/notes."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Compute weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required output file is missing/inaccessible/wrong required type OR deliverable is severely incomplete (missing major required sections/tables/itinerary/pages), set overall score to 0\u20132 regardless of weighted result.",
+    "score_scale": "0-10 where 0-2=Unacceptable (missing files/severely incomplete), 3-4=Poor, 5-6=Acceptable, 7-8=Good, 9-10=Excellent",
+    "automatic_low_score_triggers": [
+      "Any required output file is missing, inaccessible, or not the specified file type (e.g., DOCX required but only text provided; PDF required but not delivered).",
+      "Work is severely incomplete: missing major required sections (e.g., no itinerary steps, no inclusions/requirements, no tables) or fails page/day/duration constraints in a way that indicates incomplete fulfillment.",
+      "Large portions of required fields are blank/placeholder (e.g., 'TBD', missing hours/directions/links across many entries).",
+      "Output cannot be used operationally (e.g., corrupted file, unreadable formatting, broken/absent key information like meeting location)."
+    ],
+    "excellent_output_characteristics": [
+      "All required artifacts present, correctly named (if required), correct format, and open cleanly.",
+      "All specified sections, tables, headers, and constraints satisfied; no missing required fields.",
+      "Accurate, internally consistent facts and timing; directions and logistics are clear and plausible.",
+      "Professional, client-ready design with clean layout; icons/images included when required with proper royalty-free attribution.",
+      "Concierge best practices included: practical tips, restrictions, contingency notes, and guest-centric tailoring without unverifiable claims."
+    ],
+    "poor_output_characteristics": [
+      "Missing or wrong-format deliverables; incomplete documents lacking major components.",
+      "Multiple unmet requirements (missing headers, missing columns, missing inclusions/requirements).",
+      "Noticeable factual inaccuracies, contradictions, or likely fabricated details presented as facts.",
+      "Unprofessional formatting and unclear organization; broken links/images; no sourcing where required.",
+      "Not actionable for concierge operations (unclear meeting point, no directions, no constraints addressed)."
+    ]
+  },
+  "example_evaluation_questions": [
+    "Are all required output files present, openable, and in the correct format (PDF/DOCX) as specified in the prompt?",
+    "Does the document meet explicit structure requirements (title/headline, intro, required section headers, table titles/subtitles, required columns)?",
+    "Are all required fields populated (e.g., every restaurant row has hours, description, directions from the specified origin, category, and a correctly titled hyperlink)?",
+    "Where a duration is specified (e.g., 4 hours), does the step-by-step itinerary realistically fit within it including transitions/buffer time?",
+    "Are logistics correct and operationally useful (meeting location, end point, addresses, navigation steps, transit mode clarity)?",
+    "Are facts likely accurate and consistent with required sources (specified website lists, Google Maps details, operator/site info)? Are citations/URLs provided when required?",
+    "Were exclusions applied correctly (e.g., permanently closed venues not included; 'not included' items explicitly listed)?",
+    "If images are required, are they embedded and credited with a legitimate royalty-free source URL?",
+    "Is the output concierge- and luxury-client ready (polished tone, clear formatting, actionable recommendations, appropriate caveats/restrictions)?",
+    "What are the top 3 issues that prevent a 9\u201310 score, and what exact changes would fix them?"
+  ],
+  "metadata": {
+    "category": "Concierges",
+    "sector": "Real Estate and Rental and Leasing",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:03:53.592561",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2479,
+    "completion_tokens": 3452,
+    "total_tokens": 5931
+  }
+}

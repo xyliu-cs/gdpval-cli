@@ -1,0 +1,124 @@
+{
+  "category": "Child, Family, and School Social Workers",
+  "evaluation_prompt": "You are an evaluator LLM. You will be given: (1) the original task prompt, (2) any referenced input files/links provided with the prompt (e.g., manuals, toolkits, templates), and (3) the OUTPUT FILES/ARTIFACTS produced by an agent. Your job is to assess whether the agent\u2019s deliverables fully and correctly satisfy the prompt requirements for tasks in the occupational category \u201cChild, Family, and School Social Workers\u201d (government context common).\n\nCRITICAL RULE (NON-NEGOTIABLE):\n1) Identify every required output artifact/file explicitly demanded by the prompt (e.g., Word document, PDF(s) in multiple languages, PowerPoint decks, appendices, resource guide). \n2) Verify each required file exists and is accessible/openable. \n3) If ANY required file is missing OR any deliverable is severely incomplete (e.g., placeholder text, clearly partial draft, missing major required sections/slides/tables, wrong file type when type is mandated), you MUST assign an overall score in the 0\u20132 range regardless of quality of what is present.\n\nEVALUATION WORKFLOW (follow in order):\nA. Task Decomposition & Deliverable Inventory\n- Parse the prompt and list: required files, required sections/components, required formatting constraints (Word/PDF/PPT), required counts (e.g., \u201ctwo presentations,\u201d \u201c17 sessions,\u201d \u201cappendix with instruments,\u201d \u201cEnglish and Spanish as two separate PDFs\u201d), and any required use of references (e.g., \u201cfollow manual closely,\u201d \u201cuse validated tools PHQ-9/GAD-7\u201d).\n\nB. Artifact Presence & Basic Accessibility Gate\n- Confirm each required artifact is present.\n- Open each file: confirm it renders correctly (no corruption), and content is not empty.\n- Confirm file types match the prompt (e.g., PPTX not a PDF if PPT requested; separate PDFs if requested).\n- If fails: overall score 0\u20132 (stop deeper scoring except to note issues).\n\nC. Completeness Check (Most Important)\n- For each artifact, confirm every required component is included. Examples across this category:\n  \u2022 Plans (evaluation/safety/referral/program) include all named sections and any appendices.\n  \u2022 Presentations include required slides (title, icebreaker, key points, wrap-up) and cover all required session content.\n  \u2022 Forms include all required domains, tables/columns, bilingual versions, and follow-up tracking components.\n  \u2022 Resource guides include required categories and contact details.\n\nD. Correctness & Fidelity\n- Verify content is accurate, internally consistent, and matches the prompt and references.\n  \u2022 If prompt requires adherence to a manual: check the deck/handouts align with manual topics and sequence (no invented session objectives that conflict).\n  \u2022 If using validated measures: PHQ-9/GAD-7 items/scoring guidance must be correct or properly cited/linked rather than incorrectly rewritten.\n  \u2022 If listing community resources: check plausibility and completeness of contact info (addresses/phones/websites) and that resources match the correct geography and category.\n\nE. Quality & Usability\n- Evaluate professional standard of writing, formatting, readability, accessibility, and practicality for real social work settings.\n  \u2022 Clear headings, logical flow, client-friendly language.\n  \u2022 Trauma-informed, culturally responsive phrasing.\n  \u2022 For government settings: attention to documentation, confidentiality, mandated reporting boundaries, and referral pathways.\n\nF. Domain Standards (Child/Family/School Social Work)\nAssess whether deliverables reflect core professional expectations:\n- Client safety, confidentiality, informed consent, data minimization.\n- Cultural humility and language access.\n- Ethical documentation (no stigmatizing language; appropriate risk language).\n- Evidence-informed practice (use of validated tools where appropriate; appropriate evaluation design).\n\nOUTPUT REQUIRED FROM YOU (the evaluator):\n- Provide: (1) an overall 0\u201310 score, (2) sub-scores for completeness/correctness/quality/domain standards, (3) a brief justification referencing specific missing/incorrect elements, (4) a list of concrete fixes.\n- Apply the scoring weights specified in the rubric, BUT apply the missing-artifacts override: if triggered, final score must be 0\u20132.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed (most important).",
+      "criteria": [
+        "All required artifacts are present (correct number of files) and are openable (not corrupted).",
+        "Correct file formats are used as specified (e.g., Word vs PDF vs PowerPoint; separate files when required).",
+        "Each artifact contains every required section/component explicitly requested in the prompt (e.g., program overview + framework + data collection + appendix; required slides; required tables/columns; bilingual versions).",
+        "No major placeholders or clearly unfinished sections (e.g., 'TBD', lorem ipsum, missing half of slides, empty tables).",
+        "All required constraints are satisfied (e.g., geography-specific resources; two separate language versions; inclusion of instruments in an appendix; required categories/domains)."
+      ],
+      "scoring_guidance": "0-2 if any required files are missing, wrong file type when mandated, cannot open, or deliverables are severely incomplete. 3-4 if multiple required components/sections are missing within otherwise present files. 5-6 if all files present but notable missing elements (some sections thin, missing appendix/tools, missing multiple required domains). 7-8 if only minor omissions (small missing details, minor section underdevelopment). 9-10 if every required file/component is present and complete."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, information, calculations, and fidelity to provided references/requirements.",
+      "criteria": [
+        "Information aligns with the prompt and does not contradict itself (e.g., timelines, target population, session numbers, stated objectives).",
+        "When the prompt requires use of references/manuals, content is faithful in topics and sequence; no major invented content that conflicts with source materials.",
+        "Measures/tools are accurately represented: validated tools are cited/linked properly; if reproduced, items and scoring are correct and complete.",
+        "Resource/contact information is plausible and sufficiently specific for use (names, phone/email/address/website as appropriate) and matches required location.",
+        "Quantitative/qualitative methods (if applicable) are logically selected, measurable, and correctly described (e.g., clear indicators, baseline/follow-up, analysis approach)."
+      ],
+      "scoring_guidance": "0-2 if pervasive inaccuracies, fabricated critical facts/resources, incorrect tool content/scoring, or severe misalignment with prompt/manual. 3-4 if major factual errors or repeated misinterpretations of requirements. 5-6 if generally correct but with notable errors (some incorrect citations, questionable resource info, weak/incorrect analysis plan). 7-8 if mostly accurate with minor issues. 9-10 if fully accurate, reference-aligned, and internally consistent."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization, readability, and practical usability of the artifacts.",
+      "criteria": [
+        "Clear structure: headings, numbering, logical flow, consistent formatting across pages/slides.",
+        "Readable, audience-appropriate language (client-facing content avoids jargon; staff-facing content is actionable).",
+        "Visual design and accessibility: legible fonts, adequate contrast, slide density appropriate, alt-text or accessibility considerations when feasible.",
+        "Tables/forms are clean and usable (aligned columns, sufficient space for responses, consistent labels).",
+        "Writing mechanics: minimal grammar/spelling errors; professional tone."
+      ],
+      "scoring_guidance": "0-2 if illegible, chaotic, or unusable formatting; or content is mostly raw notes. 3-4 if poor organization and frequent readability issues. 5-6 if usable but with notable presentation problems (crowded slides, inconsistent formatting). 7-8 if professional with minor formatting issues. 9-10 if polished, clear, and ready for real-world use."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Adherence to child/family/school social work best practices and ethical, trauma-informed, culturally responsive standards.",
+      "criteria": [
+        "Trauma-informed and culturally responsive approach (non-stigmatizing language; respects immigration status, poverty, recovery contexts).",
+        "Confidentiality and privacy considerations included where relevant (e.g., data collection storage, consent, limits of confidentiality).",
+        "Appropriate boundaries and risk considerations (e.g., mandated reporting acknowledgement when applicable; safety planning language where relevant).",
+        "Accessibility and language access: bilingual needs considered when required; plain language; accommodations noted when applicable.",
+        "Evaluation/referral practices are ethical and realistic (data minimization, only necessary sensitive questions; clear referral pathways and follow-up documentation)."
+      ],
+      "scoring_guidance": "0-2 if includes harmful/stigmatizing guidance, violates confidentiality norms, or ignores major safety/ethics considerations. 3-4 if weak or inconsistent professional practice signals. 5-6 if adequate but missing some ethics/accessibility elements. 7-8 if strong alignment with minor gaps. 9-10 if exemplary professional/ethical alignment throughout."
+    }
+  },
+  "file_inspection_checklist": [
+    "Inventory required deliverables: count the required files and list their required formats (DOCX/PDF/PPTX) and language versions; verify each is present.",
+    "Open each file to confirm it is readable and not corrupted; ensure it is not a placeholder draft.",
+    "For Word/PDF plans (evaluation/program/referral/safety): check presence of every required named section; check appendices for required tools/instruments; verify tables/figures requested exist.",
+    "For PowerPoint decks: confirm one deck per required session/topic; verify required slide types (title, icebreaker, key points, wrap-up); check slide order and coverage of all required content areas.",
+    "For assessment forms: verify all required domains are included (e.g., housing, food, income, transportation, legal, healthcare, etc.); check required table columns (questions + yes/no); confirm follow-up tracking table with required column labels.",
+    "For bilingual deliverables: confirm separate files per language if requested; spot-check translation completeness (not partial English left in Spanish version) and formatting parity.",
+    "For resource guides: verify categories are present; each listing includes actionable contact info; resources match required geography; note any obviously fabricated/implausible entries.",
+    "Check for confidentiality/consent language when collecting sensitive data (mental health, substance use, immigration status, child welfare).",
+    "Check alignment with provided references/manuals where required: key topics included, no major deviations; citations/links included as requested.",
+    "Confirm the final artifacts are practical for use by social work staff/clients (space to write, clear instructions, client-friendly wording)."
+  ],
+  "common_failure_modes": [
+    "Missing required files (e.g., only one of two PPTs; only English form with no Spanish; no appendix/instruments; no resource guide).",
+    "Wrong file type or combined files when prompt requires separate deliverables (e.g., one PDF instead of two separate PDFs by language).",
+    "Severely incomplete content: placeholder text, missing required sections/slides, empty tables, or a plan that only includes an outline.",
+    "Not following required reference materials/manual content (invented session content, wrong session topics, missing key mandated points).",
+    "Incorrect or misleading use of validated tools (PHQ-9/GAD-7 items altered, incomplete, incorrect scoring, no citation/link).",
+    "Resource guides with vague, non-actionable entries (no phone/address/website), wrong geography, or clearly fabricated agencies.",
+    "Overly clinical, stigmatizing, or non-trauma-informed language; failure to consider language access/cultural responsiveness.",
+    "No mention of confidentiality/consent or unsafe guidance around sensitive disclosures (substance use, child abuse, immigration status).",
+    "Poor usability: illegible fonts, overcrowded slides, inconsistent formatting, forms that are hard to print/use.",
+    "Internal inconsistencies (timeline says 6 months but measures at 12 months; target population changes; metrics not tied to goals)."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Calculate weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required files are missing, inaccessible, wrong-type when mandated, or deliverables are severely incomplete, override final score to 0-2 regardless of other dimension scores. Document exactly which artifact(s) are missing/incomplete.",
+    "score_scale": "0-10 where 0-2=Unacceptable (missing files/incomplete), 3-4=Poor (major issues), 5-6=Acceptable (notable gaps/errors), 7-8=Good (minor issues), 9-10=Excellent (complete, accurate, professional).",
+    "automatic_low_score_triggers": [
+      "Any required output file is missing (including missing language versions or missing one of multiple required decks/documents).",
+      "Any required file cannot be opened/is corrupted, or is the wrong file type when a specific type is mandated (e.g., PPTX required but only PDF provided).",
+      "Deliverables are severely incomplete: missing major required sections/slides/tables, heavy placeholder text, or content clearly not usable.",
+      "Critical misalignment with prompt: e.g., wrong population/geography, omission of entire required instrument appendix, or failure to produce a required resource guide."
+    ],
+    "excellent_output_characteristics": [
+      "All required artifacts present in correct formats, correct counts, and correct language versions.",
+      "Every required section/component included and clearly labeled; appendices/tools included when requested.",
+      "Accurate, reference-aligned content (manual fidelity; correct use/citation of validated measures).",
+      "Professional, accessible formatting; client-appropriate language; practical for field use.",
+      "Ethically grounded: confidentiality/consent, trauma-informed approach, culturally responsive and non-stigmatizing language."
+    ],
+    "poor_output_characteristics": [
+      "Missing one or more required files or required versions (e.g., missing Spanish PDF).",
+      "Incomplete artifacts (missing required components, draft-only, or placeholder content).",
+      "Major factual inaccuracies or fabricated information presented as fact (especially resources or validated tools).",
+      "Unprofessional or hard-to-use formatting; unclear instructions; not actionable for staff/clients.",
+      "Ethical red flags: stigmatizing language, unsafe advice, or ignoring confidentiality/mandated reporting considerations where relevant."
+    ]
+  },
+  "example_evaluation_questions": [
+    "What are all required output files in the prompt, and are they all present, openable, and in the correct formats?",
+    "Does each file contain every explicitly required component (sections, tables, columns, slide types, appendices, instruments)?",
+    "If the prompt requires fidelity to a manual/reference, does the output track the manual\u2019s key topics and sequencing without major omissions or contradictions?",
+    "Are any validated tools (e.g., PHQ-9/GAD-7) included correctly (or correctly cited/linked) with appropriate administration/scoring guidance?",
+    "Are resource listings (if required) specific and actionable (correct geography, phone/address/website) rather than generic or implausible?",
+    "Is the language trauma-informed, culturally responsive, and non-stigmatizing (especially for immigration, substance use recovery, poverty, and child welfare contexts)?",
+    "Does the work address confidentiality, informed consent, and limits of confidentiality/mandated reporting where data collection or risk is involved?",
+    "Are forms and slides practically usable in the field (readable, printable, sufficient space to fill in, clear instructions)?",
+    "Are measures/indicators logically tied to program goals with a coherent plan for analysis and reporting (if an evaluation plan is required)?",
+    "What are the top 3 fixes needed to make the deliverables fully compliant with the prompt?"
+  ],
+  "metadata": {
+    "category": "Child, Family, and School Social Workers",
+    "sector": "Government",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:00:27.016678",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2932,
+    "completion_tokens": 3484,
+    "total_tokens": 6416
+  }
+}

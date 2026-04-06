@@ -1,0 +1,125 @@
+{
+  "category": "Recreation Workers",
+  "evaluation_prompt": "You are an expert evaluator assessing an AI agent\u2019s work product for a task in the occupation category \u201cRecreation Workers\u201d (Government sector). You will be given: (1) the original task prompt, (2) any reference/input files or links explicitly mentioned in the prompt, and (3) the agent\u2019s OUTPUT FILES/ARTIFACTS.\n\nYour job:\n1) Identify the REQUIRED DELIVERABLES from the prompt (file types, counts, naming constraints if stated, and any embedded requirements such as slide count, tabs, color coding, links, citations, etc.).\n2) Verify deliverable existence first. CRITICAL RULE: If any required output file/artifact is missing, corrupt/unopenable, wrong format when a specific format is required (e.g., asked for PPTX but only text provided), or the work is severely incomplete (e.g., only a partial draft, missing most sections, blank template), you MUST assign an overall score in the 0\u20132 range regardless of quality of any partial content.\n3) If all required deliverables exist and are substantially complete, evaluate the artifacts by: completeness (most important), correctness, quality, and domain-specific standards. Use the rubric weights provided.\n4) Perform file-based inspection:\n   - Open each file (or parse where feasible), confirm it is readable and contains the required structure (e.g., 8\u201310 slides for a presentation; multiple tabs for a schedule workbook; PDF that contains the set list and required links).\n   - Cross-check internal consistency: dates, counts, constraints, policy rules, and any required keys/legends.\n   - Validate that all constraints in the prompt are followed (e.g., \u201cno heavy curse words,\u201d \u201creasonably accessible,\u201d \u201ctwo interns in office every day,\u201d \u201cinclude a key on the first page,\u201d \u201cinclude YouTube link to every song,\u201d etc.).\n5) Provide: (a) a 0\u201310 overall score, (b) sub-scores for each rubric dimension, and (c) a concise justification referencing concrete evidence from the output files (e.g., slide numbers, worksheet names, missing links, broken formatting).\n\nBe strict about deliverables and constraints. Recreation-work products are operational documents used by boards, event staff, interns, and the public; omissions can cause real-world disruption. Penalize missing artifacts heavily as required.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed",
+      "criteria": [
+        "All required output files are present in the correct required formats (e.g., PPTX, XLSX, PDF) and are openable",
+        "All explicitly requested sections/components are included (e.g., specified slide topics, required workbook tabs, required legends/keys, required lists/links)",
+        "All constraints are addressed (counts, page/slide limits, date ranges, inclusion/exclusion rules, stakeholder needs)",
+        "No placeholder text or \u201cto be completed\u201d sections remain; the deliverable is ready for its stated use (board presentation, event organizer packet, internal schedule)",
+        "Any required supporting elements are present (e.g., citations/links, notes, color key, summary of uncovered dates, discussion prompts)"
+      ],
+      "scoring_guidance": "0-2 if ANY required file is missing/unopenable/wrong required format OR output is severely incomplete. 3-4 if multiple required components are missing or many constraints ignored. 5-6 if deliverables exist but notable omissions remain (e.g., missing key, missing several links, missing months/tabs). 7-8 if all major requirements met with only minor omissions. 9-10 if fully complete with all requirements satisfied and clearly evidenced in the files."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, information, and logic",
+      "criteria": [
+        "Factual accuracy and plausibility of content (e.g., correct descriptions of organizations/programs; historically correct context; accurate dates and ranges)",
+        "Constraint correctness (e.g., slide count exactly within bounds; date range exactly as required; interns\u2019 requested days off correctly placed; two-staffing coverage logic correctly checked)",
+        "Internal consistency (no contradictions between summary and detailed tables; no mismatched names/dates; consistent labeling across tabs/slides)",
+        "Link correctness where required (e.g., working YouTube URLs; referenced collections/search results align with claims when applicable)",
+        "Calculations/logic correctness where applicable (e.g., work/off rotations, consecutive days, coverage gaps correctly identified and listed)"
+      ],
+      "scoring_guidance": "0-2 if content is largely incorrect, fabricated without support where support is required, or constraints are systematically violated. 3-4 if frequent errors materially affect usability. 5-6 if some important errors exist but core is usable with corrections. 7-8 if mostly correct with minor errors. 9-10 if highly accurate, consistent, and constraint-compliant."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization",
+      "criteria": [
+        "Professional, audience-appropriate formatting (board-ready slides; staff-usable schedules; public-facing program documents)",
+        "Clear structure and navigation (titles, headings, consistent layout, logical ordering, table readability)",
+        "Visual/accessibility considerations (legible fonts, adequate contrast, meaningful color usage; avoids clutter; printable/readable PDFs)",
+        "Concise but sufficient detail; avoids rambling; uses plain language when appropriate",
+        "Polish: no obvious typos, broken layouts, misaligned tables, inconsistent capitalization, or unreadable color coding"
+      ],
+      "scoring_guidance": "0-2 if messy/unusable presentation or unreadable formatting. 3-4 if poor organization or hard to use. 5-6 if adequate but noticeably rough. 7-8 if professional with minor formatting issues. 9-10 if publication-ready, clear, and well designed for the stated stakeholders."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Industry-specific best practices for this occupation",
+      "criteria": [
+        "Public-sector/community context: considers stakeholder concerns, transparency, and operational feasibility (e.g., partnership risk mitigation, benefits to residents)",
+        "Program/schedule safety and practicality: avoids unrealistic assumptions; considers staffing coverage and operational continuity",
+        "Ethical and inclusive programming: respectful language, appropriate content warnings if needed, avoids inappropriate material for general audiences (e.g., profanity constraint compliance)",
+        "Documentation best practices: includes a legend/key where color coding is used; includes contact/next steps if appropriate; supports discussion and decision-making",
+        "Rights/attribution awareness where relevant: identifies songs/works clearly; uses links rather than reproducing copyrighted content; avoids misrepresenting ownership"
+      ],
+      "scoring_guidance": "0-2 if violates basic professional norms (e.g., inappropriate content for audience, unsafe/operationally impossible schedule). 3-4 if weak alignment with real-world practice. 5-6 if mixed adherence. 7-8 if solid professional practice. 9-10 if exemplary recreation-program professionalism and stakeholder alignment."
+    }
+  },
+  "file_inspection_checklist": [
+    "Inventory required deliverables from the prompt: required file types (PPTX/PDF/XLSX), required counts (slides/tabs/pages), and required embedded elements (keys, links, summaries).",
+    "Open each output file to confirm it is accessible, not corrupted, and in the required format (e.g., PPTX not PDF if PPTX requested).",
+    "For presentations: confirm slide count within requested bounds; verify each required topic has its own slide/coverage; check slide titles, readability, and that content supports discussion (not overly dense).",
+    "For PDFs: confirm it is a true PDF (not missing); verify required sections exist; check that every required item includes required links (e.g., a YouTube link per song); ensure links are not truncated and appear valid.",
+    "For spreadsheets: confirm workbook tabs match required months/ranges and include any additional tab (e.g., time-off requests). Confirm date range coverage is complete with no missing days.",
+    "For spreadsheets with color coding: verify presence of a key/legend (often on first tab/sheet as required); verify color usage matches specified codes and the cell text markers match (e.g., X, off, Requested Day Off).",
+    "Validate operational constraints: staffing coverage rules, consecutive days on/off preferences, requested days off placed correctly, and any required list of exception dates (e.g., days with fewer than required staff) is included and accurate.",
+    "Cross-check names, dates, and stakeholder references for consistency with prompt details (no invented intern names, wrong year, wrong holiday dates, etc.).",
+    "Check for prohibited content constraints (e.g., profanity restrictions, audience appropriateness) when applicable; flag any violations.",
+    "Assess whether the artifact is ready-to-use by the stated stakeholders (board/advisory body, event organizers, internal staff) without requiring major rework."
+  ],
+  "common_failure_modes": [
+    "Missing required output file(s) (e.g., no PPTX/XLSX/PDF delivered) or wrong format delivered",
+    "File is corrupted/unopenable or contains only a placeholder outline rather than the requested artifact",
+    "Violating explicit numeric constraints (e.g., 8\u201310 slides required but output has 5 or 15; missing required monthly tabs)",
+    "Omitting required components (e.g., no key/legend for color coding; missing time-off tab; missing benefits/rationale sections; missing YouTube link for some songs)",
+    "Not following operational rules (e.g., schedule doesn\u2019t maintain minimum daily coverage; requested days off not honored or misapplied; no identification of understaffed days despite requirement)",
+    "Internal inconsistencies (e.g., summary says 2 interns working but sheet shows 1; mismatched dates; inconsistent labels for off/requested)",
+    "Low usability: illegible fonts, confusing layout, overly dense slides, unclear tables, no navigation structure",
+    "Factual inaccuracies or unsupported claims presented as facts (e.g., incorrect description of what a Chamber of Commerce does; incorrect historical attributions)",
+    "Broken or missing links where links are required; links not clearly associated with items",
+    "Audience-inappropriate content (e.g., profanity constraint violated; tone unsuitable for public/government communications)"
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Calculate weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required output files are missing/unopenable/wrong required format OR the deliverable is severely incomplete, assign an overall score of 0\u20132 regardless of other dimension scores. Otherwise, score each dimension 0\u201310 using the rubric and compute the weighted total, then round to the nearest whole number (or keep one decimal if your system allows).",
+    "score_scale": "0-10 where 0-2=Unacceptable (missing files/incomplete), 3-4=Poor, 5-6=Acceptable, 7-8=Good, 9-10=Excellent",
+    "automatic_low_score_triggers": [
+      "Any required output file is missing",
+      "Any required output file is unopenable/corrupted",
+      "A specific required format is not provided (e.g., asked for XLSX but provided only text or CSV; asked for PPTX but provided PDF)",
+      "Work is severely incomplete (e.g., only headings, template, or partial months/slides; large sections marked TODO; missing most required items)",
+      "Major prompt constraints are ignored such that the deliverable cannot be used operationally (e.g., schedule does not cover the requested date range; presentation far outside slide limit)"
+    ],
+    "excellent_output_characteristics": [
+      "All required artifacts are present, openable, and in the correct formats",
+      "All prompt requirements are explicitly satisfied and easy to verify in-file (e.g., legend present, all links present, all tabs present)",
+      "Accurate, consistent, and constraint-compliant content (dates, counts, staffing coverage, factual context)",
+      "Professional polish: clear structure, readable formatting, audience-appropriate tone, and ready for real-world use",
+      "Proactively helpful additions that do not violate constraints (e.g., brief risk mitigation slide for partnerships; a short coverage-gap summary table), while still staying within required length/limits"
+    ],
+    "poor_output_characteristics": [
+      "Missing/incorrect file deliverables or inaccessible files",
+      "Meets only a small subset of requirements; large omissions (missing months, missing slide topics, missing links, missing key)",
+      "Frequent factual/date errors; broken constraints; inconsistent markings/color coding",
+      "Hard to read or confusing organization; not usable by intended stakeholders without major rework",
+      "Inappropriate content for a government/community recreation context"
+    ]
+  },
+  "example_evaluation_questions": [
+    "What exact files did the prompt require (type and count), and are all of them present and openable?",
+    "Does the main artifact adhere to all explicit structural constraints (e.g., slide count, monthly tabs, date range coverage, required sections)?",
+    "Are all required embedded elements included (e.g., key/legend, time-off tab, list of understaffed dates, YouTube link per song)?",
+    "Are dates, names, and policy rules applied correctly and consistently across the artifact?",
+    "Does the output contain any prohibited or audience-inappropriate material given a general public/government setting?",
+    "Is the document immediately usable by the stated stakeholders without manual reconstruction (e.g., staff can use the schedule; board can use slides to discuss; event organizers can use the set list)?",
+    "If the task requires persuasion or stakeholder buy-in, does the content present a balanced, credible case and anticipate concerns (risks, mitigations, benefits)?",
+    "Are formatting and accessibility adequate (readable fonts, consistent layout, non-confusing color coding with a clear key)?",
+    "Are external links (when required) present for every relevant item and appear valid and non-truncated?",
+    "What are the top 3 deficiencies that most reduce operational usability, and do they warrant a low (0\u20132) override due to incompleteness/missing artifacts?"
+  ],
+  "metadata": {
+    "category": "Recreation Workers",
+    "sector": "Government",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:38:05.216855",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2727,
+    "completion_tokens": 3084,
+    "total_tokens": 5811
+  }
+}

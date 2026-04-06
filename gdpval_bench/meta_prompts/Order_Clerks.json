@@ -1,0 +1,144 @@
+{
+  "category": "Order Clerks",
+  "evaluation_prompt": "You are an expert evaluator assessing an agent\u2019s deliverables for an Order Clerks task in Wholesale Trade. You will be given: (1) the original task prompt, (2) the provided reference/input files, and (3) the agent\u2019s output files/artifacts.\n\nYour job is to determine whether the agent produced ALL required deliverables and whether those deliverables correctly and professionally satisfy the prompt.\n\nCRITICAL RULE (NON-NEGOTIABLE): If ANY required output file is missing, cannot be opened, is the wrong type, or the work is severely incomplete (e.g., only partial tables created, missing required tabs/fields, no required summary/recap, no required calculations), you MUST assign an overall score in the 0\u20132 range, regardless of how good the rest looks.\n\nFollow this evaluation procedure:\n1) Parse the prompt and list all explicit deliverables and constraints. Examples in this category often include: updated Excel workbooks, specific sheets/tabs, pivot tables, summary tables, filterable views, required columns/headers, required calculations (e.g., sell-through %, percent shipped, short-ship $), date-window filtering (e.g., fiscal month), charts/graphs, and written recap sentences inside the file.\n2) Inventory outputs: enumerate every agent output artifact (files). Verify: correct filenames (if specified), file formats (e.g., .xlsx), and that each file opens without errors.\n3) Completeness check (highest priority): confirm every required artifact exists AND within each artifact, every required component exists (tabs/sheets, tables, pivots, charts, narratives, totals). If anything required is missing, stop and score 0\u20132.\n4) Correctness check: recompute/spot-check key calculations against the reference data. Validate that filters/date logic match the prompt, totals match pivot/source data, formulas are correct (including handling divide-by-zero), and aggregation levels are correct (e.g., by brand, by store+brand, by account).\n5) Quality check: assess readability and professionalism: clear naming, consistent formatting, correct headers, appropriate number formats (currency, percent), frozen header rows, filters enabled where requested, chart labeling, and absence of broken links or #REF errors.\n6) Domain standards: check for common wholesale order-management expectations: traceability to source data, clear assumptions (e.g., fiscal month definition), reconciliation totals, and auditability (e.g., pivots linked to Data tab, no manual hardcoding that breaks refresh).\n\nReport:\n- Provide dimension scores (0\u201310) for completeness, correctness, quality, domain standards.\n- Compute weighted score (40/30/20/10) BUT apply the critical override: if missing/incomplete deliverables, force overall 0\u20132.\n- Cite concrete evidence: sheet names, cell references/ranges where issues occur, and at least 2\u20135 spot-checks of computed numbers when possible.\n- If you suspect ambiguity, judge based on prompt text; do not invent requirements. If something is unspecified (e.g., exact styling), evaluate reasonableness and consistency.\n\nTypical artifacts in this job family to expect and validate:\n- Excel workbook(s) with renamed/added tabs (e.g., \u201cData\u201d, \u201cSales by Brand\u201d, \u201cSales by Store\u201d).\n- Pivot tables from source data, with grand totals, and calculated fields (e.g., ST% = Sales/Stock on Hand).\n- Summary tables filterable by a dimension (account/store/brand).\n- Month/ship-window filtering with correct inclusions/exclusions.\n- Brief written recap embedded in workbook (often a note cell or text box) if requested.\n- Charts showing requested metric emphasis (e.g., out-of-stock rates by product).\n\nScoring enforcement reminder: Missing file(s) or missing major required sections/tabs/tables/graph/recap => overall 0\u20132.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed",
+      "criteria": [
+        "All required output artifact files are present in the outputs (correct format, e.g., .xlsx when Excel is required)",
+        "Every file opens successfully (no corruption/password prompts) and contains the required content",
+        "All required sheets/tabs are present and correctly named (e.g., prompt-specified names like \u201cData\u201d, \u201cSales by Brand\u201d, \u201cSales by Store\u201d when applicable)",
+        "All required tables/pivots/summary sections exist and include ALL required columns/headers exactly as requested (or clearly equivalent wording if not strict)",
+        "All required calculations/metrics requested by the prompt are present (e.g., ST%, WOS, percent shipped, short-shipped $, out-of-stock %)",
+        "All required filters/slicers/filterable tables are provided when requested (e.g., filterable by account)",
+        "All required charts/graphs are present when requested and use the specified primary metric",
+        "All required narrative/recap text is included inside the deliverable when requested (e.g., a few sentences summarizing totals/impact)",
+        "Grand totals/subtotals included if requested",
+        "No obvious placeholder content (e.g., empty pivots, \u2018TBD\u2019, missing data refresh) where final results are required"
+      ],
+      "scoring_guidance": "0-2 if any required files are missing/can\u2019t open, or deliverables are severely incomplete (missing required tabs/tables/charts/recap/major required columns). 3-4 if multiple requirements are unmet or several required sections are incomplete. 5-6 if core deliverable exists but has notable omissions (e.g., missing a few required columns, missing grand totals, missing filterability). 7-8 if all major components are present with only minor omissions or small naming/header deviations. 9-10 if everything requested is present, properly named, complete, and ready to use without further work."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, information, and logic",
+      "criteria": [
+        "Aggregations match the prompt\u2019s grouping level (e.g., totals by brand; totals by store and brand; totals by account)",
+        "Time-window/date filtering is correct per prompt (e.g., fiscal month boundaries, ship/cancel windows, actual ship dates inclusion rules)",
+        "Formulas are correct and consistently applied (e.g., ST% = Sales/Stock on Hand; percent shipped = actual shipped value / PO value; WOS computed from rate of sale and inventory)",
+        "Units and dollars are not mixed; currency fields are summed as currency; quantities as integers/decimals as appropriate",
+        "Percent calculations are correctly formatted and mathematically correct; divide-by-zero handled (e.g., blank/0/NA with rationale rather than error)",
+        "Pivot table source ranges include all rows/columns and do not omit new data; Data tab is the single source of truth where requested",
+        "Grand totals reconcile to underlying data (spot-check at least 2\u20135 lines and at least one overall total)",
+        "No double-counting due to duplicated rows, incorrect joins, or failure to deduplicate when needed",
+        "Charts reflect the same numbers as the summary tables (no mismatch between chart series and table values)"
+      ],
+      "scoring_guidance": "0-2 if outputs are largely incorrect, non-reconciling, or based on wrong data/time window, or contain pervasive formula errors. 3-4 if major logical errors exist (wrong grouping, wrong month selection, incorrect key metrics) even if some parts are right. 5-6 if generally correct but with notable calculation mistakes or inconsistent filtering. 7-8 if mostly correct with only minor inaccuracies/rounding issues and spot-checks largely pass. 9-10 if calculations, filters, and totals are correct; spot-checks consistently match; logic is clearly auditable."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization",
+      "criteria": [
+        "Clear workbook organization: logical tab order, descriptive tab names, and separation of raw data vs. reporting outputs",
+        "Tables are readable: bold headers, consistent column order, no merged-cell chaos that breaks filtering",
+        "Number formatting is appropriate: currency with symbols/decimals, quantities as whole numbers where appropriate, percentages with % and reasonable precision",
+        "Filterability is implemented cleanly (Excel Table format or pivot filters/slicers) when requested",
+        "Key outputs are easy to find (titles, top-of-sheet placement, minimal scrolling)",
+        "Charts are labeled (title, axis labels/legend as needed) and readable (no clutter, correct sorting where helpful)",
+        "No broken formulas (#REF!, #VALUE!), external link errors, or hidden critical content",
+        "Documentation is concise and placed appropriately (notes section), without overwhelming the report"
+      ],
+      "scoring_guidance": "0-2 if artifact is unusable/unreadable (broken sheets, chaotic layout, errors everywhere). 3-4 if poor presentation significantly impedes use (missing headers, inconsistent formats, hard to locate results). 5-6 if usable but messy or inconsistent (some formatting issues, weak labeling). 7-8 if professional and clear with minor presentation issues. 9-10 if polished, executive-ready, easy to audit and use."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Industry-specific best practices for this occupation",
+      "criteria": [
+        "Traceability/auditability: outputs clearly tie back to source data (e.g., pivots referencing Data tab; no unexplained hardcoded totals)",
+        "Reconciliation mindset: includes totals and enables quick validation (grand totals, clear time windows, consistent definitions)",
+        "Operational relevance: metrics align with wholesale order/inventory workflows (ship vs. cancel vs. actual ship; short-ship impact; inventory health indicators)",
+        "Assumptions are stated when needed (e.g., how \u2018active store\u2019 is defined; handling of missing OOS%, handling partial shipments)",
+        "Refreshability: solutions are robust to updates (tables/pivots set to dynamic ranges; minimal manual steps)",
+        "Data hygiene: avoids mixing text and numbers in numeric fields; uses clean date types; consistent identifiers (PO, SKU/UPC, store/account)"
+      ],
+      "scoring_guidance": "0-2 if work is not auditable, relies on opaque manual edits, or ignores essential wholesale conventions. 3-4 if weak traceability and limited operational usefulness. 5-6 if adequate but missing some best practices (limited reconciliation, unclear assumptions). 7-8 if strong adherence with small gaps. 9-10 if fully aligned with professional wholesale reporting/order clerk standards, highly auditable and refreshable."
+    }
+  },
+  "file_inspection_checklist": [
+    "Confirm all required output files are present (especially Excel workbooks) and open without errors",
+    "Check the prompt for required sheet/tab names and verify they exist exactly (or clearly equivalent) in the workbook",
+    "Verify a dedicated raw/data tab exists when requested (often renamed to \u201cData\u201d) and that pivots/summaries reference it",
+    "Locate each required summary output (e.g., by brand/store/account/product) and confirm all required columns/headers appear and are in a sensible order",
+    "Confirm that any requested pivot tables exist, are populated (not blank), and show correct row/column fields and values",
+    "Check for requested grand totals/subtotals and ensure they are enabled and correct",
+    "Confirm requested filterability: pivot filters/slicers, or Excel Tables with filters turned on; test that filtering changes results appropriately",
+    "Spot-check key calculations against source data: pick several records and recompute metrics (ST%, % shipped, short-ship $, WOS, OOS%)",
+    "Validate date logic: confirm inclusions/exclusions match definitions (e.g., shipped within a month uses actual ship date; \u2018expected in June but shipped in July\u2019 uses ship/cancel windows vs actual ship date as specified)",
+    "Check number formats: currency, percent, units; verify no numbers stored as text",
+    "Inspect for Excel errors (#REF!, #DIV/0!, #N/A) and confirm intentional handling where denominators can be zero",
+    "If a chart is required: verify it exists, uses the correct metric (primary emphasis), and matches the underlying table values",
+    "If narrative recap is required: verify a written summary exists inside the workbook and references correct totals/impacts"
+  ],
+  "common_failure_modes": [
+    "Missing the required output file entirely, or providing a non-Excel format when Excel is required",
+    "Workbook provided but missing required tabs/sheets, or tabs not renamed as requested (e.g., no \u201cData\u201d tab)",
+    "Summary tables created but missing required columns/headers (e.g., missing ST%, missing short-ship $)",
+    "Pivot tables not created, left blank, or not connected to the correct source range",
+    "Incorrect grouping level (e.g., totals by store only, not store+brand; or by SKU instead of brand)",
+    "Incorrect time window logic (e.g., using order ship window instead of actual ship date, or wrong fiscal month boundaries)",
+    "Sell-through or percent-shipped formulas wrong (e.g., Stock/Sales instead of Sales/Stock; shipped% using units vs dollars when dollars requested)",
+    "Divide-by-zero errors left unhandled, causing #DIV/0! throughout",
+    "Grand totals omitted when requested or totals do not reconcile to source",
+    "Charts included but based on the wrong metric or not aligned with the summary table",
+    "Hardcoded numbers instead of formulas/pivots, making the workbook non-refreshable and non-auditable",
+    "Filterability not implemented (no filters, not an Excel Table, pivot not interactive)"
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Score each dimension 0\u201310, then compute weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required output files are missing, cannot be opened, are wrong type, or deliverables are severely incomplete (missing major required components), override the final overall score to the 0\u20132 range regardless of weighted average.",
+    "score_scale": "0-10 where 0-2=Unacceptable (missing files/incomplete), 3-4=Poor, 5-6=Acceptable, 7-8=Good, 9-10=Excellent",
+    "automatic_low_score_triggers": [
+      "One or more required output files/artifacts are missing",
+      "Output file exists but cannot be opened or is corrupted/password-protected without access",
+      "Wrong deliverable type (e.g., screenshots or text summary only when an Excel workbook is required)",
+      "Severely incomplete work: missing required tabs/tables/pivots/charts/recap, or large portions left blank/placeholder",
+      "Major prompt requirements ignored (e.g., not filterable by the required dimension; missing required time-window analysis; missing required totals)"
+    ],
+    "excellent_output_characteristics": [
+      "All required files present, correct format, open cleanly",
+      "All requested sheets/tables/pivots/charts/narratives included and clearly labeled",
+      "Metrics and calculations are correct and consistent; spot-checks reconcile to source data",
+      "Time-window logic precisely matches the prompt; clear handling of edge cases",
+      "Professional formatting: readable tables, correct number formats, filterability enabled, charts properly labeled",
+      "Auditability: clear linkage to source data; minimal hardcoding; refreshable pivots/tables"
+    ],
+    "poor_output_characteristics": [
+      "Missing required files or providing partial/incomplete artifacts",
+      "Incorrect or missing key calculations and/or wrong date filtering",
+      "Tables missing required columns/headers; not filterable when requested",
+      "Non-reconciling totals; signs of double-counting or omitted data ranges",
+      "Unprofessional layout: unclear labels, inconsistent formats, Excel errors visible"
+    ]
+  },
+  "example_evaluation_questions": [
+    "Are all required deliverable files present in the outputs, in the required format (e.g., .xlsx), and do they open successfully?",
+    "Does the workbook contain every prompt-required tab/sheet (including any required renames like \u201cData\u201d) and are the reporting tabs present and complete?",
+    "Do the summary tables include every required column header and required metric (e.g., ST%, percent shipped, short-ship $, WOS, OOS%)?",
+    "Is the analysis filterable by the required dimension (account/store/brand), and does filtering actually change the totals as expected?",
+    "Are pivot tables used where requested, and are they connected to the correct source data range (not missing rows/columns)?",
+    "Does ST% (or other key ratios) use the correct formula and handle zero stock/zero denominator cases appropriately?",
+    "Are month/ship-window selections correct according to the prompt definitions (e.g., shipped within June uses actual ship date; delayed orders quantify expected-in-month but shipped later)?",
+    "Do grand totals/subtotals exist where requested, and do they reconcile to the underlying data when spot-checked?",
+    "If a chart is required, does it emphasize the correct primary metric and match the table values?",
+    "Is there a brief written recap inside the deliverable when requested, and does it cite correct totals and impacts?"
+  ],
+  "metadata": {
+    "category": "Order Clerks",
+    "sector": "Wholesale Trade",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:27:54.060868",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2471,
+    "completion_tokens": 3733,
+    "total_tokens": 6204
+  }
+}

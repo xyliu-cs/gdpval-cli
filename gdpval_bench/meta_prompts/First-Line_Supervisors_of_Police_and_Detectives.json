@@ -1,0 +1,132 @@
+{
+  "category": "First-Line Supervisors of Police and Detectives",
+  "evaluation_prompt": "You are an independent evaluator assessing AI-generated work products for the occupation category: First-Line Supervisors of Police and Detectives (Government). You will receive: (1) the original task prompt, (2) any reference files/links provided in the prompt, and (3) the agent\u2019s OUTPUT FILES/ARTIFACTS.\n\nYour job is to assign an overall 0\u201310 score and sub-scores for Completeness, Correctness, Quality, and Domain Standards using the rubric below.\n\nCRITICAL RULE (NON-NEGOTIABLE): If ANY required deliverable/file is missing, not accessible, or clearly incomplete (e.g., placeholder text, partial sections, wrong format when format is required, empty/near-empty document), you MUST assign an overall score in the 0\u20132 range regardless of how good any remaining content is.\n\nEvaluation procedure (follow in order):\n1) Parse the task prompt and list every explicit deliverable requirement:\n   - Required file type(s) (e.g., PDF, memo, report, policy, slide deck), naming requirements, page limits, required sections, tables/calculations, citations, attachments, and any mandated headers/metadata (e.g., title, responsible office, references, related procedures).\n   - Any jurisdictional/temporal constraints (state laws, year, governing standards like FAA guidance, constitutional standards, agency manual tone).\n2) Inventory the provided output artifacts:\n   - Confirm required files exist, open, and are readable.\n   - Confirm file format compliance (e.g., actual PDF not markdown labeled \u201cPDF\u201d).\n3) Completeness check (highest priority):\n   - Verify every required section/component exists and is meaningfully filled.\n   - Verify the artifact addresses all specified use cases/scenarios (if the prompt lists multiple).\n4) Correctness check:\n   - Validate calculations (counts, buffers, staffing projections, percentages) step-by-step where applicable.\n   - Validate legal/operational assertions for internal consistency and plausibility. Do not invent statutes/case law; if citations are given, ensure they match claims. Flag clearly wrong statements (e.g., misstating reasonable suspicion/probable cause, misrepresenting FAA rules).\n   - Ensure recommendations align with prompt constraints and do not contradict themselves.\n5) Quality check:\n   - Assess organization, clarity, command-level professionalism, consistent formatting, and whether the artifact is ready for internal review.\n6) Domain standards check:\n   - Evaluate alignment with law enforcement supervisory expectations: policy clarity, officer safety, constitutional policing, risk management, training/oversight, auditability, and use-of-force/search-and-seizure guardrails.\n\nOutput requirements for your evaluation response:\n- Provide: (a) overall score 0\u201310, (b) sub-scores for each rubric dimension, (c) bullet list of pass/fail findings for required deliverables, (d) top 3\u20137 issues driving the score, (e) specific, actionable remediation steps.\n- If you trigger the missing/incomplete deliverable rule, explicitly state which deliverable(s) are missing/incomplete and set overall score to 0\u20132.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist, are accessible in the required format, and all task requirements are addressed in full.",
+      "criteria": [
+        "All required artifact files are present (e.g., PDF report/policy/guide; plus any required appendices, tables, or forms).",
+        "Files open successfully and contain substantive content (not placeholders, not truncated, not \u2018see attached\u2019 with missing attachment).",
+        "Meets explicit format constraints: file type (true PDF if requested), page limits (if specified), professional layout, required title, and any mandated header/metadata fields (e.g., responsible office, referenced files, related procedures).",
+        "All required sections are included and clearly labeled (e.g., executive summary/introduction/analysis/recommendation; or purpose/policy/definitions/authorized uses/prohibited uses/operational guidance/training; or roll-call reference sections).",
+        "Addresses all operational use cases and scenarios listed in the prompt (e.g., multiple deployment types, training topics, risk controls).",
+        "Includes required calculations, tables, step-by-step breakdowns, and/or decision logic when requested.",
+        "If references/inputs are provided, the output demonstrably incorporates them (or explains why not) rather than ignoring them."
+      ],
+      "scoring_guidance": "0\u20132 if any required file is missing/unopenable/wrong format or the work is severely incomplete. 3\u20134 if many required sections/components are missing or multiple scenarios/use cases are not addressed. 5\u20136 if all files exist but notable required elements are missing, underdeveloped, or only partially addressed. 7\u20138 if complete with only minor omissions (e.g., small missing subsection, minor unmet formatting detail). 9\u201310 if fully complete, all requirements met, and ready for internal review without material additions."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, legal/operational assertions, internal logic, and consistency with the prompt constraints.",
+      "criteria": [
+        "Calculations are correct and reproducible (e.g., staffing \u00d7 issuance plan, percentages, buffers, timelines).",
+        "Facts and standards are not obviously wrong or fabricated (e.g., legal definitions, constitutional thresholds, statutory references, FAA/UAS constraints when relevant).",
+        "Terminology is used correctly (e.g., reasonable suspicion vs probable cause; exigent circumstances; protective sweep; policy \u2018shall\u2019 vs \u2018should\u2019; supervisory roles).",
+        "Recommendations logically follow from stated assumptions and evidence; no internal contradictions.",
+        "Risk controls match the operational context (e.g., high-risk calls, pursuits, tactical operations) and do not recommend unlawful or unsafe practices.",
+        "Citations or references (if included) are relevant and not misattributed; no \u2018fake\u2019 statutes/case names presented as authoritative."
+      ],
+      "scoring_guidance": "0\u20132 if the artifact is largely incorrect, contains dangerous guidance, or core calculations/claims are wrong. 3\u20134 if multiple major errors or contradictions undermine usability. 5\u20136 if generally correct but with several notable errors/unsupported assertions. 7\u20138 if mostly correct with minor correctable issues. 9\u201310 if highly accurate, well-supported, and consistent throughout."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional presentation, clarity, structure, readability, and suitability for command staff and field use.",
+      "criteria": [
+        "Clear structure with headings/subheadings aligned to the prompt; easy navigation (TOC if appropriate).",
+        "Concise, directive, professionally toned writing appropriate to a police manual/training memo/executive report.",
+        "Formatting quality: consistent fonts, spacing, numbering, tables/figures labeled, no broken layout, minimal typos.",
+        "Actionable content: clear procedures, decision points, checklists, definitions, and responsibilities where relevant.",
+        "Audience fit: supervisors/officers can implement; command staff can review; avoids unnecessary jargon or explains it."
+      ],
+      "scoring_guidance": "0\u20132 if unreadable/disorganized. 3\u20134 if significant clarity/format issues impede use. 5\u20136 if usable but uneven organization or frequent style issues. 7\u20138 if polished with minor presentation issues. 9\u201310 if publication-ready and highly usable."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Alignment with law enforcement supervisory best practices: constitutional policing, safety, accountability, training, documentation, and governance.",
+      "criteria": [
+        "Emphasizes constitutional compliance and civil liberties (search/seizure thresholds; limitations; articulation/documentation).",
+        "Officer/public safety and risk management are addressed (de-escalation where relevant; operational safety controls; contingency planning).",
+        "Clear governance: authority to approve/launch/terminate operations; supervision; documentation/audit logs; retention and evidence handling where relevant.",
+        "Training, certification, and proficiency requirements are specified when tasks involve tools/tactics (e.g., UAS, firearms, tactical integration).",
+        "Use-of-force and privacy considerations are appropriately constrained; prohibits misuse and outlines discipline/reporting when applicable.",
+        "Interoperability with typical LE standards (ICS/NIMS concepts when relevant, chain-of-command, after-action review, reporting)."
+      ],
+      "scoring_guidance": "0\u20132 if encourages unlawful/unethical practices or omits critical safety/accountability concepts. 3\u20134 if weak alignment with supervisory/public-sector expectations. 5\u20136 if partially aligned but missing key accountability/safety elements. 7\u20138 if aligned with minor gaps. 9\u201310 if exemplary alignment with modern policing governance and oversight."
+    }
+  },
+  "file_inspection_checklist": [
+    "Deliverable existence: Are all required files present (e.g., PDF policy/report/guide; appendices; templates)?",
+    "File validity: Do files open and render correctly? Are they actual PDFs (not plain text renamed .pdf)?",
+    "Naming/identification: Does the document title match the prompt? Any required naming convention followed?",
+    "Header/metadata: If requested, does the first page include title, referenced files, responsible office/unit, effective date, version/revision, and related procedures?",
+    "Required sections: Verify every required heading exists and contains substantive content (not bullet fragments).",
+    "Scenario coverage: If multiple use cases are listed, confirm each is addressed with operational guidance (not just mentioned).",
+    "Calculations: Recompute any quantities/buffers/percentages; verify steps are shown when requested.",
+    "Legal/standards: Spot-check legal definitions and constraints for plausibility and consistency; ensure no obviously false authorities.",
+    "Prohibited/limitations: If applicable, confirm clear prohibitions, privacy limits, authorization thresholds, and documentation requirements.",
+    "Training/competency: Confirm training, certification, recertification, and supervisory oversight are defined when relevant.",
+    "Implementation readiness: Look for clear responsibilities (\u201cshall\u201d statements), procedures, reporting, audit trails, and review cycle.",
+    "Formatting: Consistent numbering, headings, page numbers, readable tables, and minimal typos.",
+    "Citations/references: If references are claimed, verify they are not fabricated and generally relevant."
+  ],
+  "common_failure_modes": [
+    "Missing required output file(s) (e.g., no PDF produced; only chat text).",
+    "Wrong format (prompt requires PDF but output is DOCX/markdown/plain text; or a fake/non-rendering PDF).",
+    "Severely incomplete artifact (missing major sections, missing required use cases, placeholder text, truncated pages).",
+    "Ignores explicit structure requirements (e.g., no executive summary or no definitions/prohibited uses/training sections).",
+    "Mathematical errors in staffing/procurement/buffer calculations; no step-by-step breakdown when requested.",
+    "Dangerous or unlawful guidance (e.g., incorrect Fourth Amendment standards; endorsing warrantless searches outside exceptions; overly broad surveillance guidance).",
+    "Fabricated citations, statutes, case law, or misquoting authorities; references that don\u2019t support the claim.",
+    "Policy language not enforceable (vague \u2018should consider\u2019 everywhere), lacks approval authority, reporting, discipline, or auditability.",
+    "No consideration of privacy/civil liberties, evidence handling, records retention, or public accountability where relevant.",
+    "Poor organization/formatting: inconsistent numbering, hard-to-scan content, excessive verbosity, typos, or contradictory statements."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Score each dimension 0\u201310. Compute weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required file is missing, unopenable, wrong required format, or the work is severely incomplete, set overall score to 0\u20132 regardless of weighted average. Use 0\u20132 band to reflect severity (0 = nothing delivered; 1 = minimal/mostly unusable; 2 = some content but missing required deliverables/major incompleteness).",
+    "score_scale": "0\u201310 where 0\u20132=Unacceptable (missing files/incomplete), 3\u20134=Poor (major issues), 5\u20136=Acceptable (usable but notable gaps/errors), 7\u20138=Good (minor issues), 9\u201310=Excellent (complete, correct, professional).",
+    "automatic_low_score_triggers": [
+      "Any required output file is missing.",
+      "Any required file is not in the required format (e.g., PDF required but not provided as a real PDF).",
+      "Files are unopenable/corrupted/blank or contain placeholder text indicating incomplete work.",
+      "Large required sections/use cases are absent (e.g., only an executive summary with no analysis; or policy missing prohibited uses/training).",
+      "Output clearly fails the task\u2019s primary objective (e.g., no recommendation given; no procedures; no calculations when required)."
+    ],
+    "excellent_output_characteristics": [
+      "All required artifacts delivered, accessible, and in the required format.",
+      "All prompt requirements and scenarios are fully addressed with clear headings and enforceable language.",
+      "Accurate calculations and logically supported recommendations; minimal assumptions and assumptions stated.",
+      "High professional polish: command-staff ready, consistent formatting, clear tables/checklists where helpful.",
+      "Strong governance and accountability: authorization thresholds, documentation, training, supervision, review cycle, and prohibitions.",
+      "No fabricated authorities; careful, defensible legal/standards framing; appropriately cautious where jurisdiction-specific."
+    ],
+    "poor_output_characteristics": [
+      "Missing or wrong-format deliverables; incomplete sections; vague or generic content.",
+      "Incorrect legal standards or unsafe operational guidance.",
+      "Contradictory recommendations or math errors; no traceable reasoning.",
+      "Unprofessional formatting, hard to read, or not suitable for internal adoption."
+    ]
+  },
+  "example_evaluation_questions": [
+    "Deliverables: What specific files did the prompt require, and are all of them present and readable in the correct format?",
+    "Completeness: Does the document include every required section/header element and address every listed scenario/use case?",
+    "Enforceability: Are responsibilities and requirements written in directive, policy-appropriate language (e.g., \u2018shall\u2019) with clear authority and approval chains?",
+    "Correctness (math): If procurement/coverage numbers are included, can you reproduce the calculation exactly from the stated assumptions?",
+    "Correctness (law/standards): Are Fourth Amendment/use-of-force definitions and thresholds stated accurately and not overstated?",
+    "Risk controls: Are prohibited uses and limitations clearly defined (privacy, surveillance limits, retention, evidence handling where relevant)?",
+    "Operational usability: Could a field supervisor implement this guidance without additional clarification?",
+    "Quality: Is the formatting professional (headings, numbering, page layout), and is the tone appropriate for a police manual/executive report/training guide?",
+    "Inputs: Does the output reflect the provided reference materials/links (or explain deviations) rather than ignoring them?",
+    "Readiness: Is the artifact ready for internal review/adoption, or does it require substantial additional drafting?"
+  ],
+  "metadata": {
+    "category": "First-Line Supervisors of Police and Detectives",
+    "sector": "Government",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:14:52.966765",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2839,
+    "completion_tokens": 3299,
+    "total_tokens": 6138
+  }
+}

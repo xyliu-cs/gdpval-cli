@@ -1,0 +1,129 @@
+{
+  "category": "Accountants and Auditors",
+  "evaluation_prompt": "You are an expert evaluator assessing an AI agent\u2019s work product for an Accountants & Auditors task in the Professional, Scientific, and Technical Services sector.\n\nYou will be given:\n1) The original task prompt (requirements)\n2) Reference/input files (e.g., spreadsheets, PDFs, COA, GL balances)\n3) The agent\u2019s OUTPUT FILES/ARTIFACTS (typically Excel workbooks, sometimes accompanying memos)\n\nYour job: determine whether the agent delivered ALL required artifacts and whether the work is complete, correct, professionally presented, and consistent with accounting/audit best practices.\n\nCRITICAL RULE (NON-NEGOTIABLE):\n- If ANY required output file/artifact is missing, not accessible, or the work is severely incomplete (e.g., required tabs not created, large sections blank, outputs not based on provided inputs), you MUST assign an overall score in the 0\u20132 range regardless of apparent quality elsewhere.\n\nEvaluation procedure (follow in order):\nA) Identify required deliverables from the prompt\n- List each required output file (e.g., \u201cCreate a new spreadsheet titled \u2018Sample\u2019\u201d, \u201cCreate an Excel workbook with three tabs\u201d, \u201cPrepare a structured Excel profit and loss report\u201d).\n- List required worksheet/tab names and required columns/sections (e.g., variance column, sample indicator column, summary sections, schedules through a specified date, headers like \u201cAs of 12/31/2024\u201d).\n\nB) Perform file presence & accessibility checks (gate)\n- Confirm each required output file exists.\n- Open each file and confirm it is readable (not corrupted, not password-locked unless instructed, not empty).\n- Confirm required tabs exist and contain populated content.\n- If any of the above fails: assign overall 0\u20132 and document what is missing.\n\nC) Completeness checks (most important)\n- Verify every prompt requirement is addressed somewhere in the outputs, including any specified formatting, structure, calculations, sampling logic, reconciliations, and time periods.\n- Confirm that outputs tie back to inputs (reference files) and that the work includes all required components (e.g., both \u201cSelected sample\u201d tab and \u201cSample Size Calculation\u201d tab; both detailed schedules and a summary tab; both gross and net revenue with withholdings; etc.).\n\nD) Correctness checks\n- Recompute or spot-check key calculations using the provided inputs: totals, variances, tax withholding, FX conversion (if required), sample size formulas, amortization math, roll-forwards, reconciliations to GL balances.\n- Confirm logic is consistent with the prompt (e.g., sample selection meets all criteria; amortization starts/ends in correct months; tax rates applied by country; reconciles to specified month-end GL balances).\n\nE) Quality & professionalism checks\n- Confirm outputs are easy to audit: clear labels, consistent formatting, currency/percent formats, dates, filters, frozen headers where useful, traceable formulas (no unexplained hard-codes), and readable layouts.\n\nF) Domain standards checks (audit/accounting best practices)\n- Ensure audit trail and documentation: assumptions stated, methodology shown (e.g., sample size workings), sources cited (which input file/sheet), reconciliations presented, and any limitations flagged.\n\nScoring:\n- Score each dimension (completeness, correctness, quality, domain standards) from 0\u201310 using the rubric below.\n- Compute the weighted average.\n- Apply the CRITICAL RULE override: if missing/incomplete deliverables, final overall must be 0\u20132.\n- Provide a short justification referencing specific missing items, incorrect calculations, or professional issues.\n\nOutput your evaluation as: overall score (0\u201310), sub-scores by dimension, and bullet-point rationale with the most material issues first.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed in the artifacts.",
+      "criteria": [
+        "All required output files are present, readable, and in the requested format (typically .xlsx), with no corruption or access issues.",
+        "All required worksheets/tabs are present with the requested names (or clearly equivalent) and populated (e.g., summary tab + supporting tabs; calculation/workings tab; selected sample tab).",
+        "All required sections/columns/fields specified in the prompt are included (e.g., variance column, sample indicator column, headers, totals, categories, footers, reconciliations).",
+        "All required time periods are fully covered (e.g., through a specified quarter/month-end date; schedules extend through required end month).",
+        "All required constraints are satisfied (e.g., sampling criteria coverage across entities/metrics/divisions; revenue/expense breakdown by source; conversion to required reporting currency; inclusion of required line items).",
+        "No major required components are left blank, marked \u201cTBD,\u201d or replaced by generic narrative without the requested artifacts."
+      ],
+      "scoring_guidance": "0-2 if any required file/tab/major section is missing, inaccessible, or severely incomplete. 3-4 if many requirements are unmet or only partial artifacts exist. 5-6 if core deliverables exist but multiple notable requirements are missing (e.g., missing a required section, incomplete period coverage). 7-8 if all major requirements are met with only minor omissions. 9-10 if every requirement is fully satisfied and clearly evidenced in the files."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, information, and logic; outputs correctly reflect the provided reference files and prompt rules.",
+      "criteria": [
+        "Numbers agree to source inputs: values are pulled/copied from reference files correctly (no transcription errors; correct rows/columns used).",
+        "Key computations are correct and reproducible: variances, percentages, totals/subtotals, sample size computations, amortization amounts, tax withholdings, FX conversions (if required).",
+        "Internal consistency: totals equal the sum of components; roll-forwards reconcile; monthly balances follow from prior month + additions \u2212 amortization; net income ties to net revenue minus total expenses.",
+        "Correct application of prompt-specific rules and thresholds (e.g., >20% variance logic, inclusion of specified entities/metrics/countries/business lines; specified tax rates by country; amortization start/end conventions).",
+        "Reconciliations (when required) tie to provided GL balances or stated control totals within a reasonable tolerance; any differences are explicitly explained and quantified.",
+        "Formulas reference appropriate cells/ranges and do not contain obvious logic errors (e.g., wrong denominator, sign errors, mixing currencies, applying tax rates to already-net figures)."
+      ],
+      "scoring_guidance": "0-2 if results are largely unusable or not based on provided inputs (fabricated numbers), or if critical calculations are wrong/missing. 3-4 if frequent major errors exist (wrong methodology, misapplied rules, large unexplained variances). 5-6 if generally plausible but with several material errors or multiple incorrect calculations. 7-8 if mostly correct with a few minor errors that don\u2019t change major conclusions. 9-10 if calculations are accurate, auditable, and fully consistent with inputs and rules."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization, and ease of review/audit.",
+      "criteria": [
+        "Clear structure: logical tab order, consistent headings, labeled columns/rows, and an obvious flow from inputs to outputs.",
+        "Professional formatting: consistent number formats (currency/percent), date formats, alignment, readable fonts, and restrained use of color.",
+        "Auditability: formulas used where appropriate (not excessive hard-coding), consistent use of totals/subtotals, and avoidance of hidden/opaque logic.",
+        "Usability: frozen header rows, filters/tables where helpful, print-friendly layout for key reports, and minimal clutter.",
+        "Documentation: brief notes for assumptions, methodologies, and any exceptions; clear labeling of units and currency (e.g., USD) and \u201cas of\u201d dates where required."
+      ],
+      "scoring_guidance": "0-2 if the output is confusing, disorganized, or largely blank/unreadable. 3-4 if presentation significantly hinders review (poor labeling, inconsistent formatting, hard to follow). 5-6 if readable but with several presentation issues. 7-8 if clean and easy to review with minor improvements possible. 9-10 if highly professional, polished, and audit-ready."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Adherence to accounting/audit best practices: traceability, controls, and appropriate professional skepticism and documentation.",
+      "criteria": [
+        "Traceability: clear linkage from outputs to inputs (references to source sheets/files; consistent mapping of line items).",
+        "Methodology transparency: sample-size workings shown; parameters stated (confidence level, tolerable error) and formulas explained; amortization conventions and FX/tax assumptions stated.",
+        "Control mindset: reconciliations to GL/control totals included when provided; differences investigated or flagged; reasonableness checks demonstrated (e.g., unusually large variances highlighted).",
+        "Sampling/selection integrity: sample selection is not arbitrary; meets the stated criteria and demonstrates coverage (risk-based approach).",
+        "No prohibited behavior: avoids inventing missing data; flags missing inputs; does not silently override constraints."
+      ],
+      "scoring_guidance": "0-2 if there is no audit trail, assumptions are hidden, or work appears fabricated. 3-4 if limited traceability and weak documentation. 5-6 if some best practices present but inconsistent. 7-8 if solid professional approach with minor gaps. 9-10 if exemplary audit/accounting rigor and documentation."
+    }
+  },
+  "file_inspection_checklist": [
+    "Deliverable inventory: From the prompt, list required output files (e.g., new Excel workbook/report) and required tabs/sheets; verify each exists.",
+    "Accessibility: Open each output file to confirm it is not corrupted, not empty, and not password-protected (unless the prompt instructs protection).",
+    "Tab presence: Confirm required tab names (or clearly equivalent) exist (e.g., Summary + supporting schedules; Workings/Calculation; Sample selection).",
+    "Header/period checks: Verify required report headers and as-of dates are present (e.g., \u201cAs of 12/31/2024\u201d) and correct.",
+    "Input adherence: Check that numbers clearly originate from reference files (spot-check 5\u201310 rows/items across different sections).",
+    "Key calculations spot-check: Recalculate a sample of critical formulas (variance %, withholding tax, net revenue, monthly amortization, roll-forward balances, sample size).",
+    "Cross-footing: Ensure totals/subtotals equal sum of components; check that reported totals tie across tabs (e.g., summary totals equal detailed schedules).",
+    "Reconciliations: When GL balances/control totals are provided, verify schedules reconcile for each relevant month; note any unexplained differences.",
+    "Constraint coverage: For selection/sampling tasks, verify each required criterion is satisfied at least once across selected items and that individual selections satisfy at least one criterion where required.",
+    "Formatting/clarity: Confirm consistent currency/percent formatting, clear labels, logical grouping, and readability for executive/audit review.",
+    "Formula integrity: Look for suspicious hard-coded totals, overwritten formulas, inconsistent range references, or mixed currencies.",
+    "Completeness of period: Verify schedules include every month/quarter required and end exactly at the specified end date (no missing months)."
+  ],
+  "common_failure_modes": [
+    "Missing required output file (e.g., agent provides narrative only, or wrong file type, or forgets to create the new workbook).",
+    "Missing required tabs/worksheets or incorrect structure (e.g., no calculation/workings tab; no summary tab; no selected sample tab).",
+    "Severely incomplete workbook (placeholders, partial population, only a few lines filled).",
+    "Outputs not tied to reference files (fabricated figures; values don\u2019t match sources).",
+    "Incorrect application of prompt rules (wrong confidence/tolerable error approach; wrong variance formula; wrong sampling thresholds; wrong tax rates by country; no FX conversion when required).",
+    "Math errors: totals don\u2019t foot, sign errors, percentage variance calculated incorrectly, amortization not rolling correctly month to month.",
+    "Failure to satisfy coverage constraints (e.g., sample does not include required entities/metrics/countries/business lines or does not cover all criteria at least once).",
+    "Reconciliation failures (e.g., prepaid schedules do not tie to provided GL balances and no explanation).",
+    "Mixed currencies or inconsistent formatting (some amounts in local currency; USD not clearly indicated).",
+    "Poor auditability (hard-coded numbers where formulas expected; no notes on assumptions; unclear source mapping)."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Score each dimension 0\u201310, then compute weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required output file/tab/major section is missing, inaccessible, or the work is severely incomplete, set the final overall score to 0\u20132 regardless of the weighted average.",
+    "score_scale": "0\u201310 scale: 0\u20132 Unacceptable (missing files/incomplete/unusable), 3\u20134 Poor (major issues), 5\u20136 Acceptable (notable gaps/errors), 7\u20138 Good (minor issues), 9\u201310 Excellent (complete, accurate, professional).",
+    "automatic_low_score_triggers": [
+      "Any required output file is missing, inaccessible, corrupted, or not in the requested format (e.g., Excel workbook requested but not provided).",
+      "Any required worksheet/tab is missing (or the workbook lacks major required sections), resulting in an incomplete deliverable.",
+      "Large portions of the required work are blank/placeholder or only partially completed such that the deliverable cannot be used.",
+      "Outputs are not based on provided reference files (e.g., clearly fabricated or not traceable) or contain pervasive calculation errors.",
+      "The agent fails to address major prompt constraints (e.g., does not apply required tax rates/FX conversion; does not create required schedules; does not perform required variance analysis)."
+    ],
+    "excellent_output_characteristics": [
+      "All required files and tabs are present, correctly named (or clearly mapped), and fully populated.",
+      "All requirements addressed with clear evidence (calculations, selections, reconciliations, time periods).",
+      "High calculation accuracy with multiple cross-checks and consistent totals across tabs.",
+      "Audit-ready formatting: clear headers, footers, assumptions, traceability to sources, and professional presentation.",
+      "Adheres to accounting/audit best practices: reconciles to control totals/GL balances where provided and documents any exceptions."
+    ],
+    "poor_output_characteristics": [
+      "Missing or unreadable artifacts; wrong file types; no workbook produced when required.",
+      "Only partial completion (e.g., one tab created instead of multiple; key columns missing; calculations not performed).",
+      "Material inaccuracies in totals, variances, taxes, amortization, or currency conversion.",
+      "Does not satisfy required selection/coverage constraints for sampling tasks.",
+      "Disorganized, unclear, or non-auditable workpaper (hard-coded results with no workings; no source traceability)."
+    ]
+  },
+  "example_evaluation_questions": [
+    "Are all required output files present (e.g., newly created Excel workbook/report) and can they be opened without errors?",
+    "Does the workbook include every required tab/section specified in the prompt, and are they populated (not placeholders)?",
+    "Do reported totals/subtotals cross-foot within each tab and tie across tabs (e.g., summary totals equal the detailed schedule totals)?",
+    "Do 5\u201310 spot-checked values match the reference files exactly (including correct row mapping and units/currency)?",
+    "Are the key computations correct (e.g., variance %, withholding taxes by country, FX conversion to USD, amortization per month, sample size calculation parameters)?",
+    "If GL balances/control totals are provided, do the schedules reconcile to each month-end balance? If not, is the difference quantified and explained?",
+    "For sampling tasks: does every selected item meet at least one stated criterion, and do the selections collectively cover all required criteria/entities/segments/geographies?",
+    "Is the report professionally formatted and easy for an executive/auditor to review (headers, as-of date, currency formats, labels, filters)?",
+    "Are assumptions and methodology documented (e.g., confidence level/tolerable error, amortization assumptions, tax/FX assumptions) and consistent with the prompt?",
+    "Is there any sign of fabricated data, unexplained hard-coding, or missing linkage to the provided inputs?"
+  ],
+  "metadata": {
+    "category": "Accountants and Auditors",
+    "sector": "Professional, Scientific, and Technical Services",
+    "num_tasks_in_category": 5,
+    "generated_at": "2025-12-30T14:22:40.501388",
+    "model": "gpt-5.2",
+    "prompt_tokens": 3058,
+    "completion_tokens": 3639,
+    "total_tokens": 6697
+  }
+}

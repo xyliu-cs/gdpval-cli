@@ -1,0 +1,126 @@
+{
+  "category": "Buyers and Purchasing Agents",
+  "evaluation_prompt": "You are an expert evaluator for Buyers and Purchasing Agents (Manufacturing). You will receive: (1) the original task prompt, (2) any reference/input files mentioned, and (3) the agent\u2019s OUTPUT FILES/ARTIFACTS. Your job is to assess whether the outputs satisfy the procurement/buying task requirements and to assign a 0\u201310 score using the rubric below.\n\nCRITICAL RULE (NON-NEGOTIABLE): If ANY required output file/artifact is missing (e.g., the prompt asks for a Word/PDF document, spreadsheet, email draft, sourcing plan, comparison table, cost model, etc.) OR the deliverable is severely incomplete (e.g., placeholder text, half-finished sections, missing key tables/calculations/approvals/steps), you MUST assign an overall score in the 0\u20132 range. This override applies regardless of how good any partial content is.\n\nEvaluation procedure (follow in order):\n1) Parse the prompt and list all REQUIRED deliverables: file types (Word/PDF/Excel), page length constraints, sections, tables, calculations, timelines, vendor evaluation factors, decision gates/approvals, assumptions, etc.\n2) Inventory the output files. Verify each required file exists, is readable/openable, and matches required format (or acceptable equivalent if explicitly allowed). If any required file is missing/unopenable \u2192 overall score 0\u20132.\n3) For each delivered file, check completeness: Does it address every requirement from the prompt (process steps, commercial structure, costing, negotiation strategy, risk assessment, roadmap, signoffs, etc.)? Flag omissions.\n4) Check correctness: Validate arithmetic (currency conversions, savings, totals), internal consistency (volumes/timelines), procurement logic (gates, approvals), and that claims are supported by the given inputs.\n5) Check quality: Executive-ready structure, clear headings, professional tone, tables where appropriate, concise but complete. Ensure traceability: assumptions stated; references to inputs; versioning if relevant.\n6) Check domain standards: sourcing lifecycle best practices (RFQ/RFP, supplier evaluation, TCO, risk/compliance, governance, audit trail, change control), manufacturing considerations (capacity, quality systems, PPAP/FAI, tooling ownership/transfer, localization/regulatory), and stakeholder alignment (Engineering, Quality, Finance, Program, Legal).\n7) Score each rubric dimension 0\u201310, apply weights, then apply the critical override if missing/incomplete deliverables.\n\nBe concrete: cite which requirements are met or missing and where. If calculations exist, spot-check at least 2\u20133 key computations and verify units/currency. If the task asks for a 2\u20133 page document, confirm approximate length and density (not a single short page).",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed",
+      "criteria": [
+        "All required file artifacts are present (e.g., Word/PDF proposal, workflow document, negotiation strategy, spreadsheet model, appendices) and are readable/openable",
+        "File formats match prompt requirements (DOCX/PDF/XLSX) or an explicitly permitted alternative; page-length/structure constraints are reasonably met (e.g., 2\u20133 pages excluding appendix if applicable)",
+        "All explicitly requested sections are present (e.g., objectives, scope, process steps, decision gates, approval layers, supplier evaluation criteria, risk/mitigation, timeline/roadmap, recommendations/next steps)",
+        "All requested tables/figures/calculation exhibits are included where required (e.g., cost breakdowns, savings calculations, modular quotation structure, supplier comparison matrix, negotiation plan, ZOPA/BATNA if requested)",
+        "All required assumptions and inputs from reference files are incorporated or explicitly acknowledged (no silent ignoring of provided data)",
+        "No placeholder text, missing headings, or \u201cto be filled\u201d sections; deliverable is end-to-end complete and usable"
+      ],
+      "scoring_guidance": "0-2 if any required files are missing/unopenable OR deliverable is severely incomplete/placeholder; 3-4 if multiple required sections/tables are missing; 5-6 if most elements exist but notable gaps remain; 7-8 if complete with minor omissions or light detail in one area; 9-10 if fully complete, all requirements thoroughly addressed with strong structure."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, information, and logic",
+      "criteria": [
+        "Numerical correctness: arithmetic, totals, savings, unit conversions (e.g., USD\u2194INR), volumes, timelines; formulas consistent across the document/spreadsheet",
+        "Internal consistency: the same baseline numbers/assumptions are used throughout; no contradictions between sections, tables, and summaries",
+        "Correct interpretation of prompt constraints (e.g., only localize assembly vs. components; tooling ownership implications; lead times and parallel development constraints)",
+        "Procurement logic correctness: appropriate sequencing (requirements\u2192sourcing\u2192RFQ\u2192evaluation\u2192negotiation\u2192nomination/contracting\u2192change control), accurate governance and signoff logic where required",
+        "Risk/benefit reasoning is grounded in manufacturing/procurement realities (capacity, quality certifications, logistics, forex exposure, localization/regulatory requirements)",
+        "If referencing standards/processes (PPAP, APQP, ISO/IATF, change management), usage is context-appropriate and not misleading"
+      ],
+      "scoring_guidance": "0-2 if pervasive factual/calculation errors or fabricated critical inputs; 3-4 if multiple major errors that undermine decisions; 5-6 if generally correct but with notable mistakes or weak validation; 7-8 if minor errors/rounding issues only; 9-10 if accurate, validated, and consistent with assumptions clearly stated."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization",
+      "criteria": [
+        "Executive-ready structure: clear headings, logical flow, succinct executive summary when appropriate",
+        "Readable formatting: consistent fonts, spacing, bullets; professional tables; labeled figures; page numbers if appropriate",
+        "Clarity and specificity: actionable steps, unambiguous ownership (RACI-like clarity), decision points, timelines",
+        "Concise yet complete writing: avoids generic filler; uses procurement terminology appropriately",
+        "Document hygiene: correct grammar, no duplicated sections, no internal notes to self, no abrupt cutoffs"
+      ],
+      "scoring_guidance": "0-2 if incoherent/unusable formatting or extremely unclear; 3-4 if poorly organized and hard to follow; 5-6 if acceptable readability but uneven structure; 7-8 if well-structured with minor polish issues; 9-10 if highly professional, clear, and persuasive."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Industry-specific best practices for this occupation",
+      "criteria": [
+        "Uses manufacturing procurement best practices: TCO/should-cost thinking, supplier capability assessment (technical, capacity, quality systems), and risk management",
+        "Governance & auditability: approvals/signoffs, document control, traceability of decisions/communications; change control for post-nomination modifications",
+        "Commercial rigor: clear RFQ structure, negotiation levers, contract considerations (incoterms where relevant, payment terms, SLA/quality clauses, exit clauses), and price-change mechanism if relevant",
+        "Quality and industrialization awareness: PPAP/FAI considerations, validation/certification timing, tooling ownership/transfer, ramp-up planning, supply continuity/dual sourcing contingencies",
+        "Localization/regulatory awareness when applicable (e.g., PMP/FAME-type incentives, domestic value addition tracking), with a realistic phased roadmap"
+      ],
+      "scoring_guidance": "0-2 if ignores core procurement/manufacturing realities; 3-4 if superficial or misapplied standards; 5-6 if basic standards present but thin; 7-8 if solid best-practice application; 9-10 if exemplary procurement rigor and manufacturability/governance integration."
+    }
+  },
+  "file_inspection_checklist": [
+    "Confirm all required output files exist (DOCX/PDF/XLSX as demanded) and open successfully without corruption",
+    "Verify the primary document meets requested length/structure (e.g., roughly 2\u20133 pages of substantive content, not counting cover/blank pages; includes required sections)",
+    "Check for an explicit executive summary / objective / scope statement when the audience is CPO/executives (common in these tasks)",
+    "If the task requires workflow/process: confirm step-by-step flow, decision gates, approval layers, owners (Purchase/ER/Quality/Finance/Program/Legal), and clear flexibility points/change control",
+    "If the task requires cost modeling: locate cost tables, baseline vs. proposed scenario, currency conversion assumptions, and computed savings; spot-check key calculations",
+    "If the task requires supplier evaluation: confirm criteria (technical, capacity, cost, quality systems, reliability, localization potential) and a scoring/shortlisting approach",
+    "If the task involves negotiation strategy: confirm BATNA/ZOPA (if requested), negotiation levers, timeline, and a plan to maintain supply continuity; check that levers align with constraints (tooling ownership, lead times, volumes)",
+    "Check inclusion of risks and mitigations (supply disruption, dependency on imported inputs, coordination complexity, quality/certification delays, forex exposure) and whether mitigations are actionable",
+    "Look for traceability artifacts: assumptions list, data sources (reference files), version/date, and a recommendation/next steps section",
+    "Verify no placeholder text (e.g., 'TBD', 'lorem ipsum') and no contradictions across sections/tables"
+  ],
+  "common_failure_modes": [
+    "Missing required file (e.g., only text response but prompt asks for a Word/PDF/Excel artifact)",
+    "Unopenable/corrupt file or wrong file type (e.g., delivers PDF when DOCX required and no alternative allowed)",
+    "Severely incomplete document: outline only, placeholder sections, missing tables/calculations, or abruptly cut off",
+    "Ignores key prompt constraints (e.g., localizes components when asked to localize assembly only; misses mandatory modular quotation structure; omits approval gates/signoffs)",
+    "Incorrect or inconsistent calculations (wrong USD-INR conversion, wrong savings math, mixing units/volumes, totals not summing)",
+    "Generic procurement boilerplate without mapping to stakeholders, timelines, or manufacturing realities (tooling lead times, PPAP/certification, ramp-up capacity)",
+    "No actionable timeline/roadmap or ownership; vague next steps",
+    "No risk assessment or mitigations despite high-stakes supply continuity context",
+    "Lack of governance/audit trail/change control considerations for post-nomination changes",
+    "Poor presentation: dense unstructured text, unclear tables, grammar issues that reduce executive usability"
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Calculate weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required files are missing/unopenable OR the work is severely incomplete, set overall score to 0\u20132 regardless of weighted average.",
+    "score_scale": "0\u201310 where 0\u20132=Unacceptable (missing files/incomplete), 3\u20134=Poor, 5\u20136=Acceptable, 7\u20138=Good, 9\u201310=Excellent",
+    "automatic_low_score_triggers": [
+      "Any required output file is missing, unopenable, or clearly the wrong artifact (e.g., a chat message instead of a requested DOCX/PDF/XLSX)",
+      "Deliverable is severely incomplete (outline only, placeholder text, missing required sections like cost model/timeline/approvals/risks)",
+      "Major prompt requirements are not addressed (e.g., no modular quotation structure when required; no calculations when asked; no BATNA/ZOPA when requested)"
+    ],
+    "excellent_output_characteristics": [
+      "All required artifacts present, readable, and in the requested formats",
+      "Meets page/structure expectations and addresses every explicit requirement",
+      "Correct, clearly stated assumptions; validated calculations with consistent units/currency",
+      "Procurement workflow/strategy is actionable with gates, approvals, owners, and change-control mechanisms",
+      "Professional, executive-ready formatting with clear tables and concise recommendations",
+      "Demonstrates manufacturing procurement best practices (quality systems, capacity, tooling, certification, risk mitigation, compliance/localization where applicable)"
+    ],
+    "poor_output_characteristics": [
+      "Missing required artifacts or only partial submission",
+      "Significant omissions (no timeline, no risks, no cost tables, no approvals/governance) or heavy reliance on generic filler",
+      "Material numerical/factual errors that would mislead decision-making",
+      "Unclear writing/structure, making the document unusable for CPO/technical stakeholders",
+      "Ignores manufacturing realities (tooling lead times, validation, ramp-up constraints)"
+    ]
+  },
+  "example_evaluation_questions": [
+    "What exact files does the prompt require (DOCX/PDF/XLSX), and are all of them present and openable?",
+    "Does the main document meet the requested length and include all explicitly requested sections and tables?",
+    "Are the sourcing/workflow steps sequenced correctly with clear decision gates and approval layers (Purchase/ER/Quality/Finance/Program/Legal)?",
+    "If post-nomination changes are part of the scenario, is there a defined change-control mechanism (versioning, impact assessment, re-quote triggers, approval matrix, communication trail requirements)?",
+    "If a modular quotation structure is required, does the output define modules/cost drivers (features, child parts, raw materials), pricing logic, and plug-and-play update rules?",
+    "Do cost calculations reconcile (baseline vs. proposed), with correct currency conversion and transparent assumptions?",
+    "Are volumes, capacities, and timelines realistic and consistent with constraints provided in the prompt/reference files?",
+    "Does the output present clear risks and mitigations (supply disruption, quality/certification, forex exposure, dependency on imported components, coordination complexity)?",
+    "Is there a clear recommendation and next steps that an executive could approve and an implementation team could build from?",
+    "Would this artifact stand up to an internal audit/review (traceability, signoffs/approvals, documented rationale)?"
+  ],
+  "metadata": {
+    "category": "Buyers and Purchasing Agents",
+    "sector": "Manufacturing",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T06:59:18.063509",
+    "model": "gpt-5.2",
+    "prompt_tokens": 3575,
+    "completion_tokens": 3114,
+    "total_tokens": 6689
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "category": "Private Detectives and Investigators",
+  "evaluation_prompt": "You are an expert evaluator. Your job is to assess whether the agent\u2019s OUTPUT FILES/ARTIFACTS fully satisfy the ORIGINAL TASK PROMPT for the occupation category \u201cPrivate Detectives and Investigators\u201d (Retail Trade / loss prevention context is common). You will be given: (1) the task prompt, (2) any reference/input files, and (3) the agent\u2019s produced output files.\n\nFollow this process \u0441\u0442\u0440\u043e\u0433\u043e (strictly):\n\n1) Identify required deliverables from the prompt\n- Enumerate every required output artifact: file count, file types (PDF/PPTX/DOCX/etc.), exact titles/names if specified, and any required sections/components (e.g., \u201cSummary/Surveillance/Assessment\u201d, \u201cflowchart PDF + PPT deck per header\u201d, \u201ctwo PDFs\u201d, \u201cform with handwritten note lines\u201d, page limits).\n- Treat file type requirements as mandatory when stated (e.g., \u201cmust be submitted as a PDF\u201d).\n\n2) HARD GATE: Missing or incomplete deliverables\n- Check the output package for all required files. If ANY required file is missing OR clearly incomplete (e.g., placeholder text, obviously truncated, wrong format when format is mandated, blank pages where content is required), you MUST assign an overall score in the 0\u20132 range, regardless of how good any partial work is.\n- If the agent provided the right number of files but wrong required formats/titles such that the client could not use them as requested, treat as incomplete.\n\n3) Inspect each output file against prompt requirements\nFor each artifact, verify:\n- Structure/sections: required headings, forms, timeline blocks, appendices, etc.\n- Content coverage: all requested topics, steps, procedures, or observations included.\n- Internal consistency: times, dates, people/roles, locations, counts, and sequences match across the document.\n- Use of reference files: if reference files were provided (photos, field report, logs), check that the output aligns with them and does not fabricate unsupported facts.\n\n4) Correctness and evidence handling\n- Check factual accuracy relative to provided inputs.\n- Flag hallucinations: names, store numbers, or events introduced without support.\n- Verify that sensitive constraints are followed (e.g., anonymization requirements such as \u201cexclude names/store number\u201d).\n- Verify calculations or timelines if present (e.g., surveillance time windows, deposit discrepancies, date/time ordering).\n\n5) Professional quality and usability\n- Documents should be client-ready: clear, organized, readable, consistent formatting, and appropriate tone.\n- Verify page limits when specified (e.g., \u201cnot exceed two pages\u201d).\n- For forms: ensure they are printable, include fields, and provide adequate space for handwriting (e.g., solid lines under headers).\n- For flowcharts: ensure logical flow, decision points, and readability.\n\n6) Domain-specific standards (Private Investigations / Loss Prevention)\nEvaluate adherence to professional investigative practices, including:\n- Objectivity: separate observations from conclusions; avoid defamation; use neutral language.\n- Chain-of-custody mindset for evidence: photo references, time stamps, exhibit labels, audit trail, version control.\n- Legal/ethical compliance: avoid illegal instructions (e.g., entrapment guidance beyond lawful/ethical bounds, unlawful recording advice), respect privacy, minimize unnecessary personal data.\n- Operational safety and discretion: surveillance best practices, undercover operational security, safety considerations.\n\n7) Scoring\n- Score each rubric dimension (0\u201310) using the guidance below.\n- Compute weighted average: Completeness 40%, Correctness 30%, Quality 20%, Domain Standards 10%.\n- CRITICAL OVERRIDE: If any required artifacts are missing/incomplete, overall score MUST be 0\u20132.\n\nOutput your evaluation as:\n- A brief inventory of required vs delivered files\n- A checklist of pass/fail items\n- Dimension scores with justification\n- Final overall score (0\u201310)\n- Top 3\u20135 actionable fixes\n\nBe strict on completeness: missing required PDFs/PPTs, missing required sections, or failure to follow mandated formats automatically forces 0\u20132 overall.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed.",
+      "criteria": [
+        "All required artifacts are present (correct number of files) as explicitly requested in the prompt.",
+        "Each required artifact is in the mandated format (e.g., PDF vs DOCX; PPTX when requested).",
+        "Required titles/names are followed when specified (document title text and/or file name).",
+        "All required sections/components are included (e.g., specific headers, required forms, flowchart + companion slides, required note lines, required report sections).",
+        "All specified constraints are satisfied (page limits, date/time windows, anonymization constraints, inclusion/exclusion rules).",
+        "No placeholder or obviously unfinished content; deliverables are usable as-is by a PI/LP professional."
+      ],
+      "scoring_guidance": "0-2 if any required files are missing/wrong mandated format/clearly incomplete; 3-4 if multiple major requirements unmet (missing sections, wrong structure, ignores key constraints); 5-6 if complete set of files exists but notable omissions (some required components missing, partial coverage); 7-8 if fully delivered with only minor omissions (small missing fields, minor title mismatch); 9-10 if everything requested is present, correctly formatted, and fully satisfies all constraints."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, timelines, information, and logical consistency with reference inputs.",
+      "criteria": [
+        "Statements align with provided reference files; no invented events, quotes, or evidence.",
+        "Timelines and sequences are coherent (start/end times, order of events, durations) and match the prompt and any provided logs/reports.",
+        "Correct use of required anonymization/redaction (e.g., excludes names/store number when instructed).",
+        "No internal contradictions across sections (e.g., different times for same event, conflicting conclusions).",
+        "If referencing photos/exhibits, references correctly map to the actual images provided (no mismatched descriptions).",
+        "Procedural steps are logically correct for PI/LP investigations (e.g., escalation, documentation, interview sequencing) and not misleading."
+      ],
+      "scoring_guidance": "0-2 if substantial fabrication, gross timeline errors, or contradictions that undermine the work; 3-4 if multiple material inaccuracies or unsupported claims; 5-6 if mostly correct but with several notable errors/unsupported leaps; 7-8 if accurate with only minor inconsistencies; 9-10 if fully accurate, consistent, and tightly grounded in provided inputs."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization, and client readiness.",
+      "criteria": [
+        "Clear structure with headings, consistent formatting, and readable typography.",
+        "Professional tone appropriate for investigative reporting (neutral, factual, concise).",
+        "Good document design for intended use: printable forms, readable flowcharts, clean slide layouts, appropriate spacing for handwriting.",
+        "Correct grammar, punctuation, and style; avoids ambiguity.",
+        "Meets any length/page constraints while still being complete.",
+        "Use of tables, bullets, and labels improves usability without clutter."
+      ],
+      "scoring_guidance": "0-2 if unreadable, chaotic, or unprofessional; 3-4 if major formatting/clarity issues impede use; 5-6 if usable but rough with recurring style/format issues; 7-8 if polished with minor issues; 9-10 if highly professional, clean, and client-ready."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Adherence to PI/Loss Prevention best practices, ethics, legality, and evidence handling.",
+      "criteria": [
+        "Objectivity: clearly separates observations from assessments/conclusions; avoids defamatory statements and speculation not supported by evidence.",
+        "Evidence discipline: references exhibits/photos appropriately; includes time/date, location, investigator ID/role when relevant; maintains auditability.",
+        "Legal/ethical compliance: avoids advising illegal surveillance/recording; respects privacy; avoids entrapment guidance outside lawful practice; includes disclaimers when appropriate (jurisdictional variability).",
+        "Operational security and safety considerations for surveillance/undercover work are reasonable (discretion, risk mitigation, communication plans).",
+        "Retail loss prevention norms: proper escalation, HR/legal coordination cues, documentation for termination/prosecution decisions, and confidentiality."
+      ],
+      "scoring_guidance": "0-2 if encourages illegal/unethical conduct or grossly violates investigative standards; 3-4 if multiple standard/practice issues; 5-6 if generally aligned but missing important best practices; 7-8 if solid alignment with minor gaps; 9-10 if exemplary professional standards and risk-aware guidance."
+    }
+  },
+  "file_inspection_checklist": [
+    "Inventory check: Compare prompt-required deliverables vs delivered files (count, names/titles, formats).",
+    "Format verification: Open each file to confirm it is the mandated type (true PDF/PPTX, not a text substitute).",
+    "Document title/title-page check: Confirm required document titles appear within the documents (and file names if required).",
+    "Section compliance: Verify required headings/sections exist (e.g., Purpose; Summary/Surveillance/Assessment; procedures steps; appendices; form headers).",
+    "Constraint checks: Page limit compliance; required time windows; anonymization/redaction constraints; exclusion of store number/names if required.",
+    "Reference alignment: If given field reports/photos/logs, cross-check that described events match them and that photos referenced correspond to actual images.",
+    "Timeline sanity: Ensure chronological order, consistent timestamps, and no impossible overlaps.",
+    "Flowchart logic (if applicable): Decision points, start/end nodes, escalation steps, and consistent labeling; readable at normal zoom/print.",
+    "Forms usability (if applicable): Adequate whitespace, clearly labeled fields, solid lines for handwriting where requested, printable layout.",
+    "Professional polish: Grammar/spelling, consistent terminology, clear writing, no placeholders (e.g., \u201cTBD\u201d, lorem ipsum).",
+    "Confidentiality: Sensitive details are handled per prompt; no unnecessary personal data included.",
+    "Evidence handling: Exhibits labeled; photo captions accurate; notes reflect observations, not assumptions."
+  ],
+  "common_failure_modes": [
+    "Missing one or more required files (e.g., only one PDF delivered when two are required; missing PPTX companions).",
+    "Wrong required format (DOCX delivered instead of PDF; images instead of a real PDF).",
+    "Deliverable exists but is clearly incomplete (placeholder text, empty sections, missing required headers/lines).",
+    "Ignoring mandated structure (e.g., surveillance report not organized into Summary/Surveillance/Assessment).",
+    "Failure to comply with page limits or other hard constraints (e.g., report exceeds 2 pages when limited).",
+    "Hallucinated facts not supported by reference files (invented observations, invented deposit amounts, invented people).",
+    "Photos/exhibits mismatched: captions don\u2019t match images or the timeline references photos that do not exist.",
+    "Anonymization failure: includes names/store numbers when explicitly prohibited; reveals sensitive identifiers unnecessarily.",
+    "Unprofessional or biased language, speculation presented as fact, or defamatory statements.",
+    "Investigation guidance that is legally/ethically problematic (e.g., advising illegal recording, trespass, entrapment).",
+    "Flowcharts that are unreadable, illogical, or missing key steps (reporting, escalation, documentation, HR/legal coordination).",
+    "Forms not usable in the field (no space for notes, no lines, cluttered design, not printable)."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Calculate weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required files are missing OR any deliverable is clearly incomplete OR mandated format is not met, override final score to 0-2 regardless of other dimension scores.",
+    "score_scale": "0-10 where 0-2=Unacceptable (missing files/incomplete), 3-4=Poor, 5-6=Acceptable, 7-8=Good, 9-10=Excellent.",
+    "automatic_low_score_triggers": [
+      "Any required output file is missing.",
+      "Any required output is not in the mandated format (when the prompt specifies file type like PDF/PPTX).",
+      "Deliverables are obviously incomplete (placeholders, missing major sections, blank or near-blank outputs).",
+      "Key prompt constraints are violated in a way that makes the deliverable unusable (e.g., required anonymization ignored; required sections absent; required page limit grossly exceeded)."
+    ],
+    "excellent_output_characteristics": [
+      "All required files present, correctly formatted, correctly titled, and fully complete.",
+      "Requirements are addressed explicitly with clear sections and client-ready organization.",
+      "Content is accurate, grounded in reference inputs, and free of hallucinations/contradictions.",
+      "Professional investigative tone, objective reporting, and clear separation of observation vs assessment.",
+      "Evidence references (photos/exhibits) are correctly mapped and time-aligned.",
+      "Meets domain best practices: confidentiality, legal/ethical compliance, documentation rigor."
+    ],
+    "poor_output_characteristics": [
+      "Missing files or wrong formats; incomplete or unusable artifacts.",
+      "Major required components absent (e.g., no flowchart, no observation form lines, missing report sections).",
+      "Contains invented facts, timeline errors, or contradictions that undermine credibility.",
+      "Unprofessional formatting, hard to read, not printable, or not suitable for client use.",
+      "Violates confidentiality/anonymization instructions or recommends questionable/illegal actions."
+    ]
+  },
+  "example_evaluation_questions": [
+    "What exact files does the prompt require (count, type, and titles), and are all of them present in the delivered outputs?",
+    "Are any files delivered in the wrong format (e.g., DOCX instead of PDF) when the prompt mandated a specific file type?",
+    "Does each document include all required sections/headings and required components (forms, lines for handwritten notes, flowchart nodes, etc.)?",
+    "If a page limit is stated (e.g., 2 pages), does the deliverable comply while still covering all required content?",
+    "Do the timelines and timestamps in the report match the prompt and any reference logs/field notes? Any inconsistencies?",
+    "When reference files include photos, do the written observations accurately correspond to those photos (correct subject/activity/time order)?",
+    "Does the output avoid introducing names/store numbers or other identifiers when the prompt requires anonymization?",
+    "Is the writing objective and professional\u2014observations separated from conclusions\u2014without speculation presented as fact?",
+    "Does the guidance/report follow PI/LP best practices for documentation, evidence handling, and confidentiality?",
+    "Is the deliverable usable in the real world (printable forms, readable flowcharts, clear procedures, client-ready report)?"
+  ],
+  "metadata": {
+    "category": "Private Detectives and Investigators",
+    "sector": "Retail Trade",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:31:16.861477",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2305,
+    "completion_tokens": 3273,
+    "total_tokens": 5578
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "category": "Pharmacists",
+  "evaluation_prompt": "You are an expert evaluator assessing AI-generated work products for the occupation category: Pharmacists (Retail Trade). You will be given: (1) the original task prompt, (2) any reference/input files mentioned (e.g., lawbooks, forms, product references), and (3) the agent\u2019s output artifacts/files (often PDFs; sometimes spreadsheets, text documents, slide decks, tables).\n\nYour job is to evaluate whether the delivered artifacts fully satisfy the prompt requirements, are factually/clinically accurate, and are professionally usable in a retail pharmacy context.\n\nFollow this process strictly:\n\nSTEP 1 \u2014 Identify required deliverables\n- From the task prompt, list every required output artifact (e.g., \u201cone 36x24 inch PDF poster\u201d, \u201cthree separate PDFs: daily; weekly+monthly; quarterly+annual\u201d, \u201c1\u20132 page PDF reference guide\u201d).\n- Note any explicit formatting constraints (page size, page count, printer-friendly, section-based layout, audience level, required sections, required fields like NDC/strength/package size/formula/days\u2019 supply, required citations, etc.).\n\nSTEP 2 \u2014 Hard gate for missing/incomplete deliverables (CRITICAL)\n- Verify that EVERY required output file exists and is accessible/openable.\n- If ANY required file is missing, corrupted, not provided as requested file type, or obviously incomplete (e.g., placeholder text, \u201cTBD\u201d, missing major required sections/fields), you MUST assign an overall score in the 0\u20132 range regardless of quality of any partial content.\n\nSTEP 3 \u2014 Inspect each artifact for completeness\n- Check that all required sections, tables, calculations, and reference elements are present.\n- For multi-file tasks, confirm each file corresponds to the specified time horizon or component (e.g., daily vs weekly/monthly vs quarterly/annual checklists).\n\nSTEP 4 \u2014 Validate correctness (pharmacy-specific)\n- Cross-check key facts, calculations, and claims against provided references and generally accepted pharmacy practice.\n- For medication billing/days\u2019 supply: verify formula logic, units (mL, mg, pens, actuations), package size interpretation, and that results are mathematically consistent.\n- For clinical education materials: confirm condition descriptions, treatment options, warnings/referral criteria, contraindications, and follow-up guidance are medically plausible, consistent with OTC labeling/common guidelines, and not internally contradictory.\n- Ensure any regulatory/compliance checklists align with the cited regulatory sources when provided (e.g., lawbook, board self-assessment). Flag invented statutes, wrong jurisdictions, or fabricated citations.\n\nSTEP 5 \u2014 Assess quality and usability\n- Evaluate organization, readability, layout, and whether the artifact is ready for real-world use in a retail pharmacy.\n- Confirm the tone and complexity match the intended audience (e.g., mixed public/clinicians vs technicians/interns).\n- Look for clear headings, consistent formatting, legible fonts, and printer-friendly design when requested.\n\nSTEP 6 \u2014 Domain standards and safety\n- Check for patient safety best practices: clear referral thresholds, appropriate warnings, avoidance of unsafe dosing advice, and avoidance of overpromising outcomes.\n- Ensure professional standards: disclaimers where appropriate, encouraging consultation with a pharmacist/physician when indicated, and avoiding privacy violations.\n\nSCORING\n- Use the weighted rubric (Completeness 40%, Correctness 30%, Quality 20%, Domain Standards 10%) to compute a preliminary score.\n- Apply the CRITICAL OVERRIDE: if any required deliverable is missing/incomplete, the final overall score MUST be 0\u20132.\n- Provide a brief rationale tied to rubric criteria and cite specific locations in the artifacts (page/section/table) when possible.\n\nOutput requirements for your evaluation:\n- Provide subscores for each rubric dimension (0\u201310), the weighted overall score (0\u201310), and a short bullet list of the top issues found.\n- Explicitly state whether the missing/incomplete deliverables override was triggered.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed.",
+      "criteria": [
+        "All required output artifacts are present in the correct number of files (e.g., if 3 PDFs required, exactly 3 distinct PDFs delivered).",
+        "Each file is accessible/openable and not corrupted; content is not placeholder or partial.",
+        "All explicitly required sections/components from the prompt are included (e.g., required poster sections; required fields like NDC/strength/package size/formula/days\u2019 supply; required checklist frequencies).",
+        "Meets required format constraints (file type such as PDF; page size or page count constraints; printer-friendly if requested).",
+        "Includes references/citations if requested (e.g., credible sources; links; bibliography).",
+        "For multi-audience deliverables, includes adequate explanatory text such that it can be understood without live explanation when required."
+      ],
+      "scoring_guidance": "0-2 if ANY required files are missing/corrupted/wrong type OR if deliverables are severely incomplete (missing major sections/fields). 3-4 if multiple requirements are unmet or several required sections missing. 5-6 if all files exist but notable omissions (some required sections/fields incomplete). 7-8 if complete with only minor omissions (small missing details, minor formatting mismatches). 9-10 if fully complete and matches all specified constraints and sections."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, information, and logic.",
+      "criteria": [
+        "Calculations are mathematically correct and reproducible from stated inputs (e.g., days\u2019 supply based on package size and standard dosing).",
+        "Medication/product details are accurate (e.g., NDC formatting plausibility, strength, package size, dosage form) and not internally inconsistent.",
+        "Clinical claims align with reputable sources and OTC labeling where applicable; avoids misinformation.",
+        "Referral criteria and warnings are clinically appropriate (e.g., red flags, immunocompromised, facial/genital lesions, uncertain diagnosis).",
+        "Regulatory/compliance checklist items align with provided reference documents and correct jurisdiction; no fabricated laws or incorrect citations.",
+        "No contradictions across sections; terminology used correctly (dose vs strength; quantity vs days\u2019 supply; mL vs mg)."
+      ],
+      "scoring_guidance": "0-2 if pervasive inaccuracies, unsafe guidance, fabricated references/laws, or calculations largely wrong. 3-4 if multiple major errors that would cause audit risk, patient harm, or noncompliance. 5-6 if mixed accuracy with several non-trivial errors requiring rework. 7-8 if mostly correct with minor errors/edge cases. 9-10 if highly accurate, consistent, and verifiable with clear assumptions."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization, and usability of the artifacts.",
+      "criteria": [
+        "Clear structure with headings, logical flow, and scannable sections; matches requested layout style (e.g., section-based poster).",
+        "Legible typography and appropriate density (not overcrowded; not too sparse); effective use of tables/icons where requested.",
+        "Consistent formatting (units, abbreviations, table styles, capitalization) and minimal typos/grammar issues.",
+        "Appropriate length/space usage relative to constraints (e.g., 1\u20132 pages when requested; poster uses space effectively).",
+        "Printer-friendly formatting when requested (high contrast, minimal background ink, margins suitable).",
+        "Audience-appropriate tone (public-facing approachable vs technician-focused quick reference vs compliance checklist succinct)."
+      ],
+      "scoring_guidance": "0-2 if unusable formatting (illegible, chaotic, cannot be used as intended). 3-4 if difficult to use with major clarity/layout issues. 5-6 if usable but needs noticeable editing for clarity/formatting. 7-8 if professional and easy to use with small polish issues. 9-10 if publication-ready, highly readable, and purpose-optimized."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Industry-specific best practices for retail pharmacists, including safety, compliance-mindedness, and practical workflow alignment.",
+      "criteria": [
+        "Includes appropriate safety/disclaimer language consistent with pharmacist practice (e.g., not a substitute for medical advice; consult provider when indicated).",
+        "Avoids giving individualized medical advice without assessment; encourages referral/consultation appropriately.",
+        "Uses standard pharmacy conventions (SIG interpretation, units, NDC formatting style, days\u2019 supply logic) and audit-aware documentation practices.",
+        "Respects regulatory and ethical norms (no patient PHI; avoids encouraging off-label/unsafe OTC use; emphasizes label adherence).",
+        "Practicality for retail workflow (quick-reference tables, checkboxes, clear follow-up intervals, clear action steps)."
+      ],
+      "scoring_guidance": "0-2 if unsafe, unethical, or grossly noncompliant with professional norms. 3-4 if multiple problematic practices or missing essential safety framing. 5-6 if generally acceptable but missing some best-practice elements. 7-8 if aligned with practice norms with minor gaps. 9-10 if exemplary safety/compliance orientation and highly practical for retail pharmacy."
+    }
+  },
+  "file_inspection_checklist": [
+    "Inventory required deliverables from the prompt (number of files, file types, page size/count, named components) and confirm each is present.",
+    "Open each output file to ensure it is readable and complete (no corruption, no missing pages, no placeholder text).",
+    "Confirm correct file format (e.g., PDF when asked) and required separation (e.g., three separate PDFs rather than one combined document).",
+    "Check artifact-level requirements: required sections/headings, tables, formulas, calculations, checklists, referral criteria, follow-up guidance, preventative strategies, etc.",
+    "Verify presence and placement of key data fields when required (e.g., NDC, strength, package size, formula, days\u2019 supply).",
+    "Recompute a sample of calculations to validate correctness (spot-check multiple rows and edge cases).",
+    "Cross-check clinical/regulatory claims against provided references; ensure citations are not fabricated and match the content.",
+    "Assess visual/formatting constraints: poster dimensions (36x24), printer-friendly layout, readability, appropriate amount of text, proper use of visuals.",
+    "Look for internal consistency: units, dosing frequency, terminology, and alignment between narrative and tables.",
+    "Check for safety and professionalism: warnings, red flags, appropriate referral triggers, and avoidance of unsafe recommendations."
+  ],
+  "common_failure_modes": [
+    "Missing one or more required output files (e.g., only 1 PDF delivered when 3 are required).",
+    "Wrong file type (e.g., plain text instead of PDF) or combined files when separate PDFs are required.",
+    "Severely incomplete artifacts (placeholders, partial tables, missing major required sections like referral criteria or calculations).",
+    "Incorrect days\u2019 supply math (confusing mL vs mg, misunderstanding pen devices, ignoring priming, wrong dose frequency).",
+    "Providing NDCs/strengths/package sizes that are inconsistent, implausible, or clearly fabricated without indicating assumptions.",
+    "Clinical misinformation (incorrect cause/management, unsafe OTC advice, missing contraindications/red flags).",
+    "Regulatory checklist not tied to provided references; invented laws, wrong state/jurisdiction, or vague items that cannot be audited.",
+    "Poor readability/formatting: tiny fonts, overcrowded poster, low-contrast printer-unfriendly background, disorganized checklists.",
+    "Lack of citations when requested, or citations that do not support the claims made.",
+    "Not matching the target audience (too technical for public poster or too verbose for technician quick guide)."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Compute a weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required output file is missing, wrong type, corrupted, or deliverables are severely incomplete, set final overall score to 0\u20132 regardless of other subscores. Document the override explicitly.",
+    "score_scale": "0\u201310 scale: 0\u20132 Unacceptable (missing files/incomplete or unusable); 3\u20134 Poor (major issues, many requirements unmet); 5\u20136 Acceptable (usable but notable gaps/errors); 7\u20138 Good (minor issues only); 9\u201310 Excellent (complete, accurate, professional, ready to use).",
+    "automatic_low_score_triggers": [
+      "Any required output file is missing (including missing one of multiple required PDFs).",
+      "Output file(s) are not accessible/openable, or are clearly partial/placeholder.",
+      "Major prompt components are absent (e.g., required sections/fields like NDC+formula+days\u2019 supply; required poster topic sections; required checklist time horizons).",
+      "Artifact is delivered in the wrong format when format is explicitly required (e.g., not PDF).",
+      "Unsafe or clearly incorrect clinical guidance that could plausibly lead to patient harm (may also justify 0\u20132 even if files exist)."
+    ],
+    "excellent_output_characteristics": [
+      "All required artifacts are present, correctly separated, in correct file type, and meet page/size constraints.",
+      "All required sections and data fields are included, with clear organization and labeling.",
+      "Calculations and facts are accurate, consistent, and verifiable; assumptions are stated when needed.",
+      "Professional, retail-usable formatting (scannable tables/checklists; legible design; printer-friendly when requested).",
+      "Includes credible citations and avoids fabricated references; aligns with provided reference documents.",
+      "Strong safety framing: clear referral criteria, contraindications/warnings, and follow-up guidance."
+    ],
+    "poor_output_characteristics": [
+      "Missing one or more required files or delivering a combined document when separate files are required.",
+      "Large portions of content absent or replaced by generic filler; lacks key required fields/sections.",
+      "Multiple incorrect computations or inconsistent units; high audit-risk content.",
+      "Disorganized, hard to read, not appropriate for intended audience/workflow.",
+      "Uncited or dubious claims; fabricated legal/clinical references.",
+      "Unsafe recommendations or missing critical warnings/referral guidance."
+    ]
+  },
+  "example_evaluation_questions": [
+    "Are all required output files present in the correct number and correct format (e.g., PDFs), and do they open successfully?",
+    "If the prompt requires separate PDFs (daily vs weekly/monthly vs quarterly/annual), did the agent deliver separate documents with the correct scope in each?",
+    "Does each artifact include every explicitly required section/field from the prompt (e.g., NDC, strength, package size, formula, days\u2019 supply; referral criteria; follow-up)?",
+    "Do the calculations (e.g., days\u2019 supply) reproduce correctly when you recompute them from the stated package size and dosing assumptions?",
+    "Are medication/product details internally consistent (strength aligns with dosage form; package size aligns with days\u2019 supply result)?",
+    "Are clinical statements consistent with reputable sources/OTC labeling, and are citations provided when requested?",
+    "Does the artifact clearly identify when to refer to a physician and highlight red flags appropriate for retail pharmacy triage?",
+    "Is the output usable as-is in a retail workflow (quick to scan, printer-friendly if required, minimal ambiguity)?",
+    "Are there any unsafe, noncompliant, or jurisdictionally incorrect recommendations (e.g., wrong state law) that would invalidate the artifact?",
+    "Does the tone and reading level match the intended audience (general public vs technicians/interns vs compliance staff)?"
+  ],
+  "metadata": {
+    "category": "Pharmacists",
+    "sector": "Retail Trade",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:30:12.841413",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2319,
+    "completion_tokens": 3386,
+    "total_tokens": 5705
+  }
+}

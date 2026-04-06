@@ -1,0 +1,273 @@
+{
+  "generation_date": "2026-01-06T07:45:59.729535",
+  "total_categories": 44,
+  "model_used": "gpt-5.2",
+  "categories": [
+    {
+      "category": "Accountants and Auditors",
+      "sector": "Professional, Scientific, and Technical Services",
+      "num_tasks": 5,
+      "tokens_used": 6678
+    },
+    {
+      "category": "Administrative Services Managers",
+      "sector": "Government",
+      "num_tasks": 5,
+      "tokens_used": 6086
+    },
+    {
+      "category": "Audio and Video Technicians",
+      "sector": "Information",
+      "num_tasks": 5,
+      "tokens_used": 6424
+    },
+    {
+      "category": "Buyers and Purchasing Agents",
+      "sector": "Manufacturing",
+      "num_tasks": 5,
+      "tokens_used": 6689
+    },
+    {
+      "category": "Child, Family, and School Social Workers",
+      "sector": "Government",
+      "num_tasks": 5,
+      "tokens_used": 6416
+    },
+    {
+      "category": "Compliance Officers",
+      "sector": "Government",
+      "num_tasks": 5,
+      "tokens_used": 5728
+    },
+    {
+      "category": "Computer and Information Systems Managers",
+      "sector": "Professional, Scientific, and Technical Services",
+      "num_tasks": 5,
+      "tokens_used": 6791
+    },
+    {
+      "category": "Concierges",
+      "sector": "Real Estate and Rental and Leasing",
+      "num_tasks": 5,
+      "tokens_used": 5931
+    },
+    {
+      "category": "Counter and Rental Clerks",
+      "sector": "Real Estate and Rental and Leasing",
+      "num_tasks": 5,
+      "tokens_used": 5765
+    },
+    {
+      "category": "Customer Service Representatives",
+      "sector": "Finance and Insurance",
+      "num_tasks": 5,
+      "tokens_used": 5649
+    },
+    {
+      "category": "Editors",
+      "sector": "Information",
+      "num_tasks": 5,
+      "tokens_used": 6104
+    },
+    {
+      "category": "Film and Video Editors",
+      "sector": "Information",
+      "num_tasks": 5,
+      "tokens_used": 6357
+    },
+    {
+      "category": "Financial Managers",
+      "sector": "Finance and Insurance",
+      "num_tasks": 5,
+      "tokens_used": 6502
+    },
+    {
+      "category": "Financial and Investment Analysts",
+      "sector": "Finance and Insurance",
+      "num_tasks": 5,
+      "tokens_used": 5501
+    },
+    {
+      "category": "First-Line Supervisors of Non-Retail Sales Workers",
+      "sector": "Wholesale Trade",
+      "num_tasks": 5,
+      "tokens_used": 6063
+    },
+    {
+      "category": "First-Line Supervisors of Office and Administrative Support Workers",
+      "sector": "Health Care and Social Assistance",
+      "num_tasks": 5,
+      "tokens_used": 6357
+    },
+    {
+      "category": "First-Line Supervisors of Police and Detectives",
+      "sector": "Government",
+      "num_tasks": 5,
+      "tokens_used": 6138
+    },
+    {
+      "category": "First-Line Supervisors of Production and Operating Workers",
+      "sector": "Manufacturing",
+      "num_tasks": 5,
+      "tokens_used": 6877
+    },
+    {
+      "category": "First-Line Supervisors of Retail Sales Workers",
+      "sector": "Retail Trade",
+      "num_tasks": 5,
+      "tokens_used": 5372
+    },
+    {
+      "category": "General and Operations Managers",
+      "sector": "Retail Trade",
+      "num_tasks": 5,
+      "tokens_used": 5254
+    },
+    {
+      "category": "Industrial Engineers",
+      "sector": "Manufacturing",
+      "num_tasks": 5,
+      "tokens_used": 6535
+    },
+    {
+      "category": "Lawyers",
+      "sector": "Professional, Scientific, and Technical Services",
+      "num_tasks": 5,
+      "tokens_used": 6315
+    },
+    {
+      "category": "Mechanical Engineers",
+      "sector": "Manufacturing",
+      "num_tasks": 5,
+      "tokens_used": 5867
+    },
+    {
+      "category": "Medical Secretaries and Administrative Assistants",
+      "sector": "Health Care and Social Assistance",
+      "num_tasks": 5,
+      "tokens_used": 6622
+    },
+    {
+      "category": "Medical and Health Services Managers",
+      "sector": "Health Care and Social Assistance",
+      "num_tasks": 5,
+      "tokens_used": 6088
+    },
+    {
+      "category": "News Analysts, Reporters, and Journalists",
+      "sector": "Information",
+      "num_tasks": 5,
+      "tokens_used": 5980
+    },
+    {
+      "category": "Nurse Practitioners",
+      "sector": "Health Care and Social Assistance",
+      "num_tasks": 5,
+      "tokens_used": 5856
+    },
+    {
+      "category": "Order Clerks",
+      "sector": "Wholesale Trade",
+      "num_tasks": 5,
+      "tokens_used": 6204
+    },
+    {
+      "category": "Personal Financial Advisors",
+      "sector": "Finance and Insurance",
+      "num_tasks": 5,
+      "tokens_used": 5511
+    },
+    {
+      "category": "Pharmacists",
+      "sector": "Retail Trade",
+      "num_tasks": 5,
+      "tokens_used": 5705
+    },
+    {
+      "category": "Private Detectives and Investigators",
+      "sector": "Retail Trade",
+      "num_tasks": 5,
+      "tokens_used": 5578
+    },
+    {
+      "category": "Producers and Directors",
+      "sector": "Information",
+      "num_tasks": 5,
+      "tokens_used": 6144
+    },
+    {
+      "category": "Project Management Specialists",
+      "sector": "Professional, Scientific, and Technical Services",
+      "num_tasks": 5,
+      "tokens_used": 5989
+    },
+    {
+      "category": "Property, Real Estate, and Community Association Managers",
+      "sector": "Real Estate and Rental and Leasing",
+      "num_tasks": 5,
+      "tokens_used": 5914
+    },
+    {
+      "category": "Real Estate Brokers",
+      "sector": "Real Estate and Rental and Leasing",
+      "num_tasks": 5,
+      "tokens_used": 5767
+    },
+    {
+      "category": "Real Estate Sales Agents",
+      "sector": "Real Estate and Rental and Leasing",
+      "num_tasks": 5,
+      "tokens_used": 5344
+    },
+    {
+      "category": "Recreation Workers",
+      "sector": "Government",
+      "num_tasks": 5,
+      "tokens_used": 5811
+    },
+    {
+      "category": "Registered Nurses",
+      "sector": "Health Care and Social Assistance",
+      "num_tasks": 5,
+      "tokens_used": 5721
+    },
+    {
+      "category": "Sales Managers",
+      "sector": "Wholesale Trade",
+      "num_tasks": 5,
+      "tokens_used": 5593
+    },
+    {
+      "category": "Sales Representatives, Wholesale and Manufacturing, Except Technical and Scientific Products",
+      "sector": "Wholesale Trade",
+      "num_tasks": 5,
+      "tokens_used": 6572
+    },
+    {
+      "category": "Sales Representatives, Wholesale and Manufacturing, Technical and Scientific Products",
+      "sector": "Wholesale Trade",
+      "num_tasks": 5,
+      "tokens_used": 6329
+    },
+    {
+      "category": "Securities, Commodities, and Financial Services Sales Agents",
+      "sector": "Finance and Insurance",
+      "num_tasks": 5,
+      "tokens_used": 6346
+    },
+    {
+      "category": "Shipping, Receiving, and Inventory Clerks",
+      "sector": "Manufacturing",
+      "num_tasks": 5,
+      "tokens_used": 5645
+    },
+    {
+      "category": "Software Developers",
+      "sector": "Professional, Scientific, and Technical Services",
+      "num_tasks": 5,
+      "tokens_used": 6244
+    }
+  ],
+  "total_tokens_used": 266362,
+  "estimated_cost_usd": 1.33181
+}

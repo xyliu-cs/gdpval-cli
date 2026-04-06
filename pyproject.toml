@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gdpval-bench"
+version = "0.1.0"
+description = "GDPVal Benchmark — framework-agnostic evaluation pipeline for grounded task completion"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+
+dependencies = [
+    "openai>=1.0.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+# For reading .docx/.xlsx artifacts during evaluation
+docs = [
+    "python-docx>=0.8.11",
+    "openpyxl>=3.1.0",
+]
+
+# For auto-downloading tasks from HuggingFace
+hf = [
+    "datasets>=2.0.0",
+]
+
+# For loading tasks from parquet files
+parquet = [
+    "pandas>=1.5.0",
+    "pyarrow>=10.0.0",
+]
+
+all = [
+    "gdpval-bench[docs,hf,parquet]",
+]
+
+dev = [
+    "pytest>=7.0.0",
+]
+
+[project.urls]
+Repository = "https://github.com/HKUDS/OpenSpace"
+
+[project.scripts]
+gdpval-bench = "gdpval_bench.run_benchmark:cli"
+
+[tool.setuptools]
+packages = {find = {where = ["."], include = ["gdpval_bench*"]}}
+
+[tool.setuptools.package-data]
+gdpval_bench = [
+    "meta_prompts/*.json",
+    "tasks_50.json",
+    "tasks_50_full.jsonl",
+    "task_values.jsonl",
+    "config.json",
+]

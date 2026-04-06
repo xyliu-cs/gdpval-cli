@@ -1,0 +1,129 @@
+{
+  "category": "Shipping, Receiving, and Inventory Clerks",
+  "evaluation_prompt": "You are an impartial evaluator of AI-generated work products for tasks in the occupation category \u201cShipping, Receiving, and Inventory Clerks\u201d (Manufacturing sector). You will be given: (1) the original task prompt, (2) any reference/input files cited by the prompt (e.g., spreadsheets, PDFs/standards, WMS exports), and (3) the agent\u2019s output files/artifacts.\n\nYour job is to assess whether the agent delivered ALL required artifacts, and whether those artifacts correctly and professionally satisfy the prompt requirements.\n\nCRITICAL RULE (NON-NEGOTIABLE): If ANY required output file/artifact is missing, corrupted/unopenable, wrong file type vs. required, or the work is severely incomplete (e.g., placeholders, partial tables, missing key sections), you MUST assign an overall score in the 0\u20132 range, regardless of how good the rest seems.\n\nFollow this evaluation procedure:\n1) Parse the prompt and list every required deliverable (file types, formats, named outputs, tables/sections/figures that must exist) and any constraints (page limits, \u201cExcel spreadsheet,\u201d \u201cWord document,\u201d \u201cPowerPoint,\u201d standard delivery speeds only, etc.).\n2) Inventory the provided output artifacts. Verify each required deliverable exists as a file, is openable, and is the correct type. If any required artifact is missing or unopenable -> overall score 0\u20132.\n3) Inspect each deliverable thoroughly:\n   - Verify completeness vs. prompt (all requested analyses/tables/sections/visuals/conclusions included).\n   - Verify correctness (math, logic, data integrity, citations/assumptions, adherence to constraints).\n   - Verify quality (professional formatting, clear labeling, readable charts/tables, coherent narrative).\n   - Verify domain standards for shipping/receiving/inventory clerical work (traceability, auditability, SKU/PO/lot controls, clear procedures, defensible calculations, operational practicality).\n4) Cross-check against reference files/inputs:\n   - If the prompt includes a source spreadsheet or PDF standard, confirm the outputs use it appropriately and do not invent data.\n   - Recompute a sample of calculations (totals, percentages, averages, projections) and validate charts match underlying numbers.\n5) Assign dimension scores (0\u201310) for: Completeness (40%), Correctness (30%), Quality (20%), Domain Standards (10%). Compute the weighted score.\n6) Apply the critical override: If any required deliverable is missing or severely incomplete, override final score to 0\u20132.\n7) Provide a brief, specific rationale: cite concrete evidence (missing files, incorrect totals, wrong assumptions, missing required visuals, not following \u201cstandard speed,\u201d no recommendations, etc.).\n\nKeep your assessment grounded in the prompt. Do not reward \u201cextra\u201d content if required deliverables are missing or if core requirements are wrong.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist, are openable, correct format, and all prompt requirements are addressed end-to-end.",
+      "criteria": [
+        "All required output artifacts are present as files (e.g., .xlsx/.xlsm, .docx, .pptx, PDF if requested) and open without errors",
+        "Correct file type/format per prompt (e.g., Excel deliverable is not replaced with a narrative text file; PowerPoint is not replaced by screenshots)",
+        "All required sections/components are included (e.g., tables for rates, assumptions, projections; SOP sections; incident summaries; visuals; recommendations; summary slide)",
+        "All required constraints are met (page limits, delivery speed constraints, inclusion/exclusion rules, required time periods, required segmentation by supplier/package type/incident type)",
+        "All referenced inputs are actually used when required (e.g., calculations based on the provided spreadsheet; SOP aligned to cited standard)",
+        "No placeholder content where real analysis is required (e.g., \u201cTBD\u201d, empty tables, generic boilerplate without specific outputs)",
+        "Outputs include final conclusions/recommendations when requested (not just raw data dumps)"
+      ],
+      "scoring_guidance": "0\u20132 if any required file is missing/unopenable/wrong type OR work is severely incomplete (missing major required sections/tables/visuals). 3\u20134 if multiple major requirements unmet or only partial deliverables. 5\u20136 if core deliverables exist but with notable omissions (e.g., missing some required visuals or missing a required breakdown). 7\u20138 if everything required is present with only minor omissions or small constraint deviations. 9\u201310 if all requirements and constraints are fully satisfied with complete coverage."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of calculations, data handling, logic, and adherence to prompt rules (no invented data; correct interpretation of instructions).",
+      "criteria": [
+        "Mathematical accuracy: totals, averages, percentages, time-to-resolve metrics, cost rollups, projections, weighted/volume calculations",
+        "Internal consistency: numbers in tables match numbers in charts; summary statements match computed results",
+        "Correct application of prompt constraints (e.g., standard service level only; business rates when requested; exclude carriers/sizes not offered; correct years/time window; correct grouping categories)",
+        "Correct use of reference data: metrics match the provided spreadsheet fields; no fabricated suppliers/incidents; SOP guidance consistent with cited standard",
+        "Assumptions are explicitly stated where needed and are reasonable; no silent substitutions (e.g., using retail rates when business rates requested without explanation)",
+        "Units and definitions are correct (e.g., handling of days vs. hours, currency, package size definitions, incident duration definitions)",
+        "Reproducibility: calculations are traceable (formulas visible in Excel; PowerPoint numbers can be tied back to source data)"
+      ],
+      "scoring_guidance": "0\u20132 if pervasive incorrectness, fabricated data, or calculations cannot be validated. 3\u20134 if major calculation/logic errors materially change conclusions. 5\u20136 if generally reasonable but with several notable errors or questionable assumptions. 7\u20138 if mostly correct with a few minor errors not affecting main conclusions. 9\u201310 if accurate, consistent, and verifiable with clear, correct logic."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional presentation, clarity, organization, and usability of the deliverables for operational stakeholders.",
+      "criteria": [
+        "Clear structure: headings, table titles, consistent ordering, table of contents/slide agenda where appropriate",
+        "Readable formatting: appropriate fonts, spacing, alignment; no clipped charts; correct page/slide layout",
+        "Well-labeled visuals: axes labels, legends, data labels where helpful; chart types appropriate to the data (bar/pie/line used appropriately)",
+        "Effective communication: concise executive summary or concluding recommendations; minimal ambiguity",
+        "Operational usability: SOP steps are actionable; spreadsheet is navigable (tabs, filters, frozen headers); slides tell a coherent story",
+        "Grammar/spelling/professional tone; consistent terminology (SKU, PO, RMA, WO, carrier services)"
+      ],
+      "scoring_guidance": "0\u20132 if the artifact is unusable or chaotic (unreadable, unlabeled, broken layout). 3\u20134 if poor organization and hard to follow. 5\u20136 if adequate but messy or unclear in places. 7\u20138 if professional with minor polish issues. 9\u201310 if highly polished, clear, and stakeholder-ready."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Alignment with shipping/receiving/inventory clerical best practices: traceability, auditability, compliance-minded handling, and realistic warehouse operations.",
+      "criteria": [
+        "Traceability/auditability: sources, assumptions, and calculations are documented; SOP references correct standards; data lineage is clear",
+        "Inventory control best practices: attention to lot/serial control, location/bin accuracy, cycle counting considerations when relevant",
+        "Shipping best practices when relevant: correct service selection logic, dimensional/packaging considerations, rate validity windows, clear carrier selection rationale",
+        "Receiving/quality handling best practices when relevant: RMA and nonconformance tracking, disposition paths, quarantine/hold procedures, corrective action signals",
+        "ESD/handling best practices when relevant: grounding, packaging, workstation controls, labeling, training, verification steps",
+        "Confidentiality/safety: avoids unsafe instructions; does not expose unnecessary sensitive data; aligns with manufacturing environment expectations"
+      ],
+      "scoring_guidance": "0\u20132 if guidance is unsafe/noncompliant or ignores basic operational realities. 3\u20134 if weak alignment to best practices and limited traceability. 5\u20136 if some best practices present but incomplete. 7\u20138 if solid alignment with minor gaps. 9\u201310 if strong, practical, and audit-ready."
+    }
+  },
+  "file_inspection_checklist": [
+    "Step 1: Identify required deliverable files from the prompt (e.g., \u201cExcel spreadsheet,\u201d \u201cWord SOP (\u22645 pages),\u201d \u201cPowerPoint presentation,\u201d plus any required charts/tables/sections). Write the list explicitly before scoring.",
+    "Step 2: Confirm every required file exists in outputs. Verify file extensions and that each file opens without errors. If any required file is missing/unopenable/wrong type -> overall score must be 0\u20132.",
+    "For Excel deliverables (.xlsx/.xlsm): check for required worksheets/tables; verify formulas exist (not just typed results); confirm inputs and assumptions are documented; spot-check calculations; confirm totals match volumes; confirm charts (if any) match table data; confirm clear labeling (currency, dates, service levels).",
+    "For Word SOP deliverables (.docx): confirm page limit and structure (purpose/scope, definitions, responsibilities, procedure steps, equipment/PPE, training, records, audit/verification); check for actionable steps; confirm alignment with referenced standard (e.g., IPC/ESD requirements) and that key controls are included; check revision control (version/date/owner) if expected.",
+    "For PowerPoint deliverables (.pptx): confirm all required slides exist (incident counts per supplier + visual, percentages + visual, total cost, average resolution times with WO vs RMA split, concluding summary/recommendations); check that numbers tie back to the source spreadsheet; verify charts are readable and correctly labeled.",
+    "For any analysis requiring external rate research or historical increases: check that sources are cited (links, dates accessed) and that the method for averaging increases is transparent; verify correct year range; verify that estimated projections follow stated method.",
+    "Check compliance with prompt constraints: e.g., standard service only, business rates used, exclusions applied where flat rate not offered, correct package sizes/categories, correct time period, correct incident categories.",
+    "Check for reproducibility: ensure another user could follow the artifact to re-run the logic (documented assumptions, clear references to source fields, transparent formulas)."
+  ],
+  "common_failure_modes": [
+    "Missing required output file (e.g., no .xlsx/.docx/.pptx delivered), wrong format (Google Sheets link, plaintext narrative instead of Excel), or unopenable/corrupted file",
+    "Severely incomplete deliverable: empty/placeholder tables, missing key sections (no recommendations, no visuals, no summary), or only partial time period analyzed",
+    "Invented or unsupported data (e.g., carrier rates or incident counts not traceable to sources/reference files)",
+    "Violating prompt constraints (e.g., using expedited shipping instead of standard, using retail rates when business rates requested, including carriers for sizes they don\u2019t offer)",
+    "Math errors: incorrect averages/percentages, incorrect total costs, incorrect duration calculations, charts not matching table numbers",
+    "Not using the provided reference spreadsheet; presenting generic analysis with no linkage to actual incident data",
+    "Poor labeling and ambiguity: no units, unclear definitions of \u201caverage time,\u201d mislabeled suppliers/package sizes, missing legends/axes",
+    "Recommendations not supported by the analysis or contradicted by computed results",
+    "SOP is not actionable (high-level prose only) or lacks key controls (e.g., ESD grounding verification, storage packaging, training/records)"
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Compute weighted average: completeness 40%, correctness 30%, quality 20%, domain_standards 10%. CRITICAL OVERRIDE: If any required file is missing/unopenable/wrong type OR deliverables are severely incomplete, override overall score to 0\u20132 regardless of weighted average.",
+    "score_scale": "0\u201310: 0\u20132 Unacceptable (missing files/severely incomplete); 3\u20134 Poor (major gaps); 5\u20136 Acceptable (notable gaps/errors); 7\u20138 Good (minor issues); 9\u201310 Excellent (complete, accurate, professional).",
+    "automatic_low_score_triggers": [
+      "Any required output artifact is missing",
+      "Any required output artifact is unopenable/corrupted",
+      "Wrong deliverable format vs. prompt requirement (e.g., asked for Excel but only narrative text provided)",
+      "Severely incomplete work: missing major required sections/tables/visuals, placeholders, or only a small fraction of the requested analysis",
+      "Fabricated data presented as factual without sources when the task requires research or reference-file-based computation"
+    ],
+    "excellent_output_characteristics": [
+      "All required files present, openable, and in the correct formats",
+      "All prompt requirements addressed with clear mapping from requirements to sections/tabs/slides",
+      "Calculations are correct, transparent, and reproducible; charts match underlying data",
+      "Clear assumptions and citations (where external research is required) with dates accessed",
+      "Professionally formatted, stakeholder-ready deliverables with clear recommendations and rationale",
+      "Strong alignment to shipping/receiving/inventory operational best practices (traceability, audit readiness, safe handling/procedures)"
+    ],
+    "poor_output_characteristics": [
+      "Missing/incorrect deliverables or unopenable files",
+      "Large sections of the prompt ignored (no visuals, no recommendation, missing key breakdowns)",
+      "Multiple significant math/logic errors affecting conclusions",
+      "Untraceable numbers, invented data, or no linkage to reference files",
+      "Hard-to-read formatting, unclear labeling, and non-actionable procedures"
+    ]
+  },
+  "example_evaluation_questions": [
+    "What exact files did the prompt require (including format), and are all of them present and openable?",
+    "Does the deliverable explicitly include every required table/section/slide (e.g., counts by supplier, % by supplier, total cost, average resolution time split by type, final recommendations)?",
+    "Can you trace key numbers in the outputs back to the reference files or cited sources? Are any numbers unverifiable or seemingly invented?",
+    "Do a spot-check recalculation: do totals/percentages/averages match what the spreadsheet formulas or source data imply?",
+    "Are prompt constraints followed (service level, inclusion/exclusion rules, time window, page limits, required categories)?",
+    "Do charts accurately reflect the tabular data (no mismatched labels, wrong totals, inconsistent percentages)?",
+    "Is the output usable by warehouse/shipping stakeholders (clear labeling, actionable steps, coherent narrative, professional formatting)?",
+    "Are recommendations logically derived from the computed results and clearly stated with decision-ready guidance?",
+    "Does the work reflect domain best practices (traceability, auditability, safe handling, inventory control discipline)?",
+    "If something is missing or incomplete, does the overall score correctly fall into the 0\u20132 range per the critical requirement?"
+  ],
+  "metadata": {
+    "category": "Shipping, Receiving, and Inventory Clerks",
+    "sector": "Manufacturing",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:44:53.621828",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2276,
+    "completion_tokens": 3369,
+    "total_tokens": 5645
+  }
+}

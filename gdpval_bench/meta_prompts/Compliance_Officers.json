@@ -1,0 +1,130 @@
+{
+  "category": "Compliance Officers",
+  "evaluation_prompt": "You are an independent evaluator assessing AI-generated work products for the occupation category \u201cCompliance Officers\u201d (Government sector). You will be given: (1) the original task prompt, (2) any referenced input/source files (laws, regulations, handbooks, templates), and (3) the agent\u2019s output files/artifacts. Your job is to score the output on a 0\u201310 scale using the rubric below and provide short, evidence-based justification.\n\nCRITICAL RULE (NON-NEGOTIABLE): If ANY required output file is missing, not accessible/corrupted, or if the deliverable is severely incomplete relative to the prompt (e.g., only partial sections/questions, wrong file type when a specific type is required, missing required identifiers/citations), you MUST assign an overall score in the 0\u20132 range regardless of quality of what exists.\n\nProcess to follow (must be systematic):\n1) Parse requirements from the prompt into a checklist. Identify: required file types (e.g., Word, Excel, PDF), required title/header text, length/page constraints, number of items (e.g., number of test questions), response constraints (e.g., Yes/No/NA only), required citations, required structure (IDs, columns, rows), and any special instructions (e.g., reference specific CFR sections, include exception statements, use regulatory tone).\n2) Inventory artifacts: confirm every required output file exists, opens successfully, and matches required format. If any are missing/unopenable/wrong type when strict, stop and assign 0\u20132.\n3) Inspect each artifact: verify it addresses every requirement. Count required elements (questions, topics, citations, IDs). Verify constraints (e.g., separate rows, unique identifiers, correct naming conventions, page length). Verify that citations correspond to the correct authority and are placed as required.\n4) Verify correctness against sources: check that each question/statement accurately reflects the cited legal/regulatory text and does not introduce incorrect obligations. Ensure scope is correct (e.g., pre-award risk assessment under 2 CFR 200; SCRA testing under 50 USC; VA Handbook provisions).\n5) Assess professional quality: clarity, organization, usability for audit/compliance testing, consistent formatting, unambiguous language, and government/regulatory tone.\n6) Assess domain standards: compliance best practices including traceability (requirement-to-test mapping), auditability, objective wording, versioning/date/owner fields when appropriate, and avoidance of legal advice disclaimers unless asked.\n7) Assign sub-scores for completeness, correctness, quality, and domain standards. Compute weighted score. Apply the CRITICAL override if triggered.\n\nWhen writing your evaluation: cite concrete evidence (e.g., \u201cOnly 3 of 10 required questions present\u201d; \u201cIDs SCRA-12a\u201312d missing\u201d; \u201cNo citations included\u201d; \u201cPDF not provided\u201d). If you infer anything, label it explicitly as an inference and penalize uncertain compliance deliverables.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed",
+      "criteria": [
+        "All required output artifacts are present (correct number of files) and open successfully (not corrupted/password-locked unless allowed).",
+        "Artifacts match required file formats (e.g., PDF/Excel/Word) and naming/title/header requirements specified in the prompt.",
+        "All required sections/items are included (e.g., all topics/questions/exception statements/columns/rows/IDs).",
+        "All specified constraints are satisfied (e.g., 1\u20132 pages, each question on separate row, responses limited to Yes/No/NA, unique identifiers, required citations appended in required location).",
+        "All required references to input/source materials are incorporated where instructed (e.g., topics #6\u2013#10 cite relevant Uniform Guidance sections).",
+        "No placeholder text remains (e.g., \u201cTBD\u201d, \u201cinsert citation\u201d)."
+      ],
+      "scoring_guidance": "0-2 if any required files are missing/unopenable, wrong required format, or deliverable is severely incomplete; 3-4 if many requirements unmet (missing multiple required elements or constraints); 5-6 if mostly complete but notable gaps (some missing items/citations/format constraints); 7-8 if complete with only minor omissions (e.g., small formatting slip, one weak requirement mapping); 9-10 if fully complete and meets every explicit instruction precisely."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, information, and logic",
+      "criteria": [
+        "Statements/questions accurately reflect the cited statutes/regulations/handbooks without adding or omitting material obligations.",
+        "Citations are correct (authority, section/paragraph, and applicability) and aligned to the content they support.",
+        "Testing questions are objectively testable and logically linked to the compliance requirement (clear condition + evidence to review).",
+        "Response constraints are correct and enforceable where required (e.g., Yes/No/NA questions are phrased to support those answers).",
+        "Exception statements (if required) accurately describe non-compliance and reference the specific obligation without speculation or irrelevant detail.",
+        "No internal inconsistencies (e.g., mismatched ID vs citation, wrong section number, contradictory instructions)."
+      ],
+      "scoring_guidance": "0-2 if content is largely incorrect, citations wrong/missing in a way that breaks traceability, or requirements misrepresented; 3-4 if frequent substantive errors or multiple incorrect citations; 5-6 if generally correct but with several notable inaccuracies/ambiguous test logic; 7-8 if mostly correct with minor errors that do not change substantive meaning; 9-10 if fully accurate, traceable, and legally/regulatorily faithful."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization",
+      "criteria": [
+        "Deliverable is cleanly formatted and easy to use as an audit/compliance tool (consistent fonts, headings, spacing, tables where appropriate).",
+        "Language is clear, concise, and unambiguous; avoids run-on questions and vague terms (\u201cappropriate\u201d, \u201cadequate\u201d) without specifying evidence.",
+        "Structure supports execution (e.g., IDs, columns for evidence/notes, clear separation of question vs citation vs exception statement).",
+        "Meets government-professional tone and avoids casual language; uses consistent terminology for parties and processes.",
+        "No typos/grammar issues that impede understanding; consistent capitalization and numbering."
+      ],
+      "scoring_guidance": "0-2 if unusable due to disorganized/illegible formatting or incoherent writing; 3-4 if hard to follow with major formatting issues; 5-6 if readable but needs cleanup/standardization; 7-8 if professional with minor polish issues; 9-10 if publication-ready and highly usable."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Industry-specific best practices for this occupation",
+      "criteria": [
+        "Auditability/traceability: clear linkage from each test item to a specific requirement/citation; consistent IDs and references.",
+        "Test design best practices: questions are evidence-oriented (what document/system record proves compliance), scoped to population, and minimize subjectivity.",
+        "Risk/compliance alignment: content supports decisioning (e.g., pre-award risk conditions; operational testing outcomes) and anticipates common control points.",
+        "Regulatory tone and neutrality: avoids legal advice, avoids conclusory accusations, and uses objective non-compliance descriptions.",
+        "Data governance awareness when relevant: avoids requesting unnecessary PII; uses least-privilege framing and confidentiality considerations (especially in government contexts)."
+      ],
+      "scoring_guidance": "0-2 if violates core compliance best practices (no traceability, non-auditable items); 3-4 if weak traceability or overly subjective tests; 5-6 if adequate but missing some best-practice elements; 7-8 if strong alignment with minor gaps; 9-10 if exemplary compliance/audit design and ready for operational use."
+    }
+  },
+  "file_inspection_checklist": [
+    "Required artifact presence: Verify every required file exists (e.g., .docx/.xlsx/.pdf as specified). If a specific format is required and not provided, trigger 0\u20132 overall.",
+    "File integrity: Open each file; confirm it is not blank, not corrupted, and not an unrelated document.",
+    "Title/header/naming: Confirm required document title/header text appears exactly or substantially as required (e.g., specified tool name or template header).",
+    "Requirement count: Count required items (e.g., number of questions, number of topics, number of exception statements). Confirm none are missing.",
+    "ID conventions: Check unique identifiers are present and match required schemes (e.g., SCRA-12a\u201312d; sequential IDs) and are used consistently.",
+    "Row/column rules (spreadsheets): Confirm each question is on a separate row; check required columns exist (ID, question, citation, response options, notes) if implied/required.",
+    "Response constraints: Validate questions are phrased so answers are limited to required options (Yes/No/Not Applicable) where mandated.",
+    "Citation placement: Confirm citations are included where required (after each question or per topic) and reference the correct authority/section.",
+    "Source fidelity: Spot-check against provided reference files/links: ensure the obligation described matches the cited section and is not invented.",
+    "Scope/coverage: Confirm the deliverable addresses all specified topics/paragraphs/sections (e.g., internal controls, record retention, conflicts of interest, subaward monitoring, timekeeping).",
+    "Length/format constraints: Verify page limits (e.g., 1\u20132 pages) or acceptable equivalent density; confirm PDF output when required.",
+    "Exception statements (when required): Each test question has a corresponding exception narrative with regulatory tone and clear statement of failure to meet the requirement.",
+    "Professional usability: Ensure the tool can be executed by an auditor/compliance tester without extra interpretation (clear evidence requests, definitions if necessary)."
+  ],
+  "common_failure_modes": [
+    "Missing required output file(s) (e.g., no PDF delivered, spreadsheet not included) or wrong file type when explicitly required.",
+    "Deliverable is partially complete (e.g., fewer questions than required; missing entire topics; missing exception statements for one of the questions).",
+    "No citations or incorrect citations (wrong USC/CFR section, missing paragraph references, or citations not tied to the relevant question).",
+    "Questions not testable or not constrained (e.g., open-ended prompts when Yes/No/NA required; multiple questions in one row with multiple possible answers).",
+    "IDs missing, duplicated, or not matching required nomenclature (e.g., uses \u201cQ1\u2013Q10\u201d instead of specified SCRA IDs).",
+    "Misinterpretation of law/regulation (adds obligations not in the text; omits key qualifiers; wrong applicability conditions).",
+    "Formatting not usable for intended medium (e.g., Excel requested but delivered as plain text; PDF requested but delivered as Word; citations missing from rows).",
+    "Overly vague compliance language (\u201cAre controls adequate?\u201d) without specifying evidence or criteria.",
+    "Exception statements that are accusatory, speculative, or not tied to the specific requirement/citation.",
+    "Including sensitive data unnecessarily or instructing to collect excessive PII without justification."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Calculate weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required files are missing/unopenable, wrong required format, or the deliverable is severely incomplete, override final score to 0\u20132 regardless of other dimension scores. If override triggers, still note the main issues briefly.",
+    "score_scale": "0-10 where 0-2=Unacceptable (missing files/incomplete), 3-4=Poor, 5-6=Acceptable, 7-8=Good, 9-10=Excellent",
+    "automatic_low_score_triggers": [
+      "Any required output file is missing, unopenable, corrupted, or inaccessible",
+      "Output is in a different format than explicitly required (e.g., PDF required but only text/Word provided) and no acceptable substitute was requested/allowed",
+      "Severely incomplete content (e.g., missing multiple required sections/topics/questions; missing required citations broadly; missing required exception statements)",
+      "Noncompliance with a central structural constraint that makes the artifact unusable (e.g., questions not separated into rows when mandated; response options not limited when mandated)",
+      "Outputs are unrelated to the prompt or obviously templated filler content"
+    ],
+    "excellent_output_characteristics": [
+      "All required files provided in correct formats and open cleanly",
+      "Every requirement from the prompt is addressed with no missing items",
+      "Accurate, correctly placed citations to the governing authority (USC/CFR/handbook) and correct interpretation of obligations",
+      "Audit-ready structure: clear IDs, test questions, evidence cues, and (when required) exception statements with regulatory tone",
+      "Professional formatting suitable for government compliance/audit workflows"
+    ],
+    "poor_output_characteristics": [
+      "Missing/incorrect file type or incomplete deliverable",
+      "Significant gaps (missing topics/questions/IDs/citations) or inconsistent structure",
+      "Incorrect legal/regulatory references or obligations stated inaccurately",
+      "Unclear, subjective, or non-testable questions",
+      "Messy formatting that prevents practical use in a compliance review"
+    ]
+  },
+  "example_evaluation_questions": [
+    "Are all required output files present, in the correct format(s), and do they open successfully? If not, assign 0\u20132 overall.",
+    "Does the artifact include the exact number of required questions/topics/sections and any required exception statements?",
+    "Do all questions include citations when required, and are those citations correct and aligned to the question content?",
+    "Are identifiers (IDs) present, unique, and in the specified naming convention (e.g., SCRA-12a\u201312d)?",
+    "Are questions phrased to enforce required response constraints (Yes/No/Not Applicable) where specified?",
+    "Does each test question map to an objectively verifiable piece of evidence (document/system record) rather than subjective judgment?",
+    "Do exception statements (if required) clearly describe the non-compliance condition, reference the specific obligation, and maintain a regulatory/neutral tone?",
+    "Does the deliverable respect any length/page constraints and required headers/titles?",
+    "Is the content faithful to the provided source text (Uniform Guidance/US Code/handbook), without inventing requirements or omitting key qualifiers?",
+    "Would a compliance auditor/regulator be able to execute the test using only this artifact and the cited authority, with minimal interpretation?"
+  ],
+  "metadata": {
+    "category": "Compliance Officers",
+    "sector": "Government",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:01:31.695016",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2536,
+    "completion_tokens": 3192,
+    "total_tokens": 5728
+  }
+}

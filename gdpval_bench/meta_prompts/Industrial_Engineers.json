@@ -1,0 +1,124 @@
+{
+  "category": "Industrial Engineers",
+  "evaluation_prompt": "You are an expert evaluator for Industrial Engineering work products in Manufacturing/Industrial Operations. You will be given: (1) the original task prompt, (2) any reference/input files cited in the prompt, and (3) the agent\u2019s output artifacts/files. Your job is to assign an overall 0\u201310 score and sub-scores using the rubric below.\n\nCRITICAL RULE (NON-NEGOTIABLE): First, identify every explicitly required deliverable (file types, formats, counts, and any required sections/diagrams/tables). If ANY required output file is missing, cannot be opened, is clearly the wrong format, or is severely incomplete (e.g., placeholder text, empty diagram, missing major sections), you MUST assign an overall score in the 0\u20132 range regardless of quality of any partial work.\n\nEvaluation procedure:\n1) Parse deliverables: From the prompt, list required output artifacts (e.g., PDF process map; Excel table + PNG layout diagram + PDF report; PDF schematic with required components). Note any formatting constraints (page size/orientation, lanes, standard symbols, required sections, export formats).\n2) Inventory outputs: Check the provided output files. Confirm each required deliverable exists, is accessible, and matches the requested format. Record mismatches.\n3) Completeness check (gate): Verify each deliverable contains all required elements (e.g., decision points, lanes, failure handling, title block, required tables/sections, minimum quantities like \u201cminimum 6 cameras\u201d, etc.). If any deliverable is missing or severely incomplete, apply the 0\u20132 override.\n4) Correctness check: Validate technical content against prompt requirements and reference files. Look for internal consistency (counts, zones, IO mapping, costs, pinouts, routing logic), correct use of industrial engineering conventions (process mapping, layout logic, safety circuit logic), and accurate interpretation of provided specs.\n5) Quality check: Assess whether the artifacts are professional, readable, well-structured, and usable by cross-functional teams (operations, maintenance, safety, leadership). Ensure labels, legends, and assumptions are clear.\n6) Domain standards: Check adherence to relevant manufacturing/industrial engineering best practices: standard symbology, safety principles, clear handoffs, traceability (requirements-to-design mapping), practical implementability, and attention to constraints like minimal rewiring and modular integration.\n\nScoring: Provide (a) sub-scores for completeness, correctness, quality, and domain standards (0\u201310 each), (b) a weighted overall score (40/30/20/10). Apply the missing/incomplete deliverables override to force overall score to 0\u20132 when triggered.\n\nWhen writing your evaluation, cite concrete evidence from the files: filename, page/section, diagram labels, table columns, missing items, and specific requirement mismatches. Avoid vague statements. If you must infer, label it explicitly as an assumption and penalize if the prompt required explicit evidence.\n",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed",
+      "criteria": [
+        "All required deliverables are present (correct file types: PDF/PNG/XLSX/etc.), open successfully, and are readable (not corrupted/password-locked unless allowed).",
+        "Each deliverable includes all required components from the prompt (e.g., required sections in a report; required diagram elements; required counts/quantities like number of cameras/zones; required tables/columns).",
+        "All referenced inputs are incorporated where required (e.g., the output reflects constraints and details from provided reference files such as layouts, pinouts, or location images).",
+        "Formatting constraints are satisfied where explicitly required (e.g., page size/orientation; lanes in process map; title block fields; export format).",
+        "No major placeholder content: deliverables are substantively filled (not a draft outline, lorem ipsum, or missing major diagram branches such as manual lane or failure handling)."
+      ],
+      "scoring_guidance": "0-2 if any required files are missing/wrong format/unopenable OR deliverables are severely incomplete; 3-4 if many required elements/sections are missing across deliverables; 5-6 if all files exist but notable required elements are missing (e.g., missing failure path, missing IO mapping details, missing required counts); 7-8 if complete with only minor omissions (e.g., one minor label/assumption not stated); 9-10 if fully complete with all requirements explicitly addressed and traceable."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, information, and logic",
+      "criteria": [
+        "Technical logic matches the prompt: process flows have correct decision points and routing; safety circuits follow stated pinouts/connection requirements; layout diagrams reflect required zones/placements; integration strategies align with stated protocols and constraints.",
+        "Quantitative correctness: correct counts (e.g., number of zones, devices, stations), capacities (e.g., AMR payload), and any calculations are consistent and dimensionally plausible.",
+        "Consistency across artifacts: table selections match report narrative and diagram labels; device names/models/costs/interfaces align across files; identifiers and wire labels are consistent across schematic elements.",
+        "Constraints and assumptions are handled correctly: if the prompt mandates specific components (e.g., named safety relay), it is used; if minimal rewiring/software separation is required, the design reflects it.",
+        "No unsafe or clearly noncompliant recommendations when safety is involved (e.g., missing redundancy where explicitly required, miswiring E-stop chain contrary to instructions, ignoring safety zones)."
+      ],
+      "scoring_guidance": "0-2 if content is largely incorrect, contradictory, or unsafe; 3-4 if frequent errors and multiple key requirements misinterpreted; 5-6 if generally correct but with notable mistakes or weak justification; 7-8 if mostly correct with minor errors that do not undermine usability; 9-10 if technically accurate, consistent, and defensible with clear traceability to requirements."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization",
+      "criteria": [
+        "Artifacts are clean, readable, and professional: legible fonts, proper scaling, appropriate whitespace, aligned shapes, consistent styling.",
+        "Clear structure: report has headings requested; diagrams have titles, legends/keys if needed, and consistent labeling; tables have headers, units, and consistent formatting.",
+        "Ease of use: a stakeholder can follow the flow/layout/wiring without needing extra explanations; cross-references between sections/files are clear.",
+        "Export quality: PDFs are not blurry screenshots; PNG diagrams are sufficiently high resolution; spreadsheets are usable (not embedded images instead of cells unless acceptable).",
+        "Good communication: risks, assumptions, and open issues are explicitly stated (without replacing required deliverables)."
+      ],
+      "scoring_guidance": "0-2 if unreadable, disorganized, or clearly not usable; 3-4 if poor formatting and hard to follow; 5-6 if adequate but with clarity issues; 7-8 if well-presented with minor polish issues; 9-10 if executive-ready, highly readable, and consistently formatted."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Industry-specific best practices for this occupation",
+      "criteria": [
+        "Uses standard industrial engineering conventions appropriate to the artifact type (e.g., standard process mapping symbols; swimlanes for responsibility; schematic symbols consistent with IEC/industry norms when requested).",
+        "Manufacturing practicality: solutions are implementable, consider maintainability, and reflect realistic operational constraints (throughput, failure modes, human factors, safety).",
+        "Safety-aware design where applicable: segregation of safe zones, appropriate safeguarding concepts, clear E-stop and reset logic, and attention to compliance language if required by prompt.",
+        "Traceability: requirement-to-design mapping is evident (e.g., device list ties to zones; decision logic ties to handling paths; IO mapping ties to integration).",
+        "Minimizes operational risk: identifies failure handling, exception paths, and escalation/containment actions (e.g., rework loops, jam handling, manual diversion)."
+      ],
+      "scoring_guidance": "0-2 if ignores basic professional standards or introduces unsafe/implausible practices; 3-4 if weak adherence to conventions; 5-6 if acceptable but missing some best-practice elements; 7-8 if aligns well with standards; 9-10 if exemplary, standards-driven, and stakeholder-ready."
+    }
+  },
+  "file_inspection_checklist": [
+    "Deliverable inventory check: Compare required outputs in the prompt vs provided output files. Confirm presence, correct file extensions, and that each opens correctly.",
+    "Format compliance: Verify required export formats (PDF/PNG/XLSX), page size/orientation requirements for PDFs, and that diagrams are not low-res or cropped.",
+    "Process maps (if required): Check for start/end, reminder of scope (end-to-end), standard symbols, clear decision diamonds, swimlanes (automation vs manual or departments), handoffs, rework/failure branches, and correct routing logic for incompatible items.",
+    "Layouts/diagrams (if required): Confirm all required physical elements are shown and labeled (machines/stations/rail/barriers/zones/sensors), required zone count, and that placements are plausible and unambiguous.",
+    "Tables/spreadsheets (if required): Confirm required columns exist (type, make/model, interface/protocol, compatibility notes, cost). Ensure entries are complete (no missing make/model), consistent, and totals/units make sense.",
+    "Reports (if required): Confirm all required sections are present (exact headings when specified), and that narrative aligns with the table and diagram (same device counts/models, same zone numbering).",
+    "Schematics/safety circuits (if required): Confirm the specified components are present (e.g., exact relay model), correct wiring/pin labels per prompt, required series/parallel connections, title block fields, wire labels, and that the drawing uses the requested symbol standard (e.g., IEC).",
+    "Reference file usage: Verify the output reflects any provided reference images/specs (e.g., E-stop locations incorporated; pinout respected). Penalize if referenced inputs are ignored when necessary to complete the task.",
+    "Internal consistency check: Names/IDs used in schematic/diagram/table/report match; no contradictions between files.",
+    "Completeness of exception handling: Where prompts call for failure handling (e.g., automation fails mid-process), verify explicit reroute/recovery paths exist."
+  ],
+  "common_failure_modes": [
+    "Missing one or more required deliverables (e.g., report provided but no Excel table or no PNG diagram).",
+    "Wrong formats (e.g., Google Doc link instead of PDF; CSV instead of XLSX; diagram embedded in PDF when PNG explicitly required).",
+    "Severely incomplete artifacts (outline-only report, partial process map missing manual lane/failure path, schematic missing key connections).",
+    "Does not follow explicit quantities/constraints (e.g., fewer than required cameras/LIDAR zones; omits robot-mounted unit; ignores payload requirement).",
+    "Inconsistent content across files (table lists devices not shown in diagram; report references different models; labels don\u2019t match).",
+    "Unreadable diagrams (low resolution, tiny text, cropped pages, overlapping connectors) or missing legends/labels that establish meaning.",
+    "Incorrect technical logic (e.g., missing decision point; incorrect series vs parallel E-stop chaining vs specified; reset wiring incorrect; routing logic contradicts prompt).",
+    "Ignores integration/protocol requirements (selects devices without required industrial protocols or fails to describe IO mapping/software separation when required).",
+    "Fails to incorporate provided reference files (e.g., ignores E-stop location image; ignores pinout spec) leading to incorrect placements or wiring.",
+    "Overly generic content with no concrete selections/labels/values (e.g., \u201cuse a camera\u201d without make/model/interface/cost)."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Calculate weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required files are missing, unopenable, wrong format, or severely incomplete, override the final overall score to 0\u20132 regardless of the weighted average.",
+    "score_scale": "0-10 where 0-2=Unacceptable (missing files/incomplete), 3-4=Poor, 5-6=Acceptable, 7-8=Good, 9-10=Excellent",
+    "automatic_low_score_triggers": [
+      "Any explicitly required output file is missing.",
+      "A required file is provided but is unopenable/corrupted or clearly the wrong format.",
+      "A required deliverable is severely incomplete (e.g., empty diagram, missing major required sections/lanes/paths, placeholder text).",
+      "The submission fails to address core required elements that prevent use (e.g., no decision point/routing separation when required; no safety relay wiring detail when required)."
+    ],
+    "excellent_output_characteristics": [
+      "All required deliverables are present, correctly formatted, and complete.",
+      "Strong traceability: requirements reflected in labels, counts, and sections; cross-file consistency.",
+      "Technically correct and internally consistent (pinouts/IO/protocols/routing logic accurate).",
+      "Professional, readable diagrams and documents suitable for leadership/technicians.",
+      "Includes explicit failure/exception handling and practical integration details where relevant."
+    ],
+    "poor_output_characteristics": [
+      "Missing or wrong-format deliverables; broken files.",
+      "Major omissions (missing manual lane, missing failure reroute, missing required sections, missing device counts).",
+      "Frequent technical errors or contradictions across artifacts.",
+      "Unclear, unreadable, or unprofessional formatting that prevents practical use.",
+      "Generic suggestions with no concrete specifications when the prompt requires specifics."
+    ]
+  },
+  "example_evaluation_questions": [
+    "What exact deliverables does the prompt require (file types and counts), and are all of them present and openable?",
+    "Does each deliverable contain every explicitly required element (e.g., required report sections, lane separation, decision points, failure handling paths, required device counts/zones)?",
+    "Are the diagrams/process maps/schematics readable at normal zoom/print size and properly labeled (legend, titles, identifiers, wire labels if applicable)?",
+    "Is the technical logic correct and consistent with the prompt constraints (e.g., routing decision logic; safety relay pin usage; IO/protocol compatibility; payload/capacity constraints)?",
+    "Do the table/spreadsheet values (models, interfaces, costs) match what is described in the report and shown in the diagram?",
+    "Are assumptions and unknowns explicitly stated, and do they avoid substituting for required deliverables?",
+    "Does the solution follow relevant industrial engineering best practices (standard symbols, clear handoffs, maintainability, safety-aware exception handling)?",
+    "If reference files were provided, does the output demonstrate that they were used correctly (e.g., locations reflected, pinouts respected)?",
+    "Are there any safety-critical or operationally critical errors that would make the deliverable unusable or risky?",
+    "Given all findings, what sub-scores (0\u201310) are justified for completeness/correctness/quality/domain standards, and does the missing-deliverable override apply?"
+  ],
+  "metadata": {
+    "category": "Industrial Engineers",
+    "sector": "Manufacturing",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:19:34.750064",
+    "model": "gpt-5.2",
+    "prompt_tokens": 3218,
+    "completion_tokens": 3317,
+    "total_tokens": 6535
+  }
+}

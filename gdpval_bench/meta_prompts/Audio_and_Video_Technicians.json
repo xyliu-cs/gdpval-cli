@@ -1,0 +1,123 @@
+{
+  "category": "Audio and Video Technicians",
+  "evaluation_prompt": "You are an expert evaluator for the occupation category \u201cAudio and Video Technicians\u201d (Information sector). You will be given: (1) the original task prompt, (2) any reference/input files named in the prompt (e.g., WAVs, images, venue specs), and (3) the agent\u2019s output artifacts (files and any accompanying text). Your job is to assess whether the agent delivered ALL required artifacts and whether they meet the technical, formatting, and professional standards expected for audio/video technician workflows (live sound, stage plots, signal flow, equipment lists/budgets, recording deliverables, exports/stems, etc.).\n\nCRITICAL RULE (NON-NEGOTIABLE): If ANY required deliverable file is missing, not openable, or clearly incomplete (e.g., placeholder content, wrong format, truncated export, missing stems, missing PDF pages/figures requested, missing cost breakdown image, missing stage plot PDF), you MUST assign an overall score in the 0\u20132 range regardless of how good the rest is.\n\nProcess (follow in order):\n1) Parse the prompt and write a checklist of explicit deliverables (file types, counts, lengths, formats, embedded items). Examples: \u201cone-page stage plot PDF\u201d, \u201cPDF document with links + embedded PNG signal flow chart + embedded PNG spreadsheet screenshot\u201d, \u201cZIP containing master + named stems, 48kHz 24-bit float WAV, ~2:17 long\u201d.\n2) Inventory the output artifacts. Verify each required file exists, has correct extension, opens successfully, and is not corrupted. For ZIPs, open and enumerate contents.\n3) Validate each artifact against the prompt\u2019s hard constraints:\n   - File format constraints: PDF vs PNG vs XLSX image, WAV specs (sample rate, bit depth/float), ZIP structure.\n   - Content constraints: required sections, labels, lists, counts (e.g., number of inputs/outputs, number of IEM packs), page count (e.g., \u201cone-page\u201d).\n   - Time/audio constraints: duration, tempo alignment if applicable, synchronization to reference audio, stem completeness.\n4) Assess technical correctness and internal consistency:\n   - Budgets add up; quantities match totals; prices and totals are plausible and consistent.\n   - Signal flow is logically correct (routing, splits, monitor sends, RF chain, gain staging assumptions).\n   - Stage plot orientation and numbering rules are followed (e.g., front of stage at bottom; wedges numbered counterclockwise from stage right if specified).\n   - Audio exports: stems sum logically to master; no clipping; consistent start time; same length; proper naming.\n5) Assess professional quality:\n   - Clear, readable layout; correct terminology; consistent labeling; no ambiguous routing.\n   - For documents: headings, tables, legends, revision/date/version if appropriate.\n   - For plots: aligned icons, readable labels, proper spacing; input/output lists are clear.\n6) Assess domain best practices for A/V technicians:\n   - Uses standard conventions (XLR, DI, monitor sends, RF frequency coordination notes if relevant, safety/cable management considerations).\n   - Avoids unrealistic gear choices, incompatible connectors, or non-tourable solutions when touring context is stated.\n\nFinally, score each rubric dimension (0\u201310) and compute a weighted overall score, BUT apply the CRITICAL RULE override to 0\u20132 if missing/incomplete deliverables are found. Provide a brief, evidence-based justification citing specific files and requirements.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist, are openable, and all prompt requirements are addressed in the delivered artifacts.",
+      "criteria": [
+        "All explicitly required files are present (correct number and types: e.g., PDF(s), PNG(s), ZIP, WAV stems).",
+        "Files are openable and non-corrupt (PDF renders; images load; audio plays; ZIP extracts).",
+        "Required embedded elements exist where requested (e.g., a PNG signal flow chart included within the PDF; a PNG image of a spreadsheet analysis included on the last page).",
+        "All mandatory sections/lists are present (e.g., input list and output list; cable/accessory list; links/pricing; stage orientation notes).",
+        "Meets required scope constraints (e.g., \u201cone-page\u201d stage plot; includes exactly the required roles/items; includes all specified stems)."
+      ],
+      "scoring_guidance": "0-2 if ANY required file/embedded artifact is missing, corrupted, wrong format, or the work is severely incomplete; 3-4 if multiple required components are present but many requirements are unmet or content is largely placeholder; 5-6 if core deliverables exist but notable omissions remain (missing key sections, incomplete lists, unclear labeling); 7-8 if everything required is present with only minor omissions (small labeling gaps, minor missing accessories); 9-10 if fully complete, fully aligned to all requirements, and nothing material is missing."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of technical content, calculations, routing logic, and adherence to hard constraints in the prompt.",
+      "criteria": [
+        "Technical feasibility and correctness of audio/video/signal routing (e.g., proper mic split logic, monitor send routing, correct I/O mapping).",
+        "Quantitative correctness: budgets, totals, quantities, and any calculations match and reconcile across document sections and spreadsheets.",
+        "Specification adherence: audio sample rate/bit depth/format; correct durations; correct tempo if specified; correct key/section requirements if stated.",
+        "Internal consistency: item names, channel numbers, labels, and counts match across plots, lists, and diagrams.",
+        "Correct interpretation of constraints (e.g., \u201canalog console with onboard digital FX acceptable\u201d; \u201cfront of stage at bottom\u201d; \u201cnumber wedges counterclockwise from stage right\u201d)."
+      ],
+      "scoring_guidance": "0-2 if content is largely incorrect, violates hard constraints (wrong formats/specs, wrong counts, nonsensical routing), or indicates the deliverables cannot be used; 3-4 if many technical errors or contradictions exist; 5-6 if generally workable but with notable errors (some wrong totals, some routing confusion, partial constraint violations); 7-8 if mostly correct with minor fixable errors; 9-10 if technically accurate, consistent, and constraint-perfect."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional presentation, clarity, organization, and usability of the artifacts by real A/V stakeholders (venues, FOH, monitor techs, management, recording engineers).",
+      "criteria": [
+        "Documents/plots are readable at typical print/export sizes (fonts, contrast, spacing, legend).",
+        "Clear organization: headings, tables, consistent naming conventions, logical flow.",
+        "Professional formatting: aligned elements, consistent units/currency, consistent channel labeling (Input 1\u2026, Output 1\u2026).",
+        "Links (if requested) are properly formatted and usable; citations are clear.",
+        "Audio deliverables are neatly packaged and named (e.g., stem names match prompt, consistent start, no long silence unless intended)."
+      ],
+      "scoring_guidance": "0-2 if unusable presentation (illegible, chaotic, broken exports) or effectively not a deliverable; 3-4 if difficult to use (messy, unclear, inconsistent labeling); 5-6 if usable but rough; 7-8 if clean and mostly professional; 9-10 if polished, client-ready, and easy to execute from."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Alignment with industry best practices and conventions for audio/video technicians in live/production/recording contexts.",
+      "criteria": [
+        "Uses standard stage plot and audio documentation conventions (stage orientation, SR/SL/DS/US, legends, channel lists).",
+        "Appropriate gear choices and integration assumptions (compatibility, connectors, touring practicality, redundancy where relevant).",
+        "Shows awareness of operational needs (setup speed, cable management, labeling, power considerations, RF considerations when relevant).",
+        "Avoids copyright or licensing pitfalls when referenced (e.g., sampling guidance acknowledgement if required).",
+        "Meets common engineering expectations (gain structure implied, splitting correctly, avoiding feedback-prone monitor placement where applicable)."
+      ],
+      "scoring_guidance": "0-2 if clearly unprofessional or violates basic industry norms; 3-4 if many best-practice violations; 5-6 if adequate but with gaps; 7-8 if good adherence; 9-10 if exemplary, tour-ready, and standards-driven."
+    }
+  },
+  "file_inspection_checklist": [
+    "Create a deliverables checklist directly from the prompt (explicit file names/types/counts, page counts, embedded images, audio specs, ZIP contents).",
+    "Verify each required file exists in the outputs; confirm filename and extension match the prompt intent (e.g., .pdf, .png, .zip, .wav).",
+    "Open PDFs: confirm page count requirements (e.g., one-page stage plot), required sections, and that embedded graphics (signal flow PNG, spreadsheet PNG) are actually present and readable.",
+    "Inspect images (PNG): confirm correct content (e.g., wiring/signal flow chart, spreadsheet screenshot), resolution/readability, and that they match what the prompt asked (not generic placeholders).",
+    "If a ZIP is required: extract it; verify it contains all required items (master + all stems); confirm no missing stems; confirm naming matches prompt categories (e.g., Guitars, Synths, Bridge, Bass).",
+    "For WAV files: check technical properties (48 kHz, 24-bit float if required), duration (~target length), and that all stems share same start time/length for DAW alignment.",
+    "If reference audio is provided: spot-check sync by waveform alignment or audible alignment notes; ensure instrumental elements are on-grid with the drum reference when required.",
+    "Check for clipping, severe distortion, or silence in audio deliverables (unless explicitly intended).",
+    "Validate any numeric tables: recompute totals and compare; confirm currency (USD if required) and that totals fall under budget constraints if specified.",
+    "Validate stage plot semantics: front-of-stage orientation, placement of members/items, wedge numbering directions, input/output list numbering and descriptions.",
+    "Confirm links (if requested) are included and plausibly relevant (correct product pages, not dead text)."
+  ],
+  "common_failure_modes": [
+    "Missing required output files (e.g., no PDF, missing ZIP, missing stems, missing PNG charts).",
+    "Wrong file formats (e.g., DOCX instead of PDF; JPEG instead of PNG when explicitly required; MP3 instead of WAV; wrong sample rate/bit depth).",
+    "Corrupted/unopenable files or a ZIP that cannot be extracted.",
+    "Deliverables present but incomplete (placeholder text, missing pages, missing embedded charts/spreadsheet image, incomplete input/output lists).",
+    "Budgets don\u2019t add up; totals inconsistent across sections; missing quantities; missing accessories/cables that are required for the system to function.",
+    "Signal flow errors (incorrect splitting, wrong routing to IEM transmitters, missing monitor sends, impossible connector paths).",
+    "Stage plot violates orientation/labeling rules (front of stage not at bottom, missing labels, wedges not numbered per instruction).",
+    "Audio stems not aligned, different lengths, not starting at 0:00, or not matching master; excessive silence; obvious tempo drift relative to reference drums.",
+    "Audio exports not meeting specs (not 48k/24-bit float, wrong duration, wrong channel format if specified).",
+    "Overly generic output that does not incorporate prompt constraints (e.g., ignores analog console requirement, ignores budget cap, ignores specified keys/bridge key change)."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Score each dimension 0\u201310, compute weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required deliverable is missing, wrong format, unopenable, or clearly incomplete, set overall score to 0\u20132 regardless of weighted result.",
+    "score_scale": "0-10 where 0-2=Unacceptable (missing files/incomplete), 3-4=Poor (major issues), 5-6=Acceptable (notable gaps/errors), 7-8=Good (minor issues), 9-10=Excellent (complete, accurate, professional).",
+    "automatic_low_score_triggers": [
+      "Any required output file is missing (including required embedded images/sections that function as deliverables, such as an embedded PNG chart on a specified PDF page).",
+      "Any required output file is unopenable/corrupted (PDF won\u2019t render, ZIP won\u2019t extract, WAV won\u2019t decode).",
+      "The work is severely incomplete or contains obvious placeholders instead of real content (e.g., empty tables, generic unlabeled plot, missing stems).",
+      "Hard constraints are violated in a way that makes the deliverable unusable (e.g., wrong audio format/specs, missing required lists, exceeds budget when budget cap is a hard requirement)."
+    ],
+    "excellent_output_characteristics": [
+      "All required artifacts are present, openable, and exactly match requested formats and structure.",
+      "Technically correct and internally consistent (numbers reconcile, routing makes sense, labels match lists).",
+      "Professional, client-ready layout and naming; readable plots and diagrams; clear documentation.",
+      "Audio deliverables meet specs, are aligned, usable in a DAW, and satisfy musical/technical constraints."
+    ],
+    "poor_output_characteristics": [
+      "Missing one or more required artifacts or embedded elements.",
+      "Wrong formats/specs or corrupted files.",
+      "Major technical mistakes (nonsensical routing, wrong channel counts, unreconciled budgets, wrong stem set).",
+      "Unclear, messy, or unusable documentation/plots/audio packaging."
+    ]
+  },
+  "example_evaluation_questions": [
+    "What are the explicitly required deliverable files and embedded elements in the prompt, and does each one exist in the outputs?",
+    "Do all files open successfully (PDF renders, PNG loads, ZIP extracts, WAV decodes) without errors?",
+    "Do the outputs satisfy hard formatting constraints (e.g., one-page PDF, landscape orientation, front of stage at bottom, embedded PNGs on specified pages)?",
+    "Are input/output/channel lists complete, correctly numbered, and consistent with labels on the stage plot or diagram?",
+    "Is the signal flow technically correct and complete (splits, monitor sends, IEM transmitter chain, cabling/connectors)?",
+    "Do all budget tables add up correctly, include quantities, and meet any stated cap (e.g., under $3,000) with a clear total?",
+    "For audio deliverables: are master and stems all present, properly named, same start time, same length, and exported at the required sample rate/bit depth?",
+    "For audio with reference tracks: is the delivered production tightly synchronized to the reference (no drift, correct tempo alignment) and does it meet stated musical constraints (keys/sections where specified)?",
+    "Is the deliverable usable by the intended stakeholder (FOH/monitor engineer/venue advance/recording engineer) without needing clarification?",
+    "Are there any contradictions, omissions, or prompt requirements that were ignored (even if the output looks polished)?"
+  ],
+  "metadata": {
+    "category": "Audio and Video Technicians",
+    "sector": "Information",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T06:58:13.854307",
+    "model": "gpt-5.2",
+    "prompt_tokens": 3094,
+    "completion_tokens": 3330,
+    "total_tokens": 6424
+  }
+}

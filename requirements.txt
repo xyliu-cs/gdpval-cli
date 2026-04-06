@@ -1,0 +1,10 @@
+# Core dependencies for GDPVal evaluation
+openai>=1.0.0
+python-dotenv>=1.0.0
+
+# Optional: for reading .docx/.xlsx artifacts
+# python-docx>=0.8.11
+# openpyxl>=3.1.0
+
+# Optional: auto-download tasks from HuggingFace
+# datasets>=2.0.0

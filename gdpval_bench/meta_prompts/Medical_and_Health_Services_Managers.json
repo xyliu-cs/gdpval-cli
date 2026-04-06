@@ -1,0 +1,129 @@
+{
+  "category": "Medical and Health Services Managers",
+  "evaluation_prompt": "You are an expert evaluator assessing an AI agent\u2019s deliverables for a task in the occupation category \u201cMedical and Health Services Managers\u201d (Health Care and Social Assistance sector). You will be given: (1) the original task prompt, (2) any reference/input files, and (3) the agent\u2019s output files/artifacts.\n\nYour job:\n1) Identify every required deliverable explicitly requested in the prompt (e.g., Word document, Excel spreadsheet, slide deck, chart/graph, memo, policy/guideline document, proposal). Create a checklist of required files and required content elements.\n2) Verify the presence of required output files (correct file type when specified, e.g., .docx/.xlsx/.pptx). If any required output file is missing, corrupted/unopenable, or replaced with the wrong type (e.g., a narrative text instead of an .xlsx), you MUST assign an overall score in the 0\u20132 range regardless of the quality of any partial content.\n3) Inspect each output artifact in detail:\n   - Completeness: Does the artifact include all required sections, tables, charts, citations, recommendations, calculations, and state-by-state or program-by-program coverage as applicable?\n   - Correctness: Are the facts, calculations, logic, and references accurate and internally consistent? If the prompt uses reference files, confirm the agent used them and that outputs reconcile with those inputs.\n   - Quality: Is it professionally formatted, clear, well-organized, and usable by healthcare leadership/clinicians? Are tables readable, headings consistent, figures labeled, and assumptions stated?\n   - Domain-specific standards: Does the content reflect healthcare management best practices (e.g., regulatory awareness, patient safety/risk stratification, evidence-based citations, operational feasibility for telehealth, compliance considerations, clear governance/processes)?\n\nEvaluation method:\nA) Start with gating checks (missing artifacts/incomplete deliverables). If triggered, cap overall score at 0\u20132.\nB) Otherwise, score each rubric dimension 0\u201310 and compute weighted overall score: completeness 40%, correctness 30%, quality 20%, domain standards 10%.\nC) Provide a brief justification for each dimension score and cite concrete observations (e.g., \u201cSpreadsheet lacks physician supervision limits for 2/5 states,\u201d \u201cChart exists but axis unlabeled,\u201d \u201cGuideline lacks contraindications section,\u201d \u201cCitations missing/unclear\u201d).\n\nStrict rules:\n- Missing any required file => overall 0\u20132.\n- Deliverable present but clearly placeholder (e.g., empty template, headings only, no calculations, no state coverage) => overall 0\u20132.\n- If the prompt requires use of a reference file for calculations, and outputs do not reflect/align with it or omit the analysis, treat as severely incomplete.\n\nBe concrete: verify calculations, scan for omissions, confirm all entities requested are covered (e.g., all listed states/departments/procedures), and check that required graphs/tables are present and interpretable.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed",
+      "criteria": [
+        "All required output artifacts are present in the expected format(s) (e.g., .docx, .xlsx) and are openable",
+        "All explicitly requested sections/components from the prompt are included (e.g., introduction + analysis + recommendations + required tables/graphs + appendices/citations as requested)",
+        "All entities/coverage items are addressed (e.g., every state listed, every department/program listed, all requested procedures/constraints, all requested decision criteria)",
+        "If reference/input files are provided, the output incorporates them (e.g., calculations sourced from the spreadsheet; figures derived from input data; referenced policies reflected in output)",
+        "All required visuals (graphs/charts) and supporting explanations are included and interpretable",
+        "Any required final packaging requirements are met (correct filename when specified; single consolidated document if requested; attachments included)"
+      ],
+      "scoring_guidance": "0-2 if ANY required output file is missing/unopenable/wrong type, or deliverable is severely incomplete/placeholder. 3-4 if multiple major required sections or coverage items are missing. 5-6 if all files exist but notable required elements are missing (e.g., incomplete state coverage, missing chart, missing recommendation). 7-8 if complete with only minor omissions (e.g., small missing sub-point, minor missing label). 9-10 if fully complete, all requirements and constraints satisfied, properly packaged."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, information, and logic",
+      "criteria": [
+        "Factual accuracy in healthcare/regulatory/clinical statements, consistent with credible sources and current standards when applicable",
+        "Calculations are correct and reproducible (e.g., totals, cost savings, ratios, supervision limits), with no arithmetic or logic errors",
+        "Outputs correctly interpret and apply input/reference files (e.g., figures match the provided budget spreadsheet; state rules correctly mapped to each state)",
+        "Internal consistency: numbers match across tables/graphs/text; definitions/assumptions are consistent throughout",
+        "Recommendations follow logically from presented evidence and analyses, and do not contradict constraints in the prompt",
+        "Citations (if requested) are traceable and plausibly support the claims made; no fabricated or irrelevant references"
+      ],
+      "scoring_guidance": "0-2 if pervasive inaccuracies, fabricated sources, or incorrect/missing core calculations that invalidate the work. 3-4 if many significant errors or misinterpretations of reference files. 5-6 if generally correct but with notable errors that affect some conclusions/rows/sections. 7-8 if mostly accurate with minor errors that do not change key conclusions. 9-10 if highly accurate, calculations check out, and reasoning is sound and consistent."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization",
+      "criteria": [
+        "Clear structure with headings, logical flow, and executive-ready presentation",
+        "Tables, charts, and figures are properly labeled (titles, axes/units, legends) and readable",
+        "Writing is concise, unambiguous, and tailored to healthcare leadership/clinical users",
+        "Formatting is consistent (fonts, spacing, numbering), and the document/spreadsheet is easy to navigate",
+        "Assumptions, limitations, and methodology are clearly stated where relevant",
+        "Artifacts are usable as operational tools (e.g., spreadsheet has clear columns, definitions, and sources; guideline document is implementable)"
+      ],
+      "scoring_guidance": "0-2 if output is chaotic, unreadable, or not usable (even if present). 3-4 if poor organization/formatting significantly hinders use. 5-6 if adequate but with clarity or formatting issues (e.g., weak labeling, hard-to-follow sections). 7-8 if professional with minor polish issues. 9-10 if highly polished, executive-ready, and easy to implement."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Industry-specific best practices for this occupation",
+      "criteria": [
+        "Demonstrates healthcare management judgment: risk management, patient safety, operational feasibility, and stakeholder communication",
+        "Shows awareness of compliance/regulatory considerations relevant to the task (e.g., telehealth practice authority, supervision requirements, documentation expectations, credentialing implications) without overclaiming",
+        "Uses evidence-based approach for clinical content (when applicable): guideline alignment, contraindications, monitoring, patient selection, escalation pathways",
+        "Includes appropriate governance/process elements where relevant (e.g., versioning, auditability, how to update guidelines, responsibility assignment)",
+        "Maintains professional/ethical framing (e.g., respectful use of donated bodies in cadaver program; patient-centered language; avoids unsafe clinical advice when scope is managerial)"
+      ],
+      "scoring_guidance": "0-2 if ignores obvious healthcare domain constraints, presents unsafe/irresponsible guidance, or lacks basic compliance awareness. 3-4 if weak domain alignment and superficial treatment of standards. 5-6 if some best practices present but important domain elements are missing. 7-8 if good alignment with minor gaps. 9-10 if strongly aligned with healthcare leadership best practices and provides implementable, compliant, safety-aware outputs."
+    }
+  },
+  "file_inspection_checklist": [
+    "Inventory required deliverables from the prompt: list each file (type, name if specified) and each required component (tables, charts, sections, recommendations, citations).",
+    "Presence & integrity: confirm each required output file exists, opens successfully, and is not empty/placeholder.",
+    "Format compliance: verify correct file types (e.g., .xlsx for spreadsheets when requested; .docx for Word documents), and required naming conventions if specified.",
+    "Coverage check: confirm all entities are included (e.g., all states listed; all departments/residencies; all procedures/categories).",
+    "Reference-file use: if the prompt provides input files (e.g., budgets), verify outputs use those values (spot-check multiple cells/figures against inputs).",
+    "Calculations & formulas: in spreadsheets, check formulas (not just hard-coded numbers), totals, and consistency across rows/columns; in documents, validate arithmetic with recalculation where feasible.",
+    "Charts/graphs: confirm required charts exist; check titles, axis labels/units, legends, data ranges, and whether the chart matches underlying numbers.",
+    "Citations/sourcing: if citations are required, check they are present, consistently formatted, and connected to specific claims; flag obviously fabricated or non-specific citations.",
+    "Recommendations: verify a clear decision/recommendation is provided when requested, supported by findings, and addresses constraints (e.g., equal hourly rate, virtual feasibility).",
+    "Operational usability: check for clear assumptions, limitations, and implementation notes (e.g., how clinicians should apply guidelines; how leadership should interpret the spreadsheet)."
+  ],
+  "common_failure_modes": [
+    "Missing required file(s) (e.g., no .xlsx delivered when spreadsheet requested; no .docx proposal/guideline delivered).",
+    "Wrong artifact type (e.g., narrative text instead of an Excel workbook; image of a table instead of editable spreadsheet).",
+    "Placeholder or severely incomplete deliverables (headings only, empty tables, missing analysis/recommendation).",
+    "Failure to cover all requested entities (e.g., only some states; only some departments; missing required procedures/categories).",
+    "Charts/graphs missing, unlabeled, or not tied to the underlying data; chart contradicts table values.",
+    "Not using provided reference files for calculations; numbers appear invented or do not reconcile with inputs.",
+    "Incorrect calculations (cost savings, totals, supervision ratios) or inconsistent numbers across document and spreadsheet.",
+    "Outdated or incorrect regulatory/clinical claims; overconfident medical advice without citations when citations requested.",
+    "Citations missing, irrelevant, or likely fabricated; claims not supported by sources.",
+    "Unclear formatting and organization that prevents operational use (no definitions, ambiguous columns, inconsistent terminology)."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Step 1 (Gate): Determine if any required deliverable is missing/unopenable/wrong type OR if the work is severely incomplete. If yes, assign overall score 0-2 (do not compute weighted average beyond this cap). Step 2: If complete, score each dimension 0-10 and compute weighted average: completeness 40%, correctness 30%, quality 20%, domain_standards 10%. Step 3: Provide a short justification referencing specific artifacts and requirement checks.",
+    "score_scale": "0-10 where 0-2=Unacceptable (missing files/incomplete), 3-4=Poor (major issues), 5-6=Acceptable (notable gaps/errors), 7-8=Good (minor issues), 9-10=Excellent (complete, accurate, professional).",
+    "automatic_low_score_triggers": [
+      "Any required output file is missing, unopenable, or clearly the wrong format for what was requested",
+      "Deliverables are severely incomplete (e.g., empty template, partial state list, missing required chart/analysis/recommendation)",
+      "Prompt-required use of reference file(s) is not reflected in outputs (e.g., cost analysis not derived from provided budget workbook)",
+      "No clear final recommendation when the prompt explicitly requests one",
+      "Outputs omit major required sections (e.g., no citations when explicitly required; no methodology/explanation when requested)"
+    ],
+    "excellent_output_characteristics": [
+      "All required artifacts present, correctly named/formatted, and openable",
+      "All prompt requirements addressed with full coverage of requested entities",
+      "Accurate calculations and consistent numbers across tables, charts, and narrative",
+      "Clear methodology and assumptions; results traceable to reference inputs",
+      "Professional formatting suitable for clinical/administrative use; charts labeled and interpretable",
+      "Demonstrates healthcare management best practices: compliance awareness, risk management, implementation readiness"
+    ],
+    "poor_output_characteristics": [
+      "Missing required artifacts or wrong file types",
+      "Significant omissions (e.g., missing multiple states/departments, missing charts, missing key sections)",
+      "Major factual/calculation errors or contradictions that undermine conclusions",
+      "Unverifiable or fabricated citations; no sourcing where required",
+      "Disorganized, hard to use, or not operationally actionable"
+    ]
+  },
+  "example_evaluation_questions": [
+    "What exact files did the prompt require (type and name), and are all of them present and openable?",
+    "Does the deliverable address every required section/component (e.g., analysis + chart + explanation + recommendation + citations when requested)?",
+    "If a spreadsheet is required, does it include all requested columns/fields for every entity (e.g., each listed state) and are any cells missing?",
+    "Do any numbers in the output contradict the provided reference file(s)? Spot-check at least 3 values and one aggregate total.",
+    "Are calculations reproducible (formulas present or clearly described), and does the chart match the underlying data range?",
+    "Is there a clear, final recommendation or decision summary where requested, and is it supported by the analysis?",
+    "Are clinical or regulatory claims appropriately qualified and sourced (especially for telehealth scope-of-practice or prescribing guidance tasks)?",
+    "Is the output implementable by a healthcare operations team (clear definitions, assumptions, limitations, and next steps)?",
+    "Are ethics/safety/compliance considerations addressed appropriately for the task context (patient safety, documentation, respectful cadaver use, etc.)?",
+    "If the prompt requested a specific packaging step (e.g., 'save as X and attach'), did the agent comply exactly?"
+  ],
+  "metadata": {
+    "category": "Medical and Health Services Managers",
+    "sector": "Health Care and Social Assistance",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:24:04.920674",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2898,
+    "completion_tokens": 3190,
+    "total_tokens": 6088
+  }
+}

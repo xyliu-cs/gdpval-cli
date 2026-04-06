@@ -1,0 +1,126 @@
+{
+  "category": "Securities, Commodities, and Financial Services Sales Agents",
+  "evaluation_prompt": "You are an expert evaluator for AI-generated work products in the occupation category \u201cSecurities, Commodities, and Financial Services Sales Agents\u201d (Finance & Insurance). You will be given: (1) the original task prompt, (2) any reference/input files, and (3) the output files/artifacts produced by an agent.\n\nYour job is to assess whether the agent delivered ALL required artifacts and whether those artifacts are complete, correct, professionally usable, and aligned with finance-industry client-service and sales-agent standards.\n\nCRITICAL RULE (NON-NEGOTIABLE): If ANY required output file is missing, not readable/corrupted, wrong format (when a specific format is required), or the work is severely incomplete (e.g., placeholders, missing sections, missing tables, missing required time period, missing tickers/indices, missing citations), you MUST assign an overall score in the 0\u20132 range regardless of how strong the rest is.\n\nEvaluation process (follow in order):\n1) Parse the task prompt and list all required deliverables with required formats and constraints (e.g., \u201cWord document <=4 pages,\u201d \u201cExcel workbook with 2 tabs,\u201d \u201cPDF analysis,\u201d \u201coriginal PDF built from attached reference PDF,\u201d etc.).\n2) Inventory output files provided. Verify each required deliverable exists, opens, and is in the correct format. If anything required is missing/unopenable/wrong format, immediately set overall score to 0\u20132 and explain precisely what is missing.\n3) If deliverables exist, inspect each artifact for completeness against the prompt\u2019s checklist (sections, tables, time periods, indices/universes, calculations, and conclusions). Missing major sections still triggers 0\u20132.\n4) Check correctness: numbers, calculations, time periods, labeling, internal consistency, and whether claims are supported by the included data. For market/performance summaries, validate that the narrative matches the included data tables/figures and that citations/sourcing are present when requested.\n5) Evaluate quality: professionalism of formatting, structure, readability, chart/table labeling, and whether it is client-ready.\n6) Evaluate domain standards: appropriate disclosures/limitations, suitability of recommendations, compliance-safe language (no unqualified guarantees), clear methodology, and practical next steps.\n7) Assign sub-scores for Completeness (40%), Correctness (30%), Quality (20%), Domain Standards (10%), then compute a weighted score. Apply the CRITICAL override: if missing/incomplete deliverables are found, override final score to 0\u20132.\n\nWhen writing your evaluation response, include:\n- A short \u201cDeliverables Check\u201d stating which required files were expected and which were received.\n- Key findings by rubric dimension.\n- Concrete examples of errors/omissions (page/section/tab names, cell references if possible).\n- Final numeric score (0\u201310) and a one-paragraph rationale.\n\nCategory-wide expectations (applies across tasks in this occupation):\n- Artifacts are typically client-facing (institutional clients/consultants) and must be polished, clearly explained, and defensible.\n- Quant work (returns, correlations, allocation tables) must be reproducible from the included data and clearly documented.\n- Narrative must connect market drivers to performance and avoid unsupported assertions.\n- Required source usage (e.g., MSCI, WSJ/FT, research reports) must be evidenced via citations, footnotes, or a references section when requested by the prompt.\n- Any recommendations must be appropriately caveated (not investment advice unless the prompt explicitly frames it), and risk considerations must be acknowledged.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist, are readable, and all prompt requirements (sections, constraints, time periods, tables, indices, and formats) are fully addressed.",
+      "criteria": [
+        "All required deliverables are present in the required formats (e.g., .docx, .xlsx, .pdf) and open without errors/corruption",
+        "All prompt-specified components exist (e.g., required sections such as macro drivers, country/sector summaries; required tables like correlation matrix; required columns such as UW/N/OW, change arrow, conviction, and 1-sentence rationale per line item)",
+        "All prompt constraints are met (e.g., page limits, specified dates/time window, required index list/universes, required tab count and naming, use of provided reference files)",
+        "Outputs are not placeholders (no \u201cTBD,\u201d empty tables, missing figures, incomplete sentences) and cover the full requested scope",
+        "If the prompt requests multiple files (e.g., workbook + PDF writeup), both are present and cross-consistent (analysis references the same data shown in workbook)"
+      ],
+      "scoring_guidance": "0\u20132 if ANY required file is missing/unopenable/wrong format OR if major required sections/tables/time period are missing or clearly incomplete. 3\u20134 if present but many requirements unmet (multiple missing sections, partial index coverage, missing tabs, page limit exceeded significantly). 5\u20136 if most requirements addressed but with notable gaps (e.g., one required section shallow, minor constraint violations). 7\u20138 if complete with only minor omissions (e.g., small formatting constraint issue, minor missing label). 9\u201310 if fully complete, constraint-compliant, and end-to-end coverage is evident."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, financial logic, and internal consistency; methodology matches prompt requirements.",
+      "criteria": [
+        "Time period and frequency exactly match the prompt (e.g., monthly closes/returns from specified start/end dates; quarter ending date matches; \u2018as of\u2019 date respected)",
+        "Correct universe coverage: all specified indices/markets/sectors included with correct names and no substitutions unless explicitly justified",
+        "Calculations are correct and reproducible (e.g., returns computed consistently; correlation matrix derived from the returns series; table arithmetic checks out; no obvious Excel formula errors)",
+        "Units and definitions are clear and correct (price vs return; local vs USD; gross vs net; index vs fund; correlation method Pearson unless otherwise stated)",
+        "Narrative claims align with the provided tables/figures (no contradictions such as calling a correlation \u2018low\u2019 when it is high; performance drivers reflect the quarter\u2019s data shown)",
+        "When the prompt requires using specific sources (e.g., MSCI), output provides traceable sourcing (links/footnotes) and does not fabricate citations"
+      ],
+      "scoring_guidance": "0\u20132 if calculations are absent when required, clearly wrong (e.g., incorrect time range, missing/incorrect indices, correlation matrix not based on stated data), or content appears fabricated/unsupported. 3\u20134 if multiple major errors (wrong frequency, wrong period, inconsistent returns, incorrect matrix). 5\u20136 if generally correct but with notable issues (one index wrong, some formula inconsistencies, unclear methodology). 7\u20138 if accurate with minor issues (small rounding/label errors, minor citation gaps). 9\u201310 if highly accurate, methodologically explicit, reproducible, and internally consistent."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional presentation, clarity, organization, and client-ready formatting across documents, spreadsheets, and PDFs.",
+      "criteria": [
+        "Clear structure: headings, executive summary (when appropriate), logical flow, and concise bullets for client consumption",
+        "Tables/charts are labeled (titles, units, dates, sources) and are readable (font sizes, spacing, consistent formatting)",
+        "Writing quality: grammatically correct, avoids jargon without explanation, and communicates key takeaways succinctly",
+        "Spreadsheet hygiene: named tabs, frozen headers, consistent date formats, no broken links, sensible cell formatting, and minimal manual/opaque steps",
+        "PDF/Word formatting: within page limit if specified; consistent styling; correct pagination; includes references/footnotes where appropriate"
+      ],
+      "scoring_guidance": "0\u20132 if artifact is not usable (unreadable tables, disorganized, heavy placeholders) or clearly not client-ready. 3\u20134 if difficult to follow with major formatting/clarity problems. 5\u20136 if usable but with noticeable polish issues (crowded tables, weak organization). 7\u20138 if professional with minor presentation issues. 9\u201310 if polished, client-ready, and visually coherent."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Adherence to finance-industry standards for institutional client communication, risk framing, compliance-safe language, and defensible recommendations.",
+      "criteria": [
+        "Includes appropriate caveats/limitations (data limitations, index methodology caveats, correlation instability, not guaranteeing outcomes) consistent with institutional communications",
+        "Uses professional, compliance-aware language (no promises of returns; recommendations framed as views/scenarios; distinguishes fact vs opinion)",
+        "Demonstrates sound investment reasoning: links macro drivers to asset performance; discusses diversification and risk management appropriately",
+        "Actionable next steps when requested: implications for allocation, monitoring plan, scenario/risk considerations",
+        "Proper handling of benchmarks/indices: avoids conflating index performance with fund performance unless stated; notes currency and fees if relevant"
+      ],
+      "scoring_guidance": "0\u20132 if output is reckless/noncompliant (guarantees, no risk discussion) or grossly unprofessional for institutional context. 3\u20134 if weak risk framing and questionable assertions. 5\u20136 if generally aligned but missing some caveats. 7\u20138 if strong professional standard with minor gaps. 9\u201310 if exemplary institutional-quality communication and risk-aware recommendations."
+    }
+  },
+  "file_inspection_checklist": [
+    "Deliverables inventory: Identify each required output (by format) from the prompt and confirm each corresponding file exists in the outputs.",
+    "File readability: Open each output file; verify it is not corrupted, not password-locked (unless prompt says so), and content is accessible.",
+    "Format compliance: Confirm Word/Excel/PDF requirements are met (e.g., not a PDF when Word requested; not CSV when Excel workbook requested).",
+    "Constraint checks: Page limits, date ranges, frequency (monthly vs daily), quarter-end \u2018as of\u2019 date, required sections, required indices/markets, and required columns/fields.",
+    "Spreadsheet structure (if applicable): Required tabs exist (e.g., \u2018Data\u2019 + \u2018Correlation Matrix\u2019), consistent date column, return columns for each index, and correlation matrix correctly references return ranges.",
+    "Calculation verification (if applicable): Spot-check a few returns and correlations; verify matrix symmetry and diagonal = 1.0; confirm no mixing of price levels with returns.",
+    "Narrative-document structure (if applicable): Executive summary/key takeaways, methodology/data sources section, detailed analysis sections requested, and conclusion/recommendations.",
+    "Sourcing/citations: Check for a references section, footnotes, hyperlinks, or explicit citations where prompt requests reliance on MSCI/news/research; flag missing or obviously fabricated sources.",
+    "Cross-file consistency: Ensure the written analysis matches the numbers/tables in Excel/PDF, and that charts reflect the same underlying data.",
+    "Reference-file usage (if applicable): If a reference PDF/template is provided, verify the output incorporates required elements and does not ignore the reference structure/definitions."
+  ],
+  "common_failure_modes": [
+    "Missing one or more required files (e.g., Excel workbook provided but PDF analysis missing; PDF provided but Word doc missing).",
+    "Wrong file format (e.g., Google Sheets link instead of .xlsx; markdown text instead of .docx/.pdf; image screenshot instead of editable table).",
+    "Severely incomplete artifacts: placeholders, empty tables, missing required sections (e.g., no China/India/Brazil subsections; no correlation matrix; no conviction/change columns).",
+    "Incorrect time period or frequency (e.g., uses daily data when monthly requested; wrong start/end dates; not aligned to quarter end).",
+    "Index universe errors: missing an index, using a different index than requested, inconsistent naming, or mixing country indices with regional indices without justification.",
+    "Correlation matrix computed on price levels (not returns), or correlations not reproducible from the shown data.",
+    "No sourcing despite prompt requiring specific sources (MSCI, WSJ/FT) or use of suspicious/unverifiable citations.",
+    "Narrative contradicts numbers (e.g., claims \u2018low correlation\u2019 but values are >0.8; claims outperformance while table shows underperformance).",
+    "Unprofessional client deliverable quality: poor formatting, unlabeled charts, no methodology, rambling text, or unclear conclusions.",
+    "Compliance issues: guarantees of returns, overly promotional language, no mention of risks/limitations for institutional context."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Compute weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required file is missing/unopenable/wrong format OR the submission is severely incomplete (missing major required sections/tables/time range), the final overall score MUST be forced into 0\u20132 regardless of weighted average.",
+    "score_scale": "0\u201310 where 0\u20132=Unacceptable (missing files/incomplete), 3\u20134=Poor, 5\u20136=Acceptable, 7\u20138=Good, 9\u201310=Excellent.",
+    "automatic_low_score_triggers": [
+      "Any required output file is missing",
+      "Any required output file is corrupted/unopenable or clearly the wrong format relative to the prompt",
+      "Deliverable is severely incomplete (e.g., missing required sections, missing required indices/universe, missing correlation matrix/table, missing required time period, empty/placeholder content)",
+      "Key requested computations are absent (e.g., no return series when correlation required; no matrix; no allocation table columns)",
+      "Output ignores provided reference files when their use is explicitly required (e.g., template-based table not produced)"
+    ],
+    "excellent_output_characteristics": [
+      "All required artifacts present, readable, and in correct formats",
+      "Meets all constraints (dates, page limits, required universes, required sections/columns)",
+      "Reproducible calculations with clear methodology and consistent definitions",
+      "Client-ready writing and formatting: clear takeaways, labeled tables/charts, clean spreadsheet structure",
+      "Appropriate sourcing/citations and compliance-safe institutional tone with risk framing and next steps"
+    ],
+    "poor_output_characteristics": [
+      "Missing or wrong-format deliverables; unopenable files",
+      "Major sections or datasets omitted; partial coverage of indices/markets",
+      "Wrong time period/frequency; incorrect or non-reproducible calculations",
+      "Unclear, disorganized, or unprofessional presentation; unlabeled or unreadable tables/charts",
+      "Unsupported assertions, missing sources, or compliance-risk language (promises/guarantees)"
+    ]
+  },
+  "example_evaluation_questions": [
+    "What exact deliverables does the prompt require (file types and count), and are they all present and readable?",
+    "Do the artifacts comply with hard constraints (page limit, specified date range, quarter-end \u2018as of\u2019 date, required sections and subsections)?",
+    "If an Excel workbook is required, does it contain the specified tabs and do formulas reference the correct ranges?",
+    "Are returns computed consistently (e.g., percent change) and are correlations calculated from returns (not prices) using the correct frequency?",
+    "Does the correlation matrix include every specified index and is it symmetric with 1.0 on the diagonal?",
+    "Does the written analysis clearly summarize key findings and link them to the computed data (not generic commentary)?",
+    "Are country/sector/region summaries (when requested) present and substantively discuss performance drivers rather than vague statements?",
+    "Is sourcing provided where required (e.g., MSCI data references, news/research citations) and are citations plausible and traceable?",
+    "Are there clear portfolio implications and risk-management considerations aligned with institutional standards?",
+    "Does the output avoid compliance red flags (guaranteed returns, overly promotional claims) and clearly separate facts from opinions?"
+  ],
+  "metadata": {
+    "category": "Securities, Commodities, and Financial Services Sales Agents",
+    "sector": "Finance and Insurance",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:43:52.923142",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2875,
+    "completion_tokens": 3471,
+    "total_tokens": 6346
+  }
+}

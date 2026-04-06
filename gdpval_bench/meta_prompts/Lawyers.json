@@ -1,0 +1,130 @@
+{
+  "category": "Lawyers",
+  "evaluation_prompt": "You are an expert legal-work-product evaluator. You will be given (A) the original task prompt, (B) any reference/input files or links the task provided, and (C) the agent\u2019s OUTPUT FILES/ARTIFACTS. Your job is to evaluate the delivered artifacts as if they were submitted by a junior attorney/AI system to a supervising lawyer/client.\n\nCRITICAL RULE (NON-NEGOTIABLE): If ANY required output file is missing, not readable, materially corrupted, or the work is severely incomplete (e.g., partial draft, placeholders, missing major required sections), you MUST assign an overall score in the 0\u20132 range regardless of how good the rest may be.\n\nEvaluation steps (follow in order):\n1) Identify required deliverables from the prompt (file type(s), count, format constraints like \u201cPDF\u201d, page limits, word limits, exhibits, citations, jurisdiction, audience, due date, etc.). List them explicitly.\n2) Verify output artifacts: confirm each required file exists, opens, and is readable. Check it matches required file type/format (e.g., actual PDF, not Markdown labeled \u201cPDF\u201d).\n3) Completeness audit (most important): Create a checklist from the prompt\u2019s requirements and verify each is addressed in the work product. For legal drafting tasks (wills/contracts/pleadings): confirm all required clauses, parties, dates, signatures/attestation blocks, and requested discretionary powers exist. For memos/primers: confirm all requested issues are analyzed, authorities referenced, and facts applied.\n4) Correctness review: Assess legal accuracy under the stated jurisdiction and date assumptions, internal consistency (names/dates/defined terms), and whether conclusions logically follow from cited authorities and facts. Spot major omissions/misstatements (e.g., wrong statute, wrong legal standard, invented cases, incorrect witness requirements).\n5) Quality review: Assess clarity, organization, professional tone, formatting, headings, defined terms, citation quality, and whether it is client-appropriate (plain language when asked; neutral objective tone when asked).\n6) Domain standards and risk controls: Verify inclusion of customary legal provisions for the document type (e.g., severability, governing law when appropriate, no-contest clause if typical for jurisdiction, fiduciary powers, survivorship, residuary clause, attorney-client disclaimer where appropriate). Ensure the work does NOT provide unsafe instructions, does not misrepresent being a licensed attorney if the setting requires caution, and demonstrates prudent issue spotting, including noting uncertainties and recommending review where needed.\n\nScoring and output:\n- Score each rubric dimension 0\u201310 using the provided guidance.\n- Compute weighted score: completeness 40%, correctness 30%, quality 20%, domain standards 10%.\n- Override rule: If missing/invalid required files or severely incomplete deliverable \u2192 final score MUST be 0\u20132.\n- In your rationale, cite concrete evidence from the output files (e.g., \u201cWill lacks residuary clause\u201d; \u201cMemo exceeds 3 pages\u201d; \u201cNo citations to DGCL \u00a7141 despite requirement\u201d). Demonstrate you checked the actual artifacts.\n\nPay special attention to these frequent \u201cLawyers\u201d task patterns:\n- Drafting formal legal instruments (wills, contracts, bylaws, resolutions) with strict execution blocks and defined terms.\n- Legal memos/primers requiring neutral analysis, issue spotting, and citations to specified sources.\n- Client-facing plain-language memoranda with page/word limits.\n\nDo not reward verbosity if it violates constraints (page limit, word limit) or adds irrelevant material. Do not assume missing sections are \u201cimplied\u201d; they must be present in the artifact.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed",
+      "criteria": [
+        "All required deliverable files are present in the output set (correct count, correct filenames if specified, correct formats such as PDF/DOCX).",
+        "Each required file opens successfully and is readable (not corrupted, not empty, not screenshots of text unless allowed).",
+        "The artifact satisfies all explicit constraints: page limits/targets, word limits, audience (client vs internal), jurisdiction, date assumptions, and requested tone (neutral/objective vs persuasive; plain language when requested).",
+        "All requested sections/issues are addressed (e.g., for a memo: each numbered question; for a will: beneficiaries scheme, executor/trustee/guardian provisions, trust terms, residuary clause, survivorship, execution/attestation).",
+        "All required details from the prompt are included accurately and consistently (names, entities, dates, roles, witness/notary blocks, alternates).",
+        "No placeholders remain (e.g., \u201c[insert clause]\u201d, \u201cTBD\u201d, missing party names) unless explicitly permitted."
+      ],
+      "scoring_guidance": "0-2 if any required file is missing/unopenable or work is severely incomplete (major required sections absent); 3-4 if multiple major requirements/sections are missing or constraints ignored; 5-6 if all files exist but notable prompt requirements are partially addressed or several omissions exist; 7-8 if only minor omissions/edge requirements; 9-10 if every requirement is fully satisfied with no missing components and constraints followed."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, information, and logic",
+      "criteria": [
+        "Legal analysis applies the correct jurisdiction\u2019s governing law and standards (e.g., Texas probate/will execution; Delaware DGCL fiduciary duties) and uses accurate terminology.",
+        "Authorities are accurately represented (statutes/cases not misstated; holdings not inverted; no hallucinated citations).",
+        "Required sources/links from the prompt are meaningfully incorporated when requested (e.g., DGCL \u00a7141/\u00a7109/\u00a7122; specified Delaware cases), with correct relevance and application.",
+        "Facts are applied logically to the legal framework; conclusions follow from premises; key counterarguments/risks are recognized when appropriate.",
+        "Document internal consistency: defined terms consistent; names/dates/roles match prompt; cross-references correct; no contradictions (e.g., spouse both primary and excluded).",
+        "For forms/execution: execution mechanics reflect jurisdictional requirements (e.g., witness/notary blocks where requested) and do not include clearly incorrect statements of law."
+      ],
+      "scoring_guidance": "0-2 if pervasive legal/factual errors, fabricated authorities, or analysis is mostly wrong; 3-4 if major doctrinal mistakes or repeated inaccuracies materially undermine the output; 5-6 if generally reasonable but with notable errors, weak application, or some questionable assertions; 7-8 if mostly correct with minor issues or small misstatements not central to conclusions; 9-10 if highly accurate, well-supported, correctly cites and applies authorities, and demonstrates sound legal reasoning."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization",
+      "criteria": [
+        "Professional structure appropriate to deliverable type (memo: Issue/Brief Answer/Facts/Analysis/Conclusion; instrument: recitals, definitions, dispositive provisions, fiduciary powers, signatures).",
+        "Clear headings, numbering, and cross-references; easy navigation (TOC optional but valued for longer documents).",
+        "Writing clarity: concise, unambiguous, avoids run-on sentences; plain language when required; neutral tone when required.",
+        "Citation and quotation formatting is consistent and readable (Bluebook-like is ideal for memos; at minimum, clear case/statute identification).",
+        "Meets formatting constraints: page count/word count, margins/spacing, readable fonts; no excessive filler.",
+        "Polish: minimal typos; consistent capitalization of defined terms; correct grammar; no duplicated paragraphs."
+      ],
+      "scoring_guidance": "0-2 if unreadable, chaotic, or clearly non-professional; 3-4 if disorganized or difficult to follow with frequent errors; 5-6 if serviceable but with noticeable formatting/writing problems; 7-8 if well-organized and clear with minor polish issues; 9-10 if exceptionally clear, well-formatted, client/partner-ready."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Industry-specific best practices for this occupation",
+      "criteria": [
+        "Includes customary clauses and risk-management language appropriate to the document type and jurisdiction (e.g., survivorship, residuary, fiduciary powers, spendthrift, severability when appropriate).",
+        "Appropriate professional caveats: identifies assumptions, uncertainties, and recommends review/confirmation (e.g., local execution formalities, tax implications) without refusing the assignment.",
+        "Avoids unethical or unsafe content (e.g., advising concealment, fabrication, or misuse of law; misrepresenting authority).",
+        "For client-facing work: explains options, risks, and next steps; avoids legalese overload; does not overpromise outcomes.",
+        "For internal/neutral memos: balanced discussion of both sides, standards of review, and litigation risk framing."
+      ],
+      "scoring_guidance": "0-2 if violates basic professional norms or omits essential customary provisions; 3-4 if multiple best-practice gaps or risky omissions; 5-6 if generally competent but missing several customary elements; 7-8 if conforms to best practices with minor gaps; 9-10 if demonstrates strong professional judgment and includes customary protections appropriately."
+    }
+  },
+  "file_inspection_checklist": [
+    "Inventory outputs: list all provided files with names, extensions, sizes.",
+    "Open each file: confirm it renders correctly (PDF pages load; text is selectable if expected; no blank pages).",
+    "Verify format compliance: if prompt requires PDF, confirm it is a real PDF (not a .txt/.md renamed).",
+    "Verify length constraints: page count (PDF) and/or word count; flag if over/under required ranges (e.g., \u2018approx. 8\u201311 pages\u2019 or \u2018<= 3 pages\u2019).",
+    "Check for required document type: memo vs formal instrument; confirm presence of standard sections for that type.",
+    "Cross-check prompt-specified facts: names, entities, dates, roles, witness names, execution date, jurisdiction, venue/court if applicable.",
+    "Check presence of all prompt-required provisions/issues: e.g., executor/alternate, trustee/guardian/alternate, trust duration/age terms, spendthrift; or memo issues (board authority, enforceability, fiduciary duties).",
+    "Check incorporation of required reference sources: confirm cited/quoted/used in analysis (not merely listed).",
+    "Scan for placeholders and TODOs: \u2018[insert]\u2019, \u2018TBD\u2019, \u2018to be determined\u2019, missing signature lines.",
+    "Check internal consistency: defined terms used consistently; cross-references correct; no conflicting distributions or standards.",
+    "Check professional formatting: headings, numbering, signature/attestation blocks (when relevant), citation readability.",
+    "Check for hallucinations/red flags: invented cases, wrong statutory sections, overconfident claims without support."
+  ],
+  "common_failure_modes": [
+    "Missing required output file (e.g., prompt requires a PDF but only text is provided).",
+    "File present but not a valid PDF / corrupted / empty.",
+    "Severely incomplete draft (stops mid-sentence, missing major sections, placeholders remain).",
+    "Ignores constraints (exceeds 3 pages/3000 words; wrong tone; wrong audience; wrong jurisdiction).",
+    "Fails to address one or more explicitly requested issues/clauses (e.g., no residuary clause; no analysis of a numbered question).",
+    "Inconsistent facts (misspelled names; wrong execution date; wrong witness names; contradictory beneficiary scheme).",
+    "Hallucinated citations or misstatements of holdings/statutes; cites irrelevant cases as controlling.",
+    "Lists required authorities but does not apply them to facts (no meaningful analysis).",
+    "Overly generic boilerplate not tailored to the prompt (no Austin/Texas context; no Delaware DGCL engagement).",
+    "Unprofessional formatting (no headings, dense wall of text, sloppy defined terms, no signature blocks where needed).",
+    "Ethical/professional issues (advising unlawful actions; guaranteeing outcomes; failing to flag material uncertainties)."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Calculate weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required files are missing/unopenable/not in required format OR the work is severely incomplete, assign final overall score 0\u20132 regardless of weighted average.",
+    "score_scale": "0-10 where 0-2=Unacceptable (missing files/incomplete), 3-4=Poor, 5-6=Acceptable, 7-8=Good, 9-10=Excellent",
+    "automatic_low_score_triggers": [
+      "Any required deliverable file is missing.",
+      "Required file format not provided (e.g., PDF required but only DOCX/Markdown provided) unless the prompt explicitly permits alternatives.",
+      "Files are unopenable/corrupted/blank.",
+      "Work is severely incomplete: major required sections/issues/clauses absent, pervasive placeholders, or only an outline.",
+      "Deliverable is fundamentally the wrong artifact type (e.g., produces an email when a formal will/memo is required)."
+    ],
+    "excellent_output_characteristics": [
+      "All required files present, valid, and readable in required formats.",
+      "Every prompt requirement is explicitly addressed and easy to locate.",
+      "Accurate legal standards for the jurisdiction; correct use of required authorities; no hallucinated citations.",
+      "Clear organization and professional drafting quality; tailored to facts; consistent defined terms and cross-references.",
+      "Includes customary legal clauses and prudent issue-spotting; appropriate tone for client/internal audience; respects page/word limits."
+    ],
+    "poor_output_characteristics": [
+      "Missing/invalid files or incomplete drafts.",
+      "Multiple missed requirements or wrong jurisdiction.",
+      "Major legal inaccuracies, fabricated authorities, or unsupported confident assertions.",
+      "Disorganized, hard to follow, excessive boilerplate, inconsistent names/dates/roles.",
+      "Violates constraints (page/word limits) or includes unprofessional/unsafe guidance."
+    ]
+  },
+  "example_evaluation_questions": [
+    "What exact deliverables (file type, count, length constraints) does the prompt require, and are they all present and readable?",
+    "Does the work directly address each numbered requirement/question from the prompt, with no major omissions?",
+    "Are all prompt-provided facts (names, dates, roles, jurisdiction) accurately included and used consistently throughout?",
+    "For a memo: does it cite and meaningfully apply the required statutes/cases/links, and are those authorities accurately characterized?",
+    "For a drafted instrument (e.g., will): are dispositive provisions, residuary clause, survivorship language, fiduciary powers, and execution/attestation blocks included and coherent?",
+    "Does the deliverable comply with page/word limits (e.g., <= 3 pages) and the requested tone (neutral/objective vs client-friendly plain language)?",
+    "Are there any red flags such as hallucinated case citations, incorrect legal standards, contradictory provisions, or leftover placeholders?",
+    "Is the document partner/client-ready in formatting and clarity (headings, numbering, defined terms, signatures), or would it require substantial rewrite?",
+    "Does the output reflect professional best practices (risk discussion, assumptions, next steps) without overpromising outcomes?"
+  ],
+  "metadata": {
+    "category": "Lawyers",
+    "sector": "Professional, Scientific, and Technical Services",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:20:43.190676",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2966,
+    "completion_tokens": 3349,
+    "total_tokens": 6315
+  }
+}

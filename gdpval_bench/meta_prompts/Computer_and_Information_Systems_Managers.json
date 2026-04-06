@@ -1,0 +1,132 @@
+{
+  "category": "Computer and Information Systems Managers",
+  "evaluation_prompt": "You are an expert evaluator assessing an AI agent\u2019s work output for a task in the occupation category \u201cComputer and Information Systems Managers\u201d (Professional, Scientific, and Technical Services). You will be given: (1) the original task prompt, (2) any reference/input files cited by the prompt (e.g., Excel datasets, existing architecture notes), and (3) the agent\u2019s OUTPUT FILES/ARTIFACTS.\n\nYour job: assess the quality and correctness of the produced artifacts against the prompt requirements and professional standards expected of a Computer & Information Systems Manager (e.g., CTO/IT Manager/Engineering Manager outputs: design docs, standards/policies, plans, presentations, analysis summaries, architecture decisions, risk/controls, roadmap/tickets, CI/CD/IaC guidance).\n\nCRITICAL RULE (NON-NEGOTIABLE): If ANY required deliverable file is missing (e.g., prompt requests a Word doc or PowerPoint, but it is not present), or if the artifact is clearly incomplete (placeholder text, partial sections, missing required slides/pages, missing required charts/tables), you MUST assign an overall score in the 0\u20132 range, regardless of how good any partial content is.\n\nFollow this process:\n1) Parse the prompt and list every required deliverable (file types + counts) and every explicit requirement (must/shall/include constraints) and key implied requirements (e.g., \u201cuse reference Excel\u201d implies computations must match the dataset).\n2) Verify deliverables exist and are readable (correct file types open; not corrupted). If missing/unreadable/incomplete, apply the critical rule and score 0\u20132.\n3) Inspect each artifact for requirement coverage, correctness (facts/calculations), quality (clarity/structure), and domain standards (security, risk, governance, scalability, maintainability, stakeholder alignment).\n4) Cross-check any quantitative outputs (tables/charts) against reference files. Recompute spot-checks where feasible.\n5) Produce dimension scores (0\u201310) using the rubric, then compute the weighted score. Apply the critical override if triggered.\n\nWhen evaluating, prioritize: Completeness > Correctness > Quality > Domain Standards. Provide concise, evidence-based notes tied to specific sections/slides/pages and explicitly mention any missing requirements.\n\nExamples of task types in this category (for orientation only):\n- A design document (Word) specifying architecture, authentication, access control, CI/CD, IaC, risks, open questions.\n- A coding standards document (Word) covering TS/Node + React/Next.js + monorepo conventions, testing, documentation, commits/branches, PR rules.\n- A PowerPoint analysis (5 slides) derived from an Excel time study including tables and pie charts for multiple segmentations.\n\nDo not judge based on your personal preferences; judge based on meeting the prompt requirements and professional, industry-standard expectations for an IT/engineering management deliverable.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist, are readable, and all prompt requirements are addressed with no major omissions.",
+      "criteria": [
+        "All required deliverable files are present in the required format(s) (e.g., .docx, .pptx) and are not corrupted/unopenable.",
+        "Artifact length/structure meets explicit constraints (e.g., number of slides, page limits, required sections).",
+        "Every explicit requirement in the prompt is addressed somewhere in the deliverable (features, constraints, recommendations, integrations, etc.).",
+        "Required use of reference files is honored (e.g., analysis uses the provided Excel; architecture references existing stack when specified).",
+        "All mandated components are included (e.g., \u201copen questions\u201d, \u201crisks\u201d, \u201ctables and pie charts\u201d, \u201cCI/CD\u201d, \u201cIaC\u201d, \u201ctesting guidelines\u201d, etc.).",
+        "No sections are left as placeholders (e.g., \u2018TBD\u2019, \u2018lorem ipsum\u2019, empty tables) for required areas.",
+        "Deliverables include required granularity for intended use (e.g., design doc usable to create tickets; standards usable as \u2018source of truth\u2019)."
+      ],
+      "scoring_guidance": "0-2 if any required file is missing/unopenable OR required components are clearly incomplete (missing required slides/sections/charts). 3-4 if many requirements are unmet or large sections missing. 5-6 if most requirements are covered but there are notable gaps (multiple missing items, weak coverage of key areas). 7-8 if nearly all requirements are covered with only minor omissions. 9-10 if fully complete, all requirements met, and nothing material missing."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, technical statements, and internal consistency with the prompt and reference files.",
+      "criteria": [
+        "Quantitative outputs match reference inputs: tables reflect correct aggregations; charts reflect the same numbers; labels/percentages sum correctly.",
+        "Classifications/mappings follow the prompt\u2019s definitions (e.g., cost vs investment; time sensitivity; strategic level) with no category misassignment.",
+        "Technical recommendations are feasible and consistent with stated stack/constraints (e.g., authentication approach matches TOTP requirement; CI/CD aligns with GitHub Actions if required).",
+        "Security/access control logic is correct and not self-contradictory (e.g., tenant isolation; session expiration; token handling; least privilege).",
+        "No fabricated external dependencies or claims presented as facts without basis in prompt/reference files (avoid \u2018hallucinated\u2019 metrics, systems, policies).",
+        "Terminology used correctly (e.g., OAuth vs TOTP; IaC vs CI; RPO/RTO if discussed; SSO vs social login).",
+        "Internal consistency across the artifact (same numbers and decisions repeated consistently; no conflicting architecture diagrams vs text)."
+      ],
+      "scoring_guidance": "0-2 if core content is largely wrong, fabricated, or unusable; or if computed numbers/charts clearly do not match the reference data. 3-4 if frequent inaccuracies or major technical errors undermine usability. 5-6 if generally correct with some notable errors or shaky assumptions. 7-8 if mostly accurate with a few minor mistakes or unverified assumptions clearly labeled. 9-10 if accurate, well-validated against inputs, and internally consistent."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional presentation: clarity, organization, formatting, and ease of use for stakeholders/teams.",
+      "criteria": [
+        "Clear structure with headings, consistent formatting, and logical flow appropriate to the artifact type (doc vs deck).",
+        "Concise but sufficient detail for the stated audience (e.g., senior engineers, VP Eng, business stakeholders).",
+        "Visuals are readable: charts titled, labeled, sized appropriately; tables formatted; diagrams legible.",
+        "Actionability: decisions, recommendations, and next steps are explicit (e.g., ticketable epics; standards with \u2018must/should/may\u2019; rollout guidance).",
+        "Writing quality: minimal ambiguity; avoids excessive jargon; definitions provided where needed.",
+        "Traceability: references prompt requirements; includes assumptions and open questions where information is missing.",
+        "No obvious copy/paste artifacts, repeated paragraphs, or contradictory sections."
+      ],
+      "scoring_guidance": "0-2 if disorganized, unreadable, or obviously placeholder content. 3-4 if hard to follow, poorly formatted, or not usable without heavy editing. 5-6 if understandable but needs editing; inconsistent formatting; some unclear sections. 7-8 if well-structured and professional with minor polish issues. 9-10 if highly polished, clear, and immediately usable."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Adherence to best practices expected for Computer and Information Systems Managers: security, governance, risk management, scalability, maintainability, and stakeholder alignment.",
+      "criteria": [
+        "Security and compliance considerations are appropriate: authentication, authorization, data protection, secrets management, auditability, least privilege.",
+        "Operational readiness: monitoring/alerting, logging, incident response considerations, backup/DR where relevant.",
+        "Scalability and reliability: performance considerations, capacity assumptions, failure modes, SLAs/SLOs if relevant.",
+        "Maintainability: clear ownership, documentation expectations, coding standards alignment, versioning/migration approach when applicable.",
+        "Delivery practices: CI/CD, testing strategy, release management, environment separation (dev/stage/prod), IaC approach when required.",
+        "Risk management: identifies key risks, mitigations, dependencies, and open questions to unblock execution.",
+        "Stakeholder alignment: addresses business goals, constraints (time, budget, team size), and phased roadmap where applicable."
+      ],
+      "scoring_guidance": "0-2 if ignores critical management/engineering standards (e.g., no access control discussion for customer data, no risks, no delivery plan when asked). 3-4 if minimal best-practice coverage with notable omissions. 5-6 if some best practices included but gaps remain. 7-8 if strong adherence with minor gaps. 9-10 if exemplary, pragmatic, and aligned with professional standards and constraints."
+    }
+  },
+  "file_inspection_checklist": [
+    "Inventory required deliverables from the prompt (e.g., Word doc, PowerPoint deck, diagrams, supplementary files). Verify each is present with the correct extension and is readable.",
+    "Open each file and check for completion: required slide count/page limits; required sections/slides exist; no placeholders (TBD/lorem ipsum).",
+    "For Word documents: confirm presence of key sections typically needed for managerial artifacts (purpose, scope, requirements, decisions, risks, open questions, rollout/implementation plan) as required by the prompt.",
+    "For PowerPoint decks: confirm required slides exist (e.g., title + specified analysis slides), and each slide contains the requested elements (tables + pie charts, captions/labels).",
+    "If reference files include datasets (Excel/CSV): confirm the output\u2019s figures are derived from those files. Spot-check totals, category groupings, and percentages against the reference.",
+    "Check requirement-specific constraints: authentication type (e.g., TOTP), access control model, responsiveness/mobile support, CI/CD tooling (e.g., GitHub Actions), IaC expectations, repository strategy (new repo vs monorepo), integration points, etc., when applicable.",
+    "Check for internal consistency: same terminology, same numbers across tables and charts; recommendations do not conflict with constraints (timeline, team size, tech stack).",
+    "Check for professional readiness: decisions are explicit; assumptions and open questions are listed; risks have mitigations; deliverable could realistically be used to brief stakeholders and create tickets."
+  ],
+  "common_failure_modes": [
+    "Missing required output file(s) (e.g., prompt asks for .docx/.pptx but only text is provided).",
+    "Wrong file type (e.g., provides Markdown or PDF when Word document was explicitly required).",
+    "Corrupted/unopenable files or empty documents.",
+    "Incompleteness: missing required slides/sections; charts requested but absent; tables present without charts (or vice versa).",
+    "Does not use reference data file; numbers appear invented; charts don\u2019t match tables; percentages don\u2019t sum to 100%.",
+    "Misinterprets classification rules provided in prompt (e.g., assigns categories to wrong segment).",
+    "Architecture/design recommendations ignore constraints (e.g., no TOTP despite requirement; no access control model; no CI/CD when mandated).",
+    "Hand-wavy content: lacks actionable decisions, rollout plan, risks, open questions; not usable to create tickets or standards enforcement.",
+    "Security oversights: suggests insecure token storage, missing tenant isolation, or unclear authorization boundaries.",
+    "Overly long/short compared to constraints (e.g., exceeds page limit; fewer than required slides).",
+    "Contradictions (e.g., states serverless and then describes container-only deployment without justification; conflicting data across slides)."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Compute weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required output file is missing/unopenable OR deliverables are severely incomplete (missing required slides/sections/charts/tables), set overall score to 0\u20132 regardless of weighted result.",
+    "score_scale": "0\u201310 where 0\u20132=Unacceptable (missing files/incomplete), 3\u20134=Poor, 5\u20136=Acceptable, 7\u20138=Good, 9\u201310=Excellent.",
+    "automatic_low_score_triggers": [
+      "Any required deliverable file is missing.",
+      "Any required deliverable file is unopenable/corrupted.",
+      "Artifact is clearly incomplete: missing required sections/slides, missing required charts/tables/diagrams, or contains placeholders for required content.",
+      "Output ignores required reference files for data-driven tasks (e.g., analysis not based on provided Excel).",
+      "Major requirements explicitly listed in the prompt are not addressed (e.g., no access control, no CI/CD, no required guidelines sections)."
+    ],
+    "excellent_output_characteristics": [
+      "All required files present, correct format, readable.",
+      "Meets all explicit requirements and constraints (counts, sections, tool choices, timeline constraints) with clear traceability.",
+      "Accurate calculations and faithful use of reference data; charts match tables; clear labeling.",
+      "Professional structure and formatting; concise, stakeholder-ready, and ticket-ready.",
+      "Sound managerial/engineering best practices: security, risk/mitigation, delivery plan, operational considerations."
+    ],
+    "poor_output_characteristics": [
+      "Missing or wrong-format deliverables; unopenable files.",
+      "Large missing sections or superficial coverage; not actionable.",
+      "Incorrect or fabricated numbers; inconsistent charts/tables; misapplied classification rules.",
+      "Ignores key constraints (stack, authentication, CI/CD/IaC requirements, slide/page limits).",
+      "Security and governance gaps that would be unacceptable in production contexts."
+    ]
+  },
+  "example_evaluation_questions": [
+    "Deliverables: What exact files did the prompt require (type/count), and are all present and readable?",
+    "Completeness: Does the artifact include every explicitly requested section/slide/component (e.g., risks, open questions, tables + pie charts, testing/commit/PR guidelines)?",
+    "Constraints: Does the output respect format and size constraints (e.g., exactly 5 slides; <=6 pages; 2\u20133 pages; etc.)?",
+    "Reference usage: If an Excel/CSV was provided, do the tables and charts reflect correct computations from that file? Can you spot-check at least 2 categories/totals?",
+    "Internal consistency: Do numbers match between tables and charts? Do repeated statements about scope/decisions remain consistent across the document?",
+    "Correctness of mappings: Where the prompt defines fixed category mappings (cost vs investment, time sensitivity, strategic level), does the output follow them exactly?",
+    "Actionability: Could a team realistically create implementation tickets/policies from this artifact without major rework?",
+    "Security/access control: Does the output specify a correct authorization model (who can see what), session/token strategy, and data protection appropriate to the scenario?",
+    "Delivery readiness: Are CI/CD, testing strategy, rollout/staging, and IaC addressed when required? Are risks and mitigations stated?",
+    "Professional quality: Is the writing clear and well-structured, with appropriate headings, labels, and readable charts/tables?"
+  ],
+  "metadata": {
+    "category": "Computer and Information Systems Managers",
+    "sector": "Professional, Scientific, and Technical Services",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:02:41.128500",
+    "model": "gpt-5.2",
+    "prompt_tokens": 3436,
+    "completion_tokens": 3355,
+    "total_tokens": 6791
+  }
+}

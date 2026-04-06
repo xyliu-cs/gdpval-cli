@@ -1,0 +1,125 @@
+{
+  "category": "First-Line Supervisors of Office and Administrative Support Workers",
+  "evaluation_prompt": "You are evaluating an agent\u2019s work product for a task in the occupation category \u201cFirst-Line Supervisors of Office and Administrative Support Workers\u201d in the Health Care and Social Assistance sector. You will receive: (1) the original task prompt, (2) any reference/input files, and (3) the agent\u2019s output artifacts (files).\n\nYour job is to assess whether the agent delivered ALL required outputs, and whether those outputs correctly and professionally satisfy the prompt requirements.\n\nCRITICAL RULE (NON-NEGOTIABLE):\n- If ANY required output file/artifact is missing, not accessible, corrupt, or clearly incomplete such that the task cannot be used as intended, you MUST score the overall result in the 0\u20132 range (Unacceptable). This override applies regardless of the quality of any partial content that exists.\n\nEvaluation procedure (follow in order):\n1) Parse the prompt for required deliverables:\n   - Enumerate every required output file (e.g., Excel workbook + Word doc email; Word workflow + roadmap + email; compiled PDF, etc.).\n   - Note required filenames, formats, page/word count targets, required sections/tables/visuals, and any explicit calculations/logic.\n   - Note required use of reference files and any restrictions (e.g., \u201cno new info beyond links,\u201d \u201cuse data from provided spreadsheet,\u201d \u201chighlight cells in red,\u201d etc.).\n\n2) Inventory the provided output artifacts:\n   - Check that each required file exists, matches the requested name (allow minor deviations only if clearly equivalent), and opens without errors.\n   - If a deliverable is missing/unopenable, immediately cap overall score to 0\u20132 and explain which artifact(s) are missing.\n\n3) Completeness check (most important):\n   - For each required deliverable, verify all requested components are present (e.g., benchmarks table(s), calculations, flagged rows, visual workflow, email draft with required recipients/word count/signature).\n   - Verify the output is sufficiently complete to be operationally usable by a supervisor/clinic/department.\n\n4) Correctness check:\n   - Cross-check extracted/entered values against reference files.\n   - Validate calculations (averages, standard deviations, thresholds like \u201c2 SD below mean\u201d), logic (who is flagged and why), and any summaries.\n   - Verify factual accuracy and constraint compliance (e.g., only using provided sources; dates/locations/eligibility lists match source material; no hallucinated policies).\n\n5) Quality and professional usability:\n   - Evaluate organization, readability, formatting consistency, and whether the artifact would be acceptable in a real healthcare administrative setting.\n   - Confirm the communication tone is professional, HIPAA-aware (no unnecessary PHI), and appropriately actionable.\n\n6) Domain-specific standards:\n   - Ensure artifacts reflect healthcare administrative best practices: clarity, auditability, versioning/date, minimal risk, confidentiality, and workflow practicality.\n\nScoring:\n- Score each rubric dimension 0\u201310 using the guidance provided.\n- Compute weighted score: completeness 40%, correctness 30%, quality 20%, domain_standards 10%.\n- Apply the CRITICAL override: if any required deliverable is missing or severely incomplete, final overall score MUST be 0\u20132.\n\nOutput your evaluation:\n- Provide (a) overall score 0\u201310, (b) dimension scores, (c) specific evidence-based notes referencing exact pages/sheets/tables/sections, (d) a short list of the most important fixes to reach a 9\u201310.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed (MOST IMPORTANT).",
+      "criteria": [
+        "All required deliverables are present in the correct file types (e.g., .xlsx, .docx, .pdf) and open successfully without errors.",
+        "Filenames match the prompt requirements (exact match when specified; otherwise clearly labeled and unambiguous).",
+        "Each deliverable includes every requested component (e.g., tables + benchmarks + highlights; step-by-step workflow + separate visual roadmap; compiled consolidated document + required sections).",
+        "All prompt constraints are satisfied (e.g., word/page targets, inclusion of specified recipients, sign-offs, highlighting/coloring rules, inclusion of benchmark stats for each PGY, etc.).",
+        "The work is operationally usable (not just partial notes or an outline)."
+      ],
+      "scoring_guidance": "0-2 if any required file is missing/unopenable OR if deliverables are severely incomplete; 3-4 if multiple required components are missing within files; 5-6 if all files exist but notable required sections/components are missing or only partially done; 7-8 if complete with only minor omissions (e.g., one small table/label missing); 9-10 if every required element is present and clearly mapped to the prompt."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, information, and logic; faithful use of reference files.",
+      "criteria": [
+        "Data transcription/extraction from reference files is accurate (spot-check multiple values across sheets/sections).",
+        "All calculations are correct and reproducible (e.g., averages, standard deviations, thresholds like mean-2*SD; correct grouping by year/PGY/resident as applicable).",
+        "Logic for flagging/escalation is correct (only those meeting criteria are flagged; all those meeting criteria are flagged).",
+        "No fabricated facts, policies, clinical criteria, or eligibility rules beyond what sources/prompt allow (especially for tasks requiring compilation from provided links/documents).",
+        "Internal consistency: totals match subtotals; narrative summaries match the tables; dates and counts align across artifacts."
+      ],
+      "scoring_guidance": "0-2 if calculations are mostly wrong, sources are ignored, or content is largely fabricated; 3-4 if frequent errors materially change conclusions (e.g., wrong residents flagged, wrong thresholds, incorrect eligibility lists); 5-6 if some errors exist but main intent is mostly correct; 7-8 if minor errors/typos that do not materially affect outcomes; 9-10 if accurate, source-faithful, and logically sound with clear traceability."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization, and usability of the outputs.",
+      "criteria": [
+        "Clear structure: headings, consistent formatting, readable tables, labeled columns/rows, and understandable visuals.",
+        "Artifacts are easy to follow by intended users (MAs, PDs, clinic staff, operations leaders).",
+        "Professional writing: concise, correct grammar, appropriate tone, and clear calls to action.",
+        "Visual workflows are legible and logically sequenced (start/end points, decision points, handoffs).",
+        "Appropriate use of formatting features (conditional formatting/highlights, tables, footnotes/citations where needed)."
+      ],
+      "scoring_guidance": "0-2 if messy/unusable or incoherent; 3-4 if difficult to follow with major formatting/organization problems; 5-6 if usable but with notable clarity/formatting issues; 7-8 if polished with minor presentation issues; 9-10 if highly professional, consistent, and ready to distribute."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Healthcare administrative best practices and supervisory standards (privacy, auditability, operational realism).",
+      "criteria": [
+        "HIPAA/privacy-aware: no unnecessary PHI, uses role-based language, avoids sensitive identifiers unless required by the prompt and properly contextualized.",
+        "Operational practicality: workflows reflect realistic clinic/department operations and clear handoffs/escalation paths.",
+        "Auditability/traceability: sources referenced when needed; calculations are transparent; assumptions stated; version/date included when appropriate.",
+        "Professional communication norms: proper salutations, sign-offs, concise summaries of findings, and clear next steps.",
+        "Risk-aware: avoids unsafe clinical advice; stays within administrative/support scope."
+      ],
+      "scoring_guidance": "0-2 if privacy breaches, unsafe guidance, or clearly unrealistic operations; 3-4 if multiple best-practice gaps; 5-6 if generally acceptable with some omissions (e.g., no versioning, limited traceability); 7-8 if strong adherence with minor gaps; 9-10 if exemplary healthcare admin professionalism and risk awareness."
+    }
+  },
+  "file_inspection_checklist": [
+    "Deliverable inventory: Do all required output files exist? Do they open successfully (no corruption, no blank placeholders)?",
+    "Filename compliance: Do files use the exact requested names (e.g., \u201cTelehealth Workflow\u201d, \u201cTelehealth Roadmap\u201d, \u201cChief Key Indicator 5-Year\u201d)? If not exact, is it still unambiguous and clearly intended?",
+    "Document completeness (Word/PDF): Are all requested sections present (purpose, scope, step-by-step workflow, roles/responsibilities, escalation/exception handling, etc.)? Does it meet any page/word targets?",
+    "Spreadsheet completeness (Excel): Are all requested sheets/tables present (raw compilation, benchmarks by period/role, summary outputs, flagged exceptions list)?",
+    "Spreadsheet correctness: Spot-check formulas for mean/SD, thresholding (e.g., below 2 SD), and totals; verify correct ranges and grouping.",
+    "Conditional formatting/highlighting: If the prompt requests highlighting (e.g., red cells), confirm it is applied to the correct cells/rows and is visually obvious.",
+    "Cross-artifact consistency: Does the email summary match the spreadsheet findings (same names, counts, metrics flagged)?",
+    "Source fidelity: For compilation tasks, confirm content matches the provided reference materials; no extra conditions/claims beyond the sources.",
+    "Visual workflow (if required): Is it present as a separate deliverable, legible, with correct start/end, decision points, and handoffs?",
+    "Professional readiness: Could a supervisor distribute these artifacts to staff with minimal edits (formatting, clarity, tone, and risk controls)?"
+  ],
+  "common_failure_modes": [
+    "Missing one or more required files (e.g., spreadsheet provided but email missing; workflow doc provided but roadmap missing).",
+    "Files exist but are empty placeholders, unopenable/corrupt, or clearly incomplete drafts.",
+    "Incorrect or unverifiable calculations in spreadsheets (wrong SD, wrong averaging ranges, inconsistent grouping by year/PGY, wrong threshold logic).",
+    "Failure to use reference files: outputs contain generic content not grounded in provided documents/spreadsheets.",
+    "Hallucinated policies/eligibility criteria (especially in tasks requiring consolidation strictly from provided links/documents).",
+    "Mismatch between narrative/email and the underlying data (names or metrics don\u2019t align).",
+    "Required formatting not applied (e.g., missing red highlights/conditional formatting; unclear tables; no labels).",
+    "Unprofessional communication (wrong audience, overly verbose, missing requested sign-off, missing call to action).",
+    "Privacy issues: inclusion of unnecessary PHI, overly specific patient identifiers, or sensitive details beyond prompt requirements.",
+    "Workflow artifacts are operationally unrealistic: missing handoffs, no exception paths, unclear responsibilities, ambiguous sequence."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Calculate weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required files are missing/unopenable OR deliverables are severely incomplete, override the final score to 0\u20132 regardless of dimension subscores. Provide brief evidence citing which deliverables are missing/incomplete.",
+    "score_scale": "0-10 where 0-2=Unacceptable (missing files/incomplete), 3-4=Poor, 5-6=Acceptable, 7-8=Good, 9-10=Excellent",
+    "automatic_low_score_triggers": [
+      "Any required output file is missing (including a required separate visual/roadmap, email, spreadsheet, or PDF).",
+      "Any required file is unopenable/corrupt or effectively blank.",
+      "Deliverables are severely incomplete relative to the prompt (e.g., only an outline, missing most tables/sections, no calculations where required).",
+      "Outputs do not use the provided reference materials when required, indicating the core work was not performed.",
+      "Severe correctness failures that make the output unusable for decision-making (e.g., wrong residents flagged, incorrect benchmarks, fabricated eligibility criteria)."
+    ],
+    "excellent_output_characteristics": [
+      "All required artifacts are present, correctly named/formatted, and open cleanly.",
+      "Every prompt requirement is addressed with clear mapping (tables/sections correspond to requested items).",
+      "Calculations and logic are correct, transparent, and auditable (formulas intact, ranges appropriate, summaries consistent).",
+      "Outputs are professionally formatted and ready for operational use (clear headings, labeled tables, legible visuals).",
+      "Healthcare admin best practices are followed: privacy-aware language, realistic workflows, clear escalation paths, version/date where appropriate."
+    ],
+    "poor_output_characteristics": [
+      "Missing any deliverable or providing only partial artifacts.",
+      "Major gaps in required components (e.g., no roadmap visual, no benchmark SDs, no flagged list, no required email).",
+      "Significant errors in extracted data or calculations, leading to incorrect conclusions.",
+      "Generic content that does not reflect the provided references or the specific prompt constraints.",
+      "Unprofessional formatting, unclear workflows, or privacy/scope violations."
+    ]
+  },
+  "example_evaluation_questions": [
+    "Deliverables: What exact files does the prompt require, and are all of them present and readable?",
+    "Naming/format: Do the output filenames and formats match the prompt (or are deviations clearly acceptable)?",
+    "Completeness: Within each file, are all requested sections/tables/visuals included (e.g., benchmarks, SDs, flagged exceptions, step-by-step workflow, separate roadmap visual, compiled consolidated resource)?",
+    "Reference fidelity: Can you trace the key numbers/facts back to the provided reference files? Are any facts introduced that are not supported?",
+    "Spreadsheet logic: Are averages/standard deviations computed correctly and applied to the correct groups/time periods? Is the \u201c2 SD below mean\u201d logic correctly implemented?",
+    "Flagging/summary alignment: Do the items flagged in the spreadsheet exactly match what\u2019s summarized in the email/memo?",
+    "Usability: Could staff execute the workflow or leadership act on the findings without needing major clarification?",
+    "Professional standards: Is the tone appropriate, instructions actionable, and sensitive information handled appropriately for a healthcare setting?",
+    "Presentation: Are tables labeled, visuals readable, and documents consistently formatted with clear headings and step order?",
+    "Edge cases: Does the workflow/document address exceptions (no-show, technical failure, missing paperwork, escalation) when relevant to the prompt?"
+  ],
+  "metadata": {
+    "category": "First-Line Supervisors of Office and Administrative Support Workers",
+    "sector": "Health Care and Social Assistance",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:13:36.445547",
+    "model": "gpt-5.2",
+    "prompt_tokens": 3136,
+    "completion_tokens": 3221,
+    "total_tokens": 6357
+  }
+}

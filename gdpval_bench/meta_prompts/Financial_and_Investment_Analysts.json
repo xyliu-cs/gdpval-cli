@@ -1,0 +1,131 @@
+{
+  "category": "Financial and Investment Analysts",
+  "evaluation_prompt": "You are an expert evaluator grading AI-generated work products for the occupation category: Financial and Investment Analysts (Finance & Insurance). You will be given: (1) the original task prompt, (2) any reference/input files mentioned, and (3) the output artifacts/files produced by the agent.\n\nYour job: assess whether the agent delivered ALL required artifacts and whether those artifacts satisfy the prompt with correct finance logic, accurate calculations, and professional, client-ready presentation.\n\nFollow this procedure \u0441\u0442\u0440\u043e\u0433\u043e:\n1) Parse the prompt and list every required deliverable (e.g., Excel workbook, PowerPoint deck exported to PDF, supporting tables, citations/links, assumptions page, etc.). Treat file format requirements as mandatory (e.g., \u201cPowerPoint exported to PDF\u201d means a PDF must exist).\n2) Inventory the provided output files. If ANY required artifact is missing, unreadable, corrupt, not openable, wrong format, or clearly a placeholder (e.g., empty template), you MUST assign an overall score in the 0\u20132 range (Unacceptable), regardless of how good any partial content is.\n3) If all required artifacts exist, open and inspect each file. Verify completeness vs. the prompt: all requested sections, tables, metrics, time periods, universes (e.g., full index coverage), and breakdowns (e.g., by sector/sub-sector/company) are present.\n4) Check correctness: validate calculations, internal consistency, units, definitions (e.g., LTM vs NTM, EPS periods), and that any aggregations match component data. Spot-check against credible sources when feasible using the provided references and/or embedded citations.\n5) Check quality: formatting, readability, structure, labeling, footnotes, assumptions, and whether outputs are client-ready (banking/analyst standard).\n6) Check domain standards: appropriate methodologies (comps selection, valuation multiples, sensitivity/disclaimer language), transparent assumptions, dates/as-of timestamps, and data provenance.\n\nScoring:\n- Use the rubric weights: Completeness 40%, Correctness 30%, Quality 20%, Domain Standards 10%.\n- CRITICAL OVERRIDE: If any required deliverable is missing/incomplete, cap overall score at 0\u20132.\n- Provide: (a) dimension scores, (b) overall score, and (c) concise justification citing specific file evidence (sheet names, slide numbers, table locations). If you suspect hallucinated data, missing sources, or inconsistent totals, explicitly note it and penalize correctness and/or domain standards.\n\nWhen evaluating, assume typical outputs in this category include (but are not limited to): Excel models, screening tables, market/sector comps, investment memos, pitch materials, PDF slide decks, and summary write-ups. Be strict about deliverable fidelity, finance definitions, and client-readiness.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed",
+      "criteria": [
+        "All required files are present in the correct format(s) specified by the prompt (e.g., .xlsx, .pdf). If prompt requests both editable and exported versions, both exist.",
+        "Files open successfully (not corrupt/password-locked unless explicitly allowed), contain substantive content (not blank templates), and match the intended artifact type (e.g., a real Excel model, not a screenshot).",
+        "All prompt-required sections/components are included (e.g., requested tables, lists of targets/comps, macro sections, specified columns/metrics, time horizons, sector breakdowns, appendices).",
+        "Coverage/universe completeness matches the prompt (e.g., if asked for an index universe, it is complete; if asked for \u2018no more than N slides\u2019, deck respects that constraint).",
+        "Required metadata included where relevant: as-of date, currency, units, definitions, and any required filters (e.g., by sub-sector, geography, time period).",
+        "Deliverables are sufficiently detailed to be usable for the stated goal (e.g., sortable table; client-ready slides)."
+      ],
+      "scoring_guidance": "0-2 if any required files are missing, wrong format, unreadable, placeholder content, or major sections are absent; 3-4 if multiple requirements missing or large parts incomplete; 5-6 if core deliverable exists but notable omissions (missing columns/sections/coverage gaps); 7-8 if nearly all requirements met with minor omissions; 9-10 if everything required is present, complete, and usable as intended."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, information, and logic",
+      "criteria": [
+        "Financial metric definitions align to standard usage (e.g., LTM vs NTM, dividend yield definition, EV/Revenue vs Price/Revenue distinction).",
+        "Calculations are correct and auditable (formulas present in Excel where expected; totals and subtotals reconcile; percentages sum appropriately; weights match index methodology when required).",
+        "Units and scaling are consistent (e.g., $mm vs $bn, %, x multiples; no mixing of currencies without FX treatment).",
+        "Figures are internally consistent across the artifact (same market cap not conflicting across sheets/slides; totals consistent with components).",
+        "Any stated facts (valuations, funding amounts, investor names, macro stats) are accurate, not obviously fabricated, and supported by citations/links or reference files when expected.",
+        "Comparables and benchmarks are applied logically (e.g., peer set matches business models; multiples computed on consistent bases; forward-year definitions match stated periods).",
+        "No obvious arithmetic errors, mis-sorted tables, broken formulas, or copy/paste mistakes (e.g., duplicated tickers, missing rows)."
+      ],
+      "scoring_guidance": "0-2 if pervasive inaccuracies, fabricated data, broken/absent calculations where required, or results are unusable; 3-4 if many errors or questionable claims with little support; 5-6 if generally correct but with several material errors/ambiguities; 7-8 if mostly correct with minor spot issues; 9-10 if accurate, consistent, well-supported, and reconciles cleanly."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization",
+      "criteria": [
+        "Client-ready presentation: clear titles, logical flow, consistent formatting, readable charts/tables, and no obvious typos.",
+        "Excel usability: frozen headers, filters, consistent column formats, clear tabs, legends, and limited manual hardcodes without explanation.",
+        "Slides readability: consistent fonts, alignment, appropriate white space, and charts with labeled axes/units and sources.",
+        "Organization supports the task goal (e.g., sortable tables; executive summary; key takeaways; appendix for methodology).",
+        "Appropriate level of detail (not overly sparse; not cluttered) for the intended audience (banker/client).",
+        "File hygiene: sensible naming, versioning/as-of date, and no extraneous scratch tabs or irrelevant content."
+      ],
+      "scoring_guidance": "0-2 if illegible, disorganized, or not client-usable; 3-4 if major formatting/clarity issues impede use; 5-6 if adequate but rough/inconsistent; 7-8 if polished with minor issues; 9-10 if highly professional, clean, and immediately client-ready."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Industry-specific best practices for this occupation",
+      "criteria": [
+        "Transparent assumptions and methodology (e.g., definitions of multiples, treatment of negatives, outliers, and missing data).",
+        "Data provenance: credible sources cited or linked; as-of dates clearly stated; disclaimers where appropriate (not investment advice; estimates may vary by source).",
+        "Appropriate peer selection and valuation framing (e.g., comps selected by business model/geography/size; multiples chosen appropriately for profitability stage).",
+        "Sensitivity to finance edge cases (negative EPS leading to meaningless P/E; uses alternative metrics or flags).",
+        "Reconciliation checks and controls (e.g., sums, reasonableness checks vs benchmarks, highlighting anomalies).",
+        "Meets prompt constraints typical to banking deliverables (slide count limits, executive summary presence when asked, clear callouts)."
+      ],
+      "scoring_guidance": "0-2 if ignores basic finance standards, lacks methodology, or uses misleading metrics; 3-4 if weak transparency and questionable practices; 5-6 if some standards met but inconsistent; 7-8 if solid adherence with minor gaps; 9-10 if best-in-class rigor, sourcing, and professional conventions."
+    }
+  },
+  "file_inspection_checklist": [
+    "Confirm required deliverable types and formats: e.g., .xlsx model, .pptx and/or exported .pdf, memo .docx/.pdf, as specified in the prompt.",
+    "Open each file to ensure it is readable, not empty, and not a placeholder template.",
+    "Excel-specific checks: tab structure matches requested outputs; columns match prompt; filters/sorting work; formulas exist where expected; units/currency clear; as-of date included; totals reconcile; duplicates/missing rows flagged.",
+    "Slide/PDF checks: slide count matches constraints; includes required sections; charts/tables readable; sources and as-of dates included on relevant slides; consistent branding/formatting.",
+    "Universe/coverage checks: if prompt requires a full list (e.g., index constituents), verify row count and identify missing items; verify sector/sub-sector mapping completeness.",
+    "Metric definition checks: confirm LTM vs NTM; dividend yield basis; market cap date; EPS period alignment; treatment of negative/NA values.",
+    "Aggregation checks: sector/sub-sector rollups equal sum of constituents; % weights sum to 100% where applicable; \u2018# of companies\u2019 matches listing.",
+    "Cross-file consistency: numbers and conclusions match between Excel and slides; no conflicting figures.",
+    "Source/citation checks: verify presence of URLs, citations, footnotes, or reference file usage; spot-check a few key values against sources if possible.",
+    "Professional readiness: clear executive summary or key takeaways if the output is intended for client communication; no private/internal notes left in deliverable."
+  ],
+  "common_failure_modes": [
+    "Missing required output file (e.g., PDF not provided when explicitly required; only PPT provided; or only text summary without the spreadsheet).",
+    "Wrong format or unusable file (corrupt, not openable, screenshot instead of real Excel, or locked without instructions).",
+    "Severely incomplete coverage (e.g., only a subset of requested companies/universe; missing sub-sectors; missing required sections).",
+    "Requested columns/metrics absent (e.g., omits forward P/E, dividend yield, market cap, EPS period fields, or % of index).",
+    "No as-of date, no units/currency, or unclear definitions leading to ambiguous interpretation.",
+    "Incorrect finance logic (e.g., P/E computed using quarterly EPS without annualization; mixing EV multiples with price multiples; inconsistent share counts).",
+    "No handling/flagging of negative or meaningless P/E; silently inserting zeros or nonsensical values.",
+    "Totals don\u2019t reconcile (e.g., sector weights not summing to 100%, company weights inconsistent with sector totals).",
+    "Fabricated or unsupported facts about private companies (valuation/funding/investors) without any citations or with implausible figures.",
+    "Unprofessional formatting (illegible tables, inconsistent decimals, misaligned slides, typos, overcrowded charts).",
+    "Overruns prompt constraints (e.g., far more slides than allowed; missing required slide sections).",
+    "Conclusions not supported by data; narrative contradicts tables."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Compute a weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required files are missing, wrong format, unreadable, or the work is severely incomplete relative to the prompt, override/cap the final score to 0\u20132 regardless of other dimension scores.",
+    "score_scale": "0-10 where 0-2=Unacceptable (missing files/incomplete), 3-4=Poor, 5-6=Acceptable, 7-8=Good, 9-10=Excellent",
+    "automatic_low_score_triggers": [
+      "Any required output file is missing (including required exported formats like PDF).",
+      "A required file is not openable/corrupt or is effectively empty/placeholder content.",
+      "Deliverable is materially incomplete vs the prompt\u2019s core requirements (e.g., missing major sections, missing most requested columns, or only partial universe coverage where full coverage is required).",
+      "Output does not follow mandatory constraints that are essential to usability (e.g., asked for client-ready PDF slides but only raw notes are provided)."
+    ],
+    "excellent_output_characteristics": [
+      "All required artifacts present in correct formats, openable, and complete.",
+      "Clear as-of date, units, definitions, and methodology; sources/citations provided.",
+      "Accurate calculations with reconciled totals and consistent metric definitions.",
+      "Client-ready formatting (banking standard): clean tables, readable charts, coherent story, and logical organization.",
+      "Handles edge cases appropriately (negative earnings, outliers, missing data) with flags and explanations rather than silent fixes."
+    ],
+    "poor_output_characteristics": [
+      "Missing required files or wrong file formats.",
+      "Large gaps in required content (missing sections/columns/universe).",
+      "Numerous calculation errors, inconsistent numbers, or apparent fabricated data.",
+      "No sourcing or unclear definitions; ambiguous time periods.",
+      "Unprofessional, hard-to-use outputs (messy Excel, unreadable slides)."
+    ]
+  },
+  "example_evaluation_questions": [
+    "Deliverables: What exact files were required by the prompt (including exported formats), and are all of them present and openable?",
+    "Completeness: Does the output cover the entire requested universe (e.g., full index/peer set/target list) and include every required metric/field/section?",
+    "Definitions: Are key financial terms (LTM/NTM, EPS periods, dividend yield, market cap date) explicitly defined and used consistently?",
+    "Reconciliation: Do aggregations and percentages reconcile (e.g., weights sum to 100%, sector totals match company roll-ups, # of companies matches listings)?",
+    "Correctness spot-check: Pick 5\u201310 rows/figures\u2014do the numbers appear plausible and consistent with cited sources or reference files?",
+    "Edge cases: How are negative earnings or N/A values handled for P/E and other ratios\u2014flagged, excluded, or replaced appropriately?",
+    "Sourcing: Are claims about valuations, funding, macro statistics, and comps supported with citations/links and as-of dates?",
+    "Professional quality: Would you send these exact files to a client or senior banker without edits (formatting, clarity, typos, structure)?",
+    "Constraint adherence: If the prompt set limits (slide count, file type, max pages), are they respected?",
+    "Decision usefulness: Does the deliverable enable the stated goal (e.g., sortable screening, comps-based valuation framing, high-level client discussion)?"
+  ],
+  "metadata": {
+    "category": "Financial and Investment Analysts",
+    "sector": "Finance and Insurance",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:11:13.879365",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2205,
+    "completion_tokens": 3296,
+    "total_tokens": 5501
+  }
+}

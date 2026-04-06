@@ -1,0 +1,139 @@
+{
+  "category": "First-Line Supervisors of Production and Operating Workers",
+  "evaluation_prompt": "You are an evaluator assessing AI-generated work products for tasks performed by First-Line Supervisors of Production and Operating Workers in a manufacturing context.\n\nYou will be given:\n1) The original task prompt (requirements)\n2) Any reference/input files (often Excel workbooks with demand, capacity, schedules, or production data)\n3) The agent\u2019s output artifacts (typically Excel workbooks/spreadsheets and sometimes a brief written summary)\n\nYour job:\n- Verify ALL required deliverables exist and are materially complete.\n- Inspect each output file to confirm it directly addresses the prompt requirements.\n- Validate calculations, logic, and data use against the reference files.\n- Assess professional usability: clear structure, labels, assumptions, and readiness to be used in operations meetings.\n\nCRITICAL SCORING RULE (NON-NEGOTIABLE):\n- If ANY required output artifact is missing (e.g., required Excel workbook not provided) OR the work is severely incomplete (e.g., empty template, missing required scenarios/sheets/plan periods, missing required tables/graphs), you MUST assign an overall score in the 0\u20132 range, regardless of how good any partial components are.\n\nEvaluation procedure (follow in order):\n1) Parse the prompt and list REQUIRED deliverables explicitly (e.g., \u201cExcel workbook with 2 worksheets named X and Y\u201d, \u201cthree scenario tabs\u201d, \u201cwritten summary <= a few sentences\u201d, \u201cdashboard charts + pivots\u201d, etc.).\n2) Inventory delivered artifacts: file names, types, and whether they open without errors.\n3) Completeness gate:\n   - If any required deliverable is missing OR obviously incomplete, set overall score 0\u20132 and still provide brief notes on what\u2019s missing.\n4) If completeness passes, inspect the Excel/workbook content:\n   - Structure: required sheets/tabs exist and are correctly named.\n   - Required fields/columns exist.\n   - Required time horizons (weeks/days) are covered.\n   - Required scenarios/variants are present and clearly separated.\n   - Required charts/pivots/KPIs exist (if requested).\n5) Correctness checks:\n   - Trace key numbers to source reference files.\n   - Recompute spot-check totals, averages, balances, cumulative balances, backlogs, on-time ship readiness.\n   - Confirm constraints are respected (capacity limits, shift/day rules, overtime restrictions, stat holidays, \u201cone product at a time\u201d, etc.).\n   - Confirm formulas are used where appropriate (not hard-coded when prompt implies dynamic calculation).\n6) Quality & usability:\n   - Clear labeling (units, hours, dates, week numbers), consistent formatting, readable print/layout.\n   - Logical flow a supervisor/manager could review quickly.\n   - Assumptions stated (e.g., capacity per day, overtime rules, reminder of constraints).\n7) Domain standards:\n   - Plan is realistic, operationally executable, and highlights risks/implications.\n   - Shows backlog/buffer explicitly; addresses staffing/shift implications; communicates tradeoffs.\n\nDeliver your evaluation as:\n- Dimension scores (0\u201310) for completeness, correctness, quality, domain standards.\n- Final weighted score (unless overridden by missing/incomplete deliverables).\n- Bullet list of key defects and what would be needed to fix them.\n\nBe strict: manufacturing scheduling/dashboards are operational tools; missing sheets, wrong time windows, or incorrect formulas make them unusable.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed",
+      "criteria": [
+        "All required artifacts are present (e.g., Excel workbook(s) and any required written summary/notes).",
+        "Output files open successfully and are not corrupted/password-locked (unless prompt explicitly allows).",
+        "All required worksheets/tabs exist with the correct names (when specified).",
+        "All required scenarios/variants are included (e.g., scenario 1/2/3) and clearly delineated.",
+        "All required time coverage is included (e.g., weeks N\u2013M, daily plans across the specified calendar period, YTD ranges, etc.).",
+        "All required tables/fields/columns are present (e.g., demand, capacity, balance, cumulative backlog, KPIs, operator/shift/machine fields).",
+        "All required visual elements exist if requested (charts, pivot tables, conditional formatting, dashboards).",
+        "Required narrative summary exists and respects constraints (e.g., \u201cfew sentences\u201d, scenario-by-scenario summary, explicit yes/no on meeting ship dates).",
+        "Key assumptions/constraints from the prompt are represented somewhere in the deliverable (either embedded notes or summary)."
+      ],
+      "scoring_guidance": "0-2 if ANY required file is missing or deliverable is severely incomplete (e.g., missing scenarios/tabs, missing major required sections, empty template). 3-4 if multiple major requirements are missing (e.g., incomplete time horizon, missing key tables/visuals, missing required summary). 5-6 if most parts exist but notable gaps remain (e.g., one required KPI/visual missing, incomplete labeling, partial period). 7-8 if complete with only minor omissions (e.g., small formatting omissions, a non-critical field missing). 9-10 if fully complete, all requirements present, clearly organized, and ready to use."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, information, and logic",
+      "criteria": [
+        "Numbers pulled from reference files match (spot-check multiple rows/cells against sources).",
+        "Formulas correctly compute totals/averages/balances/cumulative balances/backlog reductions; no obvious arithmetic errors.",
+        "Logic respects all constraints: capacity per day/week, max hours, overtime rules, shift structure, product changeover limits, \u2018one product at a time\u2019, holidays, lead times, and prioritization rules.",
+        "Scenario logic is consistent: changes in assumptions (e.g., moved product to other cell, increased capacity date, shift change) correctly change outputs.",
+        "Date/week alignment is correct (e.g., week numbers correspond to correct ranges; daily plan respects weekdays/holidays per prompt).",
+        "KPIs, charts, and pivot tables reflect the underlying data correctly (no mismatched ranges, wrong aggregations, or stale pivots).",
+        "No internal inconsistencies (e.g., producing more than capacity, negative inventories without explanation, totals not matching subtotals)."
+      ],
+      "scoring_guidance": "0-2 if outputs are largely untrustworthy (widespread formula errors, ignores key constraints, incorrect use of reference data). 3-4 if major calculation/logic errors materially change conclusions (e.g., claims caught-up when not, exceeds capacity, wrong backlog math). 5-6 if generally right but with notable errors or questionable assumptions that affect parts of the plan. 7-8 if accurate with only minor spot-check discrepancies or small formula/range issues. 9-10 if calculations and logic are correct, auditable, and consistent throughout."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization",
+      "criteria": [
+        "Workbook/outputs are easy to navigate: table of contents or clear tab naming, consistent structure across scenarios.",
+        "Tables are readable: headers, units (hours/sets/units), consistent number formatting, frozen panes where helpful.",
+        "Visual hierarchy: key outputs (backlog, ship readiness, KPIs) are prominent; demonstrates executive readability.",
+        "Charts are labeled (titles, axes, legends) and use appropriate chart types; no cluttered or misleading visuals.",
+        "Conditional formatting (if requested) works correctly and highlights intended performance bands.",
+        "Minimal manual steps required: formulas, data validation, and pivots work without broken links.",
+        "Written summary is concise, clear, and manager-ready; uses operational language (capacity, backlog, risk)."
+      ],
+      "scoring_guidance": "0-2 if output is unusable to read (disorganized, missing labels, illegible, broken layout) even if some content exists. 3-4 if significant readability/usability issues (confusing tabs, inconsistent formats, unclear assumptions). 5-6 if acceptable but rough (readable yet lacks polish, weak labeling, cluttered visuals). 7-8 if professional and clear with minor presentation issues. 9-10 if polished, meeting-ready, and highly usable with strong visual communication."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Industry-specific best practices for this occupation",
+      "criteria": [
+        "Plan explicitly manages backlog/buffer and communicates when the operation is \u2018caught up\u2019 per prompt definition.",
+        "Highlights operational tradeoffs (overtime vs. lead time, shifting products, staffing impacts, risk to other orders).",
+        "Uses realistic scheduling conventions: capacity by day/shift, respects weekends/holidays, clear throughput assumptions.",
+        "Includes exception/risk notes: material availability risk, staffing constraints, equipment downtime sensitivity, schedule brittleness.",
+        "Demonstrates supervisor-level decision support: actionable steps, not just calculations (e.g., when to reduce overtime, when to revert to standard workweek)."
+      ],
+      "scoring_guidance": "0-2 if the deliverable ignores operational reality or omits critical production constraints. 3-4 if weak operational framing (numbers exist but not actionable; risks/tradeoffs absent). 5-6 if somewhat practical but missing standard planning elements (buffer visibility, clear decision triggers). 7-8 if aligned with manufacturing planning best practices with minor gaps. 9-10 if exemplary supervisor-grade planning with clear decision rules, risk awareness, and operational clarity."
+    }
+  },
+  "file_inspection_checklist": [
+    "Artifact inventory: Are all required file types present (e.g., .xlsx workbook(s), plus any required .docx/.txt/email-style summary)?",
+    "Open/Integrity: Do the files open without errors, missing links, or protected-edit issues that prevent review?",
+    "Worksheet presence/names: Do all required tabs exist and match required names exactly when specified (e.g., \u201cDashboard Output\u201d workbook with \u201cOperator Output Data\u201d and \u201cDashboard\u201d)?",
+    "Scenario completeness: If multiple scenarios are required, does each scenario have a complete plan (not just a heading) and consistent format across scenarios?",
+    "Time coverage: Does the plan span the required dates/weeks and include all days requested (e.g., Monday\u2013Friday outputs, week 1\u201348 rows, week 4 onward plan)?",
+    "Data structure: Are required columns present (demand, capacity, weekly/cumulative balance, operator/machine/shift fields, daily outputs, totals, averages)?",
+    "Formulas: Spot-check that totals/averages/balances are formula-driven and correct; look for hard-coded totals that should update.",
+    "Constraints validation: Check for capacity violations, overtime violations, missing holidays, producing multiple products simultaneously when prohibited, ignoring prioritization rules.",
+    "Backlog/buffer math: Verify cumulative backlog decreases/increases correctly and is clearly displayed.",
+    "Decision triggers: If prompt asks to reduce overtime when buffer achieved, is the buffer point identified and schedule changes reflected afterward?",
+    "Dashboards (if requested): Pivot tables exist, refresh correctly, and pull from the correct data table; slicers/data validation work.",
+    "Charts (if requested): Charts exist, are based on correct ranges, display the requested metrics, and are labeled.",
+    "Conditional formatting: If requested, confirm it highlights top/bottom performers or thresholds as stated.",
+    "Written summary: Present when required; addresses each scenario (if applicable), includes implications, and explicitly answers on-time shipment/catch-up questions."
+  ],
+  "common_failure_modes": [
+    "Missing required output file(s) entirely (e.g., no Excel workbook delivered).",
+    "Delivered wrong artifact type (e.g., narrative only when spreadsheet required, or screenshot instead of editable Excel).",
+    "Workbook present but missing required worksheets/tabs or scenarios (e.g., only 1 scenario out of 3).",
+    "Time horizon incomplete (e.g., only a few weeks planned when prompt requires full recovery to a target date; missing weeks 2\u201348).",
+    "Incorrect or missing use of reference file data (e.g., numbers don\u2019t match source, week 1 data not populated).",
+    "Capacity/overtime constraints violated (e.g., schedules exceed max hours/week, exceed daily throughput, ignore \u2018one product at a time\u2019).",
+    "Backlog/cumulative balance computed incorrectly (sign errors, cumulative sums reset, past due not included).",
+    "Hard-coded totals/averages instead of formulas, making the workbook non-maintainable.",
+    "Pivot tables/charts missing, using wrong ranges, or not reflecting the intended metrics (stale pivots, wrong aggregations).",
+    "Scenario assumptions not implemented (e.g., claims increased capacity starting a date, but the plan doesn\u2019t change).",
+    "No clear labeling of units (hours vs units/sets), dates, or week numbers; ambiguous interpretation.",
+    "Narrative summary missing or exceeds requested brevity; fails to answer key questions (e.g., whether May PO ships on time)."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Calculate weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required deliverable is missing or severely incomplete, override final score to 0-2 regardless of other dimension scores. When overriding, still note what was delivered and why it fails completeness.",
+    "score_scale": "0-10 where 0-2=Unacceptable (missing files/incomplete), 3-4=Poor, 5-6=Acceptable, 7-8=Good, 9-10=Excellent",
+    "automatic_low_score_triggers": [
+      "One or more required output artifacts are missing (e.g., required .xlsx not delivered).",
+      "A required workbook is present but missing major required components (e.g., required tabs/scenarios/dashboards/graphs absent).",
+      "Work is a partial stub/template with minimal or no populated data where population is required.",
+      "Outputs cannot be opened/inspected (corrupt file) and no alternative equivalent artifact is provided.",
+      "The deliverable clearly fails the primary objective (e.g., no catch-up plan, no recovery schedule, no dashboard/pivots when requested)."
+    ],
+    "excellent_output_characteristics": [
+      "All required artifacts delivered, openable, and complete.",
+      "Requirements are traceably implemented: correct sheets, scenarios, fields, and time horizons.",
+      "Calculations are correct, formula-driven, and auditable with consistent logic.",
+      "Constraints and real-world operations rules are respected, with clear indication of backlog/buffer and decision points.",
+      "Professional formatting and manager-ready summary; dashboards/charts accurately represent the data and are easy to use."
+    ],
+    "poor_output_characteristics": [
+      "Missing required files or missing major required sections/tabs/scenarios.",
+      "Numbers inconsistent with reference data; key formulas incorrect or absent.",
+      "Violates stated capacity/shift/overtime/holiday/product constraints.",
+      "Unclear labeling, confusing layout, or non-functional dashboard elements.",
+      "Summary (if required) missing or does not address the prompt\u2019s explicit questions."
+    ]
+  },
+  "example_evaluation_questions": [
+    "What exact deliverables does the prompt require (file types, number of scenarios, sheet names, summaries), and are all of them present?",
+    "Do the outputs open and allow editing/review (not corrupted, not blocked)?",
+    "Do the spreadsheet tabs and structures match the prompt (e.g., required fields/columns, required week/day coverage)?",
+    "Are demand/capacity/backlog numbers correctly sourced from the reference files (spot-check at least 5 values)?",
+    "Do totals/averages/balances/cumulative balances calculate correctly (spot-check formulas and recompute manually for a few rows)?",
+    "Does the plan respect all stated constraints (max hours, throughput per day, holidays, one-product-at-a-time, no overtime if prohibited)?",
+    "For recovery/catch-up plans: Does the backlog actually reach zero by the target date, and is the \u2018caught up\u2019 definition satisfied thereafter?",
+    "If the prompt asks to reduce overtime or days/week after a buffer is achieved, is the buffer point shown and is the schedule reduced appropriately?",
+    "If dashboards are required: Are pivots and charts present, based on correct ranges, and do they reflect Week 1/YTD as requested?",
+    "Is the written summary present, concise per the prompt, and does it explicitly answer success criteria (e.g., on-time shipment yes/no per scenario)?"
+  ],
+  "metadata": {
+    "category": "First-Line Supervisors of Production and Operating Workers",
+    "sector": "Manufacturing",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:16:11.514997",
+    "model": "gpt-5.2",
+    "prompt_tokens": 3258,
+    "completion_tokens": 3619,
+    "total_tokens": 6877
+  }
+}

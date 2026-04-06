@@ -1,0 +1,128 @@
+{
+  "category": "General and Operations Managers",
+  "evaluation_prompt": "You are an evaluator LLM scoring an agent\u2019s work product for a task in the occupation category \u201cGeneral and Operations Managers\u201d (Retail Trade). You will receive: (1) the original task prompt, (2) any reference/input files mentioned, and (3) the agent\u2019s output artifacts/files.\n\nYour job:\n1) Identify ALL required deliverables explicitly requested by the prompt (e.g., \u201cWord document,\u201d \u201cExcel template titled X,\u201d \u201ccompleted PDF checklist,\u201d slides, email draft, SOP, dashboard export, etc.). Also note any naming, format, tab/section requirements, and any stated audience (store managers, team leaders, district managers, etc.).\n2) Verify the required output files exist and are accessible/openable. If ANY required file is missing, wrong format (when format is explicitly required), corrupted/unopenable, or the work is severely incomplete, you MUST assign an overall score in the 0\u20132 range (non-negotiable), regardless of how good any partial content is.\n3) If files exist, inspect each artifact against the prompt: check that every required section, field, tab, calculation, and instruction is present; that the deliverable is usable in a real retail operations environment; and that it is appropriate for the intended users\u2019 skill level.\n4) Score the work on four dimensions (Completeness, Correctness, Quality, Domain Standards) using the rubric below. Compute a weighted score (40/30/20/10). Apply the critical override: if missing/incomplete deliverables, override final score to 0\u20132.\n5) Provide a brief rationale tied to prompt requirements: cite specific missing sections, broken formulas, incorrect totals, unclear instructions, or non-printer-friendly layouts. Be concrete and file-specific.\n\nSpecial attention for this category (Retail General/Operations Management): deliverables often include operational templates, training materials, checklists, SOPs, schedules, reports, and presentations. Evaluate whether the artifact can realistically be deployed across stores/teams with minimal rework, includes accountability/follow-up mechanisms, and aligns with common retail practices (safety/compliance, sales conversion, labor efficiency, merchandising standards, customer experience).",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed",
+      "criteria": [
+        "All required deliverable files are present (correct count) and open without errors",
+        "Each file matches required format when specified (e.g., .docx, .xlsx, .pdf); required file names/titles are followed when specified",
+        "All prompt-mandated sections/tabs/parts are included (e.g., overview, practice section, homework; instructions tab; scoring and follow-up area; etc.)",
+        "All required fields are filled in when the prompt asks for a completed artifact (e.g., a completed checklist PDF, not a blank template, unless a template is requested)",
+        "All required functional elements are present (e.g., editable fields, calculations, print layout, tables, scoring thresholds, due date/signature lines)",
+        "No placeholders that indicate unfinished work (e.g., \u201cTBD,\u201d \u201cinsert here,\u201d lorem ipsum) unless the prompt explicitly expects placeholders"
+      ],
+      "scoring_guidance": "0\u20132 if ANY required files are missing/unopenable/wrong required format OR if deliverables are severely incomplete. 3\u20134 if many requirements/sections are missing or only partially addressed. 5\u20136 if most requirements are present but there are notable omissions (missing sections, missing instructions, incomplete tables). 7\u20138 if all major requirements are met with only minor omissions. 9\u201310 if fully complete and every explicit requirement is satisfied."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, information, and logic",
+      "criteria": [
+        "All calculations/formulas (if any) are correct and consistent with the prompt (e.g., used vs available space, scoring thresholds, pass/fail logic, totals)",
+        "Operational guidance is internally consistent and actionable (no contradictory instructions)",
+        "Content aligns with the scenario and roles (e.g., retail GM, regional director, safety coordinator) and uses correct terminology",
+        "Meets any numerical constraints or rules stated (e.g., case length totals, \u201cmiss up to 10 items,\u201d thresholds, required counts of examples/practice items)",
+        "If a template/tool is requested for beginner users, the logic is simple enough to use correctly and instructions accurately describe the steps",
+        "No fabricated references to files/data not provided; any assumptions are clearly labeled and reasonable"
+      ],
+      "scoring_guidance": "0\u20132 if logic is largely wrong, formulas are broken, or outputs are unusable due to errors. 3\u20134 if frequent errors or multiple incorrect calculations/claims. 5\u20136 if generally correct but with several notable errors or ambiguous logic. 7\u20138 if correct with only minor mistakes. 9\u201310 if fully accurate, robust, and validated (e.g., sums reconcile, edge cases handled)."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization",
+      "criteria": [
+        "Clear structure and labeling (headings, tables, tabs, consistent naming)",
+        "Readable and printer-friendly when requested (page setup, margins, legible fonts, proper pagination; avoids clipped content)",
+        "Concise, manager-ready language; avoids rambling and filler",
+        "Good usability: intuitive layout, protected vs editable cells when appropriate, consistent styles",
+        "Includes helpful aids where relevant: examples, quick-start instructions, checkboxes, validation, legend/key",
+        "Polished deliverable (no typos that impede understanding, consistent capitalization, aligned columns)"
+      ],
+      "scoring_guidance": "0\u20132 if chaotic, unreadable, or not usable as a professional artifact. 3\u20134 if poorly organized with major readability/usability issues. 5\u20136 if serviceable but clearly rough or confusing. 7\u20138 if well-organized and professional with minor polish issues. 9\u201310 if highly polished, easy to use, and presentation-ready."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Industry-specific best practices for this occupation",
+      "criteria": [
+        "Reflects retail operations best practices: accountability, follow-up cadence, roles/responsibilities, escalation paths (e.g., DM follow-up), and measurable standards",
+        "Appropriate compliance/safety framing when relevant: hazard identification, corrective actions, documentation, auditability",
+        "Customer-facing and sales training materials reflect ethical selling, customer empathy, and conversion best practices (e.g., objection handling frameworks, role-play/practice)",
+        "Tools/templates support standardization across stores while allowing local flexibility (e.g., planogram tool usable weekly, consistent scoring rubric for checklists)",
+        "Metrics and thresholds are operationally plausible and clearly defined (e.g., pass/fail thresholds, what constitutes \u2018missed item,\u2019 corrective action triggers)"
+      ],
+      "scoring_guidance": "0\u20132 if the artifact conflicts with basic retail operational practice or omits essential governance where required. 3\u20134 if weak alignment with best practices. 5\u20136 if generally aligned but missing some key operational rigor. 7\u20138 if solid alignment with minor gaps. 9\u201310 if strongly aligned, practical, and scalable across stores."
+    }
+  },
+  "file_inspection_checklist": [
+    "Inventory deliverables: List every required output file from the prompt and confirm each is present",
+    "Format validation: Confirm file types match requirements (e.g., .pdf vs .docx; .xlsx for Excel tools) and that file names/titles match any specified naming (e.g., exact workbook title)",
+    "Openability: Open each file to confirm it is not corrupted and content is accessible",
+    "Section/tab mapping: For each file, map prompt requirements to actual sections/tabs (create a checklist of required components and mark pass/fail)",
+    "Completeness of required content: Verify all mandated sections (overview/types/strategies/practice/homework; instructions tab; scoring/follow-up; etc.) are fully populated",
+    "Usability checks for templates/tools: Identify which cells/areas are intended to be edited; confirm editability is possible and safe (no accidental overwrite of formulas)",
+    "Calculation checks: Spot-check formulas and totals; verify any constraints (e.g., total length equals capacity; score thresholds applied correctly)",
+    "Print readiness: If \u2018printer-friendly\u2019 or PDF submission is required, check page breaks, scaling, margins, header/footer, and whether key elements are cut off",
+    "Audience alignment: Confirm tone, complexity, and instructions match intended users (e.g., beginner Excel users; store leadership; sales associates)",
+    "Compliance/accountability elements: Verify presence of due dates, sign-off lines, corrective action tracking, escalation triggers, and record-keeping where applicable"
+  ],
+  "common_failure_modes": [
+    "Missing required output file(s) (e.g., only text response provided instead of a .docx/.xlsx/.pdf deliverable)",
+    "Wrong file format (e.g., provides Google Sheet link text, or a DOCX when PDF explicitly required, or vice versa)",
+    "File is present but unopenable/corrupted or contains only a title with no substantive content",
+    "Template delivered when a completed form/checklist was required (or the reverse)",
+    "Required sections/tabs omitted (e.g., no \u2018Homework\u2019 section, no \u2018Instructions\u2019 tab, no \u2018Scoring and Follow-up\u2019 area)",
+    "Broken or missing formulas; totals don\u2019t reconcile; capacity/space calculations wrong",
+    "Not printer-friendly (content cut off, tiny fonts, awkward scaling, missing page breaks)",
+    "Overly generic content that does not match the retail scenario or role; lacks actionable steps and examples",
+    "No accountability mechanisms (no due date line, no sign-off, no corrective action plan trigger when specified)",
+    "Misinterpretation of key constraints (e.g., incorrect threshold rules, wrong unit assumptions, ignores required item counts)"
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Score each dimension 0\u201310, then compute weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required files are missing/unopenable, required formats are not met when explicitly specified, or deliverables are severely incomplete, override the final score to the 0\u20132 range regardless of weighted average.",
+    "score_scale": "0\u201310 where 0\u20132=Unacceptable (missing files/incomplete), 3\u20134=Poor, 5\u20136=Acceptable, 7\u20138=Good, 9\u201310=Excellent",
+    "automatic_low_score_triggers": [
+      "Any required output file is missing",
+      "A required file format is not followed when explicitly specified (e.g., required PDF not provided)",
+      "Files are unopenable/corrupted or contain only placeholders with minimal content",
+      "Major sections/tabs/components explicitly required by the prompt are absent (e.g., multiple required sections missing)",
+      "Deliverable is not the requested artifact type (e.g., narrative explanation instead of an actual spreadsheet template)"
+    ],
+    "excellent_output_characteristics": [
+      "All required files present, correctly named/titled, correct formats",
+      "Every explicit requirement addressed with no missing sections/tabs",
+      "Accurate calculations/logic; spot checks pass; constraints satisfied",
+      "Professional, manager-ready formatting; printer-friendly where required",
+      "Operationally practical: clear instructions, accountability, follow-up, and scalability across stores/teams"
+    ],
+    "poor_output_characteristics": [
+      "Missing or wrong-format deliverables; cannot be used as-is",
+      "Large gaps: missing required sections, missing examples, missing scoring/follow-up mechanisms",
+      "Incorrect formulas/logic leading to wrong totals or unusable tools",
+      "Unclear, disorganized, or unprofessional formatting; not printable when required",
+      "Generic guidance without retail-operational specificity or actionable steps"
+    ]
+  },
+  "example_evaluation_questions": [
+    "What exact deliverable files does the prompt require (type, name, format), and are all of them present and openable?",
+    "Does the main artifact include every required section/tab/component explicitly listed in the prompt?",
+    "If a \u2018completed\u2019 document/checklist is required, is it actually filled out with usable entries (not blank)?",
+    "Are any calculations (scores, totals, capacity, thresholds) correct when spot-checked with simple test values?",
+    "Is the artifact usable by the stated audience (e.g., beginner Excel users) with clear, accurate instructions?",
+    "Is the deliverable printer-friendly and appropriately formatted for store-level use and distribution?",
+    "Does the output include operational governance (ownership, due dates, escalation triggers, corrective actions) when the prompt calls for it?",
+    "Are examples/practice items present in the quantity and format required (e.g., at least N objection-response pairs)?",
+    "Are there placeholders, missing tables, or text indicating unfinished work?",
+    "If the prompt specified a file title/name (e.g., workbook name), does the delivered file match it exactly?"
+  ],
+  "metadata": {
+    "category": "General and Operations Managers",
+    "sector": "Retail Trade",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:18:28.621264",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2408,
+    "completion_tokens": 2846,
+    "total_tokens": 5254
+  }
+}

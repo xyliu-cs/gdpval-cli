@@ -1,0 +1,129 @@
+{
+  "category": "Registered Nurses",
+  "evaluation_prompt": "You are an expert evaluator assessing AI-generated work products for Registered Nurse tasks (health care and social assistance). You will receive: (1) the original task prompt, (2) any referenced input files/links provided with the prompt, and (3) the agent\u2019s output files/artifacts. Your job is to score the submission on a 0\u201310 scale using the rubric below and to provide brief, evidence-based justifications tied to specific prompt requirements.\n\nCRITICAL OVERRIDE RULE (NON-NEGOTIABLE): If ANY required output file is missing, not openable, clearly wrong file type (when a specific type is required, e.g., PDF/XLSX), or the work is severely incomplete (e.g., placeholders, obviously truncated, missing major required sections), you MUST assign an overall score in the 0\u20132 range regardless of how good any partial content is.\n\nEvaluation steps (follow in order):\n1) Parse the prompt and enumerate ALL required deliverables: number of files, file formats (PDF/Excel/Word), page limits, required structure (tables, tabs, rows/columns), required counts (e.g., \u20183 nursing diagnoses\u2019, \u20184 assessments each\u2019), and required content elements (e.g., SBAR elements, contact list fields, measure overview + rationale + timeframes).\n2) Inventory the output artifacts: confirm all required files exist, are accessible, and match required formats. Note any missing/extra files.\n3) For each file, check structural compliance first (page length, template/table layout, required columns/rows, required tabs, headings), then content completeness (all required sections present), then correctness/accuracy (clinical logic, factual accuracy, calculations, measure definitions, facility details), then professional quality (readability, formatting, consistency), then nursing domain standards (safety, scope, appropriate disclaimers, privacy/HIPAA, evidence-based framing).\n4) Use the rubric to assign sub-scores for completeness, correctness, quality, and domain standards. Compute the weighted score, then apply the CRITICAL OVERRIDE RULE if triggered.\n5) Document key findings: list pass/fail for each hard requirement and cite where in the artifact it is met or missing.\n\nWhen judging correctness, do not require verbatim text from the references, but do expect alignment with credible clinical standards and internal consistency. Flag hallucinated citations, fabricated facility lists, unsafe clinical advice, missing contraindications, or unrealistic nursing actions. Penalize any patient-identifiable information included beyond what the prompt provides.\n\nBe strict about deliverables. In nursing workflows, incomplete handovers/care plans/spreadsheets can create safety risks; therefore missing sections or missing prompts (e.g., allergies in SBAR) should be heavily penalized under completeness and correctness.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist, are accessible, and all prompt requirements are addressed with the required structure and minimum counts.",
+      "criteria": [
+        "All required output files are present (correct number of artifacts) and in the required formats (e.g., PDF/XLSX).",
+        "Files open successfully and are readable (not corrupted, not blank, not screenshots when editable files are required).",
+        "All required sections/components are included (e.g., SBAR S/B/A/R blocks; nursing diagnoses with required outcomes/assessments/interventions; spreadsheets with required columns and separate tabs).",
+        "Meets required structural constraints: page length limits, table dimensions (e.g., specified rows/columns), headings/titles, required fields (e.g., nurse name/department line, lined writing spaces if requested).",
+        "Meets required minimum counts (e.g., at least X prompts per SBAR block; exactly/at least three diagnoses; required number of assessments/interventions per diagnosis; all facilities requested, not a partial list).",
+        "Incorporates all specified prompt-specific constraints (e.g., \u2018one-page PDF\u2019, \u2018two-column four-row table\u2019, \u2018new tab\u2019, \u2018include address + telephone\u2019)."
+      ],
+      "scoring_guidance": "0-2 if any required file is missing/unopenable, wrong type when type is required, or major sections are absent/truncated; 3-4 if multiple requirements unmet or major parts missing though files exist; 5-6 if most requirements met but notable gaps (missing some required fields/counts/sections); 7-8 if complete with only minor omissions or small count/format deviations; 9-10 if fully complete and strictly compliant with all structural and content requirements."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of clinical content, factual information, calculations, and logical coherence; aligns with the prompt and credible standards.",
+      "criteria": [
+        "Clinical accuracy and safety: recommendations/interventions are within RN scope, appropriate for context (ED handover, PACU pediatrics, case management) and do not present unsafe advice.",
+        "Internal consistency: patient details, timelines, diagnoses, assessments, and interventions do not contradict each other within or across files.",
+        "Factual accuracy for researched data: facility names/addresses/phone numbers appear plausible and correctly formatted; measure definitions/timeframes match referenced methodology when required.",
+        "Correct use of frameworks: SBAR content maps correctly to Situation/Background/Assessment/Recommendation; nursing care plan components correctly categorized (diagnosis vs outcomes vs assessments vs interventions).",
+        "Appropriate specificity: includes critical patient safety items commonly required (e.g., allergies, code status if applicable, vital signs trends, meds given, lines/drains, pending tests) when prompted or clinically essential.",
+        "No fabricated citations or claims of having accessed sources that are not reflected in the content; if citations are included, they are relevant and not hallucinated."
+      ],
+      "scoring_guidance": "0-2 if content is dangerously wrong/unsafe, largely fabricated, or unrelated to prompt; 3-4 if frequent clinically significant errors or many factual inaccuracies; 5-6 if generally correct but with some notable inaccuracies/omissions that could affect use; 7-8 if mostly accurate with minor issues; 9-10 if highly accurate, clinically sound, and faithfully aligned with referenced standards and prompt details."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional presentation, clarity, organization, usability in clinical workflow.",
+      "criteria": [
+        "Formatting is professional and easy to use at point-of-care (clear headings, consistent fonts, spacing, alignment).",
+        "Information is concise and scannable; uses checkboxes/bullets/structured fields appropriately.",
+        "For templates, includes adequate whitespace/lines for handwritten or typed entry when requested; avoids clutter.",
+        "For spreadsheets, uses clear column headers, consistent data formatting (phone number formats, addresses), and separate tabs labeled clearly when required.",
+        "No excessive verbosity, irrelevant filler, or repeated text; avoids ambiguous phrasing.",
+        "Spelling/grammar are correct; clinical terminology is used appropriately."
+      ],
+      "scoring_guidance": "0-2 if illegible, chaotic, or unusable; 3-4 if poor organization/formatting significantly impairs use; 5-6 if readable but with notable formatting/usability issues; 7-8 if well-presented with minor polish issues; 9-10 if exceptionally clear, polished, and workflow-optimized."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Adherence to nursing professional standards: patient safety, privacy, documentation norms, evidence-based practice, and appropriate escalation guidance.",
+      "criteria": [
+        "Patient safety emphasis: includes critical risk prompts (allergies, meds, lines, infection risk, pain, neurovascular checks, pending tests) appropriate to the task type.",
+        "Privacy/HIPAA: avoids introducing unnecessary patient identifiers; uses initials or generic identifiers if needed and only as provided in prompt.",
+        "Documentation and communication norms: supports closed-loop communication, read-back when appropriate, time-stamping, and identification of sender/receiver (name/role/unit) when relevant.",
+        "Scope-of-practice appropriateness: distinguishes nursing assessments/interventions from provider orders; includes escalation criteria (e.g., notify provider/rapid response) where clinically appropriate.",
+        "Evidence-based orientation: aligns with standard nursing frameworks (SBAR, nursing process) and avoids non-validated or harmful practices."
+      ],
+      "scoring_guidance": "0-2 if violates core standards (privacy breaches, unsafe scope, missing basic safety prompts); 3-4 if multiple standard deviations; 5-6 if generally appropriate with some gaps; 7-8 if adherent with minor misses; 9-10 if strongly aligned with nursing standards and safety culture."
+    }
+  },
+  "file_inspection_checklist": [
+    "Deliverables inventory: Do all required files exist (e.g., PDF template, PDF care plan, XLSX workbook)? Are filenames reasonable and do formats match the prompt?",
+    "File accessibility: Can each file be opened without errors? Is content selectable/searchable where appropriate (not a broken export)?",
+    "Prompt-structure compliance: Check page limits (e.g., 1-page PDF), required tables (e.g., 2 columns x 4 rows), required headings/titles, required tabs in spreadsheets.",
+    "Required fields and minimum counts: Verify required number of diagnoses/outcomes/assessments/interventions; required columns (facility name/address/phone); required SBAR prompts per block.",
+    "Clinical completeness: Look for key safety items relevant to the scenario (allergies, arrival time, vitals, pain score, neurovascular checks, meds administered, pending labs/imaging, infection prevention actions).",
+    "Correct categorization: Ensure content is placed in correct sections (Situation vs Background vs Assessment vs Recommendation; assessment vs intervention vs outcome).",
+    "Data correctness (for research tasks): Spot-check a sample of facility entries for plausibility/format; ensure no obvious duplicates, missing phone numbers, or non\u2013Long Island locations if that was the prompt.",
+    "Measure/guide correctness (if applicable): Confirm overview, rationale, and condition-specific follow-up timeframes are present and coherent; ensure timeframes are not invented or contradictory.",
+    "Usability: Is the artifact workable in a clinical environment (scannable, writable spaces if needed, logical order, avoids ambiguity)?",
+    "Safety/red flags: Identify any unsafe clinical recommendations, medication dosing advice without parameters, or instructions outside RN scope; flag privacy violations."
+  ],
+  "common_failure_modes": [
+    "Missing required output file(s) (e.g., only text response provided when PDF/XLSX required).",
+    "Wrong file format (e.g., DOCX instead of PDF, CSV instead of XLSX) when a specific format was requested.",
+    "Severely incomplete artifact (blank template, placeholder text like 'TBD', missing entire SBAR sections or missing diagnoses).",
+    "Does not follow required structure (e.g., SBAR not in a 2-column/4-row table; spreadsheet missing the required second tab).",
+    "Fails minimum counts (e.g., fewer than required assessments/interventions; only one diagnosis).",
+    "Omits critical safety information prompts (e.g., allergies, arrival time, meds given, neurovascular checks for casted limb).",
+    "Unsafe or out-of-scope recommendations (e.g., prescribing meds, making medical diagnoses without provider involvement, suggesting contraindicated actions).",
+    "Fabricated or obviously incorrect researched data (fake facility names/phone numbers, facilities not on Long Island when required).",
+    "Hallucinated citations or claiming use of sources without evidence; includes irrelevant references.",
+    "Poor usability: overly dense paragraphs, unreadable formatting, no space to write in a template that requires lined space."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Score each dimension (0-10), compute weighted average: completeness 40%, correctness 30%, quality 20%, domain_standards 10%. CRITICAL OVERRIDE: If any required files are missing/unopenable/wrong required type OR deliverables are severely incomplete, override final score to 0-2 regardless of weighted average.",
+    "score_scale": "0-10 where 0-2=Unacceptable (missing files/incomplete), 3-4=Poor, 5-6=Acceptable, 7-8=Good, 9-10=Excellent",
+    "automatic_low_score_triggers": [
+      "Any required output file is missing.",
+      "A required file is not openable/corrupted/blank.",
+      "A required specific file type is not provided (e.g., prompt demands PDF/XLSX and it\u2019s not delivered).",
+      "Work is severely incomplete: missing major required sections, counts, tabs, or contains placeholder text for core content.",
+      "Submission is largely unrelated to the task prompt."
+    ],
+    "excellent_output_characteristics": [
+      "All required artifacts present, openable, and in correct formats.",
+      "Meets all structural constraints (page limit, table dimensions, required tabs/columns/rows).",
+      "All required content elements included with correct minimum counts and clinically appropriate prompts.",
+      "Clinically accurate, safe, and aligned with nursing frameworks; includes key patient safety items.",
+      "Professional presentation optimized for clinical use (scannable, writable spaces, consistent formatting).",
+      "No privacy issues; clear sender/receiver documentation prompts where relevant."
+    ],
+    "poor_output_characteristics": [
+      "Missing/incorrect file types or broken files.",
+      "Major omissions (e.g., missing SBAR block(s), missing diagnoses, missing spreadsheet tab).",
+      "Unsafe or incorrect clinical guidance; out-of-scope actions.",
+      "Factual inaccuracies in researched lists or measure guidance; invented data.",
+      "Disorganized formatting that makes the artifact hard to use in practice."
+    ]
+  },
+  "example_evaluation_questions": [
+    "What exact files does the prompt require (type/count), and are all of them present and openable?",
+    "Does each artifact match the required structure (e.g., page count, table rows/columns, spreadsheet tabs/columns)?",
+    "Are any required sections missing (e.g., SBAR components, diagnoses/outcomes/assessments/interventions, measure overview/rationale/timeframes)?",
+    "Do the artifacts meet minimum counts (e.g., number of diagnoses; number of assessments/interventions per diagnosis; minimum prompts per SBAR block)?",
+    "Is the clinical content safe and within RN scope (appropriate escalation guidance, avoids prescribing/diagnosing beyond scope)?",
+    "Are key patient-safety prompts included where relevant (allergies, vitals, meds given, lines/drains, pending tests, neurovascular checks, infection prevention, pain management)?",
+    "Is the information internally consistent and logically categorized (assessment vs intervention; Background vs Assessment)?",
+    "For any researched lists/guides, is the data plausible and correctly targeted to the requested geography/standard? Spot-check several entries for obvious errors.",
+    "Is the artifact usable at point-of-care (scannable, clear headings, adequate writable space if requested)?",
+    "Are there any privacy/HIPAA concerns (unnecessary patient identifiers) or unsubstantiated claims/citations?"
+  ],
+  "metadata": {
+    "category": "Registered Nurses",
+    "sector": "Health Care and Social Assistance",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:39:15.849090",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2481,
+    "completion_tokens": 3240,
+    "total_tokens": 5721
+  }
+}

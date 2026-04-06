@@ -1,0 +1,128 @@
+{
+  "category": "First-Line Supervisors of Non-Retail Sales Workers",
+  "evaluation_prompt": "You are an expert evaluator assessing AI-generated work products for the occupation category: First-Line Supervisors of Non-Retail Sales Workers (Wholesale Trade). You will receive: (1) the original task prompt, (2) any reference/input files cited, and (3) the agent\u2019s output artifacts (files).\n\nYour job: assign a single overall score from 0\u201310 and brief, evidence-based notes. You MUST inspect the actual output files (not just the agent\u2019s narrative). Follow this process \u0441\u0442\u0440\u043e\u0433\u043e:\n\nSTEP 1 \u2014 Parse the prompt into a Deliverables & Requirements Checklist\n1) List every required output artifact by type and format (e.g., PPTX slide, DOCX overview, XLSX form, XLSX with formulas). Include any formatting requirements (one-page, one-slide, executive-level, working formulas, etc.).\n2) List content requirements and constraints (dates, addresses, approval rules, business rules like credit-worthy customers only, fee amounts, budget caps, target turns, minimum receipt thresholds, \u201cnot a return program\u201d, etc.).\n3) List any required use of reference files (e.g., must use provided Excel attachment, must keep LY formatting comparable).\n\nSTEP 2 \u2014 Completeness Gate (CRITICAL)\nBefore grading quality, verify that ALL required artifacts exist and are accessible in the required formats.\n- If ANY required file is missing, corrupted/unopenable, wrong format (e.g., PDF instead of DOCX when DOCX requested), or clearly incomplete (e.g., only headers, placeholder text, missing tables), you MUST assign an overall score in the 0\u20132 range. This override is non-negotiable.\n\nSTEP 3 \u2014 File-by-File Inspection\nOpen each output file and check:\nA) Structure/format compliance (page count, slide count, template adherence, required sections present).\nB) Content coverage (every requirement addressed explicitly).\nC) Internal consistency (numbers tie out across tables, narrative matches the rules).\nD) If spreadsheets are involved: validate formulas, links, totals, constraints, and that results change when inputs change (i.e., not hard-coded).\n\nSTEP 4 \u2014 Correctness & Constraint Validation\n- Validate calculations and business rules against the prompt and reference files.\n- Recompute a small sample of figures manually (or logically) to confirm correctness.\n- Check that the deliverable does not contradict itself (e.g., calls it a return program in one section and an exchange program elsewhere).\n\nSTEP 5 \u2014 Quality and Professional Readiness\nAssess whether a real sales supervisor/manager could send this to leadership/customers today. Evaluate clarity, concision, formatting, and usability.\n\nSTEP 6 \u2014 Domain Standards (Wholesale + Sales Supervision)\nEvaluate whether outputs reflect professional sales operations practice: clear policies, approvals, audit trail, customer eligibility, risk controls, channel/territory considerations, operational feasibility for a team of reps, and metrics/KPIs.\n\nSCORING\nUse the rubric weights: Completeness 40%, Correctness 30%, Quality 20%, Domain Standards 10%. Calculate a weighted score 0\u201310.\nCRITICAL OVERRIDE: If missing/incomplete required artifacts, override final score to 0\u20132.\n\nIn your final evaluation output, provide:\n- Overall score (0\u201310)\n- Subscores by dimension\n- Bullet list of the top 3\u20137 findings with specific references to where in the files the issue appears (sheet name/cell range, slide title, section heading).\n- State explicitly whether the Completeness Gate passed or failed and why.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed",
+      "criteria": [
+        "All required artifacts are present in the required file formats (e.g., PPTX/DOCX/XLSX) and are openable",
+        "Deliverables match required scope/length constraints (e.g., one-page doc, one-slide deck, multi-tab workbook as requested)",
+        "All prompt-specified sections/fields are included (e.g., signature blocks, customer details fields, channel tables, BOM/receipts/EOM rows, required notes/disclaimers)",
+        "All explicitly requested constraints and specifics are included (dates, addresses, fees, eligibility rules, minimums, budgets, targets, approvals)",
+        "If reference files are provided/required, outputs demonstrably incorporate them (e.g., correct month structure, LY vs TY comparatives, correct starting inventories)",
+        "No placeholder content remains (e.g., 'TBD', lorem ipsum, empty tables) unless explicitly allowed"
+      ],
+      "scoring_guidance": "0-2 if ANY required file is missing/wrong format/unopenable or deliverables are severely incomplete; 3-4 if multiple major requirements/sections are missing; 5-6 if all files exist but notable required elements are missing or only partially addressed; 7-8 if minor omissions (small missing note/field) with otherwise complete deliverables; 9-10 if every requirement is fully addressed with no missing components."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, information, and logic",
+      "criteria": [
+        "All business rules match the prompt exactly (e.g., exchange vs return, credit-worthy requirement, one-time-per-season rule, timing rules like 'order placed when authorization granted')",
+        "All operational details are accurate (addresses, phone numbers, effective dates, fee amounts, freight/restocking statements)",
+        "Spreadsheet calculations are correct: formulas implement stated definitions; totals tie out; constraints are satisfied (budgets, ending inventory caps, minimum receipt constraints, turn calculations per prompt)",
+        "No internal contradictions across artifacts (doc policy aligns with form fields; slide claims align with numbers/assortment strategy)",
+        "If reference data exists, figures are transcribed accurately and used appropriately (no month shifting, no swapped channels, no sign errors)",
+        "Formulas are not hard-coded where formulas are required; key cells are dynamic and auditable"
+      ],
+      "scoring_guidance": "0-2 if major logic/calculation errors invalidate the deliverable (or if missing artifacts trigger override); 3-4 if frequent errors, constraints violated, or formulas mostly wrong/hard-coded; 5-6 if generally correct but with several notable errors or minor constraint breaches; 7-8 if mostly accurate with only minor errors that do not change core decisions; 9-10 if fully accurate, constraints satisfied, formulas correct and auditable."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization",
+      "criteria": [
+        "Documents/slides are executive- or customer-ready: clear headings, concise language, readable layout, consistent terminology",
+        "Spreadsheets are usable: labeled tabs, frozen headers (if appropriate), consistent number formats, clear input vs output cells, logical layout (side-by-side channel tables when requested)",
+        "Visual hierarchy and scannability: bulleting, spacing, tables aligned, key takeaways highlighted",
+        "No spelling/grammar issues that undermine professionalism; consistent style and tone for a sales operations context",
+        "Artifacts follow requested template constraints (one-page, one-slide, etc.) without cramped unreadability"
+      ],
+      "scoring_guidance": "0-2 if unusable presentation or extremely messy (or missing artifacts override); 3-4 if poorly organized, hard to follow, significant formatting issues; 5-6 if serviceable but cluttered or unclear in places; 7-8 if polished with minor formatting tweaks needed; 9-10 if highly professional, clean, and immediately deployable."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Industry-specific best practices for this occupation",
+      "criteria": [
+        "Reflects sales-supervision realities: clear process ownership, rep responsibilities, escalation/approval path, and auditability",
+        "Risk controls included where relevant: eligibility checks (credit-worthy), limits (one exchange per season), documentation requirements, fees and freight responsibilities, prevention of abuse",
+        "Operational feasibility: steps are actionable for a field sales team; turnaround times/communication paths are realistic; warehouse handling instructions are clear",
+        "Metrics/KPIs and decision framing: where relevant, includes performance rationale (ROI, inventory turns, retention), and ties actions to outcomes",
+        "Customer communication standards: unambiguous policy wording, avoids legal/financial ambiguity, sets expectations clearly"
+      ],
+      "scoring_guidance": "0-2 if ignores basic sales-ops norms or creates high operational risk; 3-4 if weak controls/unclear ownership; 5-6 if adequate but missing some best-practice elements; 7-8 if strong alignment with professional practice; 9-10 if exemplary operational rigor and sales leadership framing."
+    }
+  },
+  "file_inspection_checklist": [
+    "Inventory all expected output files from the prompt (count, filenames, formats). Verify each opens without errors.",
+    "For PPTX deliverables: confirm slide count matches requirement (e.g., one-slide). Check title, key message, and that content supports the stated talk track (e.g., 5-minute elevator pitch). Confirm strategy addresses channel differentiation, resource allocation, ROI, and client retention if asked.",
+    "For DOCX deliverables: confirm one-page requirement; verify policy language is unambiguous; confirm all required operational details (effective date, address/phone, fees, eligibility, process steps) are included.",
+    "For XLSX forms: confirm required header fields exist (customer name/address/phone/customer #, authorization #, date). Confirm line-item fields exist (style/color, style name, pairs shipped/returned). Confirm signature blocks and dates for specified approvers exist. Confirm required notes/disclaimers at bottom.",
+    "For XLSX planning models: verify tab structure and side-by-side layout if required; check months as columns and required rows (BOM, Sales, Receipts, EOM, Turn).",
+    "Validate formulas: click cells to inspect formulas (not values). Confirm turn formulas match prompt definitions; confirm seasonal turn uses the specified denominator; confirm receipts sum to budget constraints; confirm min receipt constraints by channel/month.",
+    "Constraint checks: confirm ending inventory caps/targets, budget totals, minimum per-month receipts, and any thresholds in the prompt are satisfied.",
+    "Cross-artifact consistency: ensure narrative documents and forms reference the same policies/fees/dates/addresses; ensure the strategy slide does not contradict operational files.",
+    "Professional readiness: verify formatting, spelling, and that artifacts can be sent to customers/leadership without additional editing."
+  ],
+  "common_failure_modes": [
+    "Missing one or more required files (e.g., only DOCX provided but XLSX form missing; slide delivered as text instead of PPTX).",
+    "Wrong file formats (Google Doc link, PDF, or images instead of editable Office formats when Office formats are required).",
+    "Incomplete artifacts (blank spreadsheet template, missing signature lines, missing required fields/sections, placeholder text).",
+    "Policy contradictions (calls it a return program; allows cash refunds; omits credit-worthiness restriction; omits one-time-per-season rule).",
+    "Omitting required operational specifics (effective date, warehouse address/phone, restocking fee, freight responsibility).",
+    "Spreadsheet hard-coded numbers where formulas are required; turns calculated incorrectly; seasonal turn formula wrong; average inventory computed incorrectly.",
+    "Violating constraints (receipt minimums not met, budget totals don\u2019t tie, ending inventory exceeds cap, channels swapped).",
+    "Not using provided reference file data or miscopying it (wrong months, wrong starting inventory, incorrect LY benchmarking).",
+    "Unprofessional formatting (dense unreadable slide, multi-page doc when one-page required, inconsistent units/currency formats).",
+    "Lack of auditability (no clear approval workflow, missing authorization numbering field, no rep/manager sign-off fields)."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Calculate weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required files are missing/wrong format/unopenable OR deliverables are severely incomplete, override final score to 0-2 regardless of other dimensions.",
+    "score_scale": "0-10 where 0-2=Unacceptable (missing files/incomplete), 3-4=Poor, 5-6=Acceptable, 7-8=Good, 9-10=Excellent",
+    "automatic_low_score_triggers": [
+      "Any required output file is missing",
+      "Any required file is unopenable/corrupted",
+      "File format does not match what was requested (e.g., not PPTX/DOCX/XLSX when required)",
+      "Work is severely incomplete (e.g., empty tables, placeholders, missing major sections like required fields or calculation rows)",
+      "Spreadsheet requires formulas but values are hard-coded and not auditable in key calculated fields",
+      "Outputs do not address major parts of the prompt (e.g., only a generic strategy without channel differentiation, or a policy without the process steps)"
+    ],
+    "excellent_output_characteristics": [
+      "All required artifacts are present, correctly formatted, and immediately usable",
+      "Every prompt requirement is explicitly addressed and easy to locate",
+      "All numbers and policies are accurate; calculations are correct and constrained targets are met",
+      "Spreadsheets are auditable with correct formulas, clear labeling, and consistent formatting",
+      "Professional tone and layout appropriate for wholesale sales management and cross-functional stakeholders",
+      "Includes operational controls (approvals, eligibility checks, documentation trail) and aligns actions to outcomes (ROI, retention, inventory health)"
+    ],
+    "poor_output_characteristics": [
+      "Missing at least one required file or wrong format",
+      "Major omissions (missing required fields, missing approvals, missing months/rows, missing required notes)",
+      "Frequent inaccuracies or calculation errors; constraints violated",
+      "Unclear or contradictory policies/processes",
+      "Unprofessional, confusing, or non-executable deliverables"
+    ]
+  },
+  "example_evaluation_questions": [
+    "Deliverables: Does the submission include every file requested in the prompt, in the correct editable format (PPTX/DOCX/XLSX), and do all files open successfully?",
+    "Scope: If a one-page or one-slide constraint exists, does the artifact comply without becoming unreadable or omitting required information?",
+    "Policy alignment: Are terms and rules consistent throughout (e.g., exchange vs return; credit-only; eligibility; frequency limits; timing of replacement order)?",
+    "Operational details: Are all specified constants correct (effective date, fees, freight responsibility, warehouse address and phone)?",
+    "Process clarity: Could a sales rep follow the steps without needing interpretation? Is the approval workflow and documentation trail clear?",
+    "Spreadsheet integrity: Are required calculations implemented with formulas (not hard-coded)? Do formulas match the prompt definitions exactly?",
+    "Constraints: Do totals and constraints reconcile (e.g., receipt budget totals, minimum monthly receipt thresholds, ending inventory caps, target turns)?",
+    "Cross-check: Do figures and statements remain consistent across artifacts (e.g., the DOCX policy matches the XLSX form fields and notes)?",
+    "Professional readiness: Is the output suitable to send to customers/leadership today (formatting, grammar, labeling, clear takeaways)?",
+    "Domain best practices: Does the deliverable include appropriate controls and metrics typical for wholesale sales operations and first-line supervision?"
+  ],
+  "metadata": {
+    "category": "First-Line Supervisors of Non-Retail Sales Workers",
+    "sector": "Wholesale Trade",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:12:21.275877",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2732,
+    "completion_tokens": 3331,
+    "total_tokens": 6063
+  }
+}

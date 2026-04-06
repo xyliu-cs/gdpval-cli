@@ -1,0 +1,132 @@
+{
+  "category": "Property, Real Estate, and Community Association Managers",
+  "evaluation_prompt": "You are an expert evaluator assessing AI-generated work products for tasks in the occupation category \u201cProperty, Real Estate, and Community Association Managers\u201d (Real Estate and Rental and Leasing). You will be given: (1) the original task prompt, (2) any reference files mentioned, and (3) the agent\u2019s output files/artifacts.\n\nYour job is to assign a 0\u201310 overall score and sub-scores for Completeness, Correctness, Quality, and Domain Standards using the rubric below.\n\nCRITICAL RULE (NON-NEGOTIABLE): If ANY required output file is missing OR the deliverable is severely incomplete (e.g., placeholders, partial tables, missing required sections, cannot be used as intended), you MUST assign an overall score in the 0\u20132 range regardless of how good any partial content is.\n\nEvaluation procedure (follow in order):\n1) Parse the prompt and list REQUIRED deliverables (file types, formats like .xlsx/.pdf/.docx, and required sections such as matrices, notes, tables, questionnaires, schedules, etc.). If the prompt demands an editable calculator, verify formulas exist and are dynamic (not static screenshots).\n2) Verify all required reference files were used appropriately: content is incorporated where required (e.g., extracted violation questions), assumptions are aligned, and nothing contradicts provided documents.\n3) Open/inspect each output file and check:\n   - Does it exist and open without errors?\n   - Does it match requested format (Excel vs PDF vs DOCX), and is it editable when requested?\n   - Does it contain every required section, field, table, and calculation?\n4) Validate technical correctness:\n   - For spreadsheets: verify formulas, cell references, escalators, totals, and internal consistency (annual vs monthly totals reconcile, correct term length, correct escalation timing).\n   - For forms/policies/notices: verify all required fields, options (e.g., Y/N circle), and all referenced items from attachments are included.\n   - For schedules/plans: verify coverage across required timeframes, roles, and cyclical tasks; ensure the table headings and trackers match prompt.\n5) Judge professional quality and usability: readability, labeling, consistent formatting, print-readiness (if PDF), logical organization, and minimal ambiguity.\n6) Check domain standards: property management norms (clear rent schedules, auditability, compliance/board-ready documents, tenant/community-friendly language, fair housing/neutral phrasing where applicable, operational practicality).\n\nScoring: Assign sub-scores (0\u201310) for each dimension per the rubric, then compute the weighted score: Completeness 40%, Correctness 30%, Quality 20%, Domain Standards 10%. Apply the CRITICAL RULE override for missing/incomplete deliverables (overall must be 0\u20132).\n\nWhen writing your evaluation, be concrete: cite which required items are missing, which formulas/sections are wrong, which reference-file elements were omitted, and which parts are exemplary.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed in the artifacts, in the requested formats, with required sections/fields/tables present.",
+      "criteria": [
+        "All required output files are present (correct file type/extension as requested: e.g., .xlsx with formulas, .pdf form, .docx schedule).",
+        "Each file contains every required section (e.g., annual matrix + monthly matrix + notes; or questionnaire header fields + violation types + blank lines; or weekly schedule table with all requested columns).",
+        "All prompt-specified inputs are editable where required (e.g., Suite #, SF, term, rent/SF, escalator as variable cells; form fields/lines included; schedule rows cover all required timing).",
+        "Any required calculations, totals, summaries, or reconciliation outputs are included (e.g., total gross lease value, monthly totals shown, scenario summaries).",
+        "Output is usable as-is (no placeholders like \u201cTBD,\u201d missing pages, truncated tables, or partial extraction of reference content).",
+        "If multiple scenarios/communities/phases are required, all are represented and clearly separated/labeled."
+      ],
+      "scoring_guidance": "0-2 if any required file is missing or deliverable is severely incomplete/unusable; 3-4 if multiple required sections are missing or only partially addressed; 5-6 if most sections exist but notable omissions remain (e.g., missing notes, missing blank lines, incomplete month range, missing scenario); 7-8 if complete with only minor omissions (small labeling gaps, minor missing ancillary items); 9-10 if fully complete and meets every explicit requirement."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of calculations, extracted information, logic, and alignment with prompt and reference files.",
+      "criteria": [
+        "Calculations are correct and consistent (e.g., rent = RSF rate \u00d7 SF; annual escalator applied at correct time; monthly vs annual totals reconcile; term length correctly implemented).",
+        "Formulas are dynamic where required (changing inputs updates outputs; proper absolute/relative references; no hard-coded numbers where variables should drive results).",
+        "Conditional logic correctly suppresses irrelevant rows/cells (e.g., months beyond term are blank, not errors).",
+        "Correct incorporation of reference file content (all required violation questions/items captured; no omissions or distortions; correct categorization).",
+        "Units, rounding, and currency formatting are consistent and appropriate (monthly vs annual, $/SF/month, $ totals).",
+        "No internal contradictions (e.g., mismatched totals, incorrect year count, missing escalation year)."
+      ],
+      "scoring_guidance": "0-2 if calculations/content are mostly wrong, unverifiable, or contradict prompt/reference; 3-4 if major errors exist that materially change results or omit essential reference content; 5-6 if generally correct but with several notable errors (some wrong totals, minor missing items from reference, inconsistent escalation timing); 7-8 if accurate with only minor issues (small rounding/format inconsistencies, minor labeling); 9-10 if fully accurate, reconciled, and robust to input changes."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization, readability, and usability of the deliverables.",
+      "criteria": [
+        "Clear structure with headings, labels, and logical flow (e.g., scenario separation, table titles, notes area).",
+        "Readable formatting: consistent fonts, alignment, column widths, and spacing; print-friendly where applicable (PDF/forms).",
+        "Tables are well-formed (no broken rows/columns, no overlapping text, consistent numbering).",
+        "Color-coding/visual cues follow prompt (e.g., editable cells highlighted light blue; scenarios distinct).",
+        "No spelling/grammar issues that reduce professionalism; neutral, clear language suitable for tenants/boards/vendors.",
+        "Artifacts are easy for a real property manager/board to use without extra explanation."
+      ],
+      "scoring_guidance": "0-2 if disorganized/unreadable or not usable (garbled tables, missing labels); 3-4 if very rough with significant formatting/usability issues; 5-6 if usable but messy or inconsistent; 7-8 if professional with minor polish needed; 9-10 if highly polished, client/board-ready, and very easy to use."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Adherence to real estate/property/community association management best practices and professional conventions.",
+      "criteria": [
+        "Auditability: assumptions stated (e.g., escalation timing, start date assumptions), totals clearly shown, and logic is transparent.",
+        "Operational practicality: schedules reflect cyclical PM work; trackers reference plausible systems/sources (rent roll, work orders, violations log, AR/AP).",
+        "Compliance-aware communication: neutral wording, avoids discriminatory language; where relevant, includes appropriate notes/disclaimers (e.g., informational estimate, subject to lease execution/board approval).",
+        "Document readiness: forms include adequate spacing/lines for handwriting, clear Y/N circle options, and complete lists drawn from governing documents.",
+        "Consistency with industry units and conventions ($/SF/month vs $/SF/year clearly labeled; term/year/month numbering conventional)."
+      ],
+      "scoring_guidance": "0-2 if ignores basic professional norms or introduces risky/incorrect practices; 3-4 if several domain-standard issues; 5-6 if mostly acceptable but missing best-practice elements (assumptions, disclaimers, auditability); 7-8 if aligned with norms with minor gaps; 9-10 if exemplary, board/tenant-ready, and reflects strong PM/association management practice."
+    }
+  },
+  "file_inspection_checklist": [
+    "Identify required output formats from the prompt (e.g., .xlsx, .pdf, .docx). Confirm each required file exists and is accessible/openable.",
+    "Check the artifact matches the requested format and intent (Excel calculator must be an actual spreadsheet with formulas, not an image or copied table).",
+    "For Excel deliverables: verify variable/input cells exist, are clearly marked (e.g., light blue), and changing them updates all downstream outputs.",
+    "For multi-scenario rent schedules: confirm each scenario includes term, rate, escalator inputs; annual matrix (year #, monthly rent, $/SF, annual base rent, total gross lease value); monthly matrix (month-by-month lines up to term; total shown near title); and a Notes section.",
+    "Reconcile totals: annual totals should equal the sum of corresponding monthly rents; scenario totals must align across matrices.",
+    "Check escalation logic: verify rent increases on the anniversary (e.g., month 13) and the year numbering aligns to lease years.",
+    "Check conditional logic: rows/cells beyond lease term should be blank (not 0, not errors) and should not display excessive nulls.",
+    "For PDF/DOCX forms: verify all required header fields, lined spaces, and circle options (Y/N) are present and printable.",
+    "For reference-driven questionnaires: compare output to the reference PDF; verify every violation type and qualifying question/detail is included; ensure additional blank lines are present where requested.",
+    "For schedules: confirm table includes the exact required columns, covers the full weekly/cyclical cadence described, and includes clear trackers/sources (e.g., accounting system, CMMS, inspection reports).",
+    "Check for professional presentation: consistent headings, page breaks (if long tables), legible fonts, and absence of typos.",
+    "Confirm no contradictions with the prompt or reference files; note any assumptions not stated."
+  ],
+  "common_failure_modes": [
+    "Missing required output files (e.g., no .xlsx provided when requested; only narrative text).",
+    "Wrong format (PDF instead of DOCX, screenshot instead of editable Excel, or spreadsheet without formulas).",
+    "Severely incomplete deliverable (only one scenario, missing monthly matrix, missing notes, missing sections of a questionnaire).",
+    "Failure to incorporate reference files (omits many violation questions/items; invents content not in the attachment when the prompt requires inclusion).",
+    "Incorrect escalation timing (applies escalator monthly instead of annually; escalates at month 12 rather than month 13; escalates from wrong base).",
+    "Annual and monthly matrices don\u2019t reconcile (totals differ due to rounding or incorrect month counts).",
+    "No conditional blanking beyond term (shows errors like #N/A, #VALUE!, or fills months 61\u2013120 with zeros or garbage).",
+    "Editable variables not clearly indicated or not used as references (hard-coded suite size/rent inputs scattered throughout).",
+    "Unclear labeling of units ($/SF/month vs $/SF/year), leading to incorrect interpretation.",
+    "Poor readability (misaligned tables, missing headings, inconsistent scenario color-coding, insufficient space for form responses).",
+    "Operationally unrealistic schedules (no time blocks, missing recurring tasks like rent collection/AR follow-up, vendor coordination, inspections).",
+    "Risky/non-compliant language (discriminatory phrasing, improper legal claims, or missing appropriate caveats where needed)."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Compute weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required output file is missing OR the work is severely incomplete/unusable, set overall score to 0\u20132 regardless of weighted average.",
+    "score_scale": "0-10 where 0-10 inclusive. 0-2=Unacceptable (missing files or severely incomplete); 3-4=Poor; 5-6=Acceptable; 7-8=Good; 9-10=Excellent.",
+    "automatic_low_score_triggers": [
+      "Any required output file is missing (e.g., prompt asks for .docx/.pdf/.xlsx and it is not provided).",
+      "Output exists but is not the required artifact type or not usable as intended (e.g., no formulas in a required Excel calculator; only plain text when a formatted document is required).",
+      "Large required sections are absent (e.g., missing monthly matrix or missing multiple violation categories from reference).",
+      "Deliverable cannot be opened or is corrupted/unreadable.",
+      "Outputs are clearly placeholders, drafts, or partial excerpts rather than complete deliverables."
+    ],
+    "excellent_output_characteristics": [
+      "All required files present in correct formats and fully usable.",
+      "All prompt requirements addressed with clear structure and labeling.",
+      "Accurate calculations/content; internal consistency checks pass (reconciliation between summaries and detail).",
+      "Dynamic, editable inputs implemented properly; conditional logic prevents clutter/errors.",
+      "Professional, client/board-ready formatting; clear notes/assumptions; domain-appropriate language."
+    ],
+    "poor_output_characteristics": [
+      "Missing any required deliverable or wrong format.",
+      "Hard-coded numbers where dynamic inputs are required; broken formulas or errors displayed.",
+      "Omissions of required reference-based items; invented or mismatched content.",
+      "Incorrect totals, escalation logic, or mismatched month/year rollups.",
+      "Unprofessional formatting that impedes use (confusing tables, missing headings, unreadable PDF)."
+    ]
+  },
+  "example_evaluation_questions": [
+    "Are all prompt-required output files present, in the correct format(s), and do they open successfully?",
+    "Does the deliverable include every required section (e.g., annual + monthly matrices + notes; questionnaire header fields + all violation items + blank lines; schedule table with required columns)?",
+    "If the prompt requires an editable calculator, are there clearly marked input cells and do formulas update outputs correctly when inputs change?",
+    "Do annual totals reconcile exactly to the sum of monthly rents for each scenario/term?",
+    "Is the escalation applied on the correct schedule (anniversary-based), and are year/month counts correct for the specified term?",
+    "Does the output correctly incorporate all content from the provided reference files (no missing categories/questions)?",
+    "Are units and labels unambiguous (e.g., $/SF/month vs annualized)?",
+    "Is the document professionally formatted and usable by a property manager, tenant, board, or vendor without extra rework?",
+    "Are there any domain-standard gaps (missing assumptions, lack of auditability, impractical schedule cadence, compliance-risk language)?",
+    "If something is missing or incomplete, does it trigger the mandatory 0\u20132 overall score override?"
+  ],
+  "metadata": {
+    "category": "Property, Real Estate, and Community Association Managers",
+    "sector": "Real Estate and Rental and Leasing",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:34:50.358673",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2568,
+    "completion_tokens": 3346,
+    "total_tokens": 5914
+  }
+}

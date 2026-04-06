@@ -1,0 +1,126 @@
+{
+  "category": "News Analysts, Reporters, and Journalists",
+  "evaluation_prompt": "You are an expert evaluator assessing an AI agent\u2019s journalistic output(s) for a task in the occupation category \u201cNews Analysts, Reporters, and Journalists.\u201d You will be given: (1) the original task prompt, (2) any reference files/links the prompt cites, and (3) the agent\u2019s output files/artifacts.\n\nYour job: assign a 0\u201310 score and provide brief, evidence-based justification grounded in the prompt requirements and professional journalism standards.\n\nPROCESS (follow in order):\n1) Identify required deliverables from the prompt:\n   - Required file types (e.g., PDF article, DOCX pitch, JPG/PNG chart, data table, bibliography/links).\n   - Required content constraints (word count range, neutrality, inclusion of dates, required links appended, \u201cno pictures,\u201d etc.).\n   - Required sourcing rules (must use specific sources; must include hyperlinks; must cite official sites; must not fabricate quotes).\n\n2) File presence + basic accessibility check (HARD GATE):\n   - Confirm every required output file exists.\n   - Confirm files open and are readable (PDF renders; DOCX editable; images load).\n   - Confirm the outputs are not placeholders (e.g., \u201cTBD,\u201d lorem ipsum, headings without content).\n   -> CRITICAL OVERRIDE: If ANY required deliverable is missing, inaccessible, or clearly incomplete, the overall score MUST be 0\u20132.\n\n3) Requirements coverage (Completeness):\n   - Cross-check each explicit requirement in the prompt and mark it Pass/Partial/Fail.\n   - Verify structural requirements: title/headline, byline/date/location if requested, section organization, inclusion of mandated URL at end, inclusion of chart and that it matches described years/metrics, timeline for pitch if requested, source list if requested.\n\n4) Content verification (Correctness):\n   - Compare claims, numbers, dates, and attributions against the provided reference files/links where possible.\n   - Flag unsupported assertions, invented facts, or fabricated quotes/sources.\n   - Ensure statistical/visual elements (charts) match the numbers stated in text and labels are correct.\n   - If browsing is not available, evaluate internal consistency and whether the output clearly attributes facts to provided sources; penalize anything that appears invented or overly specific without attribution.\n\n5) Journalism quality + style (Quality):\n   - Evaluate clarity, organization, and readability for the target audience (general/local readers, non-expert US audience, etc.).\n   - Check for neutral tone when required; avoid editorializing and loaded language.\n   - Ensure story structure fits the assignment: news lede and nut graf for articles; persuasive but professional framing for pitches.\n   - Check grammar, spelling, and formatting suitable for publication and the requested format.\n\n6) Domain-specific standards (Domain Standards):\n   - Attribution: clear sourcing, correct paraphrasing, no plagiarism.\n   - Fairness: balanced representation of stakeholders, avoids bias (especially in political coverage).\n   - Transparency: indicates uncertainty where appropriate; distinguishes fact from analysis.\n   - Ethics: no fabricated interviews/quotes; no misrepresentation of sources; avoids defamatory assertions.\n\n7) Scoring:\n   - Score each dimension 0\u201310 using the rubric.\n   - Compute weighted average: Completeness 40%, Correctness 30%, Quality 20%, Domain Standards 10%.\n   - Apply the CRITICAL OVERRIDE: if any required files are missing/incomplete, final score must be 0\u20132 regardless of weighted average.\n\nEVIDENCE REQUIREMENT:\nWhen justifying scores, cite specific places in the output (e.g., \u201cPDF page 1, paragraph 3\u201d or \u201cchart y-axis label\u201d) and map them to prompt requirements. If you cannot find a requirement satisfied, treat it as not met.\n\nEXAMPLES of deliverable checks (illustrative only):\n- If prompt requires \u201csubmit as editable Word document,\u201d a PDF-only submission triggers the missing-deliverable gate (0\u20132).\n- If prompt requires a JPG chart plus an article, an article without the chart (or chart missing years/labels) triggers 0\u20132 if the chart file is missing; otherwise heavy completeness/correctness penalty if chart exists but is wrong.\n- If prompt requires the official elections website link at the end, absence is a completeness failure (not necessarily automatic 0\u20132 unless prompt makes it a separate required artifact, but it should materially reduce score).\n",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist, are accessible, and all prompt requirements are addressed.",
+      "criteria": [
+        "All required output artifacts are present in the correct formats (e.g., PDF vs DOCX vs JPG) as explicitly requested",
+        "Files open successfully and contain full content (not placeholders, not truncated, not corrupted)",
+        "All explicit prompt requirements are satisfied (word count/length, required sections, required URLs/hyperlinks, required dates, required charts/visuals, required lists such as sources to seek, required timeline, etc.)",
+        "No prohibited elements are included (e.g., \u2018no pictures\u2019 respected; no extra unsupported attachments if disallowed)",
+        "Output matches the target deliverable type (article vs pitch vs analysis memo) and includes mandatory components (headline/title, lede, etc., if expected by prompt)"
+      ],
+      "scoring_guidance": "0\u20132 if ANY required file is missing/inaccessible or deliverable is severely incomplete/placeholder. 3\u20134 if multiple major requirements are unmet (wrong format, missing key sections like dates/voting methods/source links). 5\u20136 if core deliverable exists but notable gaps remain (partial requirements, missing some mandated details). 7\u20138 if nearly all requirements met with only minor omissions (e.g., one missing hyperlink or slight word-count drift). 9\u201310 if fully complete: all files correct, all requirements addressed precisely."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of facts, figures, dates, attributions, and internal logic; chart-data consistency.",
+      "criteria": [
+        "Factual claims align with provided references and are properly attributed (no invented statistics, policies, dates, or quotes)",
+        "Correct use of dates, names, jurisdictions, institutions, and election or policy procedures as relevant",
+        "No internal contradictions (e.g., chart values contradict text; dates inconsistent across paragraphs)",
+        "Charts/graphics: correct units, labels, years, and values; visual matches described metric; no misleading scaling without note",
+        "Hyperlinks (when required) point to relevant sources and are not broken or irrelevant",
+        "If summarizing external reports, summary reflects the source accurately without distortion or cherry-picking"
+      ],
+      "scoring_guidance": "0\u20132 if pervasive inaccuracies, fabricated quotes/sources, or materially misleading information. 3\u20134 if multiple major factual errors or unsubstantiated specifics. 5\u20136 if mostly correct but contains some notable inaccuracies, weak attribution, or chart/data mismatches. 7\u20138 if largely accurate with minor errors or minor attribution gaps. 9\u201310 if factually rigorous, well-attributed, and internally consistent; charts match data and narrative."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional presentation, clarity, structure, and adherence to requested tone and audience.",
+      "criteria": [
+        "Clear, audience-appropriate writing (plain language for non-experts when requested; avoids jargon or explains it)",
+        "Strong organization: effective headline/title, coherent flow, appropriate paragraphing, logical sectioning",
+        "Meets style expectations for deliverable (news article: lede + nut graf + key facts; pitch: compelling hook, structure, and reporting plan)",
+        "Mechanics: grammar, spelling, punctuation, consistency in tense and naming",
+        "Formatting suitable for the file type (PDF looks like a finished article; DOCX is editable and well-formatted; chart is legible at typical viewing size)"
+      ],
+      "scoring_guidance": "0\u20132 if unreadable, disorganized, or extremely unprofessional presentation. 3\u20134 if hard to follow with frequent errors and weak structure. 5\u20136 if readable but uneven; noticeable style/formatting issues. 7\u20138 if polished with only minor edits needed. 9\u201310 if publication-ready: crisp structure, excellent clarity, and professional formatting."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Journalism best practices: fairness, neutrality, sourcing ethics, and transparency.",
+      "criteria": [
+        "Neutrality and fairness where required (especially in political coverage): avoids advocacy, loaded framing, or unsupported characterizations",
+        "Clear attribution and sourcing: distinguishes verified facts from analysis; avoids plagiarism; includes required citations/hyperlinks",
+        "No fabricated interviews, quotes, or claims of reporting not performed",
+        "Appropriate balance of perspectives/stakeholders for the assignment (e.g., includes relevant sides and institutions to contact in a pitch)",
+        "Ethical presentation: avoids sensationalism, respects uncertainty, avoids misleading headlines compared to body"
+      ],
+      "scoring_guidance": "0\u20132 if serious ethical breaches (fabricated quotes, plagiarism indicators, overt bias when neutrality required). 3\u20134 if notable bias, weak sourcing transparency, or misleading framing. 5\u20136 if generally acceptable but with some lapses (overconfident claims, insufficient balance). 7\u20138 if adheres well with minor concerns. 9\u201310 if exemplary journalistic rigor, fairness, and transparency."
+    }
+  },
+  "file_inspection_checklist": [
+    "Inventory deliverables: list each required file from the prompt and confirm it exists (name/extension), opens, and is non-empty.",
+    "Confirm file-type compliance: if prompt requests DOCX, verify it is editable Word format (not PDF renamed). If prompt requests PDF, verify it renders as PDF.",
+    "For written artifacts (PDF/DOCX/TXT): check word count/length constraints; verify required sections (headline, lede, key dates, methods, timeline, source list).",
+    "Verify inclusion and placement of mandatory links/URLs (e.g., \u201cwebsite link should be added at the end\u201d).",
+    "Check prohibited content constraints (e.g., no pictures in a PDF article; no opinion language if neutrality required).",
+    "If a chart/image is required: confirm a separate image file exists in the correct format (e.g., JPG), loads, is legible, and matches specified years/series; check axis labels, units, and source note.",
+    "Cross-validate chart values against numbers stated in the text; flag mismatches.",
+    "Check citations/hyperlinks: ensure links are relevant, freely accessible if required, and not hallucinated domains; verify anchor text matches target.",
+    "Check date/location context: does the piece reflect the stated timeframe in the prompt and avoid anachronisms?",
+    "Assess overall packaging: professional formatting (margins, headings, readable fonts), consistent capitalization, and clean export (no tracked changes unless acceptable)."
+  ],
+  "common_failure_modes": [
+    "Missing required artifact (e.g., article provided but chart missing; DOCX requested but only PDF delivered) \u2192 must score 0\u20132",
+    "Wrong file format (Google Doc link instead of DOCX; PNG instead of required JPG when strict) or file cannot be opened",
+    "Placeholder or severely incomplete content (outline only, bullet notes only, \u201cTBD,\u201d or truncated text)",
+    "Fails neutrality requirement: editorializing, endorsing candidates, loaded language in political coverage",
+    "Fabricated facts, quotes, or citations; overly specific numbers/dates without attribution to provided sources",
+    "Does not use or cite required sources (e.g., prompt requires official site/references and they are absent)",
+    "Chart is incorrect or misleading: wrong years, mislabeled axis, values inconsistent with the stated source, unreadable resolution",
+    "Misses key required details: election dates, voting methods, submission timeline, list of sources to seek, or mandated link at end",
+    "Hyperlinks are broken, irrelevant, paywalled when prompt asks for freely accessible resources, or not included when required",
+    "Writing not suited to assignment type (article reads like opinion essay; pitch lacks structure, reporting plan, or timeliness rationale)"
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Score each rubric dimension 0\u201310, compute weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required output file is missing, inaccessible, wrong required format, or the work is severely incomplete/placeholder, set final score to 0\u20132 regardless of other dimension scores.",
+    "score_scale": "0\u201310 where 0\u20132=Unacceptable (missing files/incomplete); 3\u20134=Poor (major issues, many requirements unmet); 5\u20136=Acceptable (core deliverable present but notable gaps/errors); 7\u20138=Good (minor issues only); 9\u201310=Excellent (complete, accurate, professional, publication-ready).",
+    "automatic_low_score_triggers": [
+      "Any required output file/artifact is missing (e.g., required PDF/DOCX/JPG not delivered)",
+      "Any required file is corrupted, cannot be opened, or is clearly the wrong type/format when format is specified",
+      "Deliverable is severely incomplete (outline/notes only, missing major sections, placeholder text)",
+      "The output fails the central task (e.g., asked for an article but provides only a list of facts; asked for a pitch but provides a finished article without pitch elements)"
+    ],
+    "excellent_output_characteristics": [
+      "All required artifacts delivered in correct formats and open cleanly",
+      "All explicit prompt constraints met (length, structure, required links at specified location, required chart specs, etc.)",
+      "Accurate facts and figures with clear attribution to provided references; no invented quotes or data",
+      "Professional newswriting or pitching structure appropriate to audience and outlet",
+      "Charts are correct, legible, labeled, sourced, and consistent with the text",
+      "Neutral, fair tone when required; transparent about what is known vs uncertain"
+    ],
+    "poor_output_characteristics": [
+      "Missing or wrong-format deliverables (automatic 0\u20132)",
+      "Multiple unmet requirements (dates missing, sources missing, link missing, chart missing or wrong)",
+      "Factual inaccuracies, misattributions, or signs of hallucination/fabrication",
+      "Biased or opinionated language when neutrality is required",
+      "Unprofessional formatting, unreadable charts, or disorganized structure"
+    ]
+  },
+  "example_evaluation_questions": [
+    "What exact files were required by the prompt (type and count), and are all of them present and accessible?",
+    "Does the primary written deliverable meet the requested word count/length range and include all mandatory sections (e.g., dates, voting methods, timeline, source list)?",
+    "If the prompt requires neutrality, does any sentence endorse or criticize a candidate/policy, or use loaded framing? Quote the problematic lines.",
+    "Are all factual claims (numbers, dates, forecasts, policies) attributed to the provided references, and do they match those sources?",
+    "Do any details look fabricated (specific quotes, exact figures, claims of interviews)? If so, is there attribution or evidence?",
+    "If a chart/graphic is required: is it the correct file type, does it include the correct years/variables, is it readable, and do its values match the text?",
+    "Are required hyperlinks included, placed where specified (e.g., link at the end), and do they point to relevant, accessible resources?",
+    "Is the structure appropriate to the deliverable type (news article vs story pitch), and does it serve the target audience described in the prompt?",
+    "Does the headline/title accurately reflect the body without sensationalism or mismatch?",
+    "Overall, what are the top 1\u20133 requirement failures that most limit the score, and do any trigger the automatic 0\u20132 rule?"
+  ],
+  "metadata": {
+    "category": "News Analysts, Reporters, and Journalists",
+    "sector": "Information",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:25:16.885783",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2502,
+    "completion_tokens": 3478,
+    "total_tokens": 5980
+  }
+}

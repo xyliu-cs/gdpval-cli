@@ -1,0 +1,130 @@
+{
+  "category": "Film and Video Editors",
+  "evaluation_prompt": "You are an expert evaluator assessing an agent\u2019s deliverables for a Film and Video Editors task. You will be given: (1) the original task prompt, (2) any reference/input files mentioned, and (3) the agent\u2019s output files/artifacts. Your job is to determine whether the deliverables fully satisfy the prompt and meet professional post-production standards.\n\nCRITICAL RULE (NON-NEGOTIABLE): If ANY required deliverable file is missing (e.g., requested .mp4 export, .docx script, link log, etc.) OR the work is clearly incomplete (e.g., wrong duration, placeholder content, unusable export, missing required sections), you MUST assign an overall score in the 0\u20132 range, regardless of how good the rest is.\n\nEvaluation procedure (follow in order):\n1) Parse the prompt and list REQUIRED deliverables and hard constraints. Examples of hard constraints include: exact runtime (e.g., exactly 15s or 30s), exact format (H.264 .mp4), resolution (e.g., 1920x1080), required use of provided script/VO/supers, required graphic cards, required link log for stock footage/music, required scratch VO, requested file type (.docx), page limits, and any explicit style/tonal requirements.\n2) Inventory output artifacts: confirm every required file exists, is accessible/openable, and is the correct type. Note any missing items.\n3) Inspect each output file:\n   - For videos: verify codec/container, resolution, frame rate if specified, audio presence/levels, and EXACT duration where required. Review the edit for story alignment, pacing, legibility of text, compliance with required graphic cards/supers, and adherence to tone.\n   - For documents (scripts, logs): verify format (.docx if required), length limits, timestamps, structure, and that it uses/aligns with provided reference scripts and requirements.\n4) Cross-check against reference files: confirm the agent did not contradict or ignore required content (e.g., VO wording, mandated supers, sequence outlines, client branding personality, demographic appropriateness).\n5) Score each rubric dimension (0\u201310) using the guidance. Compute the weighted score, BUT apply the critical override: if missing/incomplete deliverables, final must be 0\u20132.\n\nBe specific in your critique: cite exact missing files, mismatched durations, absent graphic cards, incorrect supers, or deviations from script. Provide a short list of concrete fixes needed to reach a 9\u201310.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist, are accessible, and all explicit prompt requirements are addressed (most important dimension).",
+      "criteria": [
+        "All required deliverable files are present (e.g., .mp4 export, .docx script, stock footage/music link log, scratch VO track embedded or provided as required, graphic assets if requested).",
+        "Each file is openable/usable (not corrupted, not empty, not a placeholder).",
+        "All hard constraints are met: exact runtime when specified (e.g., exactly 15s/30s), correct container/codec when specified (e.g., H.264 .mp4), correct resolution (e.g., 1920x1080), and any required text cards/supers/VO included.",
+        "All required components from the prompt are included (e.g., two mandated graphic cards at specified script moments; supers for each script line; initial shot without super if required; timestamps in scripts; page limits).",
+        "Required administrative artifacts are included when asked (e.g., a log with direct links to stock footage and music; identification of track/clip sources)."
+      ],
+      "scoring_guidance": "0-2 if any required files are missing, wrong format, wrong runtime, or deliverable is clearly incomplete/unusable. 3-4 if present but many requirements unmet (multiple missing components, frequent constraint violations). 5-6 if most deliverables exist but notable gaps remain (one major requirement missed, several minor omissions). 7-8 if everything essential is present with only minor omissions or small requirement mismatches. 9-10 if fully complete: all deliverables present, all constraints met, nothing important missing."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy and faithfulness to the prompt, reference scripts/assets, and specified content/claims.",
+      "criteria": [
+        "Script/VO text matches the provided script where required (no missing mandated lines; no unintended rewrites when exact wording is expected; correct ordering).",
+        "Graphic cards/supers include the correct text, appear at the correct script moments, and are not missing required lines.",
+        "Timing correctness: supers stay on screen long enough to read while still fitting exact runtime; VO aligns with visuals when required; cut points support comprehension.",
+        "Reference alignment: uses required sequences/outline from provided documents; does not introduce factual inaccuracies if the documentary claims scientific content; avoids misleading or inappropriate claims (especially for children).",
+        "Technical correctness: audio is present when required (scratch VO, music), not missing channels; no severe sync issues; no black frames, repeated frames, or accidental gaps unless stylistically intended and allowed."
+      ],
+      "scoring_guidance": "0-2 if major content is wrong (wrong script, missing mandated lines, incorrect runtime, or incorrect required elements). 3-4 if frequent inaccuracies or major misalignment with script/requirements. 5-6 if generally correct but with notable errors (some text mismatches, timing issues, or misordered content). 7-8 if mostly correct with minor slips (small wording deviations, occasional timing tightness). 9-10 if fully faithful, accurate, and technically correct with precise adherence to required text and timing."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professionalism of presentation: editing craft, clarity, organization, and polish appropriate for broadcast/internet deliverables.",
+      "criteria": [
+        "Editing polish: coherent narrative flow, intentional pacing, clean cuts, appropriate transitions (not distracting), and strong opening/closing beats when required.",
+        "Text/graphics quality: legible typography (safe margins, adequate size/contrast), consistent styling, clean layout; no typos; proper capitalization/punctuation.",
+        "Audio mix quality: music level supports message; scratch VO intelligible; no clipping/distortion; reasonable loudness consistency; clean fade in/out when appropriate.",
+        "Visual consistency: basic color consistency across stock clips; any requested grading (e.g., desaturate/darken for somber tone) applied appropriately and consistently.",
+        "Document quality (when applicable): clear structure, timestamps formatted consistently, within page limits, easy to follow as a pre-edit/paper-cut guide."
+      ],
+      "scoring_guidance": "0-2 if output is unusable or extremely sloppy (illegible text, chaotic structure, severe audio issues). 3-4 if weak craftsmanship and distracting issues. 5-6 if serviceable but noticeably rough (inconsistent text, abrupt audio, uneven pacing). 7-8 if polished with only minor quality issues. 9-10 if broadcast-ready professionalism: clean, consistent, and well-paced with excellent readability and audio/visual polish."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Adherence to film/video post-production best practices and conventions for the requested deliverable type (broadcast spot, web spot, documentary pre-script).",
+      "criteria": [
+        "Broadcast/web compliance habits: exact duration when specified; clean start/end; no unintended blank frames; titles within safe areas; avoids illegal levels/clipping.",
+        "Appropriate stock footage usage practices: provides direct source links/log when requested; footage choices match story beats and demographics; avoids mismatched geography/subject when the brief is location-specific (e.g., California).",
+        "Typography and card conventions: simple, high-contrast cards as requested (e.g., black background/white type), consistent font choices, and professional motion/placement (if any).",
+        "Narrative and audience fit: tone matches brand personality (e.g., calm/trustworthy for kids + adults; dramatic for advocacy; optimistic/proud for green energy).",
+        "Ethical/brand-safe editing: avoids inappropriate or insensitive imagery for political/health topics; avoids misleading scientific representation in educational content."
+      ],
+      "scoring_guidance": "0-2 if ignores core professional conventions (e.g., unsafe/illegible text, noncompliant runtime, missing link log when required). 3-4 if several best-practice violations. 5-6 if mixed adherence. 7-8 if largely professional with minor lapses. 9-10 if fully aligned with industry expectations for the deliverable type."
+    }
+  },
+  "file_inspection_checklist": [
+    "Deliverable inventory: Compare prompt-required deliverables vs provided outputs; list missing items explicitly.",
+    "Video export presence: Is there an .mp4 (or requested format) file? If required and missing => automatic 0\u20132 overall.",
+    "Video technical metadata: Confirm container/codec (H.264 if required), resolution (e.g., 1920x1080), and that file plays without corruption.",
+    "Exact duration check: Verify runtime is EXACTLY as required (e.g., 15.00s or 30.00s). If not exact where mandated => treat as incomplete and score 0\u20132 overall (unless prompt allows tolerance, which is rare).",
+    "Audio tracks: Confirm presence of music and/or scratch VO when required; check VO intelligibility and that it matches the provided script; check for clipping/silence.",
+    "Text requirements: Confirm required supers/graphic cards exist, contain correct text, appear at required moments, and are legible long enough to read.",
+    "Style requirements: Validate tone, pacing, and energy level match the brief (e.g., medium-high elegant energy vs slow dramatic pacing).",
+    "Color treatment: If the prompt requests grading adjustments (darken/desaturate), confirm they are applied consistently and appropriately.",
+    "Stock/media sourcing log: If required, confirm a separate document/spreadsheet/text file exists with direct URLs for each stock clip and music track used; check links are plausible and specific (not just homepage). Missing log when required => 0\u20132 overall.",
+    "Document deliverables: If a .docx script is required, confirm it is .docx, under any page limit, includes timestamps, and aligns with reference VO/sequence outline.",
+    "Reference file compliance: Cross-check that required lines, sequences, or assets from reference files are actually used (e.g., provided PSD supers, provided VO script).",
+    "Brand/demographic fit: Confirm language, imagery, and intensity are appropriate for specified audiences (e.g., children 6\u201312) and client brand personality."
+  ],
+  "common_failure_modes": [
+    "Missing required output file(s) (no .mp4 export, no .docx, no link log, no scratch VO when required).",
+    "Wrong format/codec/resolution (e.g., not H.264, not .mp4, not 1920x1080).",
+    "Runtime not exact when explicitly required (e.g., 15.4s instead of exactly 15.0s).",
+    "No evidence of using the provided script/reference files; VO/supers do not match required wording or order.",
+    "Omission of required graphic cards or supers; wrong text on cards; cards appear at wrong script moments.",
+    "Supers illegible (poor contrast, too small, not on screen long enough, outside safe areas).",
+    "Music not edited to feel like a complete 15/30-second piece (weak start/end, abrupt cut).",
+    "Audio problems: scratch VO too quiet/too loud, clipped, or missing; music overwhelms VO; inconsistent levels.",
+    "Visual/story mismatch: irrelevant stock footage, incorrect geography for a location-specific brief, inconsistent tone (e.g., cheery footage for a somber advocacy spot without requested grading).",
+    "Document issues: not in .docx, missing timestamps, exceeds page limits, overly shot-specific when asked for a basic/pre-papercut script, or disorganized structure."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Score each dimension (0\u201310) and compute weighted average: completeness 40%, correctness 30%, quality 20%, domain_standards 10%. CRITICAL OVERRIDE: If any required deliverable is missing, inaccessible, wrong file type, or the work is clearly incomplete (including failing exact-duration requirements), the final overall score MUST be capped at 0\u20132 regardless of the weighted average.",
+    "score_scale": "0\u20132 Unacceptable (missing/incorrect deliverables or severely incomplete); 3\u20134 Poor (major issues, many requirements unmet); 5\u20136 Acceptable (meets basics but notable gaps/errors); 7\u20138 Good (minor issues only); 9\u201310 Excellent (complete, accurate, professional, broadcast-ready where applicable).",
+    "automatic_low_score_triggers": [
+      "Any required output file is missing (e.g., exported .mp4, required .docx, required stock link log).",
+      "Any required file is not openable/usable (corrupted, empty, placeholder).",
+      "Hard constraint violation that makes the deliverable non-compliant: exact runtime not met when specified; wrong export format/codec; wrong resolution.",
+      "Core required elements absent: missing mandated graphic cards/supers, missing scratch VO when required, missing link log when required.",
+      "Output indicates the agent did not actually perform the task (generic notes, partial outline only, or claims of completion without artifacts)."
+    ],
+    "excellent_output_characteristics": [
+      "All required artifacts delivered in correct formats and are accessible.",
+      "Exact compliance with runtime, resolution, and export specs; clean start/end.",
+      "Faithful use of provided script/VO/supers; required graphic cards included exactly as instructed.",
+      "Professional pacing and tone that matches the brand/audience; strong narrative clarity.",
+      "Legible, well-designed text and cards within safe margins; consistent typography.",
+      "Clean audio mix with intelligible VO (if required) and music edited to a satisfying arc.",
+      "Complete, precise stock footage/music link log with direct URLs and clear mapping to timeline usage."
+    ],
+    "poor_output_characteristics": [
+      "Missing exports or required supporting docs (log/script).",
+      "Noncompliant duration or wrong technical specs.",
+      "Text requirements ignored or incorrect; supers unreadable; typos in on-screen text.",
+      "Chaotic pacing, mismatched tone, or incoherent story.",
+      "Distracting audio issues (clipping, silence, overpowering music) or missing required VO/music.",
+      "No traceability for sourced media despite requirement (no links or only vague sources)."
+    ]
+  },
+  "example_evaluation_questions": [
+    "What deliverable files does the prompt explicitly require, and are all of them present and openable?",
+    "Does the primary video export meet the exact technical specs (H.264 .mp4, 1920x1080, exact duration)?",
+    "If the prompt mandates exact runtime, is the duration exactly correct to the frame/decimal shown by the player/metadata?",
+    "Does the edit follow the provided script/VO exactly where required (wording, order, inclusion of mandated lines)?",
+    "Are the required graphic cards/supers included at the specified moments, with correct text and adequate readability time?",
+    "Is there a stock footage/music link log with direct URLs for every externally sourced clip/track used?",
+    "Is the pacing and tone aligned to the brief (e.g., optimistic and elegant vs dramatic and somber), including any requested color grading adjustments?",
+    "Is the audio mix usable for review (VO intelligible, music appropriate, no clipping, clean ending)?",
+    "For document-based deliverables (.docx scripts), are timestamps included, within page limits, and aligned with the reference outline/VO?",
+    "If anything is missing or noncompliant, does it rise to the level of an automatic 0\u20132 trigger (missing file, wrong duration, incomplete deliverable)?"
+  ],
+  "metadata": {
+    "category": "Film and Video Editors",
+    "sector": "Information",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:08:53.915639",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2868,
+    "completion_tokens": 3489,
+    "total_tokens": 6357
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "category": "Real Estate Sales Agents",
+  "evaluation_prompt": "You are an objective evaluator. You will be given (1) the original task prompt, (2) any reference/input files or links mentioned in the prompt, and (3) the agent\u2019s output artifacts (files). Your job is to assess whether the outputs satisfy the prompt and meet professional real-estate-agent standards.\n\nCRITICAL RULE (NON-NEGOTIABLE): If ANY required output file/artifact is missing, not openable, or the work is clearly incomplete (e.g., placeholders instead of required content, missing pages/sections/tables/maps required by prompt), you MUST assign an overall score in the 0\u20132 range regardless of how good the partial work is.\n\nProcess to follow:\n1) Parse the prompt and list every required deliverable (file types, counts, formats\u2014e.g., Word brochure, PDF(s), map PDF, tables with specific columns, number of pages, number of properties, etc.). Treat explicitly requested items as mandatory.\n2) Inventory the provided output files. Verify required filenames/types are present (or at least the required formats and counts), open correctly, and contain the expected content.\n3) Inspect each file carefully:\n   - For documents (Word/PDF): check required sections, headings, page limits, and whether requested topics are covered.\n   - For property lists: verify filters/criteria from prompt (status, location, price, beds/baths, type, active vs pending/coming soon, max number of homes, etc.). Check that required columns are present and values look plausible and consistent.\n   - For maps: confirm each property is pinned/labeled and that the map is readable.\n   - For reports (e.g., schools + nearby homes): verify each required school has a dedicated report (if required), includes quantitative school metrics, sources, and a relevant list of nearby eligible homes.\n4) Validate correctness:\n   - Cross-check a sample of factual claims (addresses, prices, school stats, ratios, dates) against cited sources or obvious internal consistency.\n   - Recompute simple calculations when present ($/sqft, totals, averages) for a sample.\n   - Ensure citations/sources are provided when prompt requires \u201creputable sources.\u201d\n5) Assess professional quality and usability:\n   - Is the output client-ready? Clear organization, readable tables, consistent formatting, and appropriate disclosures.\n6) Apply the rubric and compute a weighted score: Completeness 40%, Correctness 30%, Quality 20%, Domain Standards 10%.\n7) Apply the CRITICAL override: if missing/unopenable/incomplete deliverables, cap/override overall score to 0\u20132.\n\nWhen you write your evaluation, provide:\n- A brief deliverables checklist (met / not met)\n- Dimension scores (0\u201310) with 2\u20134 bullet justifications each\n- Overall score (0\u201310) and whether the missing-artifact rule was triggered\n- Concrete examples of issues (e.g., which required column is missing, which school report absent, map missing pins, etc.)",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist, are openable, and all prompt requirements are addressed (most important dimension).",
+      "criteria": [
+        "All required file types are present (e.g., Word doc vs PDF, number of PDFs, map PDF, brochure double-sided, etc.)",
+        "All required components within each file are present (sections, tables, visuals, columns, property photos, maps with pins, required topics/milestones, etc.)",
+        "Meets scope constraints from the prompt (e.g., max pages, max number of homes, geographic bounds, date context if specified)",
+        "No placeholders where final content is required (e.g., \u201cTBD\u201d, lorem ipsum, empty tables, missing images where mandated)",
+        "Includes required supporting items: citations/sources, links, disclaimers, or explanation text when explicitly requested"
+      ],
+      "scoring_guidance": "0-2 if any required file is missing/unopenable OR deliverables are severely incomplete (missing major sections/tables/pages). 3-4 if multiple requirements are unmet or major sections are thin/partial. 5-6 if core deliverables exist but there are notable omissions (e.g., missing several required columns, missing citations, incomplete coverage of required topics). 7-8 if all deliverables exist with only minor omissions (e.g., one minor column missing, small section too brief). 9-10 if everything requested is present, complete, and adheres to constraints."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, and alignment to the prompt\u2019s constraints and sources.",
+      "criteria": [
+        "Factual accuracy for claims made (property details, school stats, process descriptions, legal/industry statements as requested by prompt)",
+        "Correct application of filters/criteria from the prompt (location, status, property type, price cap, beds/baths, timing constraints, proximity constraints, etc.)",
+        "Correct calculations (e.g., $/sqft = price divided by square footage; ratios and derived values computed correctly) and consistent units",
+        "Internal consistency across files (same property details in list vs map; same school names/metrics across report sections; consistent totals)",
+        "Appropriate and verifiable sourcing: reputable sources used where requested; citations correspond to claims; no fabricated sources or non-working links (when links are included)"
+      ],
+      "scoring_guidance": "0-2 if content is largely unreliable, clearly fabricated, or systematically violates prompt constraints (e.g., wrong town, includes pending/coming soon when prohibited, wildly wrong calculations). 3-4 if many errors or frequent constraint violations. 5-6 if mixed accuracy with several notable errors but overall usable with corrections. 7-8 if mostly accurate with a few minor errors or small inconsistencies. 9-10 if highly accurate, well-sourced, and consistent; calculations check out."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization, and client-readiness of the artifacts.",
+      "criteria": [
+        "Clear structure with headings, logical flow aligned to buyer journey / client needs",
+        "Readable tables and maps: adequate font size, spacing, consistent columns, legends, and labels",
+        "Professional visual design (consistent typography, color restraint, appropriate use of photos/visuals, no clutter)",
+        "Writing quality: concise, correct grammar, avoids confusing jargon or explains it",
+        "Accessibility/usability: page numbers where helpful, table of contents for longer reports, consistent units and abbreviations"
+      ],
+      "scoring_guidance": "0-2 if messy, unreadable, or not client-usable (broken layout, illegible tables/maps). 3-4 if poor organization and hard to use. 5-6 if adequate but clearly needs polish. 7-8 if professional and easy to use with minor formatting issues. 9-10 if polished, client-ready, and visually coherent."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Adherence to real-estate professional best practices, compliance-mindedness, and appropriate client guidance.",
+      "criteria": [
+        "Uses appropriate real-estate terminology correctly (MLS status, contingencies, escrow, disclosures, etc.) without misrepresenting legal advice",
+        "Compliance-aware: includes disclaimers when appropriate (e.g., data deemed reliable but not guaranteed; school info subject to verification; fair housing awareness)",
+        "Client-centric framing: highlights implications for buyers/sellers, decision points, risks, and next steps",
+        "Ethical presentation: avoids discriminatory language; respects Fair Housing; avoids steering; avoids unsupported claims",
+        "Local market practicality: recommendations and workflow align with typical agent practice (showing schedule feasibility, due diligence steps, negotiation/inspection timeline)"
+      ],
+      "scoring_guidance": "0-2 if contains unethical guidance, fair housing issues, or clearly misleading statements. 3-4 if repeatedly ignores industry norms/disclosures. 5-6 if basic norms are present but several best-practice gaps. 7-8 if strong professional alignment with minor omissions. 9-10 if exemplary professional standards, compliance-minded, and client-protective."
+    }
+  },
+  "file_inspection_checklist": [
+    "Deliverables inventory: Do the number and types of files match the prompt (e.g., Word brochure, 2-page PDF table, separate map PDF, separate school PDFs)?",
+    "Openability: Can each file be opened without errors? Are embedded images/maps visible and not broken?",
+    "Format constraints: Verify page limits (e.g., 2 pages, <=10 pages), double-sided requirement (two-page brochure or clearly front/back), and requested orientation (if implied by layout).",
+    "Required sections/topics: Check that all named milestones/topics are present as headings/sections (e.g., consultation, search, pre-offer, offer, contract-to-close).",
+    "Required tables/columns: Confirm every specified column exists and is populated (status, type, price, list date, address, beds, baths, sqft, lot size, year built, $/sqft, etc.).",
+    "Property eligibility: Sample-check listings for compliance with location, status, property type, bed/bath ranges, and price cap; verify not exceeding max number of homes.",
+    "Photos/visuals requirement: If prompt requires a photo per home or visuals in brochure, verify presence and relevance; ensure no missing-image placeholders.",
+    "Map artifact: Confirm all listed properties are pinned; pins correspond to the same addresses; map is readable with legend/title and adequate zoom.",
+    "Source attribution: Where the prompt asks to use reputable sources, check for citations/links and that they plausibly support the stated facts.",
+    "Calculation checks: Recompute $/sqft and other derived metrics for a subset; verify rounding consistency.",
+    "Consistency across artifacts: Same set of properties across list and map; same school names/metrics consistent within and across reports.",
+    "Compliance/disclosures: Look for standard notes (data reliability, school info verification, not legal advice) and absence of fair-housing/steering violations."
+  ],
+  "common_failure_modes": [
+    "Missing required files (e.g., map PDF not included; Word brochure missing; only one of multiple required school reports provided)",
+    "Wrong output format (e.g., provides text in chat instead of the requested Word/PDF artifacts; provides images but no PDF; provides a single PDF when separate files were required)",
+    "Severely incomplete content (empty tables, placeholder text, missing major sections, missing photos when required)",
+    "Violating prompt constraints (too many homes; wrong zip/town; includes pending/coming soon when prohibited; price/bed/bath outside criteria)",
+    "Omitting required columns or metadata in property tables (e.g., no list date, lot size, $/sqft)",
+    "Map does not show pins for all properties or pins are unlabeled/ambiguous; map too zoomed out/in to be useful",
+    "Fabricated or unsourced data presented as factual (invented MLS listings, invented school statistics without citation)",
+    "Incorrect calculations ($/sqft wrong, mismatched sqft vs price, inconsistent units)",
+    "Unprofessional formatting (illegible font, misaligned tables, blurry images, cluttered brochure)",
+    "Non-compliant language (steering, discriminatory phrasing, implying guaranteed outcomes, legal claims stated as definitive advice without disclaimers)"
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Score each dimension 0\u201310, then compute weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required deliverable file is missing, unopenable, or clearly incomplete, override/cap the overall score to 0\u20132 regardless of weighted average.",
+    "score_scale": "0-10 where 0-2=Unacceptable (missing files/incomplete), 3-4=Poor, 5-6=Acceptable, 7-8=Good, 9-10=Excellent",
+    "automatic_low_score_triggers": [
+      "Any required output file/artifact is missing (e.g., required PDF, Word doc, map PDF, separate reports)",
+      "Files are provided but not openable/corrupted/password-locked without access",
+      "Deliverables are severely incomplete (missing major required sections, missing required tables/columns, placeholder content, missing most required photos/pins)",
+      "Output is not actually file-based when files are required (e.g., only chat text when prompt demands PDFs/Word documents)"
+    ],
+    "excellent_output_characteristics": [
+      "All required files present, openable, and match requested formats and counts",
+      "All prompt requirements met with clear coverage of each required topic/section and correct scope limits",
+      "Accurate, consistent data; constraints correctly applied; calculations verified; sources/citations provided where expected",
+      "Client-ready design: clear headings, readable tables, high-quality visuals, and usable map with all pins labeled",
+      "Professional best practices: appropriate disclaimers, fair-housing compliant language, client-centered next steps"
+    ],
+    "poor_output_characteristics": [
+      "Any missing required file or missing major internal components",
+      "Numerous constraint violations (wrong geography/status/price/criteria)",
+      "Frequent factual errors, fabricated data, or lack of sourcing where requested",
+      "Unreadable or confusing formatting; map not usable",
+      "Ethical/compliance issues (steering/discriminatory language, misleading claims)"
+    ]
+  },
+  "example_evaluation_questions": [
+    "What exact deliverables does the prompt require (file types, counts, page limits), and are all of them present and openable?",
+    "Does each output file clearly include every required section/topic (e.g., buyer consultation \u2192 contract-to-close), or are any milestones missing?",
+    "If a property list is required, do all properties meet every filter (location, status=active, type, beds, baths, price cap) and is the list within the maximum count?",
+    "Are all required table columns present and populated (status, type, price, list date, address, beds, baths, sqft, lot size, year built, $/sqft)?",
+    "Are calculations (especially $/sqft) correct for a sample of rows?",
+    "Does the map file include pins for every listed property, and do pins correspond to the correct addresses?",
+    "Are school metrics (enrollment, ratios, academic stats, etc.) quantified and cited to reputable sources as requested?",
+    "Is the output client-ready (professional formatting, readable visuals, coherent organization) with appropriate disclaimers and fair-housing compliant language?",
+    "Are there any internal inconsistencies (property appears in table but not on map, differing prices/sqft across files)?",
+    "Is any content obviously fabricated, unsourced, or implausible given the prompt context and referenced sources?"
+  ],
+  "metadata": {
+    "category": "Real Estate Sales Agents",
+    "sector": "Real Estate and Rental and Leasing",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:37:03.718753",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2130,
+    "completion_tokens": 3214,
+    "total_tokens": 5344
+  }
+}

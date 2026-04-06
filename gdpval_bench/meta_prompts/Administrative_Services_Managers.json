@@ -1,0 +1,137 @@
+{
+  "category": "Administrative Services Managers",
+  "evaluation_prompt": "You are an evaluator of AI-generated work products for the occupation category \u201cAdministrative Services Managers\u201d in the Government sector. You will receive: (1) the original task prompt, (2) any reference/input files cited in the prompt, and (3) the output files/artifacts produced by an agent.\n\nYour job is to assess whether the agent\u2019s deliverables fully satisfy the prompt and are suitable for use in a government administrative services context (policy/procedure documents, research summaries, checklists, trackers, memos, presentations, spreadsheets, etc.).\n\nFollow this process \u0441\u0442\u0440\u043e\u0433\u043e:\n1) Identify required deliverables and constraints from the prompt:\n   - Enumerate every required output artifact (e.g., \u201cone-page Word document\u201d, \u201cPDF up to 5 pages\u201d, \u201ctable tracker in Word\u201d, \u201cresearch summary table in Word\u201d, etc.).\n   - Note mandatory content elements (purpose/scope/definitions/procedures; required columns/fields; required citations; date ranges; number of sources; formatting/page limits; public availability; inclusion of images/appendices; process steps; etc.).\n   - Note file format requirements (DOCX, PDF, XLSX) and length limits.\n\n2) Inventory the provided output files:\n   - List each output file and map it to the required deliverable.\n   - If ANY required file is missing, wrong format in a way that violates the prompt (e.g., PDF required but only DOCX provided), unreadable/corrupted, or clearly incomplete (placeholder text, partial sections, missing tables), you MUST assign an overall score in the 0\u20132 range. This rule overrides all other scoring.\n\n3) For each provided artifact, inspect content against requirements:\n   - Completeness: Does it include every required section/field/table/column and address all issues in the prompt?\n   - Correctness: Are claims accurate and internally consistent? Are calculations, dates, counts, and references correct? If sources are required, do they meet constraints (e.g., post-2020, publicly accessible, academic articles)? Are links plausible and appropriately attributed?\n   - Quality: Is it clear, well-structured, concise where required, and professionally formatted for government use? Does it fit page limits? Are headings, tables, numbering, and writing style consistent?\n   - Domain standards: Does it reflect government administrative best practices (clarity, accountability, privacy, accessibility, auditability, role clarity, procedural steps, version/date control, plain language)?\n\n4) Score each rubric dimension 0\u201310 using the provided guidance, then compute the weighted score:\n   Overall = 0.40*Completeness + 0.30*Correctness + 0.20*Quality + 0.10*Domain Standards.\n\nCRITICAL OVERRIDE RULE:\n- If any required deliverable is missing, severely incomplete, or noncompliant with required file type/length such that it cannot be used as intended, set the FINAL overall score to 0\u20132 regardless of the weighted average.\n\n5) In your evaluation notes (not required to output unless requested), cite specific evidence:\n   - Quote section titles, table headers, or missing required fields.\n   - Point to page count violations, missing steps, missing definitions, absent citations/links, wrong number of sources, etc.\n\nBe strict: Government administrative artifacts must be complete and operationally usable. Prefer objective checks (presence/absence, counts, page limits, required columns) over subjective impressions. Penalize hallucinated citations, unverifiable claims presented as fact, and failure to follow required formats.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist, are readable, in the required formats, and every explicit requirement in the prompt is addressed.",
+      "criteria": [
+        "All required deliverables are present (e.g., DOCX/PDF/XLSX as specified) and readable (not corrupted, not screenshots of text unless allowed).",
+        "Each deliverable matches the prompt\u2019s required type and purpose (e.g., a procedure document is actually a procedure; a tracker includes a usable table).",
+        "All mandatory sections are included when specified (e.g., purpose, scope, definitions, procedure steps; process sections; appendix; required fields like name/email/date).",
+        "All mandatory tables/columns/fields are included (e.g., summary table columns; action-item tracker columns; required metadata).",
+        "All constraints are met: page limits (e.g., one page, \u22645 pages), required number of items (e.g., 5 articles), date constraints (e.g., post-2020), and stated inclusion requirements (e.g., images included where required).",
+        "No placeholders (e.g., \u201cTBD\u201d, \u201cLorem ipsum\u201d), missing sections, or partial drafts.",
+        "If the prompt references input files/templates, the deliverable incorporates or responds to them as required."
+      ],
+      "scoring_guidance": "0-2 if ANY required file is missing, wrong/unusable format, unreadable, or severely incomplete (missing major sections/tables/requirements). 3-4 if multiple requirements unmet (missing several sections/columns, wrong length, wrong counts). 5-6 if all files exist but notable omissions (some required fields/steps missing, partial compliance). 7-8 if minor omissions only (small missing details that do not block use). 9-10 if fully complete and fully compliant with all explicit requirements and constraints."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of information, logic, calculations, references, and compliance claims (e.g., dates, counts, sources, policy logic).",
+      "criteria": [
+        "Factual statements are accurate or appropriately qualified; no fabricated statistics, laws, policies, or citations.",
+        "If sources are required: sources meet constraints (e.g., publicly accessible, post-2020, academic when required), are correctly attributed, and key findings align with the cited work.",
+        "Internal consistency: names, dates, counts, roles, phone numbers/process steps are consistent throughout the documents.",
+        "Procedures are logically sound and implementable (clear escalation paths, timelines, roles, and required information).",
+        "Any calculations (time, totals, coverage planning, tracking statuses) are correct and labels match the numbers.",
+        "Correct interpretation of the prompt and reference materials; no contradicting mandatory instructions."
+      ],
+      "scoring_guidance": "0-2 if pervasive inaccuracies, fabricated/invalid citations when citations are central, or instructions that would cause operational errors. 3-4 if major errors in key facts, misinterprets constraints (wrong date ranges/number of sources), or incorrect process logic. 5-6 if some inaccuracies or weakly supported claims but core is mostly correct. 7-8 if minor factual issues that do not materially change usability. 9-10 if accurate, well-supported, and carefully constrained to verifiable information."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professionalism of writing and formatting: clarity, structure, readability, and document usability for government operations.",
+      "criteria": [
+        "Meets formatting requirements (one page where required, concise point form where required, appropriate headings).",
+        "Clear structure: headings, numbered steps, tables with readable column widths, consistent fonts and spacing.",
+        "Plain language appropriate for broad staff audiences; avoids ambiguity; defines acronyms on first use.",
+        "Actionable: steps are explicit (who, what, when, how), not merely descriptive.",
+        "Tables are easy to scan and compare; consistent capitalization; no clutter; adequate white space.",
+        "Accessibility-minded formatting: readable font size, good contrast, avoids conveying meaning only via color (where relevant).",
+        "Minimal typos/grammar issues; consistent terminology (e.g., \u201cSupervisor\u201d vs \u201cTeam Lead\u201d)."
+      ],
+      "scoring_guidance": "0-2 if disorganized, hard to follow, or unprofessional to the point of being unusable. 3-4 if poor organization, frequent errors, or formatting undermines usability. 5-6 if adequate but with noticeable clarity/formatting issues. 7-8 if well-written and well-formatted with small polish issues. 9-10 if publication-ready, highly readable, and operationally usable."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Alignment with government administrative services best practices: governance, accountability, privacy, auditability, and operational feasibility.",
+      "criteria": [
+        "Role clarity and accountability: identifies responsible parties, escalation routes, and approvals where appropriate.",
+        "Auditability/traceability: includes dates, version/owner (if appropriate), tracking fields, and records expectations (e.g., when to document absence reports).",
+        "Privacy and sensitivity: avoids requesting unnecessary personal/medical details; references secure handling where needed; uses minimal-necessary principle.",
+        "Consistency with HR/timekeeping realities: supports accurate time reporting, coverage planning, and timely notification.",
+        "Risk-aware: recognizes exceptions (e.g., emergencies, system outages) and provides fallback procedures.",
+        "Compliance posture: avoids giving legal advice; uses cautious language and suggests alignment with departmental policy/collective agreements where relevant.",
+        "Procurement/vendor references (if applicable) are framed in a government-appropriate way (approvals, cost centre, vendor of record)."
+      ],
+      "scoring_guidance": "0-2 if the artifact ignores basic government operational needs (privacy, audit trail, role clarity) or creates compliance risk. 3-4 if multiple domain gaps (unclear accountability, privacy oversharing). 5-6 if generally aligned but missing some best practices. 7-8 if strong alignment with minor gaps. 9-10 if clearly designed for government operations, with strong governance/privacy/audit considerations."
+    }
+  },
+  "file_inspection_checklist": [
+    "Deliverables inventory: Do the output files exactly match the number and type of required deliverables in the prompt (e.g., DOCX vs PDF; separate files when requested)?",
+    "File usability: Can each file be opened and read? Are tables selectable/editable (not flattened images) when a Word/Excel deliverable is expected?",
+    "Length limits: Verify page count requirements (e.g., one-page procedure; PDF \u22645 pages). If it exceeds limits, treat as a major completeness/quality issue.",
+    "Required sections: Check for mandatory headings (purpose, scope, definitions, procedures; process steps; appendix).",
+    "Required fields/metadata: Check for name/position/email/date fields; document owner/version/date if appropriate; employee/workstation identifiers for trackers.",
+    "Tables: Confirm required columns exist and are correctly labeled; verify rows/entries meet required counts (e.g., exactly five studies).",
+    "Source compliance (when research is required): Confirm each cited item meets date constraints, is publicly accessible via link, and is the correct type (academic article if specified).",
+    "Citations/links: Are URLs included and plausible? Are titles/authors/dates consistent? Are there any signs of fabricated references (nonexistent journals, broken/incoherent links)?",
+    "Prompt-specific issues addressed: For procedure/policy tasks, confirm each listed problem in the prompt is explicitly addressed by a procedure element (e.g., timing of notification, single channel, who to call, voicemail handling, escalation).",
+    "Operational feasibility: Steps specify who receives calls, backup contact, timeframe before/after start time, documentation requirements, and how HR is notified when needed.",
+    "Privacy/HR sensitivity: Verify that medical/family assistance details are not requested beyond necessary and that secure communication is encouraged.",
+    "Visuals (if required): Confirm images are included and attributed, and are from credible/public-domain sources if required; ensure they match the subject (chair/keyboard/mouse/work surface).",
+    "Tracker logic (if required): Confirm the action-item table supports assignment, status, dates, comments, resolution confirmation, and who resolved; verify it aligns with required process steps.",
+    "Consistency and proofreading: Check for contradictory instructions, undefined acronyms, and obvious grammatical issues."
+  ],
+  "common_failure_modes": [
+    "Missing one or more required output files (e.g., only the checklist is provided but not the tracker).",
+    "Wrong file format or consolidation (e.g., required separate PDF and Word documents delivered as a single text response; PDF required but only DOCX provided).",
+    "Severely incomplete artifacts (placeholders, missing tables, missing required sections like definitions/procedures/process).",
+    "Failure to meet numeric constraints (e.g., fewer than five articles; more than one page when explicitly limited; checklist exceeds page limit).",
+    "Noncompliant sourcing (paywalled sources, pre-2021 sources when post-2020 is required, non-academic sources when academic articles are required).",
+    "Hallucinated or unverifiable citations/links; fabricated study details; mismatched authors/dates.",
+    "Procedures that don\u2019t address the prompt\u2019s enumerated issues (e.g., still allowing text/email when phone call is mandated; no timeline requirement; no backup contact).",
+    "Privacy violations (requesting detailed medical information, naming case details, advising to disclose sensitive information through insecure channels).",
+    "Unusable tables (missing columns, unclear headers, not editable, inconsistent entries).",
+    "Poor operational clarity (no responsible roles, no escalation, no documentation expectations, no HR notification pathway).",
+    "Overly verbose, policy-like text when a concise one-page procedure is required; or overly brief content lacking actionable steps.",
+    "Images included without attribution, not public-domain/credible when required, or irrelevant to the checklist focus."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Score each dimension 0\u201310, then compute weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required files are missing, unreadable, wrong format in a way that violates the prompt, or severely incomplete, override the final score to 0\u20132 regardless of other scores.",
+    "score_scale": "0\u20132 Unacceptable (missing files/incomplete/unusable); 3\u20134 Poor (major gaps); 5\u20136 Acceptable (usable but notable issues); 7\u20138 Good (minor issues); 9\u201310 Excellent (fully compliant, accurate, professional).",
+    "automatic_low_score_triggers": [
+      "Any required output artifact is missing (including separate files when separate deliverables are required).",
+      "Any deliverable is clearly incomplete (placeholders, missing major required sections/tables/columns, or cannot be used operationally).",
+      "Deliverable is in the wrong required format such that it fails the prompt (e.g., PDF required but not provided; Word table requested but only plain text).",
+      "Key prompt constraints are violated in a way that undermines usability (e.g., one-page requirement ignored; required number of studies not met)."
+    ],
+    "excellent_output_characteristics": [
+      "All required files are present, readable, and correctly formatted (DOCX/PDF/etc.).",
+      "All explicit requirements are met (sections, fields, columns, counts, page limits, process steps).",
+      "Content is accurate, internally consistent, and appropriately sourced/linked when research is required.",
+      "Documents are professional, concise, and operationally implementable in a government setting.",
+      "Appropriate privacy/auditability considerations are embedded (minimal sensitive data, clear documentation steps)."
+    ],
+    "poor_output_characteristics": [
+      "Missing deliverables or merged deliverables contrary to the prompt.",
+      "Major omissions (no procedures, no definitions, no required tables/columns, missing required fields).",
+      "Inaccurate or fabricated references; noncompliant sources (wrong date range, paywalled).",
+      "Confusing, ambiguous, or non-actionable steps; no ownership/escalation/backup.",
+      "Unprofessional formatting, excessive length vs page limits, or unreadable tables."
+    ]
+  },
+  "example_evaluation_questions": [
+    "What are the required deliverables and file formats in the prompt, and is each one present and usable?",
+    "Do any deliverables exceed stated page/length limits (e.g., a one-page requirement) or omit mandatory sections/fields?",
+    "Are all prompt-specified issues explicitly addressed by a corresponding procedure/step (e.g., timing of reporting, single reporting channel, coverage, HR notification)?",
+    "If research is required, are there exactly the required number of sources, are they post-2020, publicly accessible, and genuinely academic where required?",
+    "Do the study summaries (if applicable) correctly reflect each cited source\u2019s setting/goals/findings, or do they appear generic or hallucinated?",
+    "Are tables complete and usable (correct column headers, consistent entries, editable in Word/Excel, not flattened images)?",
+    "Is there any privacy risk (requesting unnecessary medical details, insecure transmission guidance), and are sensitive processes handled appropriately?",
+    "Is accountability clear (who does what, backup contacts, escalation), and is the process implementable without additional interpretation?",
+    "Is writing in plain language, consistent, and suitable for distribution to staff across regional offices?",
+    "Would a government supervisor/HR team be able to adopt the deliverable as-is with minimal edits?"
+  ],
+  "metadata": {
+    "category": "Administrative Services Managers",
+    "sector": "Government",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T06:57:06.196096",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2378,
+    "completion_tokens": 3708,
+    "total_tokens": 6086
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "category": "Personal Financial Advisors",
+  "evaluation_prompt": "You are an expert evaluator for AI-generated deliverables in the \u201cPersonal Financial Advisors\u201d (Finance & Insurance) occupation category. You will be given: (1) the original task prompt, (2) any reference/input files, and (3) the agent\u2019s OUTPUT FILES/ARTIFACTS. Your job is to assess whether the agent delivered every required file and whether the deliverables correctly and professionally satisfy the prompt.\n\nCRITICAL RULE (NON-NEGOTIABLE): If ANY required output file is missing, not openable, materially corrupted, or the work is severely incomplete relative to the prompt, you MUST assign an overall score in the 0\u20132 range, regardless of how good any partial content may be.\n\nEvaluation process (follow step-by-step):\n1) Parse the task prompt and list the required output artifacts (e.g., PowerPoint deck, PDF report, spreadsheet, written memo). Include explicit constraints (page limits, slide count, audience, scenario assumptions, date/tax-year requirements) and required content bullets (e.g., \u201cstep-by-step calculations,\u201d \u201cside-by-side comparison,\u201d \u201crecommendation,\u201d etc.).\n2) Inventory the provided output files. Verify each required artifact exists, is the correct file type (or an explicitly acceptable alternative stated in the prompt), and is readable/openable.\n3) Completeness check (highest priority): Confirm each required section/bullet from the prompt is addressed in the artifacts. Confirm any referenced inputs were used appropriately (numbers, client facts, assumptions).\n4) Correctness check: Validate technical accuracy for financial planning topics (tax treatment, trust mechanics, options terminology, exclusions/exemptions, cash flow logic). Spot-check calculations and internal consistency. If hypothetical data is allowed, verify assumptions are clearly stated and calculations follow logically.\n5) Quality check: Assess organization, clarity for the intended client/audience, professional formatting, and whether the deliverable is meeting-ready (e.g., a client-facing deck has clear visuals, limited jargon, definitions, takeaways; a PDF report has headings, summary, and conclusion).\n6) Domain standards check: Look for appropriate financial advisory best practices: clear assumptions, disclosures/limitations, risk considerations, client suitability framing, avoidance of individualized tax/legal advice without caveats, and balanced pros/cons.\n7) Scoring: Assign 0\u201310 sub-scores for each rubric dimension using the guidance. Compute weighted average (40/30/20/10). Apply the CRITICAL override: if missing/incomplete deliverables \u2192 final score MUST be 0\u20132.\n\nWhen writing your evaluation, provide: (a) a short file audit (what files found vs required), (b) key pass/fail findings for completeness, (c) main correctness issues (with examples), (d) quality notes, (e) domain standards notes, (f) sub-scores and final score with rationale, and (g) the top 3 fix recommendations that would most improve the score.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist, are usable, and all prompt requirements are addressed (MOST IMPORTANT).",
+      "criteria": [
+        "All required output artifacts are present in the expected format(s) (e.g., PPTX for a presentation, PDF for a report) and are openable/readable without errors.",
+        "All explicitly requested sections/bullets are addressed (e.g., definitions/explanations, step-by-step process, side-by-side comparison, scenario example, recommendation/conclusion).",
+        "All required constraints are met (page/slide limits, target audience, time horizon/vesting timeline, requested tax year amounts, location/context if relevant).",
+        "If the prompt requires calculations, the deliverable includes the calculations (not just narrative) and shows inputs, formulas/steps, and resulting figures.",
+        "If the prompt requires comparisons (e.g., option A vs B), the deliverable includes clear side-by-side treatment across the required dimensions (mechanics, taxes, pros/cons, risks, outcomes).",
+        "Any referenced input files/data are incorporated where required (or the deliverable explicitly states reasonable assumptions if inputs are absent and the prompt allows).",
+        "Deliverable includes a coherent summary/conclusion suitable for the client meeting context (e.g., key takeaways slide; executive summary; recommendation section)."
+      ],
+      "scoring_guidance": "0-2 if any required files are missing/unopenable or work is severely incomplete; 3-4 if multiple required sections are missing or constraints ignored; 5-6 if most requirements are present but notable gaps exist (e.g., missing a required comparison element or missing a required calculation step); 7-8 if all major requirements are met with only minor omissions or light detail in one area; 9-10 if everything required is fully addressed with clear structure, appropriate depth, and all constraints satisfied."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of financial, tax, planning, and logical content; calculations are correct and consistent.",
+      "criteria": [
+        "Technical definitions are correct (e.g., ISO vs NSO differences; vesting vs exercising; grantor trust mechanics; CRAT/GRAT structure; ILIT parties and funding mechanics).",
+        "Tax treatment is described accurately and in the right sequence (e.g., ordinary income vs capital gains; timing of recognition; AMT mention for ISOs where relevant; estate/gift tax concepts; exclusions/exemptions as specified in prompt).",
+        "All numerical examples and computations are internally consistent and arithmetically correct (spot-check several steps).",
+        "Assumptions are stated and used consistently (dates, tax rates, growth rates, annuity rates, exemption amounts, gift tax exclusion year).",
+        "No contradictions across slides/sections (e.g., two different exemption numbers; conflicting descriptions of who owns the policy in an ILIT).",
+        "Distinguishes facts from hypotheticals; does not invent client-specific facts not provided unless explicitly framed as assumptions.",
+        "Recommendations logically follow from the analysis and are aligned to the client objectives and constraints stated in the prompt."
+      ],
+      "scoring_guidance": "0-2 if pervasive inaccuracies or fabricated/conflicting core rules; 3-4 if major technical errors (wrong tax regimes, incorrect trust mechanics) or many calculation mistakes; 5-6 if generally correct but with notable errors/omissions that could mislead (e.g., missing key tax element, small but meaningful arithmetic errors); 7-8 if accurate with only minor issues or simplifications that do not materially change conclusions; 9-10 if technically precise, well-supported, consistent, and carefully qualified."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional presentation quality: clarity, organization, readability, and suitability for client delivery.",
+      "criteria": [
+        "Clear structure aligned to the prompt (agenda \u2192 content sections \u2192 comparison \u2192 summary/recommendation).",
+        "Client-ready writing: concise, plain-language explanations of jargon, correct tone for high-net-worth/executive clients.",
+        "Visual organization is strong (tables for side-by-side comparison, step-by-step callouts, consistent formatting, readable fonts).",
+        "Charts/tables (if used) are labeled, interpretable, and correspond to the narrative and numbers.",
+        "Document hygiene: correct spelling/grammar, consistent terminology, clean pagination/slide numbering, and professional styling.",
+        "Emphasizes key takeaways and \u201cso what\u201d implications (e.g., net proceeds differences, estate tax impact, liquidity timing)."
+      ],
+      "scoring_guidance": "0-2 if unusable/illegible, disorganized, or clearly unfinished; 3-4 if hard to follow with frequent formatting/writing issues; 5-6 if understandable but needs polish (crowded slides, inconsistent formatting, weak summary); 7-8 if professional and clear with minor presentation issues; 9-10 if polished, meeting-ready, highly readable, and well-designed for client comprehension."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Adherence to financial advisory best practices, compliance-minded framing, and appropriate disclosures/limitations.",
+      "criteria": [
+        "Includes appropriate caveats: not tax/legal advice; encourage coordination with CPA/attorney; notes that laws/rates may change.",
+        "Highlights key risks, trade-offs, and suitability considerations (e.g., liquidity, concentration risk, mortality risk in GRAT, charitable intent requirements for CRAT, irrevocability of ILIT).",
+        "Uses professional planning framing: objectives, constraints, alternatives, and recommendation rationale.",
+        "Avoids overstated guarantees; uses prudent language for projections/assumptions.",
+        "Handles sensitive topics responsibly (estate planning, tax minimization) and avoids unethical suggestions."
+      ],
+      "scoring_guidance": "0-2 if dangerous/unethical guidance or no disclosure where clearly needed; 3-4 if minimal best-practice framing and few risk notes; 5-6 if some standards present but incomplete; 7-8 if solid professional practice with minor missing caveats; 9-10 if exemplary compliance-minded, balanced, and client-suitable framing."
+    }
+  },
+  "file_inspection_checklist": [
+    "File presence audit: Identify every required deliverable from the prompt (e.g., PPTX, PDF, XLSX) and confirm each is present; record missing items.",
+    "File integrity: Attempt to open each file; confirm it is not corrupted, password-locked (unless permitted), or blank; ensure export quality is readable.",
+    "Format compliance: Verify file types match the prompt requirements (PPTX vs Google Slides link vs PDF) and that page/slide limits are respected.",
+    "Content mapping: Create a checklist from the prompt bullets and mark where (slide/page/section) each is addressed; flag any not addressed.",
+    "Calculation verification: If calculations are required, spot-check at least 3 independent computations (e.g., tax owed, net proceeds, annuity amounts, funding flows) for arithmetic and logic; verify inputs are stated.",
+    "Comparison verification: For any requested \u201ccompare/contrast,\u201d confirm side-by-side coverage of mechanics, tax treatment, timing, pros/cons, and outcome metrics (e.g., net proceeds, estate tax impact).",
+    "Assumptions disclosure: Confirm hypothetical numbers are labeled as assumptions and that year-specific parameters requested in the prompt (e.g., 2025 exclusion) are used consistently.",
+    "Recommendation presence: If the prompt asks for a conclusion or recommendation, confirm it exists and is justified by analysis.",
+    "Client-readiness: Confirm a final summary/takeaways section suitable for an in-person meeting and the target client profile.",
+    "Compliance/caveats: Confirm presence of appropriate disclaimers/limitations and encouragement to coordinate with tax/legal professionals where applicable."
+  ],
+  "common_failure_modes": [
+    "Missing required file(s) (e.g., only narrative text provided when PPTX/PDF was required).",
+    "File provided but unopenable/corrupted, wrong format, or clearly a placeholder with minimal content.",
+    "Ignores key prompt bullets (e.g., no step-by-step calculations, no side-by-side comparison, no recommendation).",
+    "Uses incorrect tax concepts (e.g., misclassifies ISO taxation timing, omits AMT discussion when central, treats ILIT assets as still in the estate without nuance, confuses GRAT vs CRAT payout structure).",
+    "Arithmetic errors or inconsistent numbers across sections; tables that do not sum correctly; net proceeds not reconciled to taxes/withholding assumptions.",
+    "Fails to state assumptions for hypothetical examples; invents client facts without labeling assumptions.",
+    "Overly generic content that does not tie to the client situation (age, marital status, objectives, vesting timeline, liquidity needs).",
+    "Unbalanced analysis that lists benefits only; missing risks/trade-offs and suitability constraints.",
+    "Not client-ready: dense text, poor formatting, no executive summary, unclear visuals, jargon without definitions.",
+    "Missing or inadequate disclosures; presents information as definitive tax/legal advice rather than educational planning guidance."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Compute weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required output files are missing/unopenable OR the deliverable is severely incomplete relative to the prompt, set the final score to 0\u20132 regardless of weighted average.",
+    "score_scale": "0-10 scale: 0-2 Unacceptable (missing files/unopenable/severely incomplete); 3-4 Poor (major gaps/major errors); 5-6 Acceptable (meets basics but notable gaps/errors); 7-8 Good (minor issues only); 9-10 Excellent (complete, accurate, polished, client-ready).",
+    "automatic_low_score_triggers": [
+      "Any required output artifact is missing (e.g., PPTX/PDF not provided).",
+      "Any required file is unopenable/corrupted/blank or obviously placeholder content.",
+      "Work is severely incomplete (e.g., only 1-2 slides for a multi-topic presentation; missing most prompt bullets; no calculations when required).",
+      "Major requirement categories are absent (e.g., no comparison and no tax implications section when explicitly required)."
+    ],
+    "excellent_output_characteristics": [
+      "All required files present, openable, and in correct formats; constraints (page/slide limits) respected.",
+      "Every prompt bullet clearly addressed and easy to locate; strong structure and summaries.",
+      "Accurate technical content with clearly stated assumptions and correct step-by-step calculations.",
+      "Client-ready: polished visuals/writing, clear takeaways, and justified recommendation aligned to client goals.",
+      "Includes risks, trade-offs, and appropriate disclaimers; encourages coordination with CPA/attorney where relevant."
+    ],
+    "poor_output_characteristics": [
+      "Missing or wrong file types; broken/unreadable artifacts.",
+      "Large sections of the prompt unaddressed; no calculations or no required comparisons.",
+      "Material technical inaccuracies or misleading tax/planning statements.",
+      "Disorganized, hard to follow, not suitable for client meeting delivery.",
+      "No disclosure language; overconfident tax/legal assertions."
+    ]
+  },
+  "example_evaluation_questions": [
+    "What exact output files did the prompt require, and are all of them present and openable?",
+    "Which prompt bullets are not addressed anywhere in the deliverables (list them explicitly)?",
+    "Do the deliverables include step-by-step calculations where required, with inputs, formulas/steps, and final figures?",
+    "Are year-specific parameters (e.g., a stated gift tax exclusion year) used correctly and consistently throughout?",
+    "Is the tax treatment described with correct timing (event triggers), character (ordinary vs capital), and relevant caveats (e.g., AMT considerations, estate inclusion issues)?",
+    "Is there a clear side-by-side comparison table/section when the prompt asks for comparison, and does it cover mechanics, taxes, pros/cons, risks, and outcomes?",
+    "Does the recommendation (if required) directly tie to the client\u2019s objectives, constraints, age, marital status, and planning priorities stated in the prompt?",
+    "Are assumptions clearly labeled as hypothetical and not presented as client facts?",
+    "Is the output client-ready in formatting and clarity for an in-person meeting (readability, structure, takeaways)?",
+    "Are appropriate professional disclaimers and coordination suggestions (CPA/attorney) included, without undermining the educational purpose?"
+  ],
+  "metadata": {
+    "category": "Personal Financial Advisors",
+    "sector": "Finance and Insurance",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:29:07.823352",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2185,
+    "completion_tokens": 3326,
+    "total_tokens": 5511
+  }
+}

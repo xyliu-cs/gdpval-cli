@@ -1,0 +1,142 @@
+{
+  "category": "Financial Managers",
+  "evaluation_prompt": "You are an independent evaluator assessing an agent\u2019s deliverables for a Financial Manager task in Finance & Insurance. You will receive: (1) the original task prompt, (2) any reference/input files, and (3) the agent\u2019s output artifacts (e.g., Excel workbooks, PDFs, slide decks, memos). Your job is to score the work from 0\u201310 using the rubric below and produce a brief, evidence-based justification.\n\nCRITICAL GATING RULE (NON-NEGOTIABLE):\n- If ANY required output file/artifact is missing, not openable, or clearly incomplete relative to the prompt (e.g., only a cover page, placeholder tabs, broken model without core schedules), you MUST assign an overall score in the 0\u20132 range, regardless of quality of any partial content.\n\nEvaluation procedure (follow systematically):\n1) Parse the prompt to extract a checklist of required deliverables and requirements:\n   - Required file types (Excel/PDF/PowerPoint), number of tabs/slides, required sections/schedules, required functionality (dropdowns, scenarios), required periods, required metrics, required sources/citations, required formatting constraints.\n2) Inventory outputs:\n   - Confirm all required files exist; confirm file formats match (e.g., PDF requested but only text provided \u2192 treat as missing/incomplete).\n   - Open each file to ensure it loads without errors and contains substantive content.\n3) Completeness check (most important):\n   - Verify each required component exists (e.g., each requested schedule/tab; each slide section; appendices if required).\n   - Verify required interactivity/controls exist if requested (dropdowns, input fields, scenario toggles).\n   - Verify the work addresses the stated business question(s) and covers all specified timeframes/entities.\n4) Correctness check:\n   - Recompute or spot-check calculations using the reference data (tie-outs, variance math, sign conventions, aggregations, YoY/MoM).\n   - Validate consistency across tabs/slides (same totals, no conflicting numbers).\n   - Check logic and assumptions; ensure they are explicit and defensible.\n   - For research/strategy outputs, verify claims are supported by credible sources and are internally consistent; flag fabricated citations.\n5) Quality check:\n   - Assess whether the deliverable is executive-ready: clear structure, labels, units, dates, definitions, footnotes, consistent formatting.\n   - Confirm charts/tables are readable and add insight; confirm slide count/structure meets prompt.\n6) Domain standards check (Financial Manager best practices):\n   - GAAP/IFRS-consistent terminology where relevant; correct KPI definitions; auditability; controls; sensitivity/scenario discipline; versioning/date stamps.\n\nScoring:\n- Score each dimension 0\u201310 using the rubric. Compute weighted average (Completeness 40%, Correctness 30%, Quality 20%, Domain 10%).\n- Apply the gating rule: if missing/incomplete deliverables, override overall score to 0\u20132.\n\nIn your written evaluation:\n- Cite specific evidence (tab names, cell references if practical, slide numbers, screenshots described, or specific figures).\n- Distinguish between (a) missing deliverables, (b) present-but-wrong, and (c) subjective quality issues.\n- If you cannot verify a requirement because outputs do not include needed detail (e.g., no calculations shown), treat as a correctness/completeness risk and score accordingly.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed (highest priority).",
+      "criteria": [
+        "All required output artifacts are present in the correct formats (e.g., requested Excel workbook(s), PDF deck).",
+        "Files open successfully (not corrupted, not password-locked unless prompt allows), and contain substantive work (not placeholders).",
+        "All explicitly requested components are included (e.g., each schedule/tab; each section/slide; required appendices).",
+        "All specified entities and time periods are covered (e.g., M1\u2013M24, 2023\u20132024, monthly/quarterly views, branch/region/aggregate views).",
+        "All required features/functionality exist (e.g., dropdown selectors, scenario/input fields, sensitivity controls, separate calculations tab, dynamic views).",
+        "All required outputs are clearly labeled, with units, definitions, and ties/bridges where requested (e.g., MoM/YoY variances, rankings).",
+        "If prompt requests research support/citations, sources are included and mapped to claims (footnotes, appendix, references)."
+      ],
+      "scoring_guidance": "0-2 if any required file is missing/unopenable OR deliverable is severely incomplete (missing major sections/tabs/slides, placeholders, non-functional model). 3-4 if many required components are missing or multiple core requirements not addressed. 5-6 if all core components exist but several secondary requirements are missing (e.g., lacking dropdowns, missing some metrics, incomplete time coverage). 7-8 if complete with only minor omissions (e.g., one minor metric missing, minor labeling gaps). 9-10 if fully complete, requirements are explicitly satisfied and easy to verify."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, information, and logic; internal consistency and verifiability against inputs.",
+      "criteria": [
+        "Numbers tie to the provided reference data (aggregations by month/year/branch/region match source).",
+        "Variance calculations are correct (MoM/YoY $ and %, correct denominators) and follow prompt sign conventions (e.g., revenue increase positive; expense increase negative where specified).",
+        "KPI definitions are implemented correctly (e.g., gross margin = revenue \u2212 COGS; EBITDA formula consistent with prompt; ARPU definition correct; backlog metrics computed with correct units/time basis).",
+        "Rankings/sorts are correct and reproducible (top 10 logic, tie-handling is reasonable and documented).",
+        "Dropdowns/filters and scenario inputs drive outputs correctly (no broken references, no hard-coded results where dynamic expected).",
+        "No material internal inconsistencies (same metric differs across tabs without explanation; totals don\u2019t reconcile; charts mismatch tables).",
+        "Assumptions are explicit, consistent, and not contradicted by calculations; any deviations from prompt are clearly disclosed.",
+        "For strategy/research artifacts: facts are accurate, up-to-date per prompt\u2019s as-of date, and supported by credible sources; no invented sources or unverifiable statistics."
+      ],
+      "scoring_guidance": "0-2 if pervasive errors, fabricated data/sources, or outputs cannot be verified due to missing calculations or broken model. 3-4 if multiple material errors (wrong formulas, wrong time mapping, incorrect variance signs, incorrect KPI definitions) affecting key conclusions. 5-6 if generally correct but with notable errors or weak verifiability (a few wrong metrics, some inconsistent totals). 7-8 if only minor errors that do not change main conclusions (rounding, minor labeling, small chart mismatch). 9-10 if calculations, logic, and sourcing are accurate, consistent, and easy to audit with clear tie-outs."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization, and executive readiness of the deliverable(s).",
+      "criteria": [
+        "Clear structure aligned to prompt (tabs logically ordered; slide storyline; headings match requested sections).",
+        "Readable formatting: consistent fonts, spacing, number formats (currency, %, decimals), dates/period labels, and color usage.",
+        "Tables/charts are properly labeled (units, legends, time frames) and sized for readability; avoids clutter.",
+        "Navigation aids exist for complex workbooks (index tab, hyperlinks, frozen panes, consistent tab naming).",
+        "Explanations/notes are concise and helpful (definitions, assumptions, calculation notes, data sources).",
+        "Professional tone appropriate for senior management; no obvious grammatical issues; no extraneous content.",
+        "Outputs are printable/exportable as needed (e.g., fit-to-page settings, slide deck layout, PDF readability)."
+      ],
+      "scoring_guidance": "0-2 if unreadable/unprofessional, disorganized, or unusable. 3-4 if significant clarity issues (confusing structure, inconsistent formats, hard to interpret). 5-6 if usable but needs cleanup (some messy formatting, weak labeling). 7-8 if polished with minor presentational improvements possible. 9-10 if executive-ready, highly readable, and well-structured."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Adherence to Financial Manager best practices: auditability, controls, finance conventions, and decision-useful outputs.",
+      "criteria": [
+        "Auditability: calculations are transparent (separate calc tab/model section), minimal hard-coding, consistent formulas, and clear source links.",
+        "Controls & integrity: input cells clearly marked; data validation used where appropriate; error checks (totals, balance checks, reasonableness flags).",
+        "Finance conventions: correct treatment of signs, margins, growth rates, and KPI definitions; avoids mixing units (dollars vs units vs hours).",
+        "Scenario/sensitivity discipline: assumptions centralized; scenario changes propagate cleanly; base vs forecast clearly separated if applicable.",
+        "Documentation: version/date, author/model notes, and a brief methodology summary; limitations disclosed.",
+        "For strategic finance outputs: includes risks, regulatory/compliance considerations where relevant, implementation roadmap, and measurable KPIs."
+      ],
+      "scoring_guidance": "0-2 if opaque/unauditable, heavy hard-coding, no separation of inputs/calcs/outputs, or violates basic finance conventions. 3-4 if several best-practice gaps (no controls, unclear assumptions). 5-6 if some best practices present but inconsistent. 7-8 if solid adherence with minor gaps. 9-10 if strong modeling discipline, controls, and professional finance standards throughout."
+    }
+  },
+  "file_inspection_checklist": [
+    "Identify required deliverable types from the prompt (e.g., .xlsx with multiple tabs, PDF deck with X content slides) and confirm each file exists.",
+    "Open each output file to confirm it is accessible and not corrupted; verify content is substantive (not empty templates).",
+    "For Excel outputs: confirm all required tabs exist; tab names/structure match requested components; ensure calculations are present and not replaced by pasted values unless allowed.",
+    "For Excel dropdown requirements: locate dropdown cells; test by changing selection and verifying tables/charts update correctly; confirm an aggregate/company-wide view exists if required.",
+    "For Excel scenario/input fields: verify input cells are clearly marked; change key inputs and confirm projected outputs update; check that baseline values are preserved/traceable.",
+    "Tie-out checks: pick several months/branches/regions and recompute totals from raw data to verify outputs; confirm period mapping (e.g., M1\u2013M12 = 2023, M13\u2013M24 = 2024) is correct.",
+    "Variance checks: validate MoM/YoY $ and % math; check sign conventions for revenue vs expenses; confirm variance columns are directionally correct.",
+    "KPI definition checks: confirm formulas align to prompt definitions (gross margin, EBITDA, ARPU, backlog turn, backlog days, per-headcount metrics).",
+    "Ranking checks: confirm sort order, top-N selection, and metric calculations feeding ranks; verify whether ties are handled consistently.",
+    "For presentation/PDF outputs: confirm slide count and required sections; check storyline coherence; verify charts/tables have sources/footnotes; ensure content is localized/dated as requested.",
+    "Source verification for research: spot-check citations/links; ensure no fabricated institutions/reports; confirm as-of date consistency.",
+    "Consistency checks across artifacts: numbers cited in slides should match workbook outputs; labels and definitions should align across tabs/slides.",
+    "Usability checks: printability/readability, consistent number formats, clear units, and presence of an executive summary if appropriate."
+  ],
+  "common_failure_modes": [
+    "Missing required output file(s) (e.g., no Excel workbook delivered, or PDF requested but only text response provided).",
+    "Output file exists but is unopenable/corrupted or locked without permission.",
+    "Placeholders instead of completed schedules (empty tabs, generic template, missing core calculations).",
+    "Wrong period mapping (mixing 2023/2024 months; mislabeling M23/M24; incorrect quarter grouping).",
+    "Variance sign convention implemented incorrectly (expenses shown as favorable when they increased; revenue variances reversed).",
+    "Hard-coded numbers that do not trace to reference data; no calculation transparency.",
+    "Dropdowns/scenario inputs requested but not implemented or non-functional (doesn\u2019t change outputs).",
+    "Incorrect KPI formulas (e.g., gross margin % vs gross margin $ confusion; EBITDA computed inconsistently; ARPU denominator wrong).",
+    "Ranking logic wrong (not top 10, sorted ascending vs descending, mixed metrics, includes duplicates/omits branches).",
+    "Inconsistent totals across tabs/charts; charts not linked to tables.",
+    "No sources or fabricated citations for market/strategy claims; data presented without dates/units.",
+    "Poor labeling/units leading to ambiguity (mixing $ and units; missing % symbols; unclear whether values are monthly or YTD).",
+    "Overly verbose narrative with little actionable output (especially for strategy decks) or vice versa (numbers without explanation)."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Score each dimension 0\u201310, compute weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required output file is missing/unopenable OR deliverables are severely incomplete (missing major required components or non-functional where functionality required), override the final overall score to 0\u20132 regardless of weighted average.",
+    "score_scale": "0\u20132 Unacceptable (missing files, unopenable artifacts, or severely incomplete). 3\u20134 Poor (major requirements unmet, multiple material errors). 5\u20136 Acceptable (core delivered but notable gaps/errors). 7\u20138 Good (minor issues only). 9\u201310 Excellent (complete, accurate, professional, audit-ready).",
+    "automatic_low_score_triggers": [
+      "Any required output artifact/file is missing (including wrong format vs requested, e.g., no PDF when PDF required).",
+      "Any required artifact is unopenable/corrupted or contains only placeholders.",
+      "Large portions of required components are missing (e.g., fewer tabs/slides than requested; missing key schedules like income statement/metrics/rankings; missing scenario functionality).",
+      "Model is non-functional (broken references, dropdowns don\u2019t work, outputs don\u2019t update, calculations absent)."
+    ],
+    "excellent_output_characteristics": [
+      "All required files present in correct formats; opens cleanly.",
+      "All requested schedules/sections included and clearly labeled; requirements explicitly mapped (a checklist or cover note is a plus).",
+      "Accurate calculations tied to source data with clear tie-outs and correct variance sign conventions.",
+      "Interactive elements (dropdowns, inputs) function correctly and are easy to use.",
+      "Executive-ready formatting: consistent number formats, readable tables/charts, clear units/definitions, logical structure.",
+      "Audit-ready build: separated inputs/calcs/outputs, minimal hard-coding, documented assumptions, basic error checks.",
+      "For research/strategy: credible citations, dated insights, actionable recommendations with KPIs, risks, and implementation plan."
+    ],
+    "poor_output_characteristics": [
+      "Missing or wrong-format deliverables; incomplete artifacts.",
+      "Confusing or disorganized structure; unlabeled metrics; unclear units/time frames.",
+      "Material calculation errors or inconsistent totals; results not reproducible from provided data.",
+      "No interactivity where required; outputs are static screenshots/pastes when dynamic model required.",
+      "Opaque logic with extensive hard-coding; no assumptions documentation; no error checks.",
+      "Unsupported or fabricated market facts/citations in strategy outputs."
+    ]
+  },
+  "example_evaluation_questions": [
+    "Are all required output files present in the formats explicitly requested in the prompt (e.g., Excel workbook, PDF presentation)? If not, score 0\u20132.",
+    "Do the deliverables include every required component (each schedule/tab/slide/section), and do they cover all specified entities (branch/region/company) and periods (months/quarters/years)?",
+    "Can you trace key outputs back to the reference data via formulas or clear mapping (not hard-coded values)?",
+    "Are MoM/YoY variance dollars and percentages mathematically correct, and do they follow the prompt\u2019s sign conventions for revenue vs expenses?",
+    "Do dropdowns/filter controls and scenario inputs exist and actually change outputs as intended?",
+    "Are KPI formulas implemented exactly as defined in the prompt (e.g., gross margin, EBITDA, ARPU, backlog turn, backlog days, per-headcount measures)?",
+    "Are rankings (e.g., top 10 branches) computed correctly and reproducibly (correct sorting direction, correct metric definitions, consistent tie handling)?",
+    "Is the deliverable internally consistent (same totals across tabs; charts match tables; slide numbers match workbook outputs)?",
+    "Is the output executive-ready (clear labeling, units, definitions, printability, logical structure, concise narrative)?",
+    "Does the work reflect finance best practices (separated inputs/calcs/outputs, clear assumptions, minimal hard-coding, basic control checks)?",
+    "For strategy/research outputs: Are key claims supported with credible, dated sources and presented with actionable recommendations, risks, and measurable KPIs?"
+  ],
+  "metadata": {
+    "category": "Financial Managers",
+    "sector": "Finance and Insurance",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:10:12.310309",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2678,
+    "completion_tokens": 3824,
+    "total_tokens": 6502
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "category": "Counter and Rental Clerks",
+  "evaluation_prompt": "You are an evaluator LLM assessing AI-generated work products for the occupation category \u201cCounter and Rental Clerks\u201d (Real Estate and Rental and Leasing). You will be given: (1) the original task prompt, (2) any reference/input files mentioned (e.g., spreadsheets of rentals/damages, templates), and (3) the agent\u2019s output artifacts (e.g., .xlsx reports, .docx forms/guides, PDFs, emails). Your job is to grade the outputs on a 0\u201310 scale using the rubric below.\n\nCRITICAL RULE (NON-NEGOTIABLE): If ANY required output file/artifact is missing, not readable/corrupted, or the deliverable is severely incomplete (e.g., placeholder text, missing required sections/metrics), you MUST assign an overall score in the 0\u20132 range, regardless of how good any partial content is.\n\nEvaluation process (follow in order):\n1) Parse the task prompt and enumerate every required deliverable (file names/types), required sections, required calculations/fields, and any requested observations/insights. Treat explicit file naming requirements as requirements.\n2) Verify artifact presence: confirm each required output file exists in the outputs; confirm it opens and is not corrupted; confirm it is the correct type (Excel/Word/etc.) and roughly matches the requested title/filename.\n3) If any deliverable is missing/unopenable or clearly incomplete, stop and assign 0\u20132 overall (still provide brief notes on what is missing).\n4) If all deliverables exist, inspect each file:\n   - For Word/Document outputs: check that all required sections are present; content is operationally correct for rental-counter workflows; uses clear step-by-step structure; includes required explanations, tips, troubleshooting; uses professional formatting.\n   - For Excel/Spreadsheet outputs: recalculate or spot-check totals, pivots, averages, rates, and breakdowns using the reference data; verify formulas where possible; verify that summaries reconcile with underlying tables; confirm units and definitions (e.g., LOR, ADR) are consistent and correctly computed.\n5) Assess against each rubric dimension: Completeness (most important), Correctness, Quality, Domain Standards.\n6) Compute weighted score (40/30/20/10). Apply the critical override: if missing/incomplete deliverables, force overall score to 0\u20132.\n7) Provide a concise evaluation narrative listing: (a) what was required, (b) what was delivered, (c) key defects by severity, (d) any calculation discrepancies, (e) final score with reasoning.\n\nDomain context reminders (use as applicable across tasks):\n- Counter/rental clerk outputs commonly include rental agreements/checklists, closing reports, damage/service request forms, fleet/utilization summaries, booking/payment summaries, customer-facing or internal SOPs.\n- Expect operational accuracy: document customer/vehicle identifiers correctly; handle payment/authorization logically; show damage charges consistent with stated policy; track vehicle status (Available/Out of Service) appropriately.\n- Expect data integrity: totals should reconcile; category/utilization should be computed as specified; summaries should align with the reference spreadsheet(s).\n\nBe strict on missing artifacts: a beautiful narrative in chat does NOT substitute for a required .docx/.xlsx deliverable when the prompt asks for files.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist, are readable, and address every requirement in the prompt (sections, fields, metrics, breakdowns, naming).",
+      "criteria": [
+        "All required deliverable files are present (correct count) and open without errors (not corrupted/blank).",
+        "Each file matches the requested format/type (e.g., .xlsx for reports, .docx for forms/guides) and requested filename/title where specified.",
+        "All required sections/fields are included (e.g., for forms: customer/vehicle/RA identifiers, damage description, request type, vehicle status; for guides: steps + why + tips + mistakes/troubleshooting; for reports: overall KPIs + category breakdown + booking source + payment method + observations).",
+        "All required metrics and breakdown dimensions are present (e.g., totals, averages, rates; breakdown by vehicle category; breakdown by damage type; booking source summary; payment method revenue).",
+        "Narrative/insight components requested in the prompt are present (e.g., brief observations for management/sales).",
+        "No major placeholders (e.g., \u201cTBD\u201d, lorem ipsum) and no sections obviously unfinished.",
+        "Any specified date/location/context from prompt is reflected correctly (e.g., report date, airport/location code) where required."
+      ],
+      "scoring_guidance": "0\u20132 if any required file is missing/unopenable OR deliverables are severely incomplete. 3\u20134 if multiple required sections/metrics are missing or filenames/types are wrong. 5\u20136 if all files exist but notable missing components (e.g., missing one required breakdown, missing observations). 7\u20138 if complete with only minor omissions (e.g., small formatting section missing). 9\u201310 if fully complete and matches all prompt requirements precisely."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, business logic, and alignment to reference files and prompt definitions.",
+      "criteria": [
+        "All calculations are correct and consistent with definitions in the prompt (e.g., Average Length of Rental = total rental days / number of rentals; Average daily rate aligns with revenue/days if specified).",
+        "Totals reconcile across views (e.g., category totals sum to overall totals; booking source totals sum to overall revenue; payment method totals sum to overall revenue collected).",
+        "Breakdowns are computed on the correct fields (e.g., revenue by category uses rental revenue, not days; damage revenue uses damage charge amounts).",
+        "No arithmetic/aggregation errors, double-counting, missing rows, or incorrect filters (e.g., wrong date subset, including open rentals when only closed rentals requested).",
+        "Textual instructions/forms reflect correct operational steps and policies stated in the prompt (e.g., correct damage charge amount, correct RA number, correct vehicle details).",
+        "Any assumptions are clearly stated and do not contradict the prompt or reference data.",
+        "Consistent rounding/precision; no misleading unit errors (currency, days, percentages)."
+      ],
+      "scoring_guidance": "0\u20132 if pervasive errors, fabricated numbers not tied to reference files, or outputs contradict the prompt. 3\u20134 if major calculation or logic errors that materially change conclusions. 5\u20136 if some correct work but several notable errors or reconciliation issues. 7\u20138 if mostly correct with minor discrepancies/rounding issues. 9\u201310 if calculations and logic are fully correct, reconciled, and well-defined."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional presentation: clarity, organization, formatting, readability, and usability of the artifacts for real operations.",
+      "criteria": [
+        "Clear structure with headings, consistent labeling, and logical flow (especially for SOP/guides and reports).",
+        "Tables are readable: proper column headers, formats (currency, %, dates), and alignment; avoids clutter.",
+        "Excel reports include clean layouts (summary section, breakdown sections), and are easy to audit (visible formulas or documented calculation method).",
+        "Word documents use professional formatting: consistent fonts, bulleting/numbering for steps, and concise but complete language.",
+        "Observations/insights are specific and grounded in the report numbers, not generic.",
+        "No obvious grammar issues, confusing phrasing, or contradictory statements.",
+        "File titles/sheet names are descriptive (e.g., \u201cSummary\u201d, \u201cBy Category\u201d, \u201cBooking Source\u201d, \u201cPayment Methods\u201d)."
+      ],
+      "scoring_guidance": "0\u20132 if unreadable/chaotic formatting, or artifacts are not usable operationally. 3\u20134 if significant clarity/organization problems. 5\u20136 if adequate but inconsistent formatting or hard-to-follow structure. 7\u20138 if professional and clear with minor issues. 9\u201310 if polished, highly usable, and easy to audit."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Adherence to counter/rental clerk best practices: compliance-minded documentation, operational workflow realism, and management-ready reporting.",
+      "criteria": [
+        "Includes key operational controls where relevant: ID/eligibility verification, payment authorization/collection, accurate vehicle assignment/status, signature/terms review, damage documentation trail.",
+        "Uses appropriate terminology and standard metrics (e.g., LOR, ADR, utilization) with correct definitions or clear explanations.",
+        "Data handling aligns with business expectations: avoids exposing unnecessary sensitive data; includes only what is needed for operations (while still meeting prompt requirements).",
+        "Reports include actionable management observations (e.g., category demand, revenue concentration, booking channel performance, payment mix risks/chargebacks) without overclaiming.",
+        "Forms include fields that support downstream processes (maintenance prioritization, out-of-service flagging, traceability via RA #, date, location)."
+      ],
+      "scoring_guidance": "0\u20132 if demonstrates major misunderstanding of rental-counter operations or omits essential controls. 3\u20134 if weak realism or missing key operational safeguards. 5\u20136 if generally aligned but not robust. 7\u20138 if solid adherence with minor gaps. 9\u201310 if strongly aligned with industry practice and operational needs."
+    }
+  },
+  "file_inspection_checklist": [
+    "Identify every required output artifact from the prompt (e.g., \u201cDaily Closed Operational Report <date>.xlsx\u201d, \u201cService Request Form - Vehicle Maintenance.docx\u201d, SOP/guide .docx). Verify each is present.",
+    "Open each delivered file to confirm it is readable and not corrupted; confirm correct file type/extension and approximate requested naming/title.",
+    "For Excel reports: verify there is a clear summary section with all required KPIs; verify each required breakdown exists (by vehicle category, booking source, payment method, damage type, etc., as applicable).",
+    "For Excel reports: spot-check calculations against the reference spreadsheet: recompute totals and averages for at least 2\u20133 random categories/sources/methods; confirm reconciliation (breakdowns sum to grand totals).",
+    "For utilization or rate metrics: confirm definitions match the prompt; check that percentages are computed correctly and formatted as percent.",
+    "Check for inclusion/exclusion rules: confirm report uses only the required subset (e.g., \u201cclosed rental agreements\u201d only, specified date).",
+    "For Word forms: confirm all required identifiers and details from the prompt are present and correct (customer name, RA number, vehicle make/model, plate, mileage, location, date).",
+    "For Word SOP/guides: confirm it includes step-by-step instructions PLUS \u2018why it matters\u2019, efficiency tips, and common mistakes/troubleshooting; steps are operationally realistic for a busy counter.",
+    "Check professional formatting: headers, bullet/numbered lists, consistent fonts, clear table layouts, currency/date formatting, and absence of placeholder text.",
+    "Check management insights section (if required): ensure observations are specific, numerically supported, and relevant to operations/sales (not generic)."
+  ],
+  "common_failure_modes": [
+    "Missing one or more required output files (e.g., only providing narrative text instead of the requested .xlsx/.docx).",
+    "Delivering the wrong file type (e.g., CSV instead of Excel, Google Docs text instead of Word) or wrong/unspecified filenames when the prompt requires specific titles.",
+    "Blank, corrupted, or template-only documents with placeholders not filled in.",
+    "Excel report missing required sections (e.g., no booking source summary, no payment method revenue, no category breakdown).",
+    "Totals do not reconcile between summary and breakdown tabs (category totals don\u2019t sum to overall totals).",
+    "Incorrect metric definitions (e.g., average daily rate computed as revenue/rentals instead of revenue/days; LOR miscomputed).",
+    "Using numbers not supported by the provided reference file (hallucinated totals, ignoring the input spreadsheet).",
+    "Including the wrong date range or mixing open and closed rentals when only closed rentals are requested.",
+    "Operational inaccuracies in documents (e.g., wrong damage fee, missing vehicle status, missing RA number, unrealistic rental agreement workflow).",
+    "Insights section is generic and not grounded in the report\u2019s data (e.g., \u2018sales increased\u2019 with no numbers).",
+    "Poor formatting: unreadable tables, missing headers, inconsistent currency/percent formats, unclear labels."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Calculate weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required output file is missing, unopenable, or severely incomplete, override the final score to 0\u20132 regardless of other dimension scores.",
+    "score_scale": "0\u201310 where 0\u20132=Unacceptable (missing files/severely incomplete), 3\u20134=Poor, 5\u20136=Acceptable, 7\u20138=Good, 9\u201310=Excellent.",
+    "automatic_low_score_triggers": [
+      "Any required output artifact is missing (including required named files).",
+      "Any required file is corrupted/unreadable or clearly not the requested format.",
+      "Deliverable is severely incomplete (e.g., missing major required sections/metrics, placeholder text, only partial tables with no summaries).",
+      "Work does not use/reflect the provided reference files when the prompt requires analysis of them (fabricated numbers)."
+    ],
+    "excellent_output_characteristics": [
+      "All required files delivered, correctly named/typed, and fully filled out.",
+      "All prompt requirements addressed with clear structure and professional formatting.",
+      "All calculations correct and reconciled across summary and breakdowns; spot-checks match reference data.",
+      "Insights are concise, specific, and supported by figures (e.g., top booking channels, category demand, payment mix) and useful to management.",
+      "Documents reflect real counter/rental operations: correct controls (ID, payment, vehicle status), clear troubleshooting, and traceable records."
+    ],
+    "poor_output_characteristics": [
+      "Missing one or more required files or providing only chat text when files are required.",
+      "Major sections absent (e.g., no category breakdown, no payment summary, no troubleshooting section).",
+      "Material calculation errors or non-reconciling totals; incorrect metric definitions.",
+      "Unprofessional or confusing formatting that makes artifacts hard to use.",
+      "Operational misunderstandings (e.g., improper damage handling workflow, missing essential identifiers)."
+    ]
+  },
+  "example_evaluation_questions": [
+    "What exact deliverable files does the prompt require, and are all of them present, readable, and in the correct format?",
+    "Do the delivered artifacts match the requested filenames/titles (especially when the prompt specifies an exact name)?",
+    "Are any required sections missing (e.g., steps + explanations + tips + common mistakes; or summaries + breakdowns + observations)?",
+    "Do the report\u2019s grand totals reconcile with the sums of category/booking source/payment method breakdowns?",
+    "Are LOR/ADR/utilization (or analogous metrics) defined and computed correctly per the prompt?",
+    "When spot-checking 2\u20133 random rows/groups against the reference spreadsheet, do the totals and averages match?",
+    "Are currency, dates, and percentages formatted correctly and consistently?",
+    "Are the operational details (customer/vehicle/RA/damage fee/location/status) captured exactly as stated in the prompt?",
+    "Are the insights/observations specific and supported by numbers, and are they relevant to management/sales decisions?",
+    "Would a newly onboarded clerk or a manager be able to use these documents immediately during a busy shift without clarification?"
+  ],
+  "metadata": {
+    "category": "Counter and Rental Clerks",
+    "sector": "Real Estate and Rental and Leasing",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:05:12.656703",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2359,
+    "completion_tokens": 3406,
+    "total_tokens": 5765
+  }
+}

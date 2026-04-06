@@ -1,0 +1,129 @@
+{
+  "category": "Nurse Practitioners",
+  "evaluation_prompt": "You are an expert evaluator reviewing AI-generated deliverables for Nurse Practitioner (NP) tasks in Health Care and Social Assistance. You will receive: (1) the original task prompt, (2) any reference/input files mentioned, and (3) the agent\u2019s OUTPUT FILES/ARTIFACTS. Your job is to assess whether the output artifacts fully satisfy the prompt and meet professional clinical/academic standards.\n\nCRITICAL RULE (NON-NEGOTIABLE): If ANY required output file/artifact is missing, not accessible, or clearly incomplete (e.g., placeholder text, truncated sections, empty slides, missing required sections), you MUST assign an overall score in the 0\u20132 range regardless of how good the rest seems.\n\nEvaluation procedure (follow step-by-step):\n1) Identify required deliverables from the prompt: file types (e.g., .docx report, .pptx deck, .pdf handout, SOAP note document), required sections, required length/slide limits, required tables/figures, references/citations, and any special constraints (timeframe, population, guidelines, max references, etc.). Create a checklist.\n2) Inventory outputs: confirm each required file is present, opens successfully, and contains substantive content. Record missing/inaccessible items.\n3) Completeness check (highest priority): verify every explicit requirement is addressed somewhere in the outputs (not merely mentioned). Confirm inclusion of required components (e.g., search strategy + results subthemes for a literature review; pre-test question + case study + references slide for a lecture; full SOAP note structure for a clinical encounter).\n4) Correctness check: assess clinical and factual accuracy. Verify guideline alignment (e.g., AHA/ACC BP staging when requested), medication safety, internal consistency (vitals, age, risk factors), and that claims are supported by credible sources. Flag hallucinated citations or non-existent studies.\n5) Quality check: assess organization, clarity, formatting, readability, and whether the artifact would be usable in real clinical/educational settings. Ensure appropriate tone and level for the intended audience (patients, nursing students, clinicians).\n6) Domain standards check: confirm NP best practices\u2014patient safety, evidence-based recommendations, appropriate differential diagnosis reasoning when applicable, proper documentation conventions (SOAP), patient education and follow-up, appropriate red flags/return precautions, and privacy (no inappropriate PHI beyond the scenario).\n7) Score each rubric dimension 0\u201310 using the guidance below, compute a weighted average, then apply the CRITICAL override: if missing/incomplete required deliverables, force overall score to 0\u20132.\n\nWhen writing your evaluation, be explicit: cite which requirements were met/not met, point to where in the files they appear (slide numbers/section headings), and list any clinical safety issues or major inaccuracies. If you cannot find a required item quickly, treat it as missing.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed",
+      "criteria": [
+        "All required output files are present in the submission (correct format if specified: e.g., .docx, .pptx) and can be opened/read without corruption",
+        "Each required artifact contains substantive content (not placeholders like 'TBD', empty sections, or obviously truncated text)",
+        "All explicitly requested sections/components are included (e.g., for papers: required headings/sections; for presentations: required slides/components; for clinical notes: required SOAP elements)",
+        "All constraints are satisfied (e.g., page limits 10\u201315 pages; slide limit \u226420; reference limit \u226430; specified timeframe such as 'May 2025')",
+        "All required visuals/attachments are included when requested (e.g., illustration of BP measurement; tables/figures; case study; pre-test question)",
+        "References/citations included when requested, and placed in the required location/format (e.g., final slide with references; reference section at end of paper)"
+      ],
+      "scoring_guidance": "0-2 if any required file is missing/inaccessible OR deliverable is severely incomplete (missing major sections, placeholders, far under length, missing required components). 3-4 if multiple requirements unmet or substantial missing sections but some usable content exists. 5-6 if most requirements are met but there are notable omissions (e.g., missing one required section, weak or partial case study, references incomplete). 7-8 if all major requirements are met with only minor omissions/edge constraint issues. 9-10 if every requirement and constraint is fully met with clear evidence in the artifacts."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, information, and logic",
+      "criteria": [
+        "Clinical facts are accurate and consistent with contemporary standards/guidelines when specified (e.g., AHA staging, evidence-based HTN management, concussion/head injury red flags)",
+        "No unsafe or inappropriate medical advice (e.g., dangerous dosing, contraindicated recommendations, incorrect triage guidance)",
+        "Internal consistency: patient demographics, vitals, exam findings, and assessment/plan align logically; no contradictions (e.g., neuro deficits ignored without rationale)",
+        "Appropriate use of evidence: claims are supported by credible sources; statistics and prevalence/morbidity claims are plausible and not fabricated",
+        "Citations appear valid (no clearly invented journals/DOIs; reasonable authorship/year; consistent referencing); where links/PMIDs are provided, they appear plausible and relevant",
+        "Differential diagnoses and clinical reasoning are appropriate for the scenario complexity (when applicable), and decisions (tests, referrals, follow-up) are justified"
+      ],
+      "scoring_guidance": "0-2 if pervasive inaccuracies, unsafe guidance, fabricated evidence presented as fact, or content cannot be trusted. 3-4 if multiple major errors or at least one serious safety issue. 5-6 if generally accurate but with several notable errors, questionable claims, or weak support. 7-8 if accurate with a few minor inaccuracies or oversimplifications that do not materially change conclusions. 9-10 if highly accurate, guideline-consistent, internally coherent, and appropriately evidence-backed."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization",
+      "criteria": [
+        "Clear structure aligned to the deliverable type (academic paper sections, slide deck flow, SOAP formatting with headings and bulleting where appropriate)",
+        "Writing is coherent, concise, and professional; appropriate for the audience (patients vs students vs clinicians)",
+        "Formatting is usable: consistent fonts, headings, spacing; slides not overcrowded; speaker notes included when requested",
+        "Visuals/tables (if included) are legible, labeled, and referenced in text; slide graphics are explained",
+        "References are formatted consistently (e.g., APA/AMA\u2014any consistent professional style acceptable unless prompt specifies)",
+        "Minimal grammatical errors; terminology used correctly"
+      ],
+      "scoring_guidance": "0-2 if disorganized, unreadable, or unprofessional to the point of being unusable. 3-4 if significant clarity/formatting problems impede use. 5-6 if usable but with notable organization or readability issues. 7-8 if well-organized and professional with minor polish issues. 9-10 if publication/teaching-ready quality: excellent organization, readability, and presentation."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Industry-specific best practices for this occupation",
+      "criteria": [
+        "Patient safety emphasis: red flags, escalation criteria, contraindications, and safety-net/return precautions when relevant",
+        "Evidence-based practice orientation: acknowledges guideline recommendations, levels/limits of evidence, and clinical applicability",
+        "Appropriate NP documentation standards: SOAP note completeness (Subjective, Objective, Assessment with differential where appropriate, Plan with diagnostics/therapeutics/education/follow-up)",
+        "Patient-centered care: education, shared decision-making language, adherence considerations, social determinants when relevant",
+        "Ethical and privacy-aware: avoids unnecessary identifying details beyond provided scenario; avoids stigmatizing language",
+        "Interprofessional awareness: referrals, coordination, and multidisciplinary interventions when relevant (e.g., HTN adherence strategies)"
+      ],
+      "scoring_guidance": "0-2 if violates basic clinical safety/documentation norms or includes ethically problematic content. 3-4 if multiple domain-standard gaps (missing follow-up, weak safety-netting). 5-6 if generally aligned but missing some best-practice elements. 7-8 if strong adherence to NP standards with minor omissions. 9-10 if exemplary NP-level practice, safety, documentation, and patient-centeredness."
+    }
+  },
+  "file_inspection_checklist": [
+    "Confirm every required file named/typed in the prompt is present (e.g., .docx paper, .pptx slides). If prompt implies a file (e.g., 'Word document', 'PowerPoint'), treat absence as missing required artifact.",
+    "Open each file to confirm it is readable, not corrupted, and not a link-only placeholder.",
+    "For written reports (.docx/.pdf): verify required page range/word count approximation, required section headings, paragraph-form requirements, and presence of references/bibliography with limits (e.g., \u226430).",
+    "For slide decks (.pptx/.pdf): verify slide count limit, required components (pre-test question, case study, illustrations/figures, references slide), and presence of speaker notes where requested.",
+    "For clinical documentation: verify SOAP structure, completeness of HPI/ROS as appropriate, vitals/exam included, assessment with differential, plan with diagnostics/therapeutics/education/follow-up and return precautions; confirm consistency with scenario details.",
+    "Check that any requested guideline frameworks are explicitly included (e.g., AHA HTN stages; diagnostic criteria; medication classes).",
+    "Check that visuals are present when requested (e.g., BP measurement illustration) and are legible with captions/labels.",
+    "Check references: are they credible, relevant, and formatted consistently? Are there signs of fabrication (impossible journals, mismatched years, generic 'www.google.com' as a citation when peer-reviewed required)?",
+    "Check for prompt constraints: timeframe (e.g., May 2025), population focus (older adults, pediatrics), and setting (primary care) are reflected throughout.",
+    "If reference/input files were provided, confirm the output uses them appropriately (quotes, data extraction, alignment) and does not contradict key provided facts."
+  ],
+  "common_failure_modes": [
+    "Missing required output file (e.g., provides text in chat but no .docx/.pptx when a file is required)",
+    "Partially completed deliverable (e.g., only outline, missing multiple required sections like Search Strategy or Results subthemes)",
+    "Violating constraints (too many slides, too few pages, too many references, missing speaker notes when requested)",
+    "Hallucinated or unverifiable citations presented as real; fabricated statistics or guideline statements",
+    "Unsafe clinical recommendations (incorrect medication advice, missing urgent referral criteria after head injury, no safety-net instructions)",
+    "SOAP note missing key elements (no Assessment, no Plan details, no differential, no follow-up)",
+    "Inconsistency with the provided patient scenario (age/sex/vitals mismatch, ignores abnormal findings like coordination deficit without addressing)",
+    "Overly generic content that does not address the specified population or setting (e.g., HTN content not tailored to older adults when required)",
+    "Poor organization/formatting (dense slides, no headings, unclear sections, hard to follow)",
+    "Failure to include requested educational features (pre-test question, case study application, patient education strategies)"
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Score each dimension 0\u201310, then compute weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required files are missing/inaccessible OR the deliverable is clearly incomplete (major sections absent, placeholder text, far below required length/slide count, missing required components like references), override the final overall score to 0\u20132.",
+    "score_scale": "0-10 where 0-2=Unacceptable (missing files/incomplete), 3-4=Poor, 5-6=Acceptable, 7-8=Good, 9-10=Excellent",
+    "automatic_low_score_triggers": [
+      "Any required output file is missing, inaccessible, corrupted, or replaced by a non-file response when a file is requested",
+      "Deliverable is severely incomplete (outline only, multiple required sections absent, missing required visuals/case study/pre-test/references as specified)",
+      "Major prompt requirements not addressed (e.g., lacks requested sections; does not focus on required population; ignores required guideline framework)",
+      "Contains dangerous clinical guidance (e.g., advises against indicated urgent evaluation, incorrect high-risk medication advice) without caveats",
+      "Evidence requirements violated in a way that undermines trust (e.g., fabricated citations in a literature review)"
+    ],
+    "excellent_output_characteristics": [
+      "All required files present, openable, and complete",
+      "Every explicit prompt requirement is clearly satisfied and easy to locate",
+      "Clinically accurate, guideline-aligned, internally consistent",
+      "High professional polish: clear structure, appropriate depth, audience-appropriate language",
+      "Strong NP best practices: safety-netting, patient education, follow-up, multidisciplinary considerations"
+    ],
+    "poor_output_characteristics": [
+      "Missing required files or provides only partial artifacts",
+      "Major omissions (no references, no case study, no search strategy, no plan/follow-up)",
+      "Multiple factual errors or unsafe recommendations",
+      "Disorganized, unclear, or not usable in real teaching/clinical settings",
+      "Generic boilerplate not tailored to the prompt\u2019s population/timeframe/guidelines"
+    ]
+  },
+  "example_evaluation_questions": [
+    "Are all required deliverables present as actual files in the requested formats (e.g., .docx/.pptx), and do they open successfully?",
+    "Does the artifact include every explicitly requested section/component (e.g., Search Strategy; Results with specified subthemes; pre-test MCQ; case study; references slide; SOAP headings)?",
+    "Are length and constraint requirements met (page count, slide count, max references, paragraph-form sections, timeframe)?",
+    "Are guideline-dependent elements correct and explicitly stated (e.g., AHA hypertension stages; appropriate diagnostic thresholds; appropriate management steps)?",
+    "Are there any clinical safety issues (missing red flags/return precautions, inappropriate medication advice, failure to address abnormal findings)?",
+    "Are references credible, relevant, and non-fabricated, and do they match the claims made?",
+    "Is the content tailored to the specified population and setting (older adults, pediatrics, primary care), rather than generic?",
+    "Is the organization and formatting professional and usable (clear headings, readable slides, speaker notes where requested)?",
+    "Does the output demonstrate NP-level reasoning (assessment supported by findings, differential when appropriate, plan includes diagnostics/therapeutics/education/follow-up)?",
+    "If input/reference files were provided, does the output accurately incorporate them without contradicting key details?"
+  ],
+  "metadata": {
+    "category": "Nurse Practitioners",
+    "sector": "Health Care and Social Assistance",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:26:27.779863",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2588,
+    "completion_tokens": 3268,
+    "total_tokens": 5856
+  }
+}

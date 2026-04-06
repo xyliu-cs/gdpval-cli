@@ -1,0 +1,132 @@
+{
+  "category": "Mechanical Engineers",
+  "evaluation_prompt": "You are an expert evaluator for Mechanical Engineering (Manufacturing sector) task outputs. You will be given: (1) the original task prompt, (2) any reference/input files, and (3) the agent\u2019s output files/artifacts. Your job is to assess whether the outputs fully and correctly satisfy the prompt, with heavy emphasis on file-based deliverables.\n\nCRITICAL RULE (NON-NEGOTIABLE): If ANY required output file/artifact is missing, inaccessible/corrupt, or the work is clearly incomplete (e.g., placeholders, partial exports, missing key sections/plots/drawings), you MUST assign an overall score in the 0\u20132 range regardless of apparent quality in other areas.\n\nEvaluation procedure (follow in order):\n1) Parse the prompt and create a deliverables list: required file types, naming/packaging (e.g., ZIP of STEP files), required sections, required plots/tables, required drawing standards, and any explicit constraints (units, temperature limits, boundary conditions, etc.).\n2) Inventory output files: verify every required file exists, opens successfully, and is the correct type (e.g., STEP is actual .stp/.step CAD, PDF is viewable, ZIP contains specified contents). Record missing/corrupt/wrong-type items.\n3) If missing/incomplete deliverables are found: set overall score to 0\u20132 and still briefly document what is missing and why it is incomplete.\n4) If complete: assess correctness against the prompt and reference files:\n   - For analysis tasks (thermal/CFD/FEA-style): verify inputs match prompt/reference, equations/assumptions are reasonable, results are internally consistent, required time points/locations/nodes are included, and conclusions follow from results.\n   - For design/CAD/drawing tasks: verify models are manufacturable for the stated prototype method (often CNC), assemblies fit logically, key functional constraints are addressed, and drawings include required views, title block, tolerances, BOM, balloons, and correct format.\n5) Assess quality: organization, readability, professional formatting, traceability (clear mapping from requirements \u2192 outputs), figure/table labeling, units, and versioning.\n6) Assess domain standards: appropriate engineering conventions (units, tolerances, safety factors/margins, GD&T where applicable, materials/corrosion/water ingress considerations, thermal management, DFM/DFA for prototypes, documentation norms).\n7) Produce: (a) dimension scores (0\u201310), (b) weighted score, (c) final overall score. Apply the missing-artifact override if triggered.\n\nWhen evaluating, do not invent missing data. If a required calculation depends on absent intermediate values and the agent did not provide them, treat as incorrect/incomplete. If reference files are provided, confirm the output uses them (e.g., cites them, matches geometry/data, or reproduces key figures/parameters).",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed",
+      "criteria": [
+        "All required file artifacts are present (correct count and types), including packaging requirements (e.g., ZIP for many STEP files) and any specified formats (PDF, STEP, CSV, images, etc.)",
+        "All files open successfully (not corrupt), are readable, and contain substantive content (not placeholders or empty exports)",
+        "All explicitly requested views/plots/tables/sections are included (e.g., exploded + assembled views; specific time points; specific nodes; required summary tables)",
+        "All required sub-assemblies/assemblies/models are provided when requested (not only a single combined file if separate outputs were required, and not missing sub-assemblies)",
+        "All prompt constraints are at least addressed (even if via stated assumptions): operating conditions, environmental range, manufacturability method, boundary conditions, acceptance thresholds, etc.",
+        "Traceability: outputs clearly indicate where each requirement is satisfied (e.g., drawing sheets labeled, report sections correspond to prompt sections)"
+      ],
+      "scoring_guidance": "0-2 if ANY required files are missing/inaccessible/corrupt or deliverables are clearly incomplete; 3-4 if many requirements unmet though files exist; 5-6 if notable omissions (missing some plots/tables/views/sections) but core deliverables present; 7-8 if only minor omissions (e.g., one minor table column, one missing callout) with otherwise complete set; 9-10 if fully complete, all deliverables and requirements satisfied with clear traceability."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, information, and logic",
+      "criteria": [
+        "Inputs/parameters match the prompt and reference files (materials, geometry assumptions, boundary conditions, units, node spacing, time points, etc.)",
+        "Engineering calculations and methods are appropriate for the requested fidelity (concept vs detailed), and assumptions are explicitly stated and reasonable",
+        "Numerical results are internally consistent (e.g., monotonic trends where expected; conservation checks where applicable; physically plausible ranges for temperature/pressure/velocity)",
+        "All requested evaluation thresholds/margins are computed correctly (e.g., back-face temperature vs limit; safety margins; tolerances; fit/clearance logic)",
+        "Figures/tables correctly represent underlying data (axes labeled with units; correct node indices/time stamps; correct min/max reported)",
+        "Conclusions and recommendations logically follow from the results and reflect the stated requirements and constraints"
+      ],
+      "scoring_guidance": "0-2 if results are mostly wrong, non-physical, or contradict prompt/reference; 3-4 if major errors in setup/units/boundary conditions or misinterprets requirements; 5-6 if generally reasonable but with notable errors, missing checks, or questionable assumptions; 7-8 if correct with minor numerical/interpretation issues; 9-10 if accurate, well-justified, and consistent with prompt/reference with strong verification."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization",
+      "criteria": [
+        "Reports/drawings are well-organized with clear headings matching requested sections (e.g., Objective/Boundary conditions/Results/Discussion/Conclusion)",
+        "Drawings use consistent sheet format/orientation as requested (e.g., ANSI B landscape), readable reminder notes, and appropriately scaled views",
+        "Plots and tables have titles, labeled axes/columns with units, legends, and readable font sizes; images are not blurry/pixelated",
+        "BOM tables are readable and include required fields (at minimum item number, name, qty, material; plus finish/coating if relevant)",
+        "File naming is sensible and unambiguous; multi-file submissions are packaged cleanly (e.g., ZIP structure)",
+        "Writing is concise and technical; avoids contradictions; includes a short summary of key results and pass/fail status where applicable"
+      ],
+      "scoring_guidance": "0-2 if unreadable, disorganized, or unusable formatting; 3-4 if significant clarity/format issues impede use; 5-6 if usable but with notable presentation gaps; 7-8 if professional with minor polish issues; 9-10 if publication-ready, consistent, and easy to review."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Industry-specific best practices for this occupation",
+      "criteria": [
+        "Uses correct engineering units and conventions; identifies standards where relevant (e.g., ANSI drawing conventions, GD&T/tolerance notes when appropriate)",
+        "Manufacturability awareness appropriate to prototypes (e.g., CNC: fillets, tool access, minimum wall thickness, standard fasteners, avoid impossible undercuts unless split parts)",
+        "Materials/finishes chosen and documented consistent with requirements (corrosion resistance, weight, thermal performance, environmental sealing)",
+        "Design includes practical assembly/service considerations when required (e.g., glove operation, tool-less battery access, belt clip interchangeability)",
+        "Analysis includes sanity checks, sensitivity/margin discussion, and recommends mitigations when close to limits",
+        "Demonstrates engineering documentation norms: revision/date/title blocks, assumptions list, limitations of the model/fidelity"
+      ],
+      "scoring_guidance": "0-2 if ignores basic engineering standards or uses unsafe/implausible practices; 3-4 if weak adherence to standards with multiple questionable choices; 5-6 if mixed adherence; 7-8 if generally aligned with minor lapses; 9-10 if strongly aligned with professional best practices and clearly documented."
+    }
+  },
+  "file_inspection_checklist": [
+    "Deliverables mapping: Create a checklist directly from the prompt (each required file + each required content element) and mark Pass/Fail with notes.",
+    "File presence and accessibility: Confirm each required output exists, opens, and is not corrupted (PDF renders, STEP imports, ZIP extracts).",
+    "Correct file types: Verify extensions and actual content (e.g., a .step is not a text placeholder; a .pdf is not empty).",
+    "Packaging rules: If prompt requires a ZIP for STEP files beyond a threshold, verify ZIP exists and contains all STEP files; confirm no required files are missing from the package.",
+    "CAD/STEP inspection (when applicable): Open STEP(s) in a viewer; check assembly structure, part count, coordinate alignment, obvious interferences, missing parts, and gross scale/units issues.",
+    "2D drawing PDF inspection (when applicable): Verify sheet size/orientation (e.g., ANSI B landscape), title block presence, tolerance notes, BOM table, balloons, exploded and assembled views, and readable scaling.",
+    "BOM verification (when applicable): Ensure BOM item numbers match balloons; quantities make sense; materials specified; critical items (seals/fasteners/clips) are listed if part of assembly.",
+    "Report PDF inspection (when applicable): Verify required sections exist; check that figures/tables referenced are present; ensure citations to reference files or parameters match prompt.",
+    "Plots/tables completeness (analysis tasks): Confirm all requested time points/nodes/cases are included; verify axes labels and units; confirm max/min tables and margin-to-limit table are present.",
+    "Numerical consistency checks: Spot-check calculations (e.g., margins, unit conversions, boundary condition values) and confirm no contradictions between text, tables, and plots.",
+    "Constraint satisfaction checks (design tasks): Look for explicit evidence meeting constraints (e.g., sealing features, glove-operable switch, replaceable batteries tool-less, thermal management features).",
+    "Traceability: Confirm outputs explicitly indicate pass/fail vs acceptance criteria when the prompt defines limits (e.g., back-face temperature < 150\u00b0C)."
+  ],
+  "common_failure_modes": [
+    "Missing required output files (e.g., no STEP files, no PDF report, no drawings, missing ZIP when required) \u2014 automatic 0\u20132 overall.",
+    "Files provided but corrupt/unopenable or wrong format (e.g., screenshots instead of CAD; text description instead of PDF/STEP) \u2014 automatic 0\u20132 overall.",
+    "Incomplete deliverables: missing required plots (specific time points), missing required drawing views (exploded/assembled), missing BOM/balloons/title block \u2014 typically 0\u20132 if explicitly required and absent.",
+    "Does not use provided reference files or contradicts them (e.g., ignores supplied node model/CFD results; mismatched boundary conditions).",
+    "Unit errors (\u00b0C vs K, mm vs inches) leading to non-physical results or incorrect dimensions.",
+    "No clear pass/fail evaluation against constraints or limits despite being required.",
+    "Non-manufacturable prototype geometry (impossible tool access, no assembly clearances, unrealistic thin walls, missing fastener strategy) when manufacturability is required.",
+    "Drawings that are unreadable: tiny text, missing scales, no view labels, no tolerances/title block.",
+    "Analysis without sufficient method description to reproduce or validate (missing equations, missing parameter list, missing node definitions).",
+    "Overconfident conclusions not supported by results; no margin discussion or mitigations when near limits."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Score each dimension 0\u201310, compute weighted average: completeness 40%, correctness 30%, quality 20%, domain_standards 10%. CRITICAL OVERRIDE: If any required files/artifacts are missing, corrupt, wrong-type, or deliverables are severely incomplete, set overall score to 0\u20132 regardless of weighted average. Document which required items are missing/incomplete and cite prompt language.",
+    "score_scale": "0-10 where 0-2=Unacceptable (missing files/incomplete), 3-4=Poor (major issues), 5-6=Acceptable (notable gaps/errors), 7-8=Good (minor issues), 9-10=Excellent (complete, accurate, professional).",
+    "automatic_low_score_triggers": [
+      "Any required output file is missing",
+      "Any required output file is unopenable/corrupt",
+      "Outputs are placeholders or clearly incomplete (e.g., missing required plots/timepoints/views/sections explicitly requested)",
+      "Wrong deliverable type (e.g., provides narrative instead of STEP/PDF; provides images instead of requested files)",
+      "Submission cannot be reviewed due to absent key artifacts (e.g., claims results but provides no report/plots/tables)"
+    ],
+    "excellent_output_characteristics": [
+      "All required files present, correctly formatted, and open successfully",
+      "Clear traceability from prompt requirements to delivered artifacts (checklist-like completeness)",
+      "Correct use of reference file data/parameters; reproducible calculations or clear post-processing linkage",
+      "Professional drawings/reports with proper standards (title block, tolerances, BOM/balloons, labeled plots with units)",
+      "Explicit pass/fail statements vs acceptance criteria and clear margin/sensitivity discussion",
+      "Sound engineering judgment, manufacturable concept details appropriate to prototype/manufacturing constraints"
+    ],
+    "poor_output_characteristics": [
+      "Missing or inaccessible deliverables; partial exports only",
+      "Key required content absent (e.g., no margin table, missing nodes/time points, missing exploded view)",
+      "Major unit/setup mistakes or non-physical results",
+      "Unclear, disorganized, or unreadable documentation",
+      "Ignores prompt constraints or provides unsupported claims"
+    ]
+  },
+  "example_evaluation_questions": [
+    "Deliverables: Exactly which files did the prompt require, and are they all present and openable?",
+    "If STEP/PDF/ZIP were requested, are the provided files truly those formats and not placeholders?",
+    "Does the submission explicitly address every stated requirement/constraint (environmental range, limits, manufacturability, serviceability, etc.)?",
+    "For analysis: Do boundary conditions, material properties, geometry parameters, and time points match the prompt/reference files?",
+    "Are the required plots/tables included (e.g., node profiles at specified times; contour/isotherms; representative node time traces; min/max field variable tables; global goals table)?",
+    "Are margins to limits computed correctly and clearly presented (including sign convention and units)?",
+    "Are the results physically plausible and internally consistent (trends, ranges, and cross-checks)?",
+    "For CAD/drawings: Are assemblies complete, interference-free at a high level, and plausible for CNC prototyping? Are key features for sealing/grip/glove operation represented?",
+    "Do drawings include required standards elements (sheet size/orientation, title block, tolerances, BOM, balloons, exploded + assembled views)?",
+    "Is the documentation professional and review-ready (clear structure, labeled figures, units, assumptions, limitations, and conclusions)?"
+  ],
+  "metadata": {
+    "category": "Mechanical Engineers",
+    "sector": "Manufacturing",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:21:56.011669",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2503,
+    "completion_tokens": 3364,
+    "total_tokens": 5867
+  }
+}

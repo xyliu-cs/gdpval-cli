@@ -1,0 +1,130 @@
+{
+  "category": "Customer Service Representatives",
+  "evaluation_prompt": "You are an evaluator LLM scoring an agent\u2019s deliverables for a task in the occupation category \u201cCustomer Service Representatives\u201d (Finance & Insurance sector). You will be given: (1) the original task prompt, (2) any reference/input files, and (3) the agent\u2019s output artifacts/files.\n\nYour job:\n1) Identify EVERY required deliverable from the prompt (e.g., email response, call script, summary report, training deck PDF, spreadsheet output, multiple PDFs, etc.). List them explicitly.\n2) Verify whether each required file/artifact exists among the outputs, and whether each is reasonably complete.\n   - CRITICAL RULE: If ANY required deliverable is missing OR the work is severely incomplete (placeholder text, truncated, empty/near-empty, wrong file type when a specific type is required, unreadable/corrupt file), you MUST assign an overall score in the 0\u20132 range, regardless of how good the other artifacts are.\n3) If deliverables exist and are complete enough to evaluate, assess four dimensions: Completeness, Correctness, Quality, Domain Standards.\n4) Use a 0\u201310 scoring scale with strong penalties for missing/incomplete deliverables.\n5) Ground your evaluation in evidence from the artifacts and reference files. If a claim depends on reference data (e.g., from an Excel log, account values, totals, policy content), cross-check against inputs. Note any discrepancies.\n6) Produce sub-scores (0\u201310) per rubric dimension and an overall score. Overall score is a weighted average (Completeness 40%, Correctness 30%, Quality 20%, Domain Standards 10%) UNLESS the critical missing/incomplete rule triggers, in which case overall score must be 0\u20132.\n\nHow to inspect:\n- Open each output file and confirm it is the correct type (PDF/email text/doc/spreadsheet) and matches the prompt requirements (length, sections, number of examples, requested subject line, etc.).\n- Check that the artifact addresses all requested questions, audiences, and constraints (tone, page length, no-fluff, down-to-earth vs formal, include specific regulations, etc.).\n- For tasks that use reference files: verify the agent actually used them and did not fabricate counts/figures. Spot-check random rows and totals.\n- For finance/insurance customer service: check for compliance-safe language, appropriate disclaimers, privacy considerations, non-legal-advice framing, and correct referencing of applicable rules/benefits.\n\nWhen scoring, be strict about missing artifacts and strict about factual accuracy when a task requests specific program/rule explanations or data summaries.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed.",
+      "criteria": [
+        "All required deliverables mentioned in the prompt are present as separate files/artifacts when requested (e.g., two PDFs if two PDFs are required).",
+        "Each deliverable is substantively complete (not a stub, not placeholder text, not partially generated, not abruptly cut off).",
+        "Correct file format is provided when explicitly required (e.g., PDF vs. plain text; multiple PDFs vs. single combined file if prompt requires separate documents).",
+        "All prompt-specified components are included (e.g., subject line, sections, requested fund list, requested rules, required number of examples, page-length targets, district-by-district breakdown, talking points, etc.).",
+        "Meets any structural constraints (e.g., ~10 pages, one-page summary, include 3 fictional accounts, include escalation steps).",
+        "Uses provided reference files when required (summaries based on the attached spreadsheet; not generic content)."
+      ],
+      "scoring_guidance": "0-2 if any required file is missing or deliverables are severely incomplete/incorrect format. 3-4 if many required components are missing within otherwise present files. 5-6 if most deliverables exist but there are notable omissions (missing sections/examples/pages). 7-8 if complete with only minor omissions or small deviations from requested structure/length. 9-10 if every deliverable and every requested component is present and clearly addressed."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, information, and logic.",
+      "criteria": [
+        "Factual accuracy for finance/insurance concepts described (e.g., products, funds, plan features, rules, customer rights).",
+        "If regulations or policies are referenced (e.g., FINRA rules, Senior Safe Act, plan benefits), they are described correctly at a practical level and not misrepresented.",
+        "Numerical accuracy: calculations, totals, counts, and summaries match the reference files; no fabricated figures.",
+        "Internal consistency: no contradictory statements across sections/files; examples align with stated guidance.",
+        "Appropriate scope: avoids giving incorrect legal/tax advice; avoids guaranteed outcomes; distinguishes between general info vs. account-specific actions.",
+        "For scenario-based artifacts (mock accounts, role-play cases), red flags are plausible and aligned with the described warning signs and escalation process."
+      ],
+      "scoring_guidance": "0-2 if major factual errors, fabricated data presented as factual, or severe misinterpretation of reference files/rules. 3-4 if multiple substantive errors or weak alignment with reference data. 5-6 if generally correct but with noticeable inaccuracies, unclear statements, or a few calculation/data errors. 7-8 if accurate with only minor imprecision that doesn\u2019t change meaning. 9-10 if highly accurate, carefully qualified, and cross-checked with inputs."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization, and usability for the intended audience.",
+      "criteria": [
+        "Clear organization: headings, logical flow, easy to scan; content matches a customer-service environment.",
+        "Tone matches prompt (e.g., down-to-earth training deck vs. formal customer email) and is respectful and empathetic.",
+        "Professional presentation: consistent fonts/styles, readable layout, appropriate tables/bullets, minimal typos/grammar issues.",
+        "Actionability: steps/checklists/scripts are easy for a representative to use during calls or in meetings.",
+        "PDFs (if required) look like finished documents (title page or clear title, page numbers optional, consistent spacing, not raw markdown unless it renders cleanly).",
+        "No extraneous content: avoids filler; meets \u201cno-fluff\u201d instructions when present."
+      ],
+      "scoring_guidance": "0-2 if unreadable, extremely disorganized, or not usable. 3-4 if hard to follow, messy formatting, frequent errors. 5-6 if usable but needs editing (some disorganization, verbosity, or inconsistent formatting). 7-8 if polished and clear with minor issues. 9-10 if highly professional, audience-appropriate, and exceptionally easy to use."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Finance/insurance customer service best practices, compliance-safe communication, and customer care standards.",
+      "criteria": [
+        "Privacy/security: avoids exposing sensitive personal data; encourages authentication/verification where appropriate.",
+        "Compliance-safe language: avoids guarantees, avoids telling customers to commit fraud/evade rules; uses careful phrasing around regulated topics.",
+        "Appropriate disclaimers/positioning: clarifies when information is general and suggests consulting official plan documents, compliance, or licensed professionals for advice when appropriate (without over-lawyering).",
+        "Escalation and documentation: includes when/how to escalate (e.g., suspected exploitation), notes documentation best practices, and respects internal procedures.",
+        "Customer empathy and accessibility: plain language explanations, respectful approach to seniors/vulnerable adults, cultural sensitivity.",
+        "Accuracy in describing protections/process (e.g., holds, trusted contact concept where relevant) without misrepresenting authority or outcomes."
+      ],
+      "scoring_guidance": "0-2 if dangerously non-compliant advice, privacy breaches, or no escalation guidance in high-risk scenarios. 3-4 if multiple compliance or customer-care gaps. 5-6 if generally aligned but missing some best practices (e.g., weak privacy framing). 7-8 if solid adherence with minor gaps. 9-10 if exemplary compliance-safe, empathetic, and procedurally sound."
+    }
+  },
+  "file_inspection_checklist": [
+    "Inventory deliverables: From the prompt, list each required output artifact (e.g., Email, PDF deck, second PDF with mock accounts, one-page summary PDF, talking points PDF). Verify each exists.",
+    "File format check: Confirm file extensions/types match requirements (PDF when required). If the system provides text-only outputs where PDF is required, treat as missing/wrong format unless the prompt explicitly allows alternatives.",
+    "Open/readability: Confirm each file opens and is readable (not corrupted, not blank, not screenshots of unreadable text).",
+    "Requirement mapping: For each deliverable, create a checklist of prompt requirements and mark Pass/Fail with brief evidence (page number/section).",
+    "Reference-file usage: If an Excel/CSV/reference is provided, verify the output uses it (correct district names, correct counts/themes, quotes or categorized feedback that matches). Spot-check at least 5 random data points.",
+    "Counts/quantities: Verify required number of examples/cases/accounts/slides/pages (e.g., exactly three fictional accounts; ~10 pages; one-page summary).",
+    "Key mandated content: Check inclusion of specified items (e.g., named funds G/F/C/S/I/L; specific rule names like FINRA 2165 and Senior Safe Act; escalation steps; subject line).",
+    "Accuracy audit: Identify any claims that should be validated (definitions, rule effects, benefit eligibility, timelines, hold durations if mentioned). Flag unverified or wrong statements.",
+    "Tone and audience: Check whether the writing matches customer-facing or internal training/board meeting context and avoids jargon or excessive legalese as instructed.",
+    "Compliance/ethics: Look for privacy breaches, guarantees, advice beyond scope, or failure to recommend escalation for suspected exploitation."
+  ],
+  "common_failure_modes": [
+    "Missing one or more required files (e.g., only one PDF delivered when two are required).",
+    "Wrong file type (text response instead of required PDF; combined documents when prompt requires separate PDFs).",
+    "Severely incomplete deliverable (stub, placeholder, abrupt cutoff, missing large sections).",
+    "Generic content that ignores the provided reference file (e.g., summary not derived from the attached Excel log).",
+    "Fabricated numbers or summaries that do not match reference data; no evidence of cross-checking.",
+    "Omitting mandated named items (e.g., leaving out specific funds/rules/programs explicitly requested).",
+    "Inaccurate descriptions of finance/insurance rules/benefits or misleading statements that could cause customer harm.",
+    "Overly legalistic or overly casual tone contrary to instructions; \u201ccorporate\u201d fluff when asked for no-fluff.",
+    "No practical next steps/escalation guidance in risk scenarios (elder exploitation).",
+    "Privacy/compliance issues: includes sensitive personal info unnecessarily; instructs actions that bypass authentication; guarantees returns or outcomes."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Step 1: Apply gating check for missing/incorrect-format/severely incomplete deliverables. If triggered, set overall score to 0\u20132 and explain which deliverables are missing/incomplete. Step 2: If not triggered, score each dimension 0\u201310 using the rubric. Step 3: Compute weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). Step 4: Optionally round to nearest whole number; do not round up if there are notable issues. Provide brief justification tied to evidence in the files.",
+    "score_scale": "0-10 where 0-2=Unacceptable (missing files or severely incomplete), 3-4=Poor (major issues), 5-6=Acceptable (notable gaps/errors), 7-8=Good (minor issues), 9-10=Excellent (complete, accurate, professional).",
+    "automatic_low_score_triggers": [
+      "Any required output file/artifact is missing.",
+      "Any required deliverable is provided in the wrong format when format is explicitly required (e.g., PDF required but only plain text delivered).",
+      "Any deliverable is severely incomplete (blank/near blank, placeholder, truncated, missing major required sections/examples).",
+      "Output cannot be opened/read (corrupt/unreadable file).",
+      "For reference-driven tasks: output clearly does not use the provided reference file and instead fabricates a summary."
+    ],
+    "excellent_output_characteristics": [
+      "All required files present, correctly formatted, and clearly labeled.",
+      "Every prompt requirement is explicitly addressed and easy to verify.",
+      "Accurate and appropriately scoped finance/insurance information; careful wording; no misleading claims.",
+      "Data-driven summaries match reference inputs; spot-checks pass.",
+      "Professional, audience-appropriate writing with practical steps/checklists and clear organization.",
+      "Strong domain practices: privacy-aware, compliant tone, clear escalation/documentation guidance where relevant."
+    ],
+    "poor_output_characteristics": [
+      "Missing deliverables or wrong formats.",
+      "Large omissions (missing requested sections, missing examples, missing page-length expectations by a wide margin).",
+      "Material inaccuracies about rules, benefits, or financial products; fabricated data.",
+      "Disorganized, hard to use, or contradicts the task\u2019s tone and usability requirements.",
+      "Non-compliant or risky guidance (guarantees, unauthorized advice, privacy violations)."
+    ]
+  },
+  "example_evaluation_questions": [
+    "Deliverables check: What exact files were required by the prompt, and are all of them present and readable?",
+    "Format check: Where the prompt required PDFs (or other specific formats), did the agent deliver those exact formats as separate files as requested?",
+    "Requirement coverage: Does each deliverable explicitly address every bullet/section requested in the prompt (e.g., mandated topics, counts, subject line, page-length targets)?",
+    "Reference fidelity: If an input spreadsheet/log was provided, do the output summaries match it? Can you verify at least 5 spot-checks (names/districts/counts/themes) with no mismatches?",
+    "Factual accuracy: Are explanations of finance/insurance rules/benefits/products correct and not overstated? Are any key statements wrong or misleading?",
+    "Actionability: Could a new hire or a front-line representative use this artifact during a live call/meeting without additional interpretation?",
+    "Tone/audience fit: Is the tone appropriate (empathetic, plain language, no fluff) for customers or trainees as specified?",
+    "Risk/compliance: Does the output avoid guarantees, avoid legal/tax advice beyond scope, protect privacy, and include appropriate escalation guidance for sensitive issues?",
+    "Consistency: Are there contradictions between sections or between multiple files (e.g., policy steps differ, definitions shift, counts don\u2019t align)?",
+    "Overall: If everything is present, is the work polished enough to be used as-is in a finance/insurance customer service setting?"
+  ],
+  "metadata": {
+    "category": "Customer Service Representatives",
+    "sector": "Finance and Insurance",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:06:33.082745",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2388,
+    "completion_tokens": 3261,
+    "total_tokens": 5649
+  }
+}

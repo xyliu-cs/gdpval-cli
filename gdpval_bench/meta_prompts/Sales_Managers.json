@@ -1,0 +1,130 @@
+{
+  "category": "Sales Managers",
+  "evaluation_prompt": "You are an evaluator LLM scoring an agent\u2019s deliverables for a Sales Managers task in the Wholesale Trade sector.\n\nYou will be given: (1) the original task prompt, (2) any reference/input files (e.g., spreadsheets, docs, templates), and (3) the agent\u2019s output artifacts (e.g., PDF, PPTX exported to PDF, XLSX, DOCX, CSV, images).\n\nYour job is to assess whether the agent produced the required deliverables and whether they meet the prompt requirements with correct business logic, accurate calculations, and professional sales-operations standards.\n\nCRITICAL RULE (NON-NEGOTIABLE):\n- If ANY required output file is missing, unreadable/corrupt, or clearly not the requested format (e.g., asked for a PDF deck but only text is provided), you MUST score the overall result in the 0\u20132 range.\n- If the work is severely incomplete (e.g., only a title slide, partial analysis, placeholder text like \u201cTBD\u201d, missing major sections requested), you MUST score overall 0\u20132.\n\nEvaluation steps (follow in order):\n1) Identify required deliverables from the prompt:\n   - Required file types (PDF, PPT-as-PDF, spreadsheet, etc.), required counts (e.g., 3-page PDF; 15\u201318 slides), and required contents (sections, analyses, charts/tables, summaries).\n2) Inventory the provided output artifacts:\n   - Confirm each required file exists.\n   - Open each file to confirm it is readable and contains substantive content.\n   - If any required deliverable is missing/unreadable/wrong format \u2192 overall score 0\u20132 (stop further scoring except to document why).\n3) Check completeness against prompt requirements:\n   - Verify all requested sections, pages/slides, breakdowns (e.g., by region, gender, fit), and add-ons (e.g., executive summary) are present.\n4) Check correctness:\n   - If the task involves data analysis, cross-check computations against the reference files:\n     * totals (units, revenue), group-bys, filters (regions), rankings (top fits), and any date constraints.\n     * ensure definitions match the prompt (e.g., what qualifies as \u201ctop-selling\u201d: by units and by revenue).\n   - If the task involves forms/templates, verify questions capture the required operational/sales readiness information without contradictions or omissions.\n   - If the task depends on a reference document, verify claims align with it and do not invent capabilities.\n5) Check quality and professionalism:\n   - Assess whether the outputs are client-ready/internal-ready: clear structure, consistent labeling, readable tables/charts, concise but complete content, logical flow.\n6) Check domain-specific standards for Sales Managers in Wholesale Trade:\n   - Look for practical applicability: actionable insights, appropriate sales ops details (pricing, terms, logistics), clear assumptions, and risk/edge-case awareness.\n\nScoring:\n- Score each rubric dimension 0\u201310 using the provided guidance.\n- Compute weighted average: Completeness 40%, Correctness 30%, Quality 20%, Domain Standards 10%.\n- Apply the CRITICAL override: if any required deliverable missing or severely incomplete \u2192 final overall must be 0\u20132 regardless of weighted average.\n\nWhen writing your evaluation, cite specific evidence from the artifacts (page/slide numbers, table names, sections) and any mismatches vs. the prompt/reference files.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed.",
+      "criteria": [
+        "All required output artifacts are present (correct file type/format as requested, e.g., PDF, PPT-as-PDF).",
+        "Artifacts are readable/openable and not corrupted; text and visuals render properly.",
+        "Meets required length/structure constraints (e.g., page count, slide count, required separation such as men\u2019s vs women\u2019s slides, required regions/segments).",
+        "All explicitly requested sections/components are included (e.g., executive summary, per-region breakdowns, charts/tables, prompts/questions, space for answers).",
+        "No major placeholders (e.g., \u201cTBD\u201d, lorem ipsum) in required sections; content is substantively filled.",
+        "If multiple deliverables are implied (e.g., both deck and extracted data table), all are provided."
+      ],
+      "scoring_guidance": "0\u20132: Any required file missing/unopenable/wrong format OR deliverable severely incomplete (missing major sections, mostly placeholders). 3\u20134: Multiple requirements unmet (missing key sections, insufficient slides/pages, missing required breakdowns). 5\u20136: Mostly complete but notable omissions (e.g., missing one region, missing executive summary, limited space for answers). 7\u20138: Complete with only minor omissions/edge cases. 9\u201310: Fully complete; every requirement and constraint met precisely."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, information, and logic.",
+      "criteria": [
+        "Data-derived outputs (tables/charts/rankings) match reference files: correct groupings, filters, sums, and rankings.",
+        "Correct interpretation of prompt definitions (e.g., \u2018top-performing\u2019 by total units and total revenue; correct region mapping; correct segmentation such as gender/fit/account location).",
+        "No arithmetic errors, mis-sorted rankings, or incorrect units/currency; totals consistent across slides/sections.",
+        "No unsupported claims: statements about services/capabilities align with provided documentation; no invented features, metrics, or partnerships.",
+        "Methodology is internally consistent and replicable (even if not fully shown, outputs don\u2019t contradict each other).",
+        "Charts and tables accurately reflect the underlying numbers and labels (no swapped legends, mislabeled axes, or mismatched values)."
+      ],
+      "scoring_guidance": "0\u20132: Predominantly incorrect, fabricated, or contradicts reference data/documentation; major misinterpretation of prompt. 3\u20134: Significant errors in key calculations/segments or multiple incorrect rankings. 5\u20136: Generally correct but with several notable errors or ambiguous logic. 7\u20138: Minor mistakes that don\u2019t change main conclusions (e.g., small labeling error). 9\u201310: Fully accurate; cross-checks align with references; no unsupported claims."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization, and usability of the artifacts.",
+      "criteria": [
+        "Clear structure and flow aligned to sales/ops usage (headings, slide titles, logical ordering, consistent section naming).",
+        "Readability: appropriate font sizes, spacing, and contrast; tables/charts legible; no cramped or overflowing text.",
+        "Professional tone appropriate for client/internal stakeholders; concise, unambiguous language.",
+        "Visuals enhance comprehension (where applicable): charts/tables are well-formatted, labeled, and not misleading.",
+        "Consistency across the artifact: consistent terminology (regions, fits, KPIs), consistent formatting, and no broken layouts.",
+        "Usability for intended action: forms have sufficient space to fill out; decks support discussion and decisions."
+      ],
+      "scoring_guidance": "0\u20132: Unusable formatting, illegible content, chaotic organization. 3\u20134: Poorly organized or hard to read; significant presentation issues. 5\u20136: Adequate but clearly rough; inconsistencies or clutter impede comprehension. 7\u20138: Polished and readable with minor formatting issues. 9\u201310: Highly professional, clean, consistent, and easy to use."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Adherence to Sales Manager best practices in Wholesale Trade (sales ops, distribution readiness, account performance reporting, and client-facing materials).",
+      "criteria": [
+        "Uses relevant wholesale KPIs and language (units, revenue, sell-in/sell-through if applicable, account segmentation, regional rollups).",
+        "Operational readiness coverage (when relevant): ordering cadence, lead times, MOQs, logistics/warehousing, compliance, chargebacks, EDI, returns, packaging specs, pricing/terms, promo calendars.",
+        "Actionability: highlights implications, risks, next steps, and decision-useful summaries (e.g., exec summary with key takeaways).",
+        "Appropriate stakeholder orientation: content usable by merchandising/planning/ops or external clients; avoids irrelevant deep technical content.",
+        "Data ethics and confidentiality: doesn\u2019t expose unnecessary sensitive info; avoids hallucinated customer data; clearly labels assumptions.",
+        "If visuals are used, they are suitable for commercial use (open-source/permissioned) when the prompt requires it."
+      ],
+      "scoring_guidance": "0\u20132: Ignores basic wholesale sales/ops standards; content not actionable or inappropriate for stakeholders. 3\u20134: Limited domain alignment; missing many standard considerations. 5\u20136: Moderately aligned but missing important best-practice elements. 7\u20138: Strong alignment with minor gaps. 9\u201310: Excellent adherence; demonstrates strong wholesale sales management judgment and best practices."
+    }
+  },
+  "file_inspection_checklist": [
+    "Confirm every required deliverable file exists (by name/type) exactly as requested in the prompt (e.g., PDF document, PPT exported to PDF, spreadsheet output).",
+    "Open each output file to confirm it is readable (not corrupt), complete, and not a link to an external location.",
+    "If prompt specifies page/slide counts (e.g., 3 pages; 15\u201318 slides), verify the count and that each page/slide has substantive content.",
+    "Check for required structural separations (common in this category):\n- Men\u2019s vs women\u2019s sections/slides\n- Regional sections (Midwest/South/Northeast/West Coast or prompt-defined regions)\n- Executive summary vs detailed appendix/breakdowns",
+    "For analysis deliverables: cross-check at least 2\u20133 sample values against the reference spreadsheet (totals by region, top fit ranking by units and revenue) to validate computations.",
+    "Verify charts/tables: titles, labels, legends, axes, and units match the underlying numbers; look for swapped labels or inconsistent totals across slides.",
+    "For forms/templates: verify questions cover key wholesale onboarding inputs (contacts, pricing/terms, catalog/SKU data, fulfillment/logistics, compliance/packaging, returns/claims, marketing assets, forecasting, ordering process) and provide space for responses.",
+    "For decks/proposals: ensure claims align with provided reference documents; check that required service categories are included and not invented; verify any required image sourcing constraints (open-source only) are followed or at least not obviously violated.",
+    "Check that the artifact is \u2018ready to use\u2019 for the stated audience (internal teams, clients, merchandising/planning). Look for placeholders, missing sections, or unclear instructions.",
+    "Check date/period correctness when the prompt includes \u2018today\u2019s date\u2019 or time windows; verify any stated time period in titles and summaries matches."
+  ],
+  "common_failure_modes": [
+    "Missing required output file(s) (e.g., no PDF provided, wrong format, or only chat text).",
+    "Unreadable/corrupted files or exports where content is cut off, blank pages, or missing embedded charts.",
+    "Severely incomplete deliverable: too few slides/pages, missing executive summary, missing requested regions/segments, or placeholder text.",
+    "Incorrect segmentation (e.g., regions mis-assigned; men\u2019s/women\u2019s combined despite prompt requiring separation).",
+    "Wrong KPI interpretation (e.g., ranks by revenue only when both units and revenue required; confuses sell-in vs sell-through).",
+    "Math errors in totals, incorrect group-by logic, or inconsistent totals across slides and summary.",
+    "Charts/tables that do not match displayed numbers (mislabeled axes/legend, swapped categories).",
+    "Invented claims not supported by reference docs (especially for agency/service decks).",
+    "Form/template that is too generic: misses wholesale operational details like MOQs, lead times, EDI/compliance, returns/chargebacks, pricing/terms.",
+    "Unprofessional quality: cluttered slides, illegible tables, inconsistent terminology, typos that reduce credibility."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Calculate weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required files are missing/unopenable/wrong format OR deliverables are severely incomplete, set final overall score to 0\u20132 regardless of other dimension scores.",
+    "score_scale": "0\u201310 where 0\u20132 = Unacceptable (missing files/severely incomplete), 3\u20134 = Poor, 5\u20136 = Acceptable, 7\u20138 = Good, 9\u201310 = Excellent.",
+    "automatic_low_score_triggers": [
+      "Any required output file is missing.",
+      "Any required output file is unopenable/corrupted or clearly not the requested deliverable type (e.g., asked for PDF deck; delivered plaintext only).",
+      "Deliverable is severely incomplete: missing major required sections, far below required page/slide count, or contains substantial placeholder content.",
+      "Analysis tasks: no evidence of using the provided reference data (numbers appear fabricated or not tied to the spreadsheet).",
+      "Client-ready deck tasks: content contradicts or invents key elements beyond the provided reference documentation."
+    ],
+    "excellent_output_characteristics": [
+      "All required deliverables present, readable, and meet specified length/structure.",
+      "All prompt requirements addressed, including segmentations (regions/gender/accounts) and required summaries.",
+      "Accurate calculations and rankings validated against reference data; consistent totals across summary/detail.",
+      "Professional formatting: clear slide/page titles, legible tables/charts, consistent terminology, minimal typos.",
+      "Strong wholesale sales management relevance: actionable insights, operational readiness considerations, and stakeholder-appropriate messaging.",
+      "No unsupported claims; adheres to any sourcing/usage constraints for visuals when applicable."
+    ],
+    "poor_output_characteristics": [
+      "Missing or wrong-format deliverables; unreadable files.",
+      "Major omissions (missing regions/segments/exec summary) or insufficient pages/slides.",
+      "Material calculation errors, incorrect rankings, or obvious fabrication unrelated to reference data.",
+      "Disorganized or illegible presentation; confusing labels and inconsistent metrics.",
+      "Content not aligned with wholesale sales manager needs (too generic; lacks practical operational or commercial details)."
+    ]
+  },
+  "example_evaluation_questions": [
+    "Are all required deliverable files present in the correct format (e.g., PDF, PPT-as-PDF)? If not, assign 0\u20132 overall.",
+    "Does the deliverable meet the required length/structure (page count, slide count, required sections like executive summary and detailed breakdowns)?",
+    "For any data analysis: Do the top-performing items (e.g., fits/SKUs) by region/segment match what you compute from the reference spreadsheet for units and revenue?",
+    "Are regions/segments defined and applied correctly (e.g., Midwest/South/Northeast/West Coast; men\u2019s vs women\u2019s separated as requested)?",
+    "Do totals and rankings remain consistent between executive summary slides and detailed slides/tables?",
+    "Are charts/tables labeled correctly with units, currency, and categories, and do they visually match the numbers shown?",
+    "For onboarding/readiness documents: Does the questionnaire cover critical wholesale operational and commercial details (pricing/terms, MOQs, lead times, logistics, compliance, returns/chargebacks, ordering process, contacts, forecasting)?",
+    "For service/deck tasks: Do all claims, service descriptions, and capabilities align with the provided reference doc(s) without invention?",
+    "Is the deliverable usable by the intended audience without additional editing (clear instructions, appropriate tone, sufficient whitespace/space for answers where relevant)?",
+    "Are there any red flags that should force a 0\u20132 (missing file, unopenable file, placeholder-heavy, fabricated analysis)?"
+  ],
+  "metadata": {
+    "category": "Sales Managers",
+    "sector": "Wholesale Trade",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:40:27.480347",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2131,
+    "completion_tokens": 3462,
+    "total_tokens": 5593
+  }
+}

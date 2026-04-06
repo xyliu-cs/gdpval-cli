@@ -1,0 +1,132 @@
+{
+  "category": "First-Line Supervisors of Retail Sales Workers",
+  "evaluation_prompt": "You are an expert evaluator assessing an AI agent\u2019s work product for a task in the occupation category \u201cFirst-Line Supervisors of Retail Sales Workers\u201d (Retail Trade). You will be given: (1) the original task prompt, (2) any reference/input files named in the prompt, and (3) the agent\u2019s output artifacts/files. Your job is to score the submission on a 0\u201310 scale using the rubric below and provide dimension scores plus a final overall score.\n\nCRITICAL RULE (NON-NEGOTIABLE): If ANY required deliverable/output file is missing, not accessible/corrupted, in the wrong format when a format is required (e.g., PDF requested but only text provided), or the work is severely incomplete (e.g., placeholders, partial template with no real content), you MUST assign an overall score in the 0\u20132 range regardless of how good any remaining material is.\n\nEvaluation process (follow in order):\n1) Parse the prompt and list all required deliverables (files + any required sections/content), required formats (PDF, DOCX, email template, slides count, signature lines, etc.), and any constraints (use reference file content, prioritization rules, word/sentence counts, \u201cmanager sign-off at end,\u201d etc.).\n2) Inventory the provided output artifacts: filenames, formats, page/slide counts, and whether each opens and is readable.\n3) Completeness check (gate): Verify every required deliverable exists and is substantially filled in. If not, assign overall 0\u20132 and still note what is missing.\n4) Content verification: Cross-check the agent\u2019s outputs against the prompt requirements and reference files. For tasks requiring use of an attached schedule/task list/employee data, confirm the agent actually incorporated that data correctly (not fabricated or ignored).\n5) Quality and professionalism: Check formatting, clarity, organization, and whether the deliverable is ready to use in a retail supervision environment.\n6) Domain standards: Confirm alignment with retail operations best practices (clear accountability, shift coverage, customer experience focus, compliance/safety, and actionable communication).\n\nImportant: This category includes varied artifacts (e.g., task lists, schedules, staffing plans, training/job aids, performance evaluation summaries, customer outreach templates, operational checklists, slide/PDF decks). Evaluate based on what the specific prompt requests, but apply consistent standards: deliverables must be usable, accurate, and operationally realistic.\n\nOutput required from you (the evaluator):\n- Dimension scores (0\u201310) for Completeness, Correctness, Quality, Domain Standards.\n- Final overall score (0\u201310) using weighted average, unless overridden by the critical missing/incomplete rule.\n- Brief justification bullets: what was done well, what is missing/wrong, and the top fixes needed to reach 9\u201310.\n\nExamples of deliverable-specific checks (apply only when relevant):\n- If a PDF deck is requested: confirm slide count range, consistent \u201clook\u201d theming, brand/collection consistency, readable visuals/text, and that the PDF is present.\n- If a Daily Task List is requested: confirm it includes all tasks from the reference document, has assignment fields, initials/signature fields, notes space, and manager sign-off at the end; confirm PDF format.\n- If a promotion/hiring recommendation paragraph is requested: confirm it follows sentence count, uses the provided evaluation data, respects prioritization criteria (e.g., leadership adaptability > productivity), and avoids unsupported claims.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist, are accessible, and all prompt requirements are addressed with substantial content (no placeholders). This is the highest-priority dimension and acts as a practical gate.",
+      "criteria": [
+        "All required deliverables are present (every file/artifact requested in the prompt).",
+        "Each required deliverable is in the required format (e.g., PDF when specified; not a link-only response unless allowed).",
+        "Files open successfully (not corrupted, not blank, not unreadable).",
+        "All required sections/fields are included (e.g., assignment fields, initials, notes, sign-off blocks, dates, slide/page counts, templates, etc.).",
+        "Work is substantially complete (not partial outlines, not \u2018TBD\u2019, not generic filler).",
+        "If the prompt references an attached/input file, the deliverable reflects that content (e.g., includes the listed tasks; uses the provided data).",
+        "Meets any explicit length/structure constraints (e.g., \u201c4\u20136 slides,\u201d \u201c5\u20137 sentences,\u201d \u201cmanager sign-off at very end\u201d)."
+      ],
+      "scoring_guidance": "0\u20132 if any required file is missing/wrong format/unopenable OR deliverable is severely incomplete. 3\u20134 if multiple requirements are unmet or major sections missing. 5\u20136 if all files exist but notable omissions (missing fields, missing some required items, constraints not met). 7\u20138 if minor omissions only (small formatting/field gaps). 9\u201310 if everything required is present, correctly formatted, and fully filled in."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of information, calculations, logic, and faithful use of provided reference materials.",
+      "criteria": [
+        "Information derived from reference files matches the source (tasks copied correctly; data values not altered; no invented metrics).",
+        "Any calculations, rankings, or selections follow the prompt\u2019s decision criteria and prioritization rules.",
+        "Internal consistency (names, dates, counts, totals, roles, and sections match across the document).",
+        "Meets operational logic (tasks are feasible for shift timing; responsibilities align with retail roles).",
+        "No factual contradictions or unsupported assertions (especially in performance/HR-like evaluations).",
+        "If brand/collection or product constraints are specified, outputs stay within scope (no mixing collections/years unless allowed)."
+      ],
+      "scoring_guidance": "0\u20132 if content is largely fabricated, contradicts reference data, or ignores core constraints. 3\u20134 if frequent errors or misread prompt. 5\u20136 if some correct content but several notable mistakes or weak evidence. 7\u20138 if mostly accurate with a few minor issues. 9\u201310 if fully accurate, well-justified, and traceable to inputs."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional presentation, clarity, organization, and usability of the artifacts as real retail supervisory tools.",
+      "criteria": [
+        "Clear structure and headings; easy to scan for associates on shift.",
+        "Professional formatting (consistent fonts, alignment, spacing; clean tables/checklists).",
+        "Readability (appropriate font sizes; sufficient contrast; not overcrowded).",
+        "Actionable language (specific, unambiguous instructions; avoids vague statements).",
+        "Appropriate tone for workplace communications (polite, brand-aligned if customer-facing, and concise).",
+        "Error-free writing (minimal typos/grammar issues; correct terminology).",
+        "Practical usability (can be printed/posted; fields sized for handwriting if needed; logical flow)."
+      ],
+      "scoring_guidance": "0\u20132 if unusable due to disorganization, illegibility, or extremely poor writing/formatting. 3\u20134 if hard to use with major formatting or clarity issues. 5\u20136 if usable but noticeably rough or inconsistent. 7\u20138 if polished with minor issues. 9\u201310 if highly professional, clean, and immediately deployable."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Alignment with best practices for first-line retail supervision: accountability, customer experience, compliance, and operational execution.",
+      "criteria": [
+        "Clear accountability mechanisms (assignment owner, initials/sign-off, manager verification where relevant).",
+        "Customer experience protection (tasks and communications avoid friction; respectful client outreach; avoids spammy messaging).",
+        "Operational realism (shift-based sequencing; opening/closing duties; safety and loss prevention awareness when applicable).",
+        "Compliance/HR sensitivity (objective language for evaluations; avoids discriminatory or overly personal judgments).",
+        "Data privacy and professionalism (no unnecessary sensitive data; appropriate handling of employee info).",
+        "Brand/retail tone alignment for customer-facing materials (luxury vs. mass retail voice as appropriate)."
+      ],
+      "scoring_guidance": "0\u20132 if content violates professional/HR norms, encourages unsafe/noncompliant practices, or is operationally unrealistic. 3\u20134 if weak alignment with retail supervisory standards. 5\u20136 if generally aligned but misses notable best practices. 7\u20138 if strong alignment with minor gaps. 9\u201310 if exemplary supervisory best-practice adherence."
+    }
+  },
+  "file_inspection_checklist": [
+    "Confirm every required output artifact mentioned in the prompt exists (count files; match names/types to requirements).",
+    "Open each file to verify it is readable and not blank/corrupt; confirm it\u2019s the requested format (especially PDF requirements).",
+    "If the prompt requests a PDF: verify the submission includes an actual PDF file (not only text, not screenshots without a PDF, not a link unless explicitly allowed).",
+    "Check page/slide counts against constraints (e.g., \u201c4\u20136 slides\u201d); verify the deck is not missing slides or content blocks.",
+    "For checklists/DTLs: verify presence of fields for (a) employee assignment name, (b) initials/signature on completion, (c) notes, (d) manager sign-off at the specified location, (e) date/store/department identifiers if needed.",
+    "Cross-check against any reference files: ensure all listed tasks/items/data are included and accurately transcribed; confirm none are omitted without justification.",
+    "For evaluation/selection memos: verify required length (e.g., 5\u20137 sentences) and that reasoning uses provided data and prioritization rules.",
+    "For customer outreach templates: confirm they include purpose, appointment call-to-action, personalization placeholders, opt-out/permission-aware phrasing when relevant, and brand-appropriate tone.",
+    "Check for placeholders (TBD, Lorem ipsum, bracketed notes not replaced) and treat them as incompleteness if central.",
+    "Verify the deliverable is operationally usable (printable layout, clear instructions, unambiguous steps, realistic staffing assumptions)."
+  ],
+  "common_failure_modes": [
+    "Missing required file(s) entirely (e.g., no PDF attached when a PDF is required).",
+    "Wrong format submission (DOCX or plain text instead of required PDF; or only a link).",
+    "Blank, corrupted, or unreadable files.",
+    "Partial deliverables (e.g., task list template without populated tasks; slide deck missing looks; memo missing final decision).",
+    "Ignoring the reference file (inventing tasks/data instead of using provided document/spreadsheet).",
+    "Not following explicit constraints (wrong slide count, wrong sentence count, manager sign-off not at the end).",
+    "Generic content that does not address the specific prompt context (e.g., outreach not tied to the specified collection or retail segment).",
+    "Incorrect transcription of tasks/data from reference files; missing items or altered wording that changes meaning.",
+    "Operationally unrealistic or non-actionable instructions (unclear ownership, no sign-off mechanism, impossible timing).",
+    "Unprofessional tone or HR-risk language (biased statements, overly personal judgments, inappropriate customer messaging)."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Compute weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required deliverable is missing, wrong required format, unopenable, or severely incomplete, set overall score to 0\u20132 (choose 0, 1, or 2 based on how much is missing and whether any usable partial work exists).",
+    "score_scale": "0\u20132 Unacceptable (missing/incorrect format/unopenable/severely incomplete). 3\u20134 Poor (major gaps, many requirements unmet, significant errors). 5\u20136 Acceptable (meets basics but notable omissions/errors reduce usability). 7\u20138 Good (complete with minor issues; mostly accurate and usable). 9\u201310 Excellent (fully complete, accurate, polished, and aligned to retail supervisory best practices).",
+    "automatic_low_score_triggers": [
+      "Any required output file/artifact is missing.",
+      "Any required file is provided in the wrong format when the prompt requires a specific format (especially PDF).",
+      "Any provided file is blank, corrupted, or cannot be opened/read.",
+      "Deliverables are severely incomplete (placeholders, missing major sections, no real content).",
+      "The submission ignores required reference files and fabricates core content that should be sourced."
+    ],
+    "excellent_output_characteristics": [
+      "All required artifacts present in correct formats and fully populated.",
+      "Faithful, traceable use of reference documents/spreadsheets with accurate transcription and calculations.",
+      "Meets all explicit structural constraints (counts, lengths, sign-off placement, required fields).",
+      "Highly usable in-store: clear ownership, easy sign-offs, print-friendly layout, and actionable language.",
+      "Professional, brand-appropriate customer communication templates with clear CTA and personalization fields.",
+      "Sound supervisory judgment and HR-safe language for evaluations and staffing decisions."
+    ],
+    "poor_output_characteristics": [
+      "Missing or wrong-format required deliverables; inaccessible files.",
+      "Large sections omitted (e.g., no sign-off lines, no notes fields, missing tasks from reference list).",
+      "Material inaccuracies, invented data, or decisions not supported by provided inputs.",
+      "Confusing layout; hard for associates to follow; not ready for operational use.",
+      "Unprofessional tone, compliance blind spots, or unrealistic expectations for retail operations."
+    ]
+  },
+  "example_evaluation_questions": [
+    "What exact files/artifacts does the prompt require, and are all of them present in the outputs?",
+    "Are any required outputs specified as PDF, and is a true PDF file provided and readable?",
+    "Does the submission meet explicit structural constraints (slide count, sentence count, required sign-off placement, required fields)?",
+    "Where a reference file is provided, did the agent correctly incorporate ALL required items/data from it (no omissions, no fabrication)?",
+    "Is there clear accountability (assigned owner, initials/signature, date, manager sign-off where required)?",
+    "Is the content operationally realistic for a retail floor/department (timing, staffing, customer impact)?",
+    "Is the writing and formatting professional, consistent, and easy to use/print?",
+    "Does any content create HR/compliance risk (biased evaluation language, inappropriate employee data exposure, unsafe practices)?",
+    "For customer-facing templates, is the tone appropriate to the retail segment and does it include a clear appointment CTA and personalization placeholders?",
+    "If the task requires prioritization (e.g., leadership potential over productivity), does the reasoning reflect that priority explicitly and correctly?"
+  ],
+  "metadata": {
+    "category": "First-Line Supervisors of Retail Sales Workers",
+    "sector": "Retail Trade",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:17:22.756174",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2143,
+    "completion_tokens": 3229,
+    "total_tokens": 5372
+  }
+}

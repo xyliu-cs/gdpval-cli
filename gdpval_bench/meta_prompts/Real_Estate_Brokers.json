@@ -1,0 +1,135 @@
+{
+  "category": "Real Estate Brokers",
+  "evaluation_prompt": "You are evaluating an AI agent\u2019s deliverables for a task in the occupation category \u201cReal Estate Brokers\u201d (Real Estate and Rental and Leasing). You will be given: (1) the original task prompt, (2) any reference/input files listed in the prompt, and (3) the agent\u2019s output files/artifacts.\n\nYour job:\n1) Identify REQUIRED deliverables from the prompt (specific file types like PDF/DOCX, page limits, sections, templates, scripts, exhibits, calculations, dates, addresses, parties, etc.).\n2) Verify the required output files exist and are accessible/openable. This is the most important step.\n3) Inspect each output file carefully (including layout, headings, tables, numeric terms, legal/transaction terms, and any required visuals). Confirm every requirement is addressed.\n4) Check correctness of all property/party facts copied from the prompt, and verify any calculations (cap rate/price conversions, deposit totals and timing, dates, feasibility/closing timelines, etc.).\n5) Evaluate professional quality: real estate brokerage standards, client-ready formatting, clarity, internal consistency, and adherence to requested tone.\n6) Apply the scoring rubric and compute a weighted score.\n\nCRITICAL SCORING RULE (NON-NEGOTIABLE):\n- If ANY required output file is missing, not provided, corrupted/unopenable, or the deliverable is severely incomplete (e.g., placeholder text, missing major sections, wrong file type when explicitly required), you MUST assign an overall score in the 0\u20132 range, regardless of how good any partial content is.\n\nWhen scoring:\n- Use the 0\u201310 scale definitions provided.\n- Provide brief, specific justifications referencing the prompt requirements (e.g., \u201cRequired 5\u20138 page PDF playbook; only 2 pages provided\u201d or \u201cDOCX LOI requested; only plain text provided\u201d).\n- Note both strengths and deficiencies, but do not \u201crescue\u201d missing deliverables with narrative: missing artifacts drive the score.\n\nTypical artifact types in this category (examples only):\n- Leasing outreach playbooks (PDF with scripts, cadence, flyer template, visuals)\n- Letters of Intent (DOCX, formal sections, correct dates/terms)\n- Compensation/commission structure one-pagers (PDF, concise sections)\n\nCheck for: completeness, numeric/legal correctness, consistency across sections, and brokerage professionalism.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed (MOST IMPORTANT).",
+      "criteria": [
+        "All required file(s) are present in the outputs (correct number of files if specified).",
+        "Each required file is in the required format (e.g., PDF, DOCX) when explicitly requested.",
+        "Files are openable/readable (not corrupted, not empty, not a link-only placeholder).",
+        "All required sections/components from the prompt are included (e.g., cover page, executive summary, scripts, cadence, templates, purpose/splits/summary, LOI sections, etc.).",
+        "Meets explicit length/page constraints when stated (e.g., \u201cno more than 5 pages\u201d, \u201c5\u20138 page PDF\u201d).",
+        "Incorporates and uses reference files when required (reflects terms/ideas contained in provided inputs).",
+        "Includes required visuals/templates when requested (e.g., stock photos on each page; one-page flyer template).",
+        "Addresses all named parameters (property address, size/SF, parties, dates, timelines, deposits, title/escrow, broker involvement, etc.) with no major omissions."
+      ],
+      "scoring_guidance": "0-2 if any required files are missing/unopenable, wrong required format, or deliverable is severely incomplete (major sections absent, far under length, obvious placeholder). 3-4 if multiple requirements/sections are missing or page limits violated significantly. 5-6 if core deliverable exists but has notable omissions (some required sections/templates/visuals missing) or weak integration of references. 7-8 if complete with only minor omissions (small missing detail, minor page/count deviations, small missing ancillary element). 9-10 if fully complete, meets all stated constraints, includes all required components and reference integration."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, information, and internal logic based strictly on the prompt and reference files.",
+      "criteria": [
+        "All factual details from the prompt are correctly transcribed (names, addresses, SF, locations, brokerages, anchor tenants, etc.).",
+        "All numeric calculations are correct and clearly derived when needed (e.g., cap rate to price rounding; deposit totals; timeline math).",
+        "Dates and deadlines are correct (e.g., LOI date, expiration window, feasibility/closing periods, extension option terms).",
+        "Transaction terms are internally consistent across the document (no conflicting purchase price, cap rate, deposit amounts, or timelines).",
+        "Requested legal/business positioning is correct (e.g., LOI typically non-binding language if asked/expected; assignment rights; 1031 cooperation language; escrow/title selection).",
+        "No invented facts that conflict with the prompt; any assumptions are clearly labeled and do not override provided facts.",
+        "For outreach materials: tenant categories match prompt; scripts reference correct property highlights; cadence is coherent and feasible."
+      ],
+      "scoring_guidance": "0-2 if pervasive inaccuracies, wrong property/parties, wrong key numbers (price/cap rate/deposits), or contradictions that undermine usability. 3-4 if several major factual or numeric errors exist. 5-6 if mostly correct but with notable errors/unclear math or a few inconsistent terms. 7-8 if minor factual slips or small calculation/presentation issues that don\u2019t change overall meaning. 9-10 if all material facts and calculations are correct, consistent, and clearly stated."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization, and client-ready presentation.",
+      "criteria": [
+        "Document is well-structured with clear headings, logical flow, and scannable formatting (bullets/tables where appropriate).",
+        "Writing is professional, concise, and aligned to the requested tone (formal for LOIs; instructional for playbooks).",
+        "Templates (e.g., flyer, outreach cadence table) are usable and polished (not rough notes).",
+        "Visual presentation meets expectations (e.g., consistent fonts, spacing, margins; images placed appropriately; no broken layout).",
+        "No glaring grammar/spelling errors; avoids awkward repetition or generic filler.",
+        "Actionability: materials can be used by a brokerage team without heavy rewriting (scripts sound natural; steps are clear)."
+      ],
+      "scoring_guidance": "0-2 if illegible, chaotic, or clearly non-client-ready (draft fragments, heavy errors). 3-4 if difficult to use due to poor organization, many writing errors, or sloppy formatting. 5-6 if adequate but noticeably rough or generic; needs editing. 7-8 if polished with minor editorial or formatting improvements needed. 9-10 if exceptionally clear, visually professional, and immediately client/team-ready."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Adherence to real estate brokerage best practices and norms for the artifact type (leasing, LOI, compensation plan, etc.).",
+      "criteria": [
+        "Uses standard industry structure for the document type (e.g., LOI sections: parties, property, price, deposits, feasibility, closing, deliverables, costs, expiration, non-binding language, signatures).",
+        "Includes appropriate disclaimers/clarifications where customary (e.g., LOI non-binding except confidentiality/exclusivity if included; not legal advice\u2014only if appropriate and not conflicting with prompt).",
+        "Reflects practical brokerage workflow (e.g., outreach cadence realistic; follow-up strategy multi-channel; lead qualification steps).",
+        "Respects compliance and professionalism (avoids discriminatory language, improper promises, or misleading claims).",
+        "For compensation plans: terms are clear, administrable, and reflect typical brokerage arrangements (splits, caps, fees, responsibilities) without obvious contradictions."
+      ],
+      "scoring_guidance": "0-2 if clearly violates core domain norms (misstates LOI nature, unprofessional/unsafe guidance, unrealistic or noncompliant practices). 3-4 if multiple domain-standard elements missing or obviously naive. 5-6 if generally aligned but missing some customary elements. 7-8 if solid adherence with minor omissions. 9-10 if strongly aligned with best practices and highly credible as broker-produced work."
+    }
+  },
+  "file_inspection_checklist": [
+    "Inventory outputs: list each output file name, type (PDF/DOCX/etc.), and confirm it opens.",
+    "Confirm required file types match prompt (e.g., DOCX required but only PDF/plain text provided => completeness failure).",
+    "Check page count/length constraints explicitly stated (e.g., LOI <= 5 pages; playbook 5\u20138 pages).",
+    "Scan for required sections/headings and mark each as Present/Partial/Missing.",
+    "Verify inclusion of required templates (e.g., one-page flyer) and required visual elements (e.g., stock photo on each page if requested).",
+    "Cross-check key facts from prompt: property address, SF, parties, broker names, office addresses, anchor tenant, market/submarket claims.",
+    "Validate all numeric terms and calculations: cap rate to price, rounding, deposits and timing, escrow/title company, extension option amounts, closing cost allocation.",
+    "Check dates and durations: LOI date, expiration date window, feasibility start/end, closing date relative to feasibility approval, extension option duration.",
+    "Look for internal consistency: same purchase price everywhere; same deposit schedule; no conflicting timelines.",
+    "Assess usability: scripts read naturally; cadence is actionable; compensation plan is administrable; LOI reads like a standard brokerage deliverable.",
+    "Check for placeholders (e.g., \u201cTBD\u201d, \u201cinsert here\u201d, lorem ipsum) where the prompt provided specifics\u2014flag as incompleteness.",
+    "Confirm reference files were used when provided: terms/ideas reflected and not ignored."
+  ],
+  "common_failure_modes": [
+    "Missing required output file(s) entirely (no PDF/DOCX delivered).",
+    "Wrong format (prompt requires .docx but output is plain text or PDF only; prompt requires PDF but only text provided).",
+    "Unopenable/corrupted file or a link instead of an attached artifact.",
+    "Major required sections absent (e.g., no scripts, no cadence, no flyer template, no expiration date, no deposits/timeline terms).",
+    "Violates page/length constraints materially (e.g., 10+ pages when max 5; 1\u20132 pages when minimum 5\u20138).",
+    "Incorrect cap rate/price math or rounding; inconsistent purchase price across sections.",
+    "Wrong names/addresses/dates from prompt (e.g., incorrect property address or incorrect LOI date).",
+    "Invented facts presented as true (market stats, tenant demand metrics) without being requested or without labeling as assumptions, especially if they conflict with prompt.",
+    "Generic boilerplate not tailored to the property/transaction (e.g., outreach scripts that never mention the space, visibility, anchor, SF).",
+    "Missing required visuals (e.g., no stock photos on each page when explicitly required).",
+    "Non-professional writing, typos, inconsistent formatting; not client-ready.",
+    "Problematic compliance language (e.g., discriminatory targeting, misleading promises, legal claims stated incorrectly)."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Score each dimension (0-10), compute weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required output file is missing/unopenable, wrong required format, or the deliverable is severely incomplete, override the final overall score to 0-2 regardless of weighted average.",
+    "score_scale": "0-10 where 0-2=Unacceptable (missing files/incomplete), 3-4=Poor, 5-6=Acceptable, 7-8=Good, 9-10=Excellent.",
+    "automatic_low_score_triggers": [
+      "Any required output file is missing.",
+      "Any required file is unopenable/corrupted/empty or consists primarily of placeholders.",
+      "Explicitly required format is not followed (e.g., DOCX required but not delivered as DOCX).",
+      "Deliverable is severely incomplete relative to the prompt (e.g., missing multiple mandatory sections, missing required template(s), far outside required page range).",
+      "Key required numbers/terms are absent (e.g., purchase price/cap rate, deposits, timelines, expiration date) in a transaction document."
+    ],
+    "excellent_output_characteristics": [
+      "All required artifacts present, openable, and in the correct formats.",
+      "Every prompt requirement is addressed with clear sectioning and no major omissions.",
+      "All facts, dates, and calculations are correct and consistent throughout.",
+      "Professional, client-ready formatting; clean templates and actionable scripts/workflows.",
+      "Follows real estate brokerage norms (standard LOI structure; realistic leasing outreach cadence; clear commission/split terms)."
+    ],
+    "poor_output_characteristics": [
+      "Missing or wrong file types; unopenable files.",
+      "Large sections missing or replaced by boilerplate/placeholder text.",
+      "Incorrect or contradictory key business terms (price, cap rate, deposit schedule, timeline).",
+      "Unprofessional formatting/writing; not usable without major revision.",
+      "Ignores or fails to incorporate provided reference files/required elements."
+    ]
+  },
+  "example_evaluation_questions": [
+    "What exact output files does the prompt require (PDF/DOCX, count), and are all of them present and openable?",
+    "Does the artifact meet explicit page/length constraints? If not, how far off is it?",
+    "Are all mandatory sections included (mark Present/Partial/Missing) and in a logical order?",
+    "Are all prompt-provided facts (property address, SF, parties, broker names, dates) accurately reflected with no substitutions?",
+    "Are all calculations correct (e.g., cap rate to offer price, rounding instructions, deposit totals/timing)?",
+    "Are timelines and deadlines consistent and correctly stated (feasibility period, closing, extension option, expiration date)?",
+    "Is the deliverable tailored to the specific property/transaction rather than generic boilerplate?",
+    "Is the document client-ready (formatting, grammar, clarity) and consistent with brokerage industry standards for that document type?",
+    "If visuals/templates are required, are they actually included and usable (e.g., flyer template, stock photos on each page)?",
+    "Does the work introduce assumptions or invented facts, and if so, are they clearly labeled and non-conflicting with the prompt?"
+  ],
+  "metadata": {
+    "category": "Real Estate Brokers",
+    "sector": "Real Estate and Rental and Leasing",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:35:59.704817",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2528,
+    "completion_tokens": 3239,
+    "total_tokens": 5767
+  }
+}

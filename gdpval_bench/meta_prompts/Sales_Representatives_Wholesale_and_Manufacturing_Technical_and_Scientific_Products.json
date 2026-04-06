@@ -1,0 +1,133 @@
+{
+  "category": "Sales Representatives, Wholesale and Manufacturing, Technical and Scientific Products",
+  "evaluation_prompt": "You are an expert evaluator assessing an agent\u2019s delivered artifacts for a task in the category: Sales Representatives, Wholesale and Manufacturing, Technical and Scientific Products (Wholesale Trade; technical/scientific products). You will receive: (1) the original task prompt, (2) any provided reference files, and (3) the agent\u2019s output files/artifacts.\n\nYOUR GOAL\nScore the work on a 0\u201310 scale using the rubric below, prioritizing COMPLETENESS. These tasks frequently require file-based deliverables (e.g., Excel spreadsheets, quotations, prospecting lists, pricing models). \n\nCRITICAL RULE (NON-NEGOTIABLE)\nIf ANY required output file is missing, unreadable, wrong type/format, or the work is severely incomplete such that the primary deliverable cannot be used, you MUST assign an overall score in the 0\u20132 range, regardless of how good any partial narrative is.\n\nEVALUATION PROCESS (follow in order)\n1) Identify required deliverables from the prompt:\n   - Required file names (exact), formats (e.g., .xlsx), number of files, and any required structure (tabs/columns/sections).\n   - Required contents: fields, calculations, references, assumptions, links, dates/validity, payment terms, totals, lead times, etc.\n\n2) Verify artifact presence and accessibility:\n   - Confirm each required file exists.\n   - Open/inspect each file to ensure it is not corrupted and contains the work (not empty placeholders).\n   - Confirm naming matches requirements (especially when exact filename is specified).\n\n3) Check completeness (most important):\n   - Ensure ALL prompt requirements are reflected in the artifacts.\n   - Ensure all items/rows requested are present (e.g., all modules quoted, all products included, all leads required).\n   - Ensure required summary totals, formulas, and supporting details are included.\n\n4) Check correctness against reference files and prompt rules:\n   - Use reference files as the source of truth for pricing, lead time, availability, product costs, etc.\n   - Recompute key figures (margins, totals, tiering logic, quantities) or spot-check enough rows to validate the spreadsheet\u2019s logic.\n   - Ensure the correct commercial terms are applied (e.g., EXW, payment terms, offer validity).\n\n5) Check quality and professional readiness:\n   - Is it client-ready? Clear headings, units/currency, consistent formatting, and no ambiguity.\n   - Is the spreadsheet usable (filters, frozen headers, consistent columns, no hidden critical data)?\n\n6) Check domain-specific standards:\n   - For sales/wholesale technical products: traceability, clear quote terms, reproducible calculations, correct use of trade terms, and actionable prospecting details.\n\nSCORING\n- Score each dimension (0\u201310) using the rubric.\n- Compute weighted score: completeness 40%, correctness 30%, quality 20%, domain standards 10%.\n- OVERRIDE RULE: If any required deliverable is missing/unusable or the submission is severely incomplete, override final score to 0\u20132.\n\nEVIDENCE-BASED FEEDBACK\nIn your evaluation notes, cite concrete evidence from the artifacts: missing columns, incorrect totals, mismatch to reference pricing, absent terms, wrong filename, etc. Avoid vague statements.",
+  "evaluation_rubric": {
+    "completeness": {
+      "weight": 0.4,
+      "description": "All required output files exist and all task requirements are addressed.",
+      "criteria": [
+        "All required output files are present, readable, and in the requested format (e.g., .xlsx) and required filenames match exactly when specified.",
+        "Artifacts include every required section/worksheet/table stated or implied by the prompt (e.g., prospect list table; quote table; pricing model with totals).",
+        "All required data fields/columns are included (e.g., product/module name, part/article #, quantity, unit price, cost, margins, lead time, shelf life, validity, payment terms, references/links).",
+        "All required line items/rows are included (e.g., all requested modules/products/leads; correct quantities such as 10 basic modules and 1 of each other module when required).",
+        "All required computations and roll-ups are included (e.g., total gross margin, tiered pricing logic, totals by product and consumables, year-1 totals).",
+        "All required contextual information from the prompt is included (e.g., EXW term, offer validity window, project/reference number, event details for lead tracking, assumptions if allowed).",
+        "No critical placeholders: file is not empty, not a template without filled data, and not missing major tables."
+      ],
+      "scoring_guidance": "0-2 if any required file is missing/unreadable/wrong format, wrong required filename, or the primary deliverable is severely incomplete. 3-4 if major sections/columns/line items are missing or many requirements are unmet. 5-6 if most parts exist but notable omissions (e.g., missing totals, missing multiple required fields, incomplete line items). 7-8 if complete with only minor omissions (e.g., one non-critical column missing, small missing notes). 9-10 if fully complete, all requirements addressed, and deliverables are immediately usable."
+    },
+    "correctness": {
+      "weight": 0.3,
+      "description": "Accuracy of data, calculations, information, and logic.",
+      "criteria": [
+        "Values copied or derived from reference files match the source (pricing, costs, lead time, availability, shelf life, SKUs/article numbers).",
+        "Calculations are correct: margins ($/unit), margin %, totals, roll-ups, and tiered pricing thresholds are applied correctly.",
+        "Quantities match the prompt requirements and are used consistently in calculations.",
+        "Units and currency are correct and consistent (e.g., USD, per unit vs per module vs annual consumables).",
+        "No internal contradictions (e.g., margin % not matching margin $ and prices; totals not equal to sum of rows).",
+        "References and links included are correct and relevant when requested (e.g., WHO documentation link).",
+        "For prospecting lists: company classification aligns with prompt (e.g., actually makes AUV/ROV/underwater cameras; rationale fits the product integration claim)."
+      ],
+      "scoring_guidance": "0-2 if pervasive inaccuracies, fabricated data presented as factual (especially contradicting references), or calculations are largely wrong/unreliable. 3-4 if many incorrect fields, repeated calculation errors, or misapplied pricing tiers/terms. 5-6 if generally correct but with notable errors (e.g., some line items wrong, some totals incorrect, tier logic partially wrong). 7-8 if mostly correct with only minor/isolated errors and the main conclusions remain valid. 9-10 if highly accurate with verified calculations and faithful use of reference sources."
+    },
+    "quality": {
+      "weight": 0.2,
+      "description": "Professional formatting, clarity, organization, and usability of the artifacts.",
+      "criteria": [
+        "Spreadsheet/quote is easy to read: clear headers, consistent formatting, appropriate column widths, frozen header row, and filters where helpful.",
+        "Logical organization: separate tabs for summary vs detail when appropriate; clear sections (e.g., products vs consumables; quote header terms vs line items).",
+        "Proper labeling of assumptions, tier definitions, and calculation methodology (without overwhelming the sheet).",
+        "Professional presentation: consistent fonts, currency formatting, percent formatting, and no typos in key fields (company names, SKUs, terms).",
+        "Usability: formulas are used where appropriate rather than hard-coded totals; no broken links; no hidden critical rows/columns without explanation."
+      ],
+      "scoring_guidance": "0-2 if the artifact is unreadable, chaotic, or not usable as a professional deliverable. 3-4 if formatting/organization significantly impairs understanding or increases risk of misinterpretation. 5-6 if usable but messy or inconsistently formatted with clarity issues. 7-8 if clean and professional with minor polish issues. 9-10 if client-ready, well-structured, and highly usable."
+    },
+    "domain_standards": {
+      "weight": 0.1,
+      "description": "Industry-specific best practices for technical/scientific wholesale/manufacturing sales outputs.",
+      "criteria": [
+        "Commercial terms are stated correctly and match the prompt (e.g., EXW, payment terms, offer validity period, incoterms clarity).",
+        "Traceability: key numbers can be audited back to reference files; sources/assumptions are noted.",
+        "Client-ready quoting/proposal norms: includes quote metadata (date, quote/offer reference, customer, project ref), clear totals, and disclaimers when appropriate.",
+        "For prospecting: actionable sales intelligence (what they do, why fit, integration points, event/contact fields) rather than generic descriptions.",
+        "Risk control: avoids overstating capabilities; flags unknowns (e.g., destination unknown so transport excluded) and keeps within scope."
+      ],
+      "scoring_guidance": "0-2 if the output violates basic sales/quote standards (missing terms, misleading claims) or cannot be responsibly used. 3-4 if several standards are missed (e.g., no validity/payment terms, poor traceability). 5-6 if basic standards met but with gaps (some terms unclear, minimal traceability). 7-8 if good adherence with minor omissions. 9-10 if exemplary adherence and highly professional sales deliverable."
+    }
+  },
+  "file_inspection_checklist": [
+    "Deliverable presence: Confirm every required output file exists; confirm exact filename requirements; confirm correct file type (e.g., .xlsx not .csv/.pdf if .xlsx required).",
+    "Openability: Open each file to ensure it is not corrupted, password-locked (unless requested), or empty.",
+    "Prompt compliance mapping: Create a checklist of all explicit requirements from the prompt and verify each is present in the artifacts.",
+    "Table structure: Verify required columns/fields exist (e.g., item description, article/SKU, quantity, unit price, cost, margin $/unit, margin %, lead time, shelf life, totals, terms).",
+    "Row completeness: Verify every requested product/module/lead is included and quantities match requirements.",
+    "Reference-file reconciliation: Spot-check multiple rows against provided references (pricing sheets, emails, PDFs) to ensure no invented numbers and correct use of tiers/discounts.",
+    "Calculation audit: Recompute or spot-check formulas for totals, gross margin, margin %, tiered pricing thresholds, consumables recurrence, and year-1 rollups.",
+    "Commercial terms: Check inclusion and correctness of incoterms (EXW etc.), payment terms, validity (e.g., 30 days), currency, and any required project/reference numbers.",
+    "Links and citations: Verify required external links are included and correct (e.g., WHO documentation) and placed appropriately.",
+    "Professional readiness: Check formatting (currency/percent), readability, headers, filters, and absence of ambiguous labels.",
+    "Internal consistency: Ensure totals equal sums; margin% corresponds to price and cost; no conflicting quantities or duplicated/missing rows.",
+    "Scope control: Ensure the artifact does not go out of scope (e.g., quoting individual kit items when only modules requested) and does not omit in-scope deliverables."
+  ],
+  "common_failure_modes": [
+    "Missing required output file(s) or wrong file format (e.g., narrative response instead of the requested Excel spreadsheet).",
+    "Incorrect required filename (when prompt specifies an exact name), or multiple files when one consolidated deliverable was required without explanation.",
+    "Spreadsheet present but incomplete: missing columns such as lead time, shelf life, payment terms, offer validity, project reference number, or missing totals/summary.",
+    "Using fabricated or estimated pricing/costs despite reference documents providing exact values (or failing to use reference files at all).",
+    "Incorrect tiered pricing logic (e.g., applying >1,000 discount to all units when only eligible above threshold; wrong threshold; mixing tiers).",
+    "Mathematical errors: wrong margin %, incorrect totals, totals not matching line sums, mixing per-unit vs annual consumables.",
+    "Wrong quantities vs prompt (e.g., quoting 1 basic module instead of 10; missing required modules; incorrect unit counts).",
+    "Quoting the wrong level of detail (e.g., listing individual kit items when only module-level quote requested; or too high-level with no required fields).",
+    "Prospecting list is generic: no evidence companies actually make AUV/ROV/underwater cameras; no integration rationale; missing event-oriented fields for follow-up.",
+    "Lack of client-ready terms: missing incoterms, validity period, payment conditions, currency, or quote metadata.",
+    "Unusable formatting: unclear headers, inconsistent currency, merged cells preventing sorting/filtering, hidden critical information, or illegible layout."
+  ],
+  "scoring_guidelines": {
+    "overall_approach": "Calculate weighted average: completeness (40%), correctness (30%), quality (20%), domain_standards (10%). CRITICAL OVERRIDE: If any required files are missing/unopenable/wrong format/incorrect required filename OR the primary deliverable is severely incomplete (cannot be used for its stated purpose), override final score to 0-2 regardless of the weighted average.",
+    "score_scale": "0-10 where 0-2=Unacceptable (missing files/severely incomplete), 3-4=Poor (major gaps), 5-6=Acceptable (usable but notable errors/omissions), 7-8=Good (minor issues), 9-10=Excellent (complete, accurate, professional).",
+    "automatic_low_score_triggers": [
+      "Any required output file is missing.",
+      "Any required file is present but unreadable/corrupted/password-locked (without being requested).",
+      "Wrong file type when a specific format is required (e.g., not delivering .xlsx).",
+      "Required exact filename not followed when explicitly specified.",
+      "Deliverable is severely incomplete: missing core tables/most line items/most required fields, or contains placeholders instead of real content.",
+      "Reference files are ignored leading to unsubstantiated/fabricated pricing, lead times, or product data presented as factual."
+    ],
+    "excellent_output_characteristics": [
+      "All required files provided, correct names and formats, and open cleanly.",
+      "All prompt requirements fully addressed with correct structure (columns/tabs) and complete line items.",
+      "Accurate and auditable calculations with correct tier logic and correct totals.",
+      "Professional, client-ready presentation with clear commercial terms and traceability to references.",
+      "Includes all required metadata (validity, payment terms, incoterms, project reference) and any requested links."
+    ],
+    "poor_output_characteristics": [
+      "Missing or wrong deliverables (no spreadsheet, wrong filename/format).",
+      "Major omissions (missing many required columns/rows; missing totals; missing terms).",
+      "Substantial numerical or logical errors; inconsistent units/currency; broken formulas.",
+      "Generic, non-actionable content (especially for lead lists) without evidence or fit rationale.",
+      "Unprofessional formatting making it hard to use or risky to send to a customer."
+    ]
+  },
+  "example_evaluation_questions": [
+    "Are all required output files present in the correct format and with any exact filenames specified in the prompt?",
+    "Can each file be opened, and does it contain completed work rather than an empty template or partial draft?",
+    "Does the deliverable include every required field/column (e.g., item/SKU, quantity, unit price, cost, margin $/unit, margin %, totals, lead time, shelf life, terms)?",
+    "Does the deliverable include every required line item (all requested products/modules/leads) with the correct quantities?",
+    "Do the calculations (totals, gross margin, tiered pricing) reconcile when spot-checked or recomputed?",
+    "Does the work faithfully use the provided reference files (pricing sheets/emails/PDFs), and are any assumptions clearly labeled?",
+    "Are commercial terms correct and complete (incoterms like EXW, payment terms, offer validity, currency, project reference number)?",
+    "Is the output client-ready and actionable (clear formatting, organized structure, and appropriate sales-ready notes/rationale)?",
+    "For prospecting outputs: does each listed company truly match the target product categories, and is there a clear reason the customer would benefit from the offered sensor/technology?",
+    "Is any content out-of-scope (e.g., quoting subcomponents when only module-level quote requested), or are key in-scope requirements missing?"
+  ],
+  "metadata": {
+    "category": "Sales Representatives, Wholesale and Manufacturing, Technical and Scientific Products",
+    "sector": "Wholesale Trade",
+    "num_tasks_in_category": 5,
+    "generated_at": "2026-01-06T07:42:49.910801",
+    "model": "gpt-5.2",
+    "prompt_tokens": 2727,
+    "completion_tokens": 3602,
+    "total_tokens": 6329
+  }
+}
