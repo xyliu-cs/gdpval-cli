@@ -69,13 +69,15 @@ Edit `agent_config.yaml` to register one or more CLI agents. Each top-level key 
 ```yaml
 claude:
   command: "claude -p {prompt} --output-format text --max-turns 30"
-  timeout: 1800       # Per-task timeout in seconds (0 = no timeout)
-  concurrency: 1      # Reserved for future parallel execution
-  use_bwrap: false    # Enable bwrap sandbox isolation (Linux only)
-  env: {}             # Extra environment variables for the agent process
+  output_format: text   # "text" (default) or "json"
+  timeout: 1800         # Per-task timeout in seconds (0 = no timeout)
+  concurrency: 1        # Reserved for future parallel execution
+  use_bwrap: false      # Enable bwrap sandbox isolation (Linux only)
+  env: {}               # Extra environment variables for the agent process
 
 openhands:
   command: "python -m my_agent --task-file {task_json} --workspace {workspace}"
+  output_format: json   # parses {"type": "result", "text": "..."} from stdout
   timeout: 3600
   concurrency: 1
   env: {}
@@ -88,6 +90,11 @@ custom:
   env: {}
   use_bwrap: false
 ```
+
+**`output_format`** controls how the agent's stdout is parsed:
+
+- `text` (default) — stdout is used as-is.
+- `json` — each line of stdout is parsed as JSON. Lines containing a `"text"` field (e.g. `{"type": "result", "text": "..."}`) have their text extracted and concatenated. This is compatible with OpenHands-style JSON output.
 
 **Available placeholders:**
 

@@ -352,7 +352,8 @@ def _run_single_task(
         status = "success" if proc.returncode == 0 else "error"
         return_code = proc.returncode
         raw_output = proc.stdout.decode("utf-8", errors="replace") if proc.stdout else ""
-        output_tail = raw_output[-2000:]
+        parsed_output = agent_cfg.parse_output(raw_output)
+        output_tail = parsed_output[-2000:]
         print(f"           {status} (rc={return_code}, {elapsed:.1f}s)")
     except subprocess.TimeoutExpired:
         elapsed = time.monotonic() - t0

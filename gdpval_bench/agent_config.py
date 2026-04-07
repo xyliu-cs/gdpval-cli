@@ -6,6 +6,7 @@ concurrency, environment overrides, and sandbox settings for a named agent.
 
 from __future__ import annotations
 
+import json
 import os
 import shlex
 import tempfile
@@ -26,6 +27,7 @@ class AgentConfig:
     concurrency: int = 1
     env: Dict[str, str] = field(default_factory=dict)
     use_bwrap: bool = False
+    output_format: str = "text"  # "text" or "json"
 
     def build_command(
         self,
@@ -59,6 +61,31 @@ class AgentConfig:
             task_json=shlex.quote(task_json),
         )
         return cmd, prompt_file
+
+    def parse_output(self, raw_output: str) -> str:
+        """Extract the agent's text output, handling output_format.
+
+        For ``output_format: json``, expects one or more JSON lines with a
+        ``"text"`` field (e.g. ``{"type": "result", "text": "..."}``).
+        The text values are concatenated. Falls back to raw output on
+        parse failure.
+        """
+        if self.output_format != "json":
+            return raw_output
+
+        texts: list[str] = []
+        for line in raw_output.splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                obj = json.loads(line)
+                if isinstance(obj, dict) and "text" in obj:
+                    texts.append(obj["text"])
+            except json.JSONDecodeError:
+                continue
+
+        return "\n".join(texts) if texts else raw_output
 
 
 def _find_config_file(config_path: str | Path | None = None) -> Path:
@@ -150,6 +177,7 @@ def load_agent_config(
         concurrency=max(1, int(agent_data.get("concurrency", 1))),
         env={str(k): str(v) for k, v in (agent_data.get("env") or {}).items()},
         use_bwrap=bool(agent_data.get("use_bwrap", False)),
+        output_format=str(agent_data.get("output_format", "text")),
     )
 
 

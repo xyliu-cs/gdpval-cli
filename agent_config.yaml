@@ -16,6 +16,7 @@
 
 claude:
   command: "claude -p {prompt} --output-format text --max-turns 30"
+  output_format: text    # "text" (default) or "json"
   timeout: 1800
   concurrency: 1
   env: {}
@@ -23,6 +24,7 @@ claude:
 
 # openhands:
 #   command: "python -m my_agent --task-file {task_json} --workspace {workspace}"
+#   output_format: json   # parses {"type": "result", "text": "..."} from stdout
 #   timeout: 3600
 #   concurrency: 1
 #   env: {}
