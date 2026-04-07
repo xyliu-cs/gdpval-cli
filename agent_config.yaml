@@ -2,9 +2,8 @@
 # GDPVal Benchmark — Agent Configuration
 # ──────────────────────────────────────────────────────────────────
 #
-# Register your CLI agent's non-interactive run command here.
-# The benchmark runner will execute this command once per task,
-# inside the task's workspace directory.
+# Register one or more CLI agents below. Each top-level key is the
+# agent name, used with `--agent <name>` when running the benchmark.
 #
 # Available placeholders (expanded at runtime):
 #   {workspace}   — Absolute path to the task workspace directory
@@ -15,38 +14,23 @@
 #
 # ──────────────────────────────────────────────────────────────────
 
-# The shell command to launch your agent in non-interactive mode.
-# Must be a single command string (piping and shell operators allowed).
-#
-# Examples:
-#
-#   # Claude Code (Anthropic CLI)
-#   command: "claude -p {prompt} --output-format text --max-turns 30"
-#
-#   # OpenHands / SWE-agent style
+claude:
+  command: "claude -p {prompt} --output-format text --max-turns 30"
+  timeout: 1800
+  concurrency: 1
+  env: {}
+  use_bwrap: false
+
+# openhands:
 #   command: "python -m my_agent --task-file {task_json} --workspace {workspace}"
-#
-#   # A simple script wrapper
+#   timeout: 3600
+#   concurrency: 1
+#   env: {}
+#   use_bwrap: false
+
+# custom:
 #   command: "bash run_agent.sh {prompt_file} {workspace}"
-#
-command: "claude -p {prompt} --output-format text --max-turns 30"
-
-# Per-task timeout in seconds (0 = no timeout).
-# The agent process will be killed if it exceeds this limit.
-timeout: 1800
-
-# Maximum number of tasks to run in parallel.
-# Set to 1 for sequential execution.
-concurrency: 1
-
-# Environment variables to inject into the agent process.
-# These are merged with the current shell environment.
-env: {}
-  # OPENAI_API_KEY: "sk-..."
-  # MY_AGENT_MODEL: "gpt-4o"
-
-# Whether to use bwrap (bubblewrap) sandbox isolation.
-# When enabled, the agent runs with a read-only view of the host
-# filesystem and read-write access only to its task workspace.
-# Requires Linux with bwrap installed (apt install bubblewrap).
-use_bwrap: false
+#   timeout: 1800
+#   concurrency: 1
+#   env: {}
+#   use_bwrap: false

@@ -62,19 +62,31 @@ workspace/
     ...
 ```
 
-### 4. Configure your agent
+### 4. Configure your agents
 
-Edit `agent_config.yaml` to register your CLI agent's non-interactive command:
+Edit `agent_config.yaml` to register one or more CLI agents. Each top-level key is the agent name:
 
 ```yaml
-# The command template — placeholders are expanded per task
-command: "claude -p {prompt} --output-format text --max-turns 30"
+claude:
+  command: "claude -p {prompt} --output-format text --max-turns 30"
+  timeout: 1800       # Per-task timeout in seconds (0 = no timeout)
+  concurrency: 1      # Reserved for future parallel execution
+  use_bwrap: false    # Enable bwrap sandbox isolation (Linux only)
+  env: {}             # Extra environment variables for the agent process
 
-timeout: 1800       # Per-task timeout in seconds (0 = no timeout)
-concurrency: 1      # Reserved for future parallel execution
-use_bwrap: false    # Enable bwrap sandbox isolation (Linux only)
+openhands:
+  command: "python -m my_agent --task-file {task_json} --workspace {workspace}"
+  timeout: 3600
+  concurrency: 1
+  env: {}
+  use_bwrap: false
 
-env: {}             # Extra environment variables for the agent process
+custom:
+  command: "bash run_agent.sh {prompt_file} {workspace}"
+  timeout: 1800
+  concurrency: 1
+  env: {}
+  use_bwrap: false
 ```
 
 **Available placeholders:**
@@ -87,33 +99,20 @@ env: {}             # Extra environment variables for the agent process
 | `{task_id}` | The task ID string (shell-escaped) |
 | `{task_json}` | Absolute path to the task's `task.json` file (shell-escaped) |
 
-**Example configurations:**
-
-```yaml
-# Claude Code
-command: "claude -p {prompt} --output-format text --max-turns 30"
-
-# OpenHands / SWE-agent style
-command: "python -m my_agent --task-file {task_json} --workspace {workspace}"
-
-# Custom script wrapper
-command: "bash run_agent.sh {prompt_file} {workspace}"
-```
-
 ### 5. Run your agent
 
 ```bash
-# Run on all exported tasks
+# Run on all exported tasks (uses the sole agent if only one is defined)
 python -m gdpval_bench run --workspace workspace/
 
-# Run on a single task
-python -m gdpval_bench run --workspace workspace/ --task-id <task_id>
+# Select a named agent
+python -m gdpval_bench run --workspace workspace/ --agent claude
 
-# Use a specific config file
-python -m gdpval_bench run --workspace workspace/ --agent-config my_agent.yaml
+# Run on a single task
+python -m gdpval_bench run --workspace workspace/ --agent claude --task-id <task_id>
 
 # Name your run (for organizing logs)
-python -m gdpval_bench run --workspace workspace/ --run-name claude_v1
+python -m gdpval_bench run --workspace workspace/ --agent claude --run-name claude_v1
 ```
 
 The runner iterates over each task directory, expands the command template with the task's prompt and paths, and executes the agent as a subprocess. Per-task results are logged to `gdpval_bench/results/<run_name>/run_log.jsonl`.
@@ -228,12 +227,13 @@ python -m gdpval_bench run [OPTIONS]
 
 Options:
   --workspace, -w PATH   Workspace directory (default: workspace/)
+  --agent NAME           Name of the agent to run (from agent_config.yaml)
   --agent-config PATH    Path to agent_config.yaml (default: auto-detect)
   --task-id ID           Run agent on a single task
   --run-name NAME        Name for this run (used for log directory)
 ```
 
-The agent command is configured in `agent_config.yaml`, not via CLI flags. The config file is searched in this order:
+Agents are configured in `agent_config.yaml` as named entries. If the config contains a single agent, `--agent` can be omitted. The config file is searched in this order:
 
 1. Path given by `--agent-config`
 2. `agent_config.yaml` in the current working directory

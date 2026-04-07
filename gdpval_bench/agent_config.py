@@ -1,7 +1,7 @@
 """Agent configuration loader for GDPVal Benchmark.
 
 Reads agent_config.yaml and provides the command template, timeout,
-concurrency, environment overrides, and sandbox settings.
+concurrency, environment overrides, and sandbox settings for a named agent.
 """
 
 from __future__ import annotations
@@ -11,7 +11,7 @@ import shlex
 import tempfile
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 import yaml
 
@@ -20,6 +20,7 @@ import yaml
 class AgentConfig:
     """Parsed agent configuration."""
 
+    name: str
     command: str
     timeout: int = 1800
     concurrency: int = 1
@@ -60,8 +61,8 @@ class AgentConfig:
         return cmd, prompt_file
 
 
-def load_agent_config(config_path: str | Path | None = None) -> AgentConfig:
-    """Load agent configuration from a YAML file.
+def _find_config_file(config_path: str | Path | None = None) -> Path:
+    """Locate agent_config.yaml.
 
     Search order:
       1. Explicit ``config_path`` argument
@@ -76,33 +77,79 @@ def load_agent_config(config_path: str | Path | None = None) -> AgentConfig:
     candidates.append(Path.cwd() / "agent_config.yaml")
     candidates.append(Path(__file__).resolve().parent.parent / "agent_config.yaml")
 
-    chosen: Optional[Path] = None
     for p in candidates:
         if p.exists():
-            chosen = p
-            break
+            return p
 
-    if chosen is None:
-        raise FileNotFoundError(
-            "No agent_config.yaml found. Create one in the current directory "
-            "or pass --agent-config. See agent_config.yaml in the repo root "
-            "for a template."
-        )
+    raise FileNotFoundError(
+        "No agent_config.yaml found. Create one in the current directory "
+        "or pass --agent-config. See agent_config.yaml in the repo root "
+        "for a template."
+    )
 
+
+def list_agents(config_path: str | Path | None = None) -> List[str]:
+    """Return the names of all agents defined in the config file."""
+    chosen = _find_config_file(config_path)
     data = _load_yaml(chosen)
     if not isinstance(data, dict):
         raise ValueError(f"agent_config.yaml must be a YAML mapping, got {type(data).__name__}")
+    return list(data.keys())
 
-    command = data.get("command")
+
+def load_agent_config(
+    agent_name: str | None = None,
+    config_path: str | Path | None = None,
+) -> AgentConfig:
+    """Load a named agent configuration from agent_config.yaml.
+
+    If ``agent_name`` is None and the config contains exactly one agent,
+    that agent is used. Otherwise an error is raised listing available agents.
+
+    Raises ``FileNotFoundError`` if no config file is found.
+    Raises ``ValueError`` for invalid config content.
+    """
+    chosen = _find_config_file(config_path)
+    data = _load_yaml(chosen)
+
+    if not isinstance(data, dict):
+        raise ValueError(f"agent_config.yaml must be a YAML mapping, got {type(data).__name__}")
+
+    if not data:
+        raise ValueError("agent_config.yaml is empty — define at least one agent")
+
+    # Resolve which agent to use
+    if agent_name is None:
+        if len(data) == 1:
+            agent_name = next(iter(data))
+        else:
+            names = ", ".join(data.keys())
+            raise ValueError(
+                f"Multiple agents defined in config ({names}). "
+                f"Use --agent <name> to select one."
+            )
+
+    if agent_name not in data:
+        names = ", ".join(data.keys())
+        raise ValueError(
+            f"Agent '{agent_name}' not found in config. Available: {names}"
+        )
+
+    agent_data = data[agent_name]
+    if not isinstance(agent_data, dict):
+        raise ValueError(f"Agent '{agent_name}' must be a YAML mapping")
+
+    command = agent_data.get("command")
     if not command or not isinstance(command, str):
-        raise ValueError("agent_config.yaml must define a 'command' string")
+        raise ValueError(f"Agent '{agent_name}' must define a 'command' string")
 
     return AgentConfig(
+        name=agent_name,
         command=command.strip(),
-        timeout=int(data.get("timeout", 1800)),
-        concurrency=max(1, int(data.get("concurrency", 1))),
-        env={str(k): str(v) for k, v in (data.get("env") or {}).items()},
-        use_bwrap=bool(data.get("use_bwrap", False)),
+        timeout=int(agent_data.get("timeout", 1800)),
+        concurrency=max(1, int(agent_data.get("concurrency", 1))),
+        env={str(k): str(v) for k, v in (agent_data.get("env") or {}).items()},
+        use_bwrap=bool(agent_data.get("use_bwrap", False)),
     )
 
 

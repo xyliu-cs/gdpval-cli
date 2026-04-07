@@ -390,7 +390,10 @@ def cmd_run(args: argparse.Namespace) -> None:
         return
 
     try:
-        agent_cfg = load_agent_config(getattr(args, "agent_config", None))
+        agent_cfg = load_agent_config(
+            agent_name=getattr(args, "agent", None),
+            config_path=getattr(args, "agent_config", None),
+        )
     except (FileNotFoundError, ValueError) as e:
         print(f"Agent config error: {e}")
         return
@@ -430,7 +433,7 @@ def cmd_run(args: argparse.Namespace) -> None:
             return
         task_ids = [args.task_id]
 
-    print(f"\nRunning agent on {len(task_ids)} tasks in {workspace}")
+    print(f"\nRunning agent '{agent_cfg.name}' on {len(task_ids)} tasks in {workspace}")
     print(f"  Agent command: {agent_cfg.command}")
     print(f"  Timeout: {agent_cfg.timeout}s")
     print(f"  Concurrency: {agent_cfg.concurrency}")
@@ -802,6 +805,10 @@ def cli():
     run_parser.add_argument(
         "--workspace", "-w", type=str, default="workspace",
         help="Path to workspace directory with exported tasks (default: workspace/)"
+    )
+    run_parser.add_argument(
+        "--agent", type=str, default=None,
+        help="Name of the agent to run (from agent_config.yaml)"
     )
     run_parser.add_argument(
         "--agent-config", type=str, default=None,
