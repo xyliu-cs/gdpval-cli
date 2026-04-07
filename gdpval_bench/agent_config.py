@@ -28,6 +28,24 @@ class AgentConfig:
     env: Dict[str, str] = field(default_factory=dict)
     use_bwrap: bool = False
     output_format: str = "text"  # "text" or "json"
+    agent_data_dir: Optional[str] = None  # raw value from config
+    extra_writable_dirs: List[str] = field(default_factory=list)
+
+    # Set by prepare() — absolute path to the resolved agent data dir
+    resolved_data_dir: Optional[str] = field(default=None, repr=False)
+
+    def prepare(self, workspace_root: str) -> None:
+        """Resolve agent_data_dir under workspace_root and create it.
+
+        Must be called once before running tasks. After this,
+        ``resolved_data_dir`` holds the absolute path (or None).
+        """
+        if not self.agent_data_dir:
+            self.resolved_data_dir = None
+            return
+        p = Path(workspace_root) / self.agent_data_dir
+        p.mkdir(parents=True, exist_ok=True)
+        self.resolved_data_dir = str(p.resolve())
 
     def build_command(
         self,
@@ -53,14 +71,28 @@ class AgentConfig:
             with os.fdopen(fd, "w", encoding="utf-8") as f:
                 f.write(prompt)
 
+        data_dir = self.resolved_data_dir or ""
         cmd = self.command.format(
             workspace=shlex.quote(workspace),
             prompt=shlex.quote(prompt),
             prompt_file=shlex.quote(prompt_file) if prompt_file else "",
             task_id=shlex.quote(task_id),
             task_json=shlex.quote(task_json),
+            agent_data_dir=shlex.quote(data_dir) if data_dir else "",
         )
         return cmd, prompt_file
+
+    def build_env(self, base_env: Dict[str, str]) -> Dict[str, str]:
+        """Build the subprocess environment with placeholder expansion.
+
+        Expands ``{agent_data_dir}`` in env values defined in the config.
+        The caller should pass ``os.environ`` directly; this method copies it.
+        """
+        env = base_env.copy()
+        data_dir = self.resolved_data_dir or ""
+        for k, v in self.env.items():
+            env[k] = v.replace("{agent_data_dir}", data_dir) if data_dir else v
+        return env
 
     def parse_output(self, raw_output: str) -> str:
         """Extract the agent's text output, handling output_format.
@@ -170,6 +202,8 @@ def load_agent_config(
     if not command or not isinstance(command, str):
         raise ValueError(f"Agent '{agent_name}' must define a 'command' string")
 
+    raw_data_dir = agent_data.get("agent_data_dir")
+
     return AgentConfig(
         name=agent_name,
         command=command.strip(),
@@ -178,6 +212,11 @@ def load_agent_config(
         env={str(k): str(v) for k, v in (agent_data.get("env") or {}).items()},
         use_bwrap=bool(agent_data.get("use_bwrap", False)),
         output_format=str(agent_data.get("output_format", "text")),
+        agent_data_dir=str(raw_data_dir) if raw_data_dir else None,
+        extra_writable_dirs=[
+            os.path.expanduser(str(d))
+            for d in (agent_data.get("extra_writable_dirs") or [])
+        ],
     )
 
 

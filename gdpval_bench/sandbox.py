@@ -12,6 +12,7 @@ import os
 import platform
 import shlex
 import shutil
+from typing import Optional
 
 
 def assert_bwrap_available() -> None:
@@ -29,12 +30,17 @@ def assert_bwrap_available() -> None:
         )
 
 
-def bwrap_shell_prefix(working_dir: str) -> str:
+def bwrap_shell_prefix(
+    working_dir: str,
+    extra_writable_dirs: Optional[list[str]] = None,
+) -> str:
     """Build a shell-safe bwrap prefix for ``subprocess.run(shell=True)``.
 
     Sandbox policy:
       * Host filesystem mounted read-only (``--ro-bind / /``)
       * ``working_dir`` mounted read-write (task workspace)
+      * Each path in ``extra_writable_dirs`` mounted read-write
+        (agent data dir, harness codebases, etc.)
       * ``/dev`` and ``/proc`` re-mounted for basic system access
       * ``TMPDIR`` set to workspace (``/tmp`` is read-only)
       * ``PIP_TARGET`` / ``PYTHONPATH`` pointed at ``.pip_packages``
@@ -44,8 +50,15 @@ def bwrap_shell_prefix(working_dir: str) -> str:
     """
     ws = shlex.quote(working_dir)
     pip_target = shlex.quote(os.path.join(working_dir, ".pip_packages"))
+
+    extra_binds = ""
+    for d in (extra_writable_dirs or []):
+        qd = shlex.quote(d)
+        extra_binds += f"--bind {qd} {qd} "
+
     return (
         f"bwrap --ro-bind / / --bind {ws} {ws} "
+        f"{extra_binds}"
         f"--dev /dev --proc /proc "
         f"--setenv TMPDIR {ws} "
         f"--setenv PIP_TARGET {pip_target} "
@@ -55,12 +68,18 @@ def bwrap_shell_prefix(working_dir: str) -> str:
     )
 
 
-def wrap_command(command: str, working_dir: str, use_bwrap: bool) -> tuple[str, str]:
+def wrap_command(
+    command: str,
+    working_dir: str,
+    use_bwrap: bool,
+    extra_writable_dirs: Optional[list[str]] = None,
+) -> tuple[str, str]:
     """Optionally wrap a shell command with bwrap.
 
     Returns:
         (final_command, cwd_for_subprocess)
     """
     if use_bwrap:
-        return bwrap_shell_prefix(working_dir) + command, "/"
+        prefix = bwrap_shell_prefix(working_dir, extra_writable_dirs)
+        return prefix + command, "/"
     return command, working_dir

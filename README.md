@@ -75,20 +75,19 @@ claude:
   use_bwrap: false      # Enable bwrap sandbox isolation (Linux only)
   env: {}               # Extra environment variables for the agent process
 
-openhands:
-  command: "python -m my_agent --task-file {task_json} --workspace {workspace}"
+openharness:
+  command: "openharness -p {prompt} --output-format json --max-turns 30"
   output_format: json   # parses {"type": "result", "text": "..."} from stdout
-  timeout: 3600
-  concurrency: 1
-  env: {}
-  use_bwrap: false
-
-custom:
-  command: "bash run_agent.sh {prompt_file} {workspace}"
   timeout: 1800
   concurrency: 1
-  env: {}
-  use_bwrap: false
+  use_bwrap: true
+  agent_data_dir: ".agent_data/openharness"   # relative to workspace root
+  env:
+    OPENHARNESS_CONFIG_DIR: "{agent_data_dir}"
+    OPENHARNESS_DATA_DIR: "{agent_data_dir}/data"
+    OPENHARNESS_LOGS_DIR: "{agent_data_dir}/logs"
+  extra_writable_dirs:             # additional dirs the agent can write to
+    - /path/to/OpenHarness         # e.g. the agent's own codebase
 ```
 
 **`output_format`** controls how the agent's stdout is parsed:
@@ -96,7 +95,13 @@ custom:
 - `text` (default) — stdout is used as-is.
 - `json` — each line of stdout is parsed as JSON. Lines containing a `"text"` field (e.g. `{"type": "result", "text": "..."}`) have their text extracted and concatenated. This is compatible with OpenHands-style JSON output.
 
-**Available placeholders:**
+**`agent_data_dir`** isolates agent framework data under the workspace:
+
+Most agent frameworks store sessions, config, and logs in a home directory (e.g. `~/.openharness`). Setting `agent_data_dir` redirects this data to a subdirectory under the workspace root (e.g. `workspace/.agent_data/openharness/`), so benchmark runs never read or write to your personal agent installation. The `{agent_data_dir}` placeholder is available in both `command` and `env` values. The directory is auto-created and mounted read-write in the bwrap sandbox.
+
+The agent framework itself must be installed on the host by the user (e.g. `pip install openharness`). Only its runtime data is redirected.
+
+**Available placeholders** (usable in `command` and `env` values):
 
 | Placeholder | Value |
 |---|---|
@@ -105,6 +110,7 @@ custom:
 | `{prompt_file}` | Path to a temp file containing the prompt (for long prompts) |
 | `{task_id}` | The task ID string (shell-escaped) |
 | `{task_json}` | Absolute path to the task's `task.json` file (shell-escaped) |
+| `{agent_data_dir}` | Absolute path to the agent's isolated data directory |
 
 ### 5. Run your agent
 
@@ -155,27 +161,43 @@ When running on Linux, you can enable [bubblewrap](https://github.com/containers
 
 ```yaml
 # In agent_config.yaml
-use_bwrap: true
+openharness:
+  command: "openharness -p {prompt} --output-format json --max-turns 30"
+  use_bwrap: true
+  agent_data_dir: ".agent_data/openharness"
+  env:
+    OPENHARNESS_CONFIG_DIR: "{agent_data_dir}"
+    OPENHARNESS_DATA_DIR: "{agent_data_dir}/data"
+    OPENHARNESS_LOGS_DIR: "{agent_data_dir}/logs"
+  extra_writable_dirs:
+    - /path/to/OpenHarness
 ```
 
 **Sandbox policy:**
 
 - Host filesystem is mounted **read-only** (`--ro-bind / /`)
 - The task workspace directory is mounted **read-write** (`--bind`)
+- The `agent_data_dir` (if configured) is mounted **read-write** — isolated agent framework data
+- Each path in `extra_writable_dirs` is mounted **read-write** — for agent harness codebases or other directories the agent needs to modify
 - `/dev` and `/proc` are re-mounted for basic system access
 - `TMPDIR` is redirected to the workspace (since `/tmp` is read-only)
 - `PIP_TARGET` / `PYTHONPATH` point to `.pip_packages/` in the workspace
 - Network is **not** isolated (agents may need HTTP access)
 - `--die-with-parent` ensures cleanup if the parent process exits
 
+The agent framework itself must be installed on the host by the user (e.g. `pip install openharness`). The benchmark only redirects its runtime data via environment variables so that each evaluation run gets a clean, isolated environment without touching your personal `~/.<agent>` directory.
+
 **Requirements:**
 
 ```bash
 # Install bubblewrap
 sudo apt install bubblewrap
+
+# Install your agent framework on the host
+pip install openharness   # example — the benchmark does not manage this
 ```
 
-This prevents agents from modifying files outside their designated workspace, providing isolation between tasks and protecting the host system.
+This prevents agents from reading or writing files outside the workspace, giving each benchmark run a clean environment.
 
 ## How Evaluation Works
 

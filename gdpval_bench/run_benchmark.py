@@ -330,7 +330,12 @@ def _run_single_task(
         task_id=task_id,
         task_json=str(task_json_path.resolve()),
     )
-    final_cmd, cwd = wrap_command(cmd, workspace, agent_cfg.use_bwrap)
+    writable_dirs = list(agent_cfg.extra_writable_dirs)
+    if agent_cfg.resolved_data_dir:
+        writable_dirs.append(agent_cfg.resolved_data_dir)
+    final_cmd, cwd = wrap_command(
+        cmd, workspace, agent_cfg.use_bwrap, writable_dirs or None,
+    )
 
     occupation = task_meta.get("occupation", "?")
     print(f"  [{task_index}/{total}] {task_id[:12]}... ({occupation})", flush=True)
@@ -434,10 +439,15 @@ def cmd_run(args: argparse.Namespace) -> None:
             return
         task_ids = [args.task_id]
 
+    # Resolve agent data dir (shared across all tasks in this run)
+    agent_cfg.prepare(str(workspace))
+
     print(f"\nRunning agent '{agent_cfg.name}' on {len(task_ids)} tasks in {workspace}")
     print(f"  Agent command: {agent_cfg.command}")
     print(f"  Timeout: {agent_cfg.timeout}s")
     print(f"  Concurrency: {agent_cfg.concurrency}")
+    if agent_cfg.resolved_data_dir:
+        print(f"  Agent data dir: {agent_cfg.resolved_data_dir}")
     print()
 
     # Run log
@@ -447,8 +457,7 @@ def cmd_run(args: argparse.Namespace) -> None:
     run_log_file = rd / "run_log.jsonl"
 
     # Build the subprocess environment once
-    env = os.environ.copy()
-    env.update(agent_cfg.env)
+    env = agent_cfg.build_env(os.environ)
 
     succeeded = 0
     failed = 0

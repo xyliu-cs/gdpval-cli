@@ -5,30 +5,37 @@
 # Register one or more CLI agents below. Each top-level key is the
 # agent name, used with `--agent <name>` when running the benchmark.
 #
-# Available placeholders (expanded at runtime):
-#   {workspace}   — Absolute path to the task workspace directory
-#   {prompt}      — The full task prompt text (shell-escaped)
-#   {prompt_file} — Path to a temp file containing the task prompt
-#   {task_id}     — The task ID string
-#   {task_json}   — Absolute path to the task.json file
+# Available placeholders (expanded at runtime in command and env):
+#   {workspace}       — Absolute path to the task workspace directory
+#   {prompt}          — The full task prompt text (shell-escaped)
+#   {prompt_file}     — Path to a temp file containing the task prompt
+#   {task_id}         — The task ID string
+#   {task_json}       — Absolute path to the task.json file
+#   {agent_data_dir}  — Absolute path to the agent's isolated data dir
 #
 # ──────────────────────────────────────────────────────────────────
 
 claude:
   command: "claude -p {prompt} --output-format text --max-turns 30"
-  output_format: text    # "text" (default) or "json"
+  output_format: text
   timeout: 1800
   concurrency: 1
   env: {}
   use_bwrap: false
 
-# openhands:
-#   command: "python -m my_agent --task-file {task_json} --workspace {workspace}"
-#   output_format: json   # parses {"type": "result", "text": "..."} from stdout
-#   timeout: 3600
+# openharness:
+#   command: "openharness -p {prompt} --output-format json --max-turns 30"
+#   output_format: json
+#   timeout: 1800
 #   concurrency: 1
-#   env: {}
-#   use_bwrap: false
+#   use_bwrap: true
+#   agent_data_dir: ".agent_data/openharness"   # relative to workspace root
+#   env:
+#     OPENHARNESS_CONFIG_DIR: "{agent_data_dir}"
+#     OPENHARNESS_DATA_DIR: "{agent_data_dir}/data"
+#     OPENHARNESS_LOGS_DIR: "{agent_data_dir}/logs"
+#   extra_writable_dirs:             # additional dirs the agent can write to
+#     - /path/to/OpenHarness         # e.g. the agent's own codebase
 
 # custom:
 #   command: "bash run_agent.sh {prompt_file} {workspace}"
