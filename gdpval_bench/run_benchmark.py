@@ -297,6 +297,34 @@ def cmd_export_tasks(args: argparse.Namespace) -> None:
 # Command: run
 # ═══════════════════════════════════════════════════════════════════
 
+_PREVIEW_MAX = 200  # max chars per line preview
+
+
+def _print_agent_line(line: str, output_format: str, step: int) -> None:
+    """Print a single line of agent output as a live preview."""
+    line = line.rstrip("\n\r")
+    if not line.strip():
+        return
+
+    if output_format == "json":
+        try:
+            obj = json.loads(line)
+            if isinstance(obj, dict) and "text" in obj:
+                text = obj["text"].replace("\n", " ").strip()
+                if text:
+                    preview = text[:_PREVIEW_MAX] + ("..." if len(text) > _PREVIEW_MAX else "")
+                    print(f"           [{step}] {preview}", flush=True)
+                return
+        except json.JSONDecodeError:
+            pass
+        # Non-text JSON or parse failure — show raw preview
+        preview = line[:_PREVIEW_MAX] + ("..." if len(line) > _PREVIEW_MAX else "")
+        print(f"           [{step}] {preview}", flush=True)
+    else:
+        preview = line[:_PREVIEW_MAX] + ("..." if len(line) > _PREVIEW_MAX else "")
+        print(f"           [{step}] {preview}", flush=True)
+
+
 def _run_single_task(
     task_dir: Path,
     agent_cfg: "AgentConfig",
@@ -344,19 +372,40 @@ def _run_single_task(
     t0 = time.monotonic()
     try:
         timeout = agent_cfg.timeout if agent_cfg.timeout > 0 else None
-        proc = subprocess.run(
+        proc = subprocess.Popen(
             final_cmd,
             shell=True,
             cwd=cwd,
             env=env,
-            timeout=timeout,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
         )
+        raw_chunks: list[str] = []
+        step = 0
+        try:
+            for raw_line in iter(proc.stdout.readline, b""):
+                line = raw_line.decode("utf-8", errors="replace")
+                raw_chunks.append(line)
+                # Check timeout
+                if timeout and (time.monotonic() - t0) > timeout:
+                    proc.kill()
+                    proc.wait()
+                    raise subprocess.TimeoutExpired(final_cmd, timeout)
+                # Preview agent output
+                _print_agent_line(line, agent_cfg.output_format, step)
+                step += 1
+            proc.wait()
+        except subprocess.TimeoutExpired:
+            raise
+        except Exception:
+            proc.kill()
+            proc.wait()
+            raise
+
         elapsed = time.monotonic() - t0
         status = "success" if proc.returncode == 0 else "error"
         return_code = proc.returncode
-        raw_output = proc.stdout.decode("utf-8", errors="replace") if proc.stdout else ""
+        raw_output = "".join(raw_chunks)
         parsed_output = agent_cfg.parse_output(raw_output)
         output_tail = parsed_output[-2000:]
         print(f"           {status} (rc={return_code}, {elapsed:.1f}s)")
