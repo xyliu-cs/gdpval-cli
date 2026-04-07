@@ -443,11 +443,16 @@ def cmd_run(args: argparse.Namespace) -> None:
     agent_cfg.prepare(str(workspace))
 
     print(f"\nRunning agent '{agent_cfg.name}' on {len(task_ids)} tasks in {workspace}")
-    print(f"  Agent command: {agent_cfg.command}")
-    print(f"  Timeout: {agent_cfg.timeout}s")
-    print(f"  Concurrency: {agent_cfg.concurrency}")
+    print(f"  Agent command:  {agent_cfg.command}")
+    print(f"  Timeout:        {agent_cfg.timeout}s")
+    print(f"  Concurrency:    {agent_cfg.concurrency}")
+    print(f"  Sandbox (bwrap): {'enabled' if agent_cfg.use_bwrap else 'disabled'}")
     if agent_cfg.resolved_data_dir:
         print(f"  Agent data dir: {agent_cfg.resolved_data_dir}")
+    if agent_cfg.extra_writable_dirs:
+        print(f"  Extra writable: {', '.join(agent_cfg.extra_writable_dirs)}")
+    if agent_cfg.env:
+        print(f"  Env overrides:  {', '.join(agent_cfg.env.keys())}")
     print()
 
     # Run log
