@@ -1,0 +1,52 @@
+# ──────────────────────────────────────────────────────────────────
+# GDPVal Benchmark — Agent Configuration
+# ──────────────────────────────────────────────────────────────────
+#
+# Register your CLI agent's non-interactive run command here.
+# The benchmark runner will execute this command once per task,
+# inside the task's workspace directory.
+#
+# Available placeholders (expanded at runtime):
+#   {workspace}   — Absolute path to the task workspace directory
+#   {prompt}      — The full task prompt text (shell-escaped)
+#   {prompt_file} — Path to a temp file containing the task prompt
+#   {task_id}     — The task ID string
+#   {task_json}   — Absolute path to the task.json file
+#
+# ──────────────────────────────────────────────────────────────────
+
+# The shell command to launch your agent in non-interactive mode.
+# Must be a single command string (piping and shell operators allowed).
+#
+# Examples:
+#
+#   # Claude Code (Anthropic CLI)
+#   command: "claude -p {prompt} --output-format text --max-turns 30"
+#
+#   # OpenHands / SWE-agent style
+#   command: "python -m my_agent --task-file {task_json} --workspace {workspace}"
+#
+#   # A simple script wrapper
+#   command: "bash run_agent.sh {prompt_file} {workspace}"
+#
+command: "claude -p {prompt} --output-format text --max-turns 30"
+
+# Per-task timeout in seconds (0 = no timeout).
+# The agent process will be killed if it exceeds this limit.
+timeout: 1800
+
+# Maximum number of tasks to run in parallel.
+# Set to 1 for sequential execution.
+concurrency: 1
+
+# Environment variables to inject into the agent process.
+# These are merged with the current shell environment.
+env: {}
+  # OPENAI_API_KEY: "sk-..."
+  # MY_AGENT_MODEL: "gpt-4o"
+
+# Whether to use bwrap (bubblewrap) sandbox isolation.
+# When enabled, the agent runs with a read-only view of the host
+# filesystem and read-write access only to its task workspace.
+# Requires Linux with bwrap installed (apt install bubblewrap).
+use_bwrap: false

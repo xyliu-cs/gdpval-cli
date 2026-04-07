@@ -33,6 +33,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import subprocess
 import sys
 import time
 from datetime import datetime
@@ -46,6 +47,8 @@ try:
 except ImportError:
     pass
 
+from gdpval_bench.agent_config import load_agent_config
+from gdpval_bench.sandbox import assert_bwrap_available, wrap_command
 from gdpval_bench.task_loader import load_tasks, prepare_task_workspace, _iter_jsonl
 
 # ── Default paths ──
@@ -288,6 +291,206 @@ def cmd_export_tasks(args: argparse.Namespace) -> None:
     print(f"Manifest written to {output_dir / 'manifest.json'}")
     print(f"\nNext step: run your agent on each task directory, then:")
     print(f"  python -m gdpval_bench evaluate --workspace {output_dir}")
+
+
+# ═══════════════════════════════════════════════════════════════════
+# Command: run
+# ═══════════════════════════════════════════════════════════════════
+
+def _run_single_task(
+    task_dir: Path,
+    agent_cfg: "AgentConfig",
+    env: Dict[str, str],
+    task_index: int,
+    total: int,
+) -> Dict[str, Any]:
+    """Execute the registered CLI agent on a single task directory.
+
+    Returns a result dict with status, return_code, elapsed, and output.
+    """
+    task_json_path = task_dir / "task.json"
+    prompt_file: Optional[str] = None
+    status = "error"
+    return_code = -1
+    output_tail = ""
+
+    try:
+        with open(task_json_path, "r", encoding="utf-8") as f:
+            task_meta = json.load(f)
+    except FileNotFoundError:
+        return {"status": "skipped", "return_code": 0, "elapsed_sec": 0, "output_tail": ""}
+
+    prompt = task_meta.get("augmented_prompt") or task_meta.get("prompt", "")
+    task_id = task_meta.get("task_id", task_dir.name)
+    workspace = str(task_dir.resolve())
+
+    cmd, prompt_file = agent_cfg.build_command(
+        workspace=workspace,
+        prompt=prompt,
+        task_id=task_id,
+        task_json=str(task_json_path.resolve()),
+    )
+    final_cmd, cwd = wrap_command(cmd, workspace, agent_cfg.use_bwrap)
+
+    occupation = task_meta.get("occupation", "?")
+    print(f"  [{task_index}/{total}] {task_id[:12]}... ({occupation})", flush=True)
+    print(f"           cmd: {final_cmd[:120]}{'...' if len(final_cmd) > 120 else ''}")
+
+    t0 = time.monotonic()
+    try:
+        timeout = agent_cfg.timeout if agent_cfg.timeout > 0 else None
+        proc = subprocess.run(
+            final_cmd,
+            shell=True,
+            cwd=cwd,
+            env=env,
+            timeout=timeout,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
+        elapsed = time.monotonic() - t0
+        status = "success" if proc.returncode == 0 else "error"
+        return_code = proc.returncode
+        raw_output = proc.stdout.decode("utf-8", errors="replace") if proc.stdout else ""
+        output_tail = raw_output[-2000:]
+        print(f"           {status} (rc={return_code}, {elapsed:.1f}s)")
+    except subprocess.TimeoutExpired:
+        elapsed = time.monotonic() - t0
+        status = "timeout"
+        print(f"           TIMEOUT after {elapsed:.0f}s")
+    except Exception as e:
+        elapsed = time.monotonic() - t0
+        output_tail = str(e)
+        print(f"           ERROR: {e}")
+    finally:
+        if prompt_file:
+            try:
+                os.unlink(prompt_file)
+            except OSError:
+                pass
+
+    return {
+        "status": status,
+        "return_code": return_code,
+        "elapsed_sec": round(elapsed, 2),
+        "output_tail": output_tail,
+    }
+
+
+def cmd_run(args: argparse.Namespace) -> None:
+    """Run the registered CLI agent on each task in the workspace.
+
+    Reads agent_config.yaml, iterates over task directories, and
+    launches the agent command per task with optional bwrap isolation.
+    """
+    workspace = Path(args.workspace).resolve()
+    if not workspace.exists():
+        print(f"Workspace not found: {workspace}")
+        print("Run 'gdpval-bench export-tasks' first to create it.")
+        return
+
+    try:
+        agent_cfg = load_agent_config(getattr(args, "agent_config", None))
+    except (FileNotFoundError, ValueError) as e:
+        print(f"Agent config error: {e}")
+        return
+
+    if agent_cfg.use_bwrap:
+        try:
+            assert_bwrap_available()
+        except RuntimeError as e:
+            print(f"Sandbox error: {e}")
+            return
+        print("  Sandbox: bwrap isolation enabled")
+
+    if agent_cfg.concurrency > 1:
+        print(f"  Warning: concurrency={agent_cfg.concurrency} requested "
+              f"but parallel execution is not yet implemented. Running sequentially.")
+
+    manifest_path = workspace / "manifest.json"
+    if manifest_path.exists():
+        with open(manifest_path, "r", encoding="utf-8") as f:
+            manifest = json.load(f)
+        task_ids = manifest.get("task_ids", [])
+    else:
+        # Fall back to scanning directories that contain task.json
+        task_ids = sorted(
+            d.name for d in workspace.iterdir()
+            if d.is_dir() and (d / "task.json").exists()
+        )
+
+    if not task_ids:
+        print("No task directories found in workspace.")
+        return
+
+    # Apply task-id filter if provided
+    if args.task_id:
+        if args.task_id not in task_ids:
+            print(f"Task {args.task_id} not found in workspace.")
+            return
+        task_ids = [args.task_id]
+
+    print(f"\nRunning agent on {len(task_ids)} tasks in {workspace}")
+    print(f"  Agent command: {agent_cfg.command}")
+    print(f"  Timeout: {agent_cfg.timeout}s")
+    print(f"  Concurrency: {agent_cfg.concurrency}")
+    print()
+
+    # Run log
+    run_name = args.run_name or datetime.now().strftime("run_%Y%m%d_%H%M%S")
+    rd = _results_dir(run_name)
+    rd.mkdir(parents=True, exist_ok=True)
+    run_log_file = rd / "run_log.jsonl"
+
+    # Build the subprocess environment once
+    env = os.environ.copy()
+    env.update(agent_cfg.env)
+
+    succeeded = 0
+    failed = 0
+    timed_out = 0
+    skipped = 0
+
+    for i, tid in enumerate(task_ids, 1):
+        task_dir = workspace / tid
+        if not task_dir.exists():
+            print(f"  [{i}/{len(task_ids)}] {tid[:12]}... SKIPPED (dir not found)")
+            skipped += 1
+            continue
+
+        result = _run_single_task(task_dir, agent_cfg, env, i, len(task_ids))
+
+        # Log result
+        record = {
+            "task_id": tid,
+            "run_name": run_name,
+            "timestamp": datetime.now().isoformat(),
+            **result,
+        }
+        _append_jsonl(run_log_file, record)
+
+        if result["status"] == "success":
+            succeeded += 1
+        elif result["status"] == "timeout":
+            timed_out += 1
+        elif result["status"] == "skipped":
+            skipped += 1
+        else:
+            failed += 1
+
+    # Summary
+    print(f"\n{'=' * 60}")
+    print(f"  RUN SUMMARY")
+    print(f"{'=' * 60}")
+    print(f"  Total:     {len(task_ids)}")
+    print(f"  Succeeded: {succeeded}")
+    print(f"  Failed:    {failed}")
+    print(f"  Timed out: {timed_out}")
+    print(f"  Skipped:   {skipped}")
+    print(f"  Run log:   {run_log_file}")
+    print(f"{'=' * 60}")
+    print(f"\nNext step: evaluate the results:")
+    print(f"  python -m gdpval_bench evaluate --workspace {workspace} --run-name {run_name}")
 
 
 # ═══════════════════════════════════════════════════════════════════
@@ -591,6 +794,28 @@ def cli():
     )
     _add_common_args(export_parser)
 
+    # ── run ──
+    run_parser = subparsers.add_parser(
+        "run",
+        help="Run a CLI agent on each task in the workspace"
+    )
+    run_parser.add_argument(
+        "--workspace", "-w", type=str, default="workspace",
+        help="Path to workspace directory with exported tasks (default: workspace/)"
+    )
+    run_parser.add_argument(
+        "--agent-config", type=str, default=None,
+        help="Path to agent_config.yaml (default: auto-detect)"
+    )
+    run_parser.add_argument(
+        "--task-id", type=str, default=None,
+        help="Run agent on a single task by ID"
+    )
+    run_parser.add_argument(
+        "--run-name", type=str, default=None,
+        help="Name for this run (used for log directory)"
+    )
+
     # ── evaluate ──
     eval_parser = subparsers.add_parser(
         "evaluate",
@@ -629,6 +854,8 @@ def cli():
 
     if args.command == "export-tasks":
         cmd_export_tasks(args)
+    elif args.command == "run":
+        cmd_run(args)
     elif args.command == "evaluate":
         cmd_evaluate(args)
     elif args.command == "list-tasks":

@@ -6,9 +6,10 @@ This repository contains:
 
 - **Benchmark tasks** — 220 tasks from the [OpenAI GDPVal dataset](https://huggingface.co/datasets/openai/gdpval) (50 bundled, full set downloadable from HuggingFace)
 - **Evaluation rubrics** — 44 occupation-specific meta-prompts for LLM-based scoring
+- **Agent runner** — CLI-driven agent execution with optional bwrap sandbox isolation
 - **Evaluation pipeline** — CLI tool to score agent outputs against rubrics
 
-You can evaluate **any** agent framework — CLI tools, API-based agents, multi-agent systems, or manual submissions.
+You can evaluate **any** CLI agent — Claude Code, OpenHands, SWE-agent, custom scripts, or any tool that runs from the command line.
 
 ## Quick Start
 
@@ -29,8 +30,6 @@ The evaluator uses an OpenAI-compatible LLM (default: `gpt-4o`) to score artifac
 cp .env.example .env
 # Edit .env with your API key
 ```
-
-You can use any of these configurations:
 
 | Env Variable | Purpose |
 |---|---|
@@ -56,40 +55,70 @@ This creates one directory per task:
 
 ```
 workspace/
+  manifest.json
   {task_id}/
     task.json          # Task metadata + prompt
     reference_file.pdf # Downloaded reference files (if any)
     ...
 ```
 
-### 4. Run your agent
+### 4. Configure your agent
 
-Run your agent on each task. Your agent should:
+Edit `agent_config.yaml` to register your CLI agent's non-interactive command:
 
-1. Read the task prompt from `workspace/{task_id}/task.json`
-2. (Optionally) use reference files in the same directory
-3. Write output artifacts (files) into `workspace/{task_id}/`
+```yaml
+# The command template — placeholders are expanded per task
+command: "claude -p {prompt} --output-format text --max-turns 30"
 
-**Example** — running a custom agent:
+timeout: 1800       # Per-task timeout in seconds (0 = no timeout)
+concurrency: 1      # Reserved for future parallel execution
+use_bwrap: false    # Enable bwrap sandbox isolation (Linux only)
 
-```python
-import json
-from pathlib import Path
-
-workspace = Path("workspace")
-for task_dir in sorted(workspace.iterdir()):
-    if not task_dir.is_dir() or task_dir.name == "manifest.json":
-        continue
-    
-    task = json.loads((task_dir / "task.json").read_text())
-    prompt = task["augmented_prompt"]  # includes reference file locations
-    
-    # Run your agent here
-    # result = my_agent.run(prompt, working_dir=str(task_dir))
-    # Agent should write output files to task_dir
+env: {}             # Extra environment variables for the agent process
 ```
 
-### 5. Evaluate
+**Available placeholders:**
+
+| Placeholder | Value |
+|---|---|
+| `{workspace}` | Absolute path to the task workspace directory (shell-escaped) |
+| `{prompt}` | Full task prompt text (shell-escaped) |
+| `{prompt_file}` | Path to a temp file containing the prompt (for long prompts) |
+| `{task_id}` | The task ID string (shell-escaped) |
+| `{task_json}` | Absolute path to the task's `task.json` file (shell-escaped) |
+
+**Example configurations:**
+
+```yaml
+# Claude Code
+command: "claude -p {prompt} --output-format text --max-turns 30"
+
+# OpenHands / SWE-agent style
+command: "python -m my_agent --task-file {task_json} --workspace {workspace}"
+
+# Custom script wrapper
+command: "bash run_agent.sh {prompt_file} {workspace}"
+```
+
+### 5. Run your agent
+
+```bash
+# Run on all exported tasks
+python -m gdpval_bench run --workspace workspace/
+
+# Run on a single task
+python -m gdpval_bench run --workspace workspace/ --task-id <task_id>
+
+# Use a specific config file
+python -m gdpval_bench run --workspace workspace/ --agent-config my_agent.yaml
+
+# Name your run (for organizing logs)
+python -m gdpval_bench run --workspace workspace/ --run-name claude_v1
+```
+
+The runner iterates over each task directory, expands the command template with the task's prompt and paths, and executes the agent as a subprocess. Per-task results are logged to `gdpval_bench/results/<run_name>/run_log.jsonl`.
+
+### 6. Evaluate
 
 ```bash
 # Evaluate all tasks
@@ -102,16 +131,45 @@ python -m gdpval_bench evaluate --workspace workspace/ --task-id <task_id>
 python -m gdpval_bench evaluate --workspace workspace/ --resume
 
 # Name your run
-python -m gdpval_bench evaluate --workspace workspace/ --run-name my_agent_v1
+python -m gdpval_bench evaluate --workspace workspace/ --run-name claude_v1
 ```
 
 Results are saved to `gdpval_bench/results/<run_name>/`:
 
 ```
 results/<run_name>/
-  results.jsonl     # Per-task evaluation results
-  summary.json      # Aggregate statistics
+  run_log.jsonl     # Per-task agent execution log (from `run`)
+  results.jsonl     # Per-task evaluation results (from `evaluate`)
+  summary.json      # Aggregate statistics (from `evaluate`)
 ```
+
+## Sandbox Isolation (bwrap)
+
+When running on Linux, you can enable [bubblewrap](https://github.com/containers/bubblewrap) sandbox isolation to restrict each agent invocation to its own task workspace:
+
+```yaml
+# In agent_config.yaml
+use_bwrap: true
+```
+
+**Sandbox policy:**
+
+- Host filesystem is mounted **read-only** (`--ro-bind / /`)
+- The task workspace directory is mounted **read-write** (`--bind`)
+- `/dev` and `/proc` are re-mounted for basic system access
+- `TMPDIR` is redirected to the workspace (since `/tmp` is read-only)
+- `PIP_TARGET` / `PYTHONPATH` point to `.pip_packages/` in the workspace
+- Network is **not** isolated (agents may need HTTP access)
+- `--die-with-parent` ensures cleanup if the parent process exits
+
+**Requirements:**
+
+```bash
+# Install bubblewrap
+sudo apt install bubblewrap
+```
+
+This prevents agents from modifying files outside their designated workspace, providing isolation between tasks and protecting the host system.
 
 ## How Evaluation Works
 
@@ -162,6 +220,24 @@ Options:
   --occupations OCC [...] Filter by occupation(s)
   --no-prefetch           Skip reference file download
 ```
+
+### `run` — Run a CLI agent on each task
+
+```
+python -m gdpval_bench run [OPTIONS]
+
+Options:
+  --workspace, -w PATH   Workspace directory (default: workspace/)
+  --agent-config PATH    Path to agent_config.yaml (default: auto-detect)
+  --task-id ID           Run agent on a single task
+  --run-name NAME        Name for this run (used for log directory)
+```
+
+The agent command is configured in `agent_config.yaml`, not via CLI flags. The config file is searched in this order:
+
+1. Path given by `--agent-config`
+2. `agent_config.yaml` in the current working directory
+3. `agent_config.yaml` in the repository root
 
 ### `evaluate` — Score agent outputs
 
@@ -227,7 +303,21 @@ Each task contains:
 
 ## Result Format
 
-### Per-task results (`results.jsonl`)
+### Run log (`run_log.jsonl`)
+
+```json
+{
+  "task_id": "...",
+  "run_name": "claude_v1",
+  "timestamp": "2026-04-07T...",
+  "status": "success",
+  "return_code": 0,
+  "elapsed_sec": 45.2,
+  "output_tail": "... last 2000 chars of agent stdout ..."
+}
+```
+
+### Per-task evaluation (`results.jsonl`)
 
 ```json
 {
@@ -245,7 +335,7 @@ Each task contains:
     "feedback": "..."
   },
   "eval_time_sec": 12.3,
-  "timestamp": "2026-04-06T..."
+  "timestamp": "2026-04-07T..."
 }
 ```
 
