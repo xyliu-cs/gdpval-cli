@@ -61,6 +61,7 @@ def bwrap_shell_prefix(
         f"{extra_binds}"
         f"--dev /dev --proc /proc "
         f"--setenv TMPDIR {ws} "
+        f"--setenv UV_CACHE_DIR {ws}/.uv_cache "
         f"--setenv PIP_TARGET {pip_target} "
         f"--setenv PYTHONPATH {pip_target} "
         f"--chdir {ws} "
@@ -81,5 +82,7 @@ def wrap_command(
     """
     if use_bwrap:
         prefix = bwrap_shell_prefix(working_dir, extra_writable_dirs)
-        return prefix + command, "/"
+        # return prefix + command, "/"
+        # Wrap in bash -c so shell operators (&&, |, ;) work inside bwrap                                                                                                         
+        return prefix + "bash -c " + shlex.quote(command), "/"
     return command, working_dir

@@ -15,27 +15,27 @@
 #
 # ──────────────────────────────────────────────────────────────────
 
-claude:
-  command: "claude -p {prompt} --output-format text --max-turns 30"
-  output_format: text
-  timeout: 1800
-  concurrency: 1
-  env: {}
-  use_bwrap: false
-
-# openharness:
-#   command: "openharness -p {prompt} --output-format json --max-turns 30"
-#   output_format: json
+# claude:
+#   command: "claude -p {prompt} --output-format text --max-turns 30"
+#   output_format: text
 #   timeout: 1800
 #   concurrency: 1
-#   use_bwrap: true
-#   agent_data_dir: ".agent_data/openharness"   # relative to workspace root
-#   env:
-#     OPENHARNESS_CONFIG_DIR: "{agent_data_dir}"
-#     OPENHARNESS_DATA_DIR: "{agent_data_dir}/data"
-#     OPENHARNESS_LOGS_DIR: "{agent_data_dir}/logs"
-#   extra_writable_dirs:             # additional dirs the agent can write to
-#     - /path/to/OpenHarness         # e.g. the agent's own codebase
+#   env: {}
+#   use_bwrap: false
+
+openharness:
+  command: "cd /mnt/tidalfs-bdsz01/dataset/xyliu/Github/OpenHarness && uv run oh -p {prompt} --output-format json --max-turns 30"
+  output_format: json
+  timeout: 1800
+  concurrency: 1
+  use_bwrap: true
+  agent_data_dir: ".agent_data/openharness"   # relative to workspace root
+  env:
+    OPENHARNESS_CONFIG_DIR: "{agent_data_dir}"
+    OPENHARNESS_DATA_DIR: "{agent_data_dir}/data"
+    OPENHARNESS_LOGS_DIR: "{agent_data_dir}/logs"
+  extra_writable_dirs:             # additional dirs the agent can write to
+    - /mnt/tidalfs-bdsz01/dataset/xyliu/Github/OpenHarness         # e.g. the agent's own codebase
 
 # custom:
 #   command: "bash run_agent.sh {prompt_file} {workspace}"
