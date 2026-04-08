@@ -297,60 +297,108 @@ def cmd_export_tasks(args: argparse.Namespace) -> None:
 # Command: run
 # ═══════════════════════════════════════════════════════════════════
 
-_PREVIEW_MAX = 200  # max chars per line preview
+_PREVIEW_MAX = 200   # max chars per line preview
+_TEXT_BUF_MAX = 65536  # force-flush assistant text buffer at 64 KB
 
 
-def _print_agent_line(line: str, output_format: str, step: int) -> None:
-    """Print a single line of agent output as a live preview."""
-    line = line.rstrip("\n\r")
-    if not line.strip():
-        return
+def _truncate(text: str) -> str:
+    """Truncate text to _PREVIEW_MAX chars, adding ellipsis if needed."""
+    return text[:_PREVIEW_MAX] + ("..." if len(text) > _PREVIEW_MAX else "")
 
-    if output_format == "stream-json":
+
+class _AgentPreviewer:
+    """Stateful live-preview printer for agent output lines.
+
+    For ``stream-json`` output, assistant text deltas are buffered and
+    flushed as complete lines (on ``\\n``) or when a non-delta event
+    arrives, so token-per-line streaming doesn't spam the console.
+    """
+
+    def __init__(self, output_format: str) -> None:
+        self.output_format = output_format
+        self.step = 0
+        self._text_buf = ""
+
+    def _emit(self, text: str, prefix: str = "") -> None:
+        """Print a single preview line and advance the step counter."""
+        preview = _truncate(text)
+        print(f"           [{self.step}] {prefix}{preview}", flush=True)
+        self.step += 1
+
+    def _flush_text_buf(self) -> None:
+        """Print and clear any buffered assistant text."""
+        if not self._text_buf:
+            return
+        for raw_line in self._text_buf.splitlines():
+            text = raw_line.strip()
+            if text:
+                self._emit(text)
+        self._text_buf = ""
+
+    def feed(self, line: str) -> None:
+        """Process one line of agent stdout."""
+        line = line.rstrip("\n\r")
+        if not line.strip():
+            return
+
+        if self.output_format == "stream-json":
+            self._feed_stream_json(line)
+            return
+
+        # For json format, try to extract the "text" field
+        if self.output_format == "json":
+            try:
+                obj = json.loads(line)
+                if isinstance(obj, dict) and "text" in obj:
+                    text = obj["text"].replace("\n", " ").strip()
+                    if text:
+                        self._emit(text)
+                    return
+            except json.JSONDecodeError:
+                pass
+
+        # Fallback for json (parse failure / no text field) and text format
+        self._emit(line)
+
+    def _feed_stream_json(self, line: str) -> None:
+        """Handle a single stream-json event line."""
         try:
             obj = json.loads(line)
-            if not isinstance(obj, dict):
-                return
-            evt = obj.get("type", "")
-            if evt == "tool_started":
-                tool = obj.get("tool_name", "?")
-                inp = json.dumps(obj.get("tool_input", {}), ensure_ascii=False)
-                preview = inp[:_PREVIEW_MAX] + ("..." if len(inp) > _PREVIEW_MAX else "")
-                print(f"           [{step}] >> {tool}: {preview}", flush=True)
-            elif evt == "tool_completed":
-                tool = obj.get("tool_name", "?")
-                is_err = obj.get("is_error", False)
-                out = obj.get("output", "").replace("\n", " ").strip()
-                tag = "ERR" if is_err else "ok"
-                preview = out[:_PREVIEW_MAX] + ("..." if len(out) > _PREVIEW_MAX else "")
-                print(f"           [{step}] << {tool} [{tag}]: {preview}", flush=True)
-            elif evt == "assistant_delta":
-                text = obj.get("text", "").replace("\n", " ").strip()
-                if text:
-                    preview = text[:_PREVIEW_MAX] + ("..." if len(text) > _PREVIEW_MAX else "")
-                    print(f"           [{step}] {preview}", flush=True)
-            # Silently skip system, status, assistant_complete, error events
         except json.JSONDecodeError:
-            pass
-        return
+            return
+        if not isinstance(obj, dict):
+            return
 
-    if output_format == "json":
-        try:
-            obj = json.loads(line)
-            if isinstance(obj, dict) and "text" in obj:
-                text = obj["text"].replace("\n", " ").strip()
-                if text:
-                    preview = text[:_PREVIEW_MAX] + ("..." if len(text) > _PREVIEW_MAX else "")
-                    print(f"           [{step}] {preview}", flush=True)
-                return
-        except json.JSONDecodeError:
-            pass
-        # Non-text JSON or parse failure — show raw preview
-        preview = line[:_PREVIEW_MAX] + ("..." if len(line) > _PREVIEW_MAX else "")
-        print(f"           [{step}] {preview}", flush=True)
-    else:
-        preview = line[:_PREVIEW_MAX] + ("..." if len(line) > _PREVIEW_MAX else "")
-        print(f"           [{step}] {preview}", flush=True)
+        evt = obj.get("type", "")
+
+        if evt == "assistant_delta":
+            self._text_buf += obj.get("text", "")
+            if "\n" in self._text_buf or len(self._text_buf) > _TEXT_BUF_MAX:
+                parts = self._text_buf.split("\n")
+                for complete_line in parts[:-1]:
+                    text = complete_line.strip()
+                    if text:
+                        self._emit(text)
+                self._text_buf = parts[-1]
+            return
+
+        # Non-delta event — flush any buffered text first
+        self._flush_text_buf()
+
+        if evt == "tool_started":
+            tool = obj.get("tool_name", "?")
+            inp = json.dumps(obj.get("tool_input", {}), ensure_ascii=False)
+            self._emit(inp, prefix=f">> {tool}: ")
+        elif evt == "tool_completed":
+            tool = obj.get("tool_name", "?")
+            is_err = obj.get("is_error", False)
+            out = obj.get("output", "").replace("\n", " ").strip()
+            tag = "ERR" if is_err else "ok"
+            self._emit(out, prefix=f"<< {tool} [{tag}]: ")
+
+    def finish(self) -> None:
+        """Flush any remaining buffered text (call when the process ends)."""
+        self._flush_text_buf()
 
 
 def _run_single_task(
@@ -409,7 +457,7 @@ def _run_single_task(
             stderr=subprocess.STDOUT,
         )
         raw_chunks: list[str] = []
-        step = 0
+        previewer = _AgentPreviewer(agent_cfg.output_format)
         try:
             for raw_line in iter(proc.stdout.readline, b""):
                 line = raw_line.decode("utf-8", errors="replace")
@@ -420,8 +468,7 @@ def _run_single_task(
                     proc.wait()
                     raise subprocess.TimeoutExpired(final_cmd, timeout)
                 # Preview agent output
-                _print_agent_line(line, agent_cfg.output_format, step)
-                step += 1
+                previewer.feed(line)
             proc.wait()
         except subprocess.TimeoutExpired:
             raise
@@ -429,6 +476,8 @@ def _run_single_task(
             proc.kill()
             proc.wait()
             raise
+        finally:
+            previewer.finish()
 
         elapsed = time.monotonic() - t0
         status = "success" if proc.returncode == 0 else "error"
