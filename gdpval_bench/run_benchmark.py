@@ -510,6 +510,16 @@ def cmd_run(args: argparse.Namespace) -> None:
     rd.mkdir(parents=True, exist_ok=True)
     run_log_file = rd / "run_log.jsonl"
 
+    # Check for already-completed tasks (resume support)
+    completed_ids = set()
+    if args.resume:
+        completed_ids = {
+            r["task_id"] for r in _load_jsonl(run_log_file)
+            if r.get("status") == "success"
+        }
+        if completed_ids:
+            print(f"Resuming: {len(completed_ids)} tasks already succeeded, will be skipped")
+
     # Build the subprocess environment once
     env = agent_cfg.build_env(os.environ)
 
@@ -517,8 +527,12 @@ def cmd_run(args: argparse.Namespace) -> None:
     failed = 0
     timed_out = 0
     skipped = 0
+    skipped_resume = 0
 
     for i, tid in enumerate(task_ids, 1):
+        if tid in completed_ids:
+            skipped_resume += 1
+            continue
         task_dir = workspace / tid
         if not task_dir.exists():
             print(f"  [{i}/{len(task_ids)}] {tid[:12]}... SKIPPED (dir not found)")
@@ -554,6 +568,8 @@ def cmd_run(args: argparse.Namespace) -> None:
     print(f"  Failed:    {failed}")
     print(f"  Timed out: {timed_out}")
     print(f"  Skipped:   {skipped}")
+    if skipped_resume:
+        print(f"  Resumed:   {skipped_resume} (previously succeeded)")
     print(f"  Run log:   {run_log_file}")
     print(f"{'=' * 60}")
     print(f"\nNext step: evaluate the results:")
@@ -885,6 +901,10 @@ def cli():
     run_parser.add_argument(
         "--run-name", type=str, default=None,
         help="Name for this run (used for log directory)"
+    )
+    run_parser.add_argument(
+        "--resume", action="store_true",
+        help="Skip tasks that already succeeded in a previous run"
     )
 
     # ── evaluate ──
