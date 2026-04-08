@@ -17,7 +17,7 @@
 
 # claude:
 #   command: "claude -p {prompt} --output-format text --max-turns 30"
-#   output_format: text
+#   output_format: text        # "text", "json", or "stream-json"
 #   timeout: 1800
 #   concurrency: 1
 #   env: {}

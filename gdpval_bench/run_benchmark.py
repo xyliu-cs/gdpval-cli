@@ -306,6 +306,34 @@ def _print_agent_line(line: str, output_format: str, step: int) -> None:
     if not line.strip():
         return
 
+    if output_format == "stream-json":
+        try:
+            obj = json.loads(line)
+            if not isinstance(obj, dict):
+                return
+            evt = obj.get("type", "")
+            if evt == "tool_started":
+                tool = obj.get("tool_name", "?")
+                inp = json.dumps(obj.get("tool_input", {}), ensure_ascii=False)
+                preview = inp[:_PREVIEW_MAX] + ("..." if len(inp) > _PREVIEW_MAX else "")
+                print(f"           [{step}] >> {tool}: {preview}", flush=True)
+            elif evt == "tool_completed":
+                tool = obj.get("tool_name", "?")
+                is_err = obj.get("is_error", False)
+                out = obj.get("output", "").replace("\n", " ").strip()
+                tag = "ERR" if is_err else "ok"
+                preview = out[:_PREVIEW_MAX] + ("..." if len(out) > _PREVIEW_MAX else "")
+                print(f"           [{step}] << {tool} [{tag}]: {preview}", flush=True)
+            elif evt == "assistant_delta":
+                text = obj.get("text", "").replace("\n", " ").strip()
+                if text:
+                    preview = text[:_PREVIEW_MAX] + ("..." if len(text) > _PREVIEW_MAX else "")
+                    print(f"           [{step}] {preview}", flush=True)
+            # Silently skip system, status, assistant_complete, error events
+        except json.JSONDecodeError:
+            pass
+        return
+
     if output_format == "json":
         try:
             obj = json.loads(line)

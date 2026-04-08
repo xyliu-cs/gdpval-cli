@@ -69,7 +69,7 @@ Edit `agent_config.yaml` to register one or more CLI agents. Each top-level key 
 ```yaml
 claude:
   command: "claude -p {prompt} --output-format text --max-turns 30"
-  output_format: text   # "text" (default) or "json"
+  output_format: text   # "text" (default), "json", or "stream-json"
   timeout: 1800         # Per-task timeout in seconds (0 = no timeout)
   concurrency: 1        # Reserved for future parallel execution
   use_bwrap: false      # Enable bwrap sandbox isolation (Linux only)
@@ -94,6 +94,7 @@ openharness:
 
 - `text` (default) — stdout is used as-is.
 - `json` — each line of stdout is parsed as JSON. Lines containing a `"text"` field (e.g. `{"type": "result", "text": "..."}`) have their text extracted and concatenated. This is compatible with OpenHands-style JSON output.
+- `stream-json` — newline-delimited JSON event stream (e.g. OpenHarness `--output-format stream-json`). Extracts assistant text from `assistant_complete` events and tool output from `tool_completed` events. During execution, shows live previews of tool calls (`>> tool_name`) and results (`<< tool_name`).
 
 **`agent_data_dir`** isolates agent framework data under the workspace:
 

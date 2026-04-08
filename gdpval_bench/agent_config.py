@@ -27,7 +27,7 @@ class AgentConfig:
     concurrency: int = 1
     env: Dict[str, str] = field(default_factory=dict)
     use_bwrap: bool = False
-    output_format: str = "text"  # "text" or "json"
+    output_format: str = "text"  # "text", "json", or "stream-json"
     agent_data_dir: Optional[str] = None  # raw value from config
     extra_writable_dirs: List[str] = field(default_factory=list)
 
@@ -101,7 +101,15 @@ class AgentConfig:
         ``"text"`` field (e.g. ``{"type": "result", "text": "..."}``).
         The text values are concatenated. Falls back to raw output on
         parse failure.
+
+        For ``output_format: stream-json``, expects newline-delimited JSON
+        events from OpenHarness ``--output-format stream-json``.  Extracts
+        assistant text from ``assistant_complete`` events and tool
+        output from ``tool_completed`` events.
         """
+        if self.output_format == "stream-json":
+            return self._parse_stream_json(raw_output)
+
         if self.output_format != "json":
             return raw_output
 
@@ -118,6 +126,38 @@ class AgentConfig:
                 continue
 
         return "\n".join(texts) if texts else raw_output
+
+    def _parse_stream_json(self, raw_output: str) -> str:
+        """Parse stream-json output into readable text.
+
+        Extracts assistant text and tool execution results from the
+        structured event stream.
+        """
+        parts: list[str] = []
+        for line in raw_output.splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                obj = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if not isinstance(obj, dict):
+                continue
+
+            evt_type = obj.get("type", "")
+            if evt_type == "assistant_complete":
+                text = obj.get("text", "").strip()
+                if text:
+                    parts.append(text)
+            elif evt_type == "tool_completed":
+                tool_name = obj.get("tool_name", "unknown")
+                output = obj.get("output", "")
+                is_error = obj.get("is_error", False)
+                tag = "ERROR" if is_error else "output"
+                parts.append(f"[{tool_name} {tag}] {output}")
+
+        return "\n".join(parts) if parts else raw_output
 
 
 def _find_config_file(config_path: str | Path | None = None) -> Path:
