@@ -68,7 +68,7 @@ Edit `agent_config.yaml` to register one or more CLI agents. Each top-level key 
 
 ```yaml
 claude:
-  command: "claude -p {prompt} --output-format text --max-turns 30"
+  command: "claude -p {prompt} --output-format {output_format} --max-turns 30"
   output_format: text   # "text" (default), "json", or "stream-json"
   timeout: 1800         # Per-task timeout in seconds (0 = no timeout)
   concurrency: 1        # Reserved for future parallel execution
@@ -76,8 +76,8 @@ claude:
   env: {}               # Extra environment variables for the agent process
 
 openharness:
-  command: "openharness -p {prompt} --output-format json --max-turns 30"
-  output_format: json   # parses {"type": "result", "text": "..."} from stdout
+  command: "openharness -p {prompt} --output-format {output_format} --max-turns 30"
+  output_format: stream-json   # structured event stream with tool calls
   timeout: 1800
   concurrency: 1
   use_bwrap: true
@@ -112,6 +112,7 @@ The agent framework itself must be installed on the host by the user (e.g. `pip 
 | `{task_id}` | The task ID string (shell-escaped) |
 | `{task_json}` | Absolute path to the task's `task.json` file (shell-escaped) |
 | `{agent_data_dir}` | Absolute path to the agent's isolated data directory |
+| `{output_format}` | The configured `output_format` value (text, json, or stream-json) |
 
 ### 5. Run your agent
 

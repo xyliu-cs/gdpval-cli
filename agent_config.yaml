@@ -12,11 +12,12 @@
 #   {task_id}         — The task ID string
 #   {task_json}       — Absolute path to the task.json file
 #   {agent_data_dir}  — Absolute path to the agent's isolated data dir
+#   {output_format}   — The configured output_format value (text, json, or stream-json)
 #
 # ──────────────────────────────────────────────────────────────────
 
 # claude:
-#   command: "claude -p {prompt} --output-format text --max-turns 30"
+#   command: "claude -p {prompt} --output-format {output_format} --max-turns 30"
 #   output_format: text        # "text", "json", or "stream-json"
 #   timeout: 1800
 #   concurrency: 1
@@ -24,8 +25,8 @@
 #   use_bwrap: false
 
 openharness:
-  command: "cd /mnt/tidalfs-bdsz01/dataset/xyliu/Github/OpenHarness && uv run oh -p {prompt} --output-format json --max-turns 30"
-  output_format: json
+  command: "cd /mnt/tidalfs-bdsz01/dataset/xyliu/Github/OpenHarness && uv run oh -p {prompt} --output-format {output_format} --max-turns 30"
+  output_format: stream-json
   timeout: 1800
   concurrency: 1
   use_bwrap: true

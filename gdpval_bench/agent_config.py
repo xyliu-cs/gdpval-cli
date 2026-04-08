@@ -79,6 +79,7 @@ class AgentConfig:
             task_id=shlex.quote(task_id),
             task_json=shlex.quote(task_json),
             agent_data_dir=shlex.quote(data_dir) if data_dir else "",
+            output_format=self.output_format,
         )
         return cmd, prompt_file
 
