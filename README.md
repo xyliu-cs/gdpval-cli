@@ -316,10 +316,11 @@ By default the CLI loads the bundled 50-task subset. To export all 220 tasks fro
 
 ```bash
 # 1. Install dependencies
+pip install -U "huggingface_hub[cli]"
 pip install datasets pandas pyarrow
 
 # 2. Download the dataset from HuggingFace
-huggingface-cli download openai/gdpval --repo-type dataset --local-dir gdpval_data
+hf download openai/gdpval --repo-type dataset --local-dir gdpval_data
 
 # 3. Export all 220 tasks
 python -m gdpval_bench export-tasks --output workspace/ --gdpval-path gdpval_data
