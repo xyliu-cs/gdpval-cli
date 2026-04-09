@@ -364,7 +364,11 @@ def _stratified_sample(
 
 
 def _resolve_references(ref_files: Any, base_dir: Path) -> List[str]:
-    """Resolve reference file paths relative to GDPVal dataset dir."""
+    """Resolve reference file paths relative to GDPVal dataset dir.
+
+    Returns absolute paths for files that exist on disk, keeping the
+    original relative path as a fallback for later network download.
+    """
     if ref_files is None:
         return []
     try:
@@ -374,12 +378,21 @@ def _resolve_references(ref_files: Any, base_dir: Path) -> List[str]:
         return []
     if isinstance(ref_files, str):
         ref_files = [ref_files]
+
+    base_dir = base_dir.resolve()
+
     resolved = []
     for rf in ref_files:
         if isinstance(rf, str):
             full = base_dir / rf
             if full.exists():
                 resolved.append(str(full))
+                continue
+            # The path stored in the parquet may already include the
+            # dataset directory prefix — try it directly from CWD.
+            raw = Path(rf)
+            if raw.exists():
+                resolved.append(str(raw.resolve()))
             else:
                 resolved.append(rf)
     return resolved
@@ -426,6 +439,11 @@ def prefetch_reference_files(
         ref_urls = task.get("reference_file_urls", []) or []
         paths_for_task: List[str] = []
         for i, rel_path in enumerate(ref_files):
+            # Already-resolved absolute paths that exist locally don't need
+            # prefetching — they'll be copied directly in prepare_task_workspace.
+            if Path(rel_path).is_absolute() and Path(rel_path).exists():
+                paths_for_task.append(rel_path)
+                continue
             url = ref_urls[i] if i < len(ref_urls) else None
             if not url:
                 url = f"https://huggingface.co/datasets/openai/gdpval/resolve/main/{rel_path}"
@@ -435,8 +453,11 @@ def prefetch_reference_files(
         task_files[tid] = paths_for_task
 
     if not file_map:
-        print("📦 No reference files to prefetch.")
-        return {}
+        print("📦 No reference files to prefetch (all files available locally).")
+        result: Dict[str, List[str]] = {}
+        for tid, paths in task_files.items():
+            result[tid] = [p for p in paths if Path(p).exists()]
+        return result
 
     total = len(file_map)
     already = 0
@@ -475,6 +496,10 @@ def prefetch_reference_files(
     for tid, paths in task_files.items():
         cached_paths = []
         for rp in paths:
+            rp_path = Path(rp)
+            if rp_path.is_absolute() and rp_path.exists():
+                cached_paths.append(rp)
+                continue
             fp = cache / rp
             if fp.exists():
                 cached_paths.append(str(fp))
@@ -531,9 +556,9 @@ def prepare_task_workspace(task: Dict[str, Any], workspace_dir: str) -> str:
             downloaded.append(filename)
             continue
 
-        # If rel_path is an absolute path to an existing file, copy directly
+        # If rel_path points to an existing file (absolute or relative), copy directly
         abs_src = Path(rel_path)
-        if abs_src.is_absolute() and abs_src.exists() and abs_src.stat().st_size > 0:
+        if abs_src.exists() and abs_src.stat().st_size > 0:
             _shutil.copy2(str(abs_src), str(dest))
             downloaded.append(filename)
             logger.info(f"Copied from local dataset: {filename}")
