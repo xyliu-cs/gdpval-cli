@@ -365,7 +365,12 @@ def _stratified_sample(
 
 def _resolve_references(ref_files: Any, base_dir: Path) -> List[str]:
     """Resolve reference file paths relative to GDPVal dataset dir."""
-    if not ref_files:
+    if ref_files is None:
+        return []
+    try:
+        if len(ref_files) == 0:
+            return []
+    except TypeError:
         return []
     if isinstance(ref_files, str):
         ref_files = [ref_files]
