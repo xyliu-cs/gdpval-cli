@@ -29,3 +29,4 @@ build/
 workspace/
 gdpval_bench/results/
 gdpval_bench/ref_cache/
+gdpval_data/

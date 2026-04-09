@@ -531,6 +531,14 @@ def prepare_task_workspace(task: Dict[str, Any], workspace_dir: str) -> str:
             downloaded.append(filename)
             continue
 
+        # If rel_path is an absolute path to an existing file, copy directly
+        abs_src = Path(rel_path)
+        if abs_src.is_absolute() and abs_src.exists() and abs_src.stat().st_size > 0:
+            _shutil.copy2(str(abs_src), str(dest))
+            downloaded.append(filename)
+            logger.info(f"Copied from local dataset: {filename}")
+            continue
+
         # Try local cache first
         cached = cache / rel_path
         if cached.exists() and cached.stat().st_size > 0:
