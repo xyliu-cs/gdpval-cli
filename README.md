@@ -49,6 +49,9 @@ python -m gdpval_bench export-tasks --output workspace/ --max-tasks 5
 
 # Export using a fixed task list
 python -m gdpval_bench export-tasks --output workspace/ --task-list gdpval_bench/tasks_50.json
+
+# Export all 220 tasks from the original HuggingFace dataset (see "Full Dataset" below)
+python -m gdpval_bench export-tasks --output workspace/ --gdpval-path gdpval_data
 ```
 
 This creates one directory per task:
@@ -309,13 +312,32 @@ The repository ships with 50 tasks in `gdpval_bench/tasks_50_full.jsonl`, select
 
 ### Full Dataset (220 tasks)
 
-To use all 220 tasks, install the HuggingFace `datasets` library:
+By default the CLI loads the bundled 50-task subset. To export all 220 tasks from the [original HuggingFace dataset](https://huggingface.co/datasets/openai/gdpval), download the dataset first and then point the CLI to it with `--gdpval-path`:
 
 ```bash
-pip install datasets
+# 1. Install dependencies
+pip install datasets pandas pyarrow
+
+# 2. Download the dataset from HuggingFace
+huggingface-cli download openai/gdpval --repo-type dataset --local-dir gdpval_data
+
+# 3. Export all 220 tasks
+python -m gdpval_bench export-tasks --output workspace/ --gdpval-path gdpval_data
 ```
 
-Tasks will be auto-downloaded from `openai/gdpval` when the bundled subset isn't sufficient.
+You can also combine `--gdpval-path` with any of the filtering options:
+
+```bash
+# Export 220 tasks but only from specific sectors
+python -m gdpval_bench export-tasks --output workspace/ --gdpval-path gdpval_data \
+  --sectors "Health Care" "Information"
+
+# Stratified sample: 3 tasks per occupation from the full dataset
+python -m gdpval_bench export-tasks --output workspace/ --gdpval-path gdpval_data \
+  --per-occupation 3
+```
+
+The `--gdpval-path` flag also works with `run`, `evaluate`, and `list-tasks` commands.
 
 ### Task Structure
 
