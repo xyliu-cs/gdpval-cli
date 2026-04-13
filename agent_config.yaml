@@ -24,6 +24,10 @@
 #   env: {}
 #   use_bwrap: false
 
+# ===============
+# OpenHarness
+# ===============
+# Remote mode: set via ant api at .env
 openharness:
   command: "cd /mnt/tidalfs-bdsz01/dataset/xyliu/Github/OpenHarness && uv run oh -p {prompt} --output-format {output_format} --max-turns 30"
   output_format: stream-json
@@ -37,6 +41,78 @@ openharness:
     OPENHARNESS_LOGS_DIR: "{agent_data_dir}/logs"
   extra_writable_dirs:             # additional dirs the agent can write to
     - /mnt/tidalfs-bdsz01/dataset/xyliu/Github/OpenHarness         # e.g. the agent's own codebase
+
+# Local mode
+openharness:
+  command: >-
+    uv run --project /mnt/tidalfs-bdsz01/dataset/xyliu/Github/OpenHarness
+    oh -p {prompt}
+    --output-format {output_format}
+    --max-turns 30
+    --model glm-5.1-fp8
+    --base-url http://10.217.85.227:8001/v1
+    --api-format openai
+    --api-key dummy
+  output_format: stream-json
+  timeout: 1800
+  concurrency: 1
+  use_bwrap: true
+  agent_data_dir: ".oh"   # relative to workspace root
+  env:
+    OPENHARNESS_CONFIG_DIR: "{agent_data_dir}"
+    OPENHARNESS_DATA_DIR: "{agent_data_dir}/data"
+    OPENHARNESS_LOGS_DIR: "{agent_data_dir}/logs"
+  extra_writable_dirs:             # additional dirs the agent can write to
+    - /mnt/tidalfs-bdsz01/dataset/xyliu/Github/OpenHarness         # e.g. the agent's own codebase
+
+# ===============
+# Hermes Agent
+# ===============
+# -Q
+# Quiet mode. In Hermes this suppresses the banner, spinner, and tool preview chatter, so stdout is much cleaner for automation. In single-
+# query mode it prints essentially just the final answer plus a session_id: line.
+
+# -q
+# The single-query flag. It tells hermes chat to run one prompt non-interactively and exit, instead of launching the interactive TUI. You
+# pass the actual task prompt after it, like -q {prompt}.
+
+# --yolo
+# Disables dangerous-command approval prompts. Without this, Hermes may stop and wait for confirmation before running commands it considers
+# risky, which would break unattended benchmark execution. For evaluation this is usually necessary, but it also removes a safety guard.
+
+# | sed '/^session_id: /d'
+# A shell pipe to sed that deletes any output line beginning with session_id: . Hermes quiet single-query mode appends that metadata line for automation, but GDPVal’s text output format treats stdout as the agent’s answer, so this strips the session metadata out of the evaluated response.
+
+# Remote: Kimi-k2.5
+# hermes:
+#   command: "uv run --project /mnt/tidalfs-bdsz01/dataset/xyliu/Github/hermes-agent hermes chat -Q --yolo --max-turns 30 --provider kimi-coding -m
+# kimi-for-coding -q {prompt} | sed '/^session_id: /d'"
+#   output_format: text
+#   timeout: 1800
+#   concurrency: 1
+#   use_bwrap: true
+#   agent_data_dir: ".hermes"
+#   env:
+#     HERMES_HOME: "{agent_data_dir}"
+#   extra_writable_dirs:
+#     - /mnt/tidalfs-bdsz01/dataset/xyliu/Github/hermes-agent
+
+# Local: vllm GLM-5.1-FP8
+hermes:
+  command: >-
+    mkdir -p {agent_data_dir} &&
+    printf 'model:\n  default: glm-5.1-fp8\n  provider: custom\n  base_url: http://10.217.88.35:8001/v1\n  api_key: \"\"\n' > {agent_data_dir}/config.yaml &&
+    uv run --project /mnt/tidalfs-bdsz01/dataset/xyliu/Github/hermes-agent
+    hermes chat -Q --yolo --max-turns 30 -q {prompt} | sed '/^session_id: /d'
+  output_format: text
+  timeout: 1800
+  concurrency: 1
+  use_bwrap: true
+  agent_data_dir: ".hermes"
+  env:
+    HERMES_HOME: "{agent_data_dir}"
+  extra_writable_dirs:
+    - /mnt/tidalfs-bdsz01/dataset/xyliu/Github/hermes-agent
 
 # custom:
 #   command: "bash run_agent.sh {prompt_file} {workspace}"
