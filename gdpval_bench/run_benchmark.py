@@ -115,14 +115,34 @@ def _discover_artifacts(
     artifacts: List[str] = []
 
     _EXCLUDED_DIRS = {
-        ".pip_packages", "node_modules", "__pycache__", ".venv", "venv",
-        ".git", ".tox", ".mypy_cache", ".pytest_cache", "dist-info",
+        ".pip_packages",
+        ".uv_cache",
+        "node_modules",
+        "__pycache__",
+        ".venv",
+        "venv",
+        ".git",
+        ".tox",
+        ".mypy_cache",
+        ".pytest_cache",
     }
+    def _is_excluded_path(path: Path) -> bool:
+        rel_parts = path.relative_to(ws).parts
+        for part in rel_parts:
+            if part in _EXCLUDED_DIRS:
+                return True
+            if part.startswith("pip-"):
+                return True
+            # Python wheel metadata directories can appear with package
+            # prefixes, e.g. ``pymupdf-1.27.2.dist-info``.
+            if part.endswith(".dist-info"):
+                return True
+        return False
 
     for f in ws.rglob("*"):
         if not f.is_file():
             continue
-        if _EXCLUDED_DIRS & set(f.relative_to(ws).parts):
+        if _is_excluded_path(f):
             continue
         if f.suffix.lower() not in _ARTIFACT_EXTENSIONS:
             continue

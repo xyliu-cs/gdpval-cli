@@ -229,7 +229,7 @@ The evaluator automatically finds agent-created files in each task directory. It
 
 - Scans for common artifact types: `.pdf`, `.docx`, `.xlsx`, `.pptx`, `.txt`, `.csv`, `.json`, `.md`, `.py`, `.js`, `.html`, `.css`, `.png`, `.jpg`, etc.
 - Excludes reference files (input files) from evaluation
-- Excludes build/environment directories (`.pip_packages/`, `node_modules/`, `__pycache__/`, etc.)
+- Excludes build/environment directories (`.pip_packages/`, `.uv_cache/`, `node_modules/`, `__pycache__/`, virtualenvs, `*.dist-info`) and any runtime folder whose name starts with `pip-`
 - Skips empty files
 
 ### Rubrics
